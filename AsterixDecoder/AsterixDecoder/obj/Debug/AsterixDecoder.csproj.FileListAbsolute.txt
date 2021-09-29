@@ -1,0 +1,9 @@
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.exe.config
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.exe
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.pdb
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.AssemblyReference.cache
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Properties.Resources.resources
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.GenerateResource.cache
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CoreCompileInputs.cache
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.exe
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb
