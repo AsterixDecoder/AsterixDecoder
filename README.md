@@ -1,3 +1,3 @@
 # AsterixDecoder
-AsterixDecoder by Group10
-Owners Ulises Ortega and Marc Xapelli
+AsterixDecoder by Group10 
+Owners Ulises Ortega, Marc Xapelli and Galder Arcellares
