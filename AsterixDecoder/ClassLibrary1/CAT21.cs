@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClassLibrary
 {
-    class CAT21
+    public class CAT21
     {
 
         string[] arraystring = new string[200];
