@@ -51,7 +51,7 @@ namespace AsterixDecoder
             int contador = fileBytes[2];
             Console.WriteLine(contador);
             //int length = 0;
-            Console.WriteLine("hola");
+            
 
             while (i < fileBytes.Length)
             {
