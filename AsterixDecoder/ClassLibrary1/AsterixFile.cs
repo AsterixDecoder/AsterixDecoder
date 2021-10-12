@@ -12,7 +12,6 @@ namespace AsterixDecoder
     {
         string path;
         List<CAT10> listaCAT10 = new List<CAT10>();
-        //List<CAT20> listaCAT20 = new List<CAT20>();
         List<CAT21> listaCAT21 = new List<CAT21>();
         DataTable tablaCAT10 = new DataTable();
         DataTable tablaCAT20 = new DataTable();
@@ -31,10 +30,7 @@ namespace AsterixDecoder
         {
             return listaCAT10;
         }
-        //public List<CAT20> getListCAT20()
-        //{
-        //    return listaCAT20;
-        //}
+
         public List<CAT21> getListCAT21()
         {
             return listaCAT21;
@@ -82,7 +78,7 @@ namespace AsterixDecoder
                 for (int y = 0; y < buffer.Length; y++)
                 {
                     arrayhex[y] = buffer[y].ToString("X");
-                    //Console.WriteLine(arrayhex[y]);
+
                 }
                 listahex.Add(arrayhex);
             }
@@ -92,7 +88,7 @@ namespace AsterixDecoder
             {
                 string[] arraystring = listahex[q];
                 int CAT = int.Parse(arraystring[0], System.Globalization.NumberStyles.HexNumber);
-
+                
                 if (CAT == 10)
                 {
                     CAT10 newcat10 = new CAT10(arraystring);

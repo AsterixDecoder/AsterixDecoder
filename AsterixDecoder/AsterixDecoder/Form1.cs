@@ -27,12 +27,12 @@ namespace AsterixDecoder
             {
                 Console.WriteLine(CAT21[i]);
             }
-            Console.WriteLine(lista[0].getSourceID()[0]);
+            Console.WriteLine(lista[0].getCategory());
             int[] fieldEspec = lista[0].getFieldEspec();
-            for (int j = 0; j < fieldEspec.Length ; j++)
-            {
-                Console.WriteLine(fieldEspec[j]);
-            }
+            //for (int j = 0; j < fieldEspec.Length ; j++)
+            //{
+                //Console.WriteLine(fieldEspec[j]);
+            //}
 
         }
     }
