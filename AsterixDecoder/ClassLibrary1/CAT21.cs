@@ -13,8 +13,8 @@ namespace ClassLibrary
         int length;
 
         //Field Especification
-        string[] FSPEC;
-        int[] fieldEspec = new int[56];
+        List<string> FSPEC;
+        int[] fieldEspec;
 
         //Data items
         int[] sourceIdentifier = new int[2];
@@ -37,7 +37,7 @@ namespace ClassLibrary
             data.RemoveAt(0);
             data.RemoveAt(0);
             this.FSPEC = GetFSPEC(data);
-            setFieldEspec(FSPEC);
+            this.fieldEspec= setFieldEspec(this.FSPEC);
             this.sourceIdentifier[0] = HexToDec(arraystring[10]);
             this.sourceIdentifier[1] = HexToDec(arraystring[11]);   
         }
@@ -75,54 +75,62 @@ namespace ClassLibrary
             return binValue;
         }
 
-        public string[] GetFSPEC(List<string> data) //Obtiene el FSPEC y lo separa del array mensaje
+        public List<string> GetFSPEC(List<string> data) //Obtiene el FSPEC y lo separa del array mensaje
         {
 
             int moreFSPEC = 1;
             int i=0;
+            List<string> FSPEC = new List<string>();
             while (moreFSPEC == 1)
             {
                 string binValue =HextoBin(data[0]);
-                int length = binValue.Length;
-                if (Convert.ToInt32(binValue[length]) == 1)
+                int len = binValue.Length;
+                string lastBit = Convert.ToString(binValue[len - 1]);
+                int lastBitCheck = Convert.ToInt32(lastBit);
+                if (lastBitCheck==1)
                 {
-                    FSPEC[i] = binValue;
+                    FSPEC.Add(binValue);
                     data.RemoveAt(0);
                     i++;
                 }
                 else
                 {
-                    FSPEC[i] = binValue;
+                    FSPEC.Add(binValue);
                     data.RemoveAt(0);
                     moreFSPEC = 0;
                 }
+
             }
             return FSPEC;
+
         }
-        public void setFieldEspec(string[] FSPEC)
+        public int[] setFieldEspec(List<string> FSPEC)
         {
             int m = 0;
-            for (int i = 0; i <= FSPEC.Length; i++)
+            int len = FSPEC.Count;
+            int[] fieldEspec = new int[len * 8];
+            for (int i = 0; i < len; i++)
             {
-                string binValue=HextoBin(arraystring[i]);
-                string padding="0";
+                string binValue = FSPEC[i];
+                string padding = "0";
                 if (binValue.Length < 8)
                 {
                     int zeroPadding = 8 - binValue.Length;
-                    for (int k=1; k < zeroPadding; k++)
+                    for (int k = 1; k < zeroPadding; k++)
                     {
                         padding = padding + "0";
                     }
                     binValue = padding + binValue;
                 }
-                for (int j=0; j < 8; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     string binString = Convert.ToString(binValue[j]);
-                    fieldEspec[m]=Convert.ToInt32(binString);
+                    fieldEspec[m] = Convert.ToInt32(binString);
                     m = m + 1;
                 }
             }
-          
+            return fieldEspec;
+
         }
     }
 }

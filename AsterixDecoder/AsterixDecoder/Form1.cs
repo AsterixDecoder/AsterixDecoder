@@ -29,10 +29,11 @@ namespace AsterixDecoder
             }
             Console.WriteLine(lista[0].getCategory());
             int[] fieldEspec = lista[0].getFieldEspec();
-            //for (int j = 0; j < fieldEspec.Length ; j++)
-            //{
-                //Console.WriteLine(fieldEspec[j]);
-            //}
+            for (int j = 0; j < fieldEspec.Length ; j++)
+            {
+                Console.WriteLine(fieldEspec[j]);
+            }
+          
 
         }
     }
