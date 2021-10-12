@@ -44,7 +44,6 @@
     <Compile Include="AsterixFile.cs" />
     <Compile Include="CAT10.cs" />
     <Compile Include="CAT21.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

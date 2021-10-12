@@ -16,11 +16,8 @@ namespace AsterixDecoder
         public Form1()
         {
             InitializeComponent();
+            AsterixFile asterixFile = new AsterixFile("201002-lebl-080001_smr.ast");
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            AsterixFile asterixefile= new AsterixFile("201002-lebl-080001_adsb.ast");
-        }
     }
 }

@@ -20,3 +20,16 @@ C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.dll
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.pdb
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CopyComplete
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.exe.config
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.exe
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.pdb
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.dll
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.pdb
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csprojAssemblyReference.cache
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Form1.resources
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Properties.Resources.resources
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.GenerateResource.cache
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CoreCompileInputs.cache
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CopyComplete
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.exe
+E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb
