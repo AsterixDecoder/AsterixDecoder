@@ -20,3 +20,7 @@ C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.dll
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.pdb
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CopyComplete
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.dll
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.pdb
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Form1.resources
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CopyComplete

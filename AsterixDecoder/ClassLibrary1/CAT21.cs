@@ -17,10 +17,59 @@ namespace ClassLibrary
         int[] fieldEspec;
 
         //Data items
-        int[] sourceIdentifier = new int[2];
+        int[] DataSourceIdentification = new int[2];
+        int[] TargetReportDescriptor = new int[];
+        int[] TrackNumber = new int[2];
+        int ServiceIdentification;
+        int[] TimeofApplicabilityforPosition = new int[3];
+        int[] PositioninWGS84coordinates = new int[6];
+        int[] PositioninWGS84coordinateshighres = new int[8];
+
+        int[] TimeofApplicabilityforVelocity = new int[3];
+        int[] AirSpeed = new int[2];
+        int[] TrueAirSpeed = new int[3];
+        int[] TargetAddress = new int[3];
+        int[] TimeofMessageReceptionofPosition = new int[3];
+        int[] TimeofMessageReceptionofPositionHighPrecision = new int[3];
+        int[] TimeofMessageReceptionofVelocity= new int[3];
+
+        int[] TimeofMessageReceptionofVelocityHighPrecision = new int[3];
+        int[] GeometricHeight = new int[3];
+        int[] QualityIndicators = new int[3];
+        int[] MOPSVersion = new int[3];
+        int[] Mode3ACode = new int[3];
+        int[] RollAngle = new int[3];
+        int[] FlightLevel = new int[3];
+
+        int[] MagneticHeading = new int[3];
+        int[] TargetStatus = new int[3];
+        int[] BarometricVerticalRate = new int[3];
+        int[] GeometricVerticalRate = new int[3];
+        int[] AirborneGroundVector = new int[3];
+        int[] TrackAngleRate = new int[3];
+        int[] TimeofReportTransmission = new int[3];
+
+        int[] TargetIdentification = new int[3];
+        int[] EmitterCategory = new int[3];
+        int[] MetInformation = new int[3];
+        int[] SelectedAltitude = new int[3];
+        int[] FinalStateSelectedAltitude = new int[3];
+        int[] TrajectoryIntent = new int[3];
+        int[] ServiceManagement = new int[3];
+
+        int[] AircraftOperationalStatus = new int[3];
+        int[] SurfaceCapabilitiesandCharacteristics = new int[3];
+        int[] MessageAmplitude = new int[3];
+        int[] ModeSMBData = new int[3];
+        int[] ACASResolutionAdvisoryReport = new int[3];
+        int[] ReceiverID = new int[3];
+        int[] DataAges = new int[3];
+
+        int[] ReservedExpansionField = new int[3];
+        int[] SpecialPurposeField = new int[3];
         
         //string[] DataItem=;
-        
+
 
         public CAT21(string[] arraystring)
         {
@@ -38,8 +87,10 @@ namespace ClassLibrary
             data.RemoveAt(0);
             this.FSPEC = GetFSPEC(data);
             this.fieldEspec= setFieldEspec(this.FSPEC);
-            this.sourceIdentifier[0] = HexToDec(arraystring[10]);
-            this.sourceIdentifier[1] = HexToDec(arraystring[11]);   
+
+            this.setDataItems(this.fieldEspec, arraystring);
+            //this.sourceIdentifier[0] = HexToDec(arraystring[10]);
+            //this.sourceIdentifier[1] = HexToDec(arraystring[11]);   
         }
         
         public string[] getArray()
@@ -49,7 +100,7 @@ namespace ClassLibrary
 
         public int[] getSourceID()
         {
-            return this.sourceIdentifier;
+            return this.DataSourceIdentification;
         }
 
         public int getCategory()
@@ -99,6 +150,10 @@ namespace ClassLibrary
                     data.RemoveAt(0);
                     moreFSPEC = 0;
                 }
+                for (int j = 0; j < FSPEC.Count; j++)
+                {
+                    Console.WriteLine(FSPEC[j]);
+                }
 
             }
             return FSPEC;
@@ -131,6 +186,21 @@ namespace ClassLibrary
             }
             return fieldEspec;
 
+        }
+
+
+        public void setDataItems(int[] fieldEspec, string[] arraystring)
+        {
+            if (fieldEspec[0] == 1)
+            {
+                this.DataSourceIdentification[0] = HexToDec(arraystring[10]);
+                this.DataSourceIdentification[1] = HexToDec(arraystring[11]);
+            }
+            else 
+            {
+                this.DataSourceIdentification = null; //////Mirar si se hace asi el null
+            }
+        
         }
     }
 }
