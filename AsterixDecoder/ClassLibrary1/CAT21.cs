@@ -18,7 +18,7 @@ namespace ClassLibrary
 
         //Data items
         int[] DataSourceIdentification = new int[2];
-        int[] TargetReportDescriptor = new int[];
+        int[] TargetReportDescriptor;
         int[] TrackNumber = new int[2];
         int ServiceIdentification;
         int[] TimeofApplicabilityforPosition = new int[3];
@@ -90,9 +90,13 @@ namespace ClassLibrary
 
             this.setDataItems(this.fieldEspec, arraystring);
             //this.sourceIdentifier[0] = HexToDec(arraystring[10]);
-            //this.sourceIdentifier[1] = HexToDec(arraystring[11]);   
+            //this.sourceIdentifier[1] = HexToDec(arraystring[11]);
+            //for (int n = 0; n < arraystring.Length; n++)
+            //{
+            //    Console.WriteLine(arraystring[n]);
+            //}
         }
-        
+
         public string[] getArray()
         {
             return this.arraystring;
@@ -150,10 +154,10 @@ namespace ClassLibrary
                     data.RemoveAt(0);
                     moreFSPEC = 0;
                 }
-                for (int j = 0; j < FSPEC.Count; j++)
-                {
-                    Console.WriteLine(FSPEC[j]);
-                }
+                //for (int j = 0; j < FSPEC.Count; j++)
+                //{
+                  //  Console.WriteLine(FSPEC[j]);
+               // }
 
             }
             return FSPEC;
@@ -195,12 +199,102 @@ namespace ClassLibrary
             {
                 this.DataSourceIdentification[0] = HexToDec(arraystring[10]);
                 this.DataSourceIdentification[1] = HexToDec(arraystring[11]);
+                //Console.WriteLine("aaaaaaaaaaaaaaaaaaaaaaa");
+                //Console.WriteLine(this.DataSourceIdentification[0]+"," +this.DataSourceIdentification[1]);
             }
             else 
             {
                 this.DataSourceIdentification = null; //////Mirar si se hace asi el null
             }
-        
+
+            List<string> copydata = new List<string>();
+            int ones=0;
+            if (fieldEspec[1] == 1)
+            {
+
+
+
+                for (int n = 0; n < arraystring.Length; n++)
+                {
+                    copydata.Add(arraystring[n]);
+                }
+                int k = 0;
+                //Console.WriteLine(fieldEspec.Length);
+                while (k < (3 + fieldEspec.Length / 8 + 2))
+                //field espec esta en bits por ejemplo 56 si los bytes es /8 y 3 son los 3 primeros bytes y 2 los de dataidentif
+                {
+                    copydata.RemoveAt(0);
+                    k++;
+                }
+                Console.WriteLine("aqui1");
+                //for (int n = 0; n < copydata.Count; n++)
+                //{
+                //    Console.WriteLine(copydata[n]);
+                //}
+
+                ////AHORA DATACOPY tiene de target report para adelante
+                int moreTRD = 1;
+                //int ones = 0;
+                List<string> FSPEC = new List<string>();
+                while (moreTRD == 1)
+                {
+                    string binValue = HextoBin(copydata[0]);
+                    int len = binValue.Length;
+                    string lastBit = Convert.ToString(binValue[len - 1]);
+                    int lastBitCheck = Convert.ToInt32(lastBit);
+                    if (lastBitCheck == 1)
+                    {
+                        FSPEC.Add(binValue);
+                        copydata.RemoveAt(0);
+                        ones++;
+                    }
+                    else
+                    {
+                        FSPEC.Add(binValue);
+                        copydata.RemoveAt(0);
+                        moreTRD = 0;
+                    }
+
+                }
+                Console.WriteLine("aqui2");
+                //for (int n = 0; n < copydata.Count; n++)
+                //{
+                Console.WriteLine(ones);
+                //}
+                //for (int n = 0; n < copydata2.Count; n++)
+                //{
+                //    Console.WriteLine(copydata2[n]);
+                //}
+                //for (int j = 0; j <= ones; j++)
+                //{
+                //     this.TargetReportDescriptor[j] = HexToDec(copydata[j]);
+                //}
+
+            }
+            else
+            {
+                this.TargetReportDescriptor = null; //////Mirar si se hace asi el null
+            }
+            if (fieldEspec[2] == 1)
+            {
+
+                ////FALTA PROCESAR LOS HEXA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MIRAR ICAO
+                this.TrackNumber[0] = HexToDec(copydata[0]);
+                this.TrackNumber[1] = HexToDec(copydata[1]);
+                //for (int j = 0; j < copydata.Count; j++)
+                //{
+                //    Console.WriteLine(copydata[j]);
+                //}
+                //Console.WriteLine("aqui3track");
+                //Console.WriteLine(arraystring[3 + fieldEspec.Length / 8 + 2 + ones + 1+1]);
+                //Console.WriteLine(arraystring[3 + fieldEspec.Length / 8 + 2 + ones + 1+1+1]);
+                Console.WriteLine(copydata[0]);
+                Console.WriteLine(copydata[1]);
+            }
+            else
+            {
+                this.DataSourceIdentification = null; //////Mirar si se hace asi el null
+            }
         }
     }
 }
