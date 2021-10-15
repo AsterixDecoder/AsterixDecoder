@@ -6,15 +6,12 @@ namespace ClassLibrary
     public class CAT10
     {
 
-        string[] arraystring = new string[200];
+        byte[] arraystring;
 
 
-        public CAT10(string[] arraystring)
+        public CAT10(byte[] arraystring)
         {
-            int len = arraystring.Length;
-            this.arraystring = new string[len]; ///mirar si se iguala el tamaño automaticamente
             this.arraystring = arraystring;
-             
         }
 
         
