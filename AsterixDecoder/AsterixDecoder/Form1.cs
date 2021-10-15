@@ -22,14 +22,18 @@ namespace AsterixDecoder
         {
             AsterixFile asterixfile= new AsterixFile("201002-lebl-080001_adsb.ast");
             List<CAT21> lista=asterixfile.getListCAT21();
-            byte[] CAT21 = lista[0].GetArray();
+            CAT21 cat21 = lista[39];
             //for (int i = 0; i < CAT21.Length; i++)
             //{
             //    Console.WriteLine(CAT21[i]);
             //}
             //Console.WriteLine(lista[0].GetCategory());
-            byte[] fieldEspec = lista[0].GetFieldEspec();
+            byte[] fieldEspec = cat21.GetFieldEspec();
+            int systemIC = cat21.GetSystemIdentificationCode();
+            int systemAC = cat21.GetSystemAreaCode();
             Console.WriteLine("Longitud Field Espec: " + fieldEspec.Length);
+            Console.WriteLine("SAC: " + systemAC);
+            Console.WriteLine("SIC: " + systemIC);
             //for (int j = 0; j < CAT21.Length; j++)
             //{
             //    Console.WriteLine(CAT21[j]);

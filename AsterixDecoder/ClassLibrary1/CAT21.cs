@@ -100,11 +100,15 @@ namespace ClassLibrary
             return this.arraystring;
         }
 
-        public int[] GetSourceID()
+        public int GetSystemAreaCode()
         {
-            return this.DataSourceIdentification;
+            return this.systemAreaCode;
         }
 
+        public int GetSystemIdentificationCode()
+        {
+            return this.systemIdentificationCode;
+        }
         public int GetCategory()
         {
             return this.cat;
@@ -208,12 +212,12 @@ namespace ClassLibrary
             dataItem.Add(this.data[0]);
             data.RemoveAt(0);
             int i = 0;
-            //while (data[i]==1) 
-            //{
-            //    dataItem.Add(this.data[0]);
-            //    data.RemoveAt(0);
-            //    i++;
-            //}
+            while (data[i] == 1)
+            {
+                dataItem.Add(this.data[0]);
+                data.RemoveAt(0);
+                i++;
+            }
             return dataItem.ToArray();
         }
         public void SetDataSourceIdentifier(byte[] dataItem)
