@@ -17,12 +17,14 @@ namespace ClassLibrary
         byte[] FSPEC;
 
         //Data items
-        int[] DataSourceIdentification = new int[2];
         int systemIdentificationCode;
         int systemAreaCode;
+
+        int trackNumber;
+        int serviceIdentification;
+
         int[] TargetReportDescriptor;
-        int[] TrackNumber = new int[2];
-        int ServiceIdentification;
+
         int[] TimeofApplicabilityforPosition = new int[3];
         int[] PositioninWGS84coordinates = new int[6];
         int[] PositioninWGS84coordinateshighres = new int[8];
@@ -77,6 +79,10 @@ namespace ClassLibrary
             this.arraystring = arraystring;
             this.data = new List<byte>();
             SetData();
+            this.systemIdentificationCode = -1;
+            this.systemAreaCode = -1;
+            this.trackNumber = -1;
+            this.serviceIdentification = -1;
 
 
             //this.cat = HexToDec(data[0]);
@@ -108,6 +114,11 @@ namespace ClassLibrary
         public int GetSystemIdentificationCode()
         {
             return this.systemIdentificationCode;
+        }
+
+        public int GetTrackNumber()
+        {
+            return this.trackNumber;
         }
         public int GetCategory()
         {
@@ -205,21 +216,30 @@ namespace ClassLibrary
             return dataItem;
         }
 
-        public byte[] GetVariableLengthItem() //Hay que pasarlo a byte para que funcione
+        public byte[] GetVariableLengthItem()
         {
-
+            int moreByte = 1;
             List<byte> dataItem = new List<byte>();
             dataItem.Add(this.data[0]);
             data.RemoveAt(0);
-            int i = 0;
-            while (data[i] == 1)
+            byte lastBitCheck = 1;
+            while (moreByte==1)
             {
-                dataItem.Add(this.data[0]);
-                data.RemoveAt(0);
-                i++;
+                if ((data[0] & lastBitCheck)!= 0)
+                {
+                    dataItem.Add(this.data[0]);
+                    data.RemoveAt(0);
+                }
+                else
+                {
+                    dataItem.Add(this.data[0]);
+                    data.RemoveAt(0);
+                    moreByte = 0;
+                } 
             }
             return dataItem.ToArray();
         }
+
         public void SetDataSourceIdentifier(byte[] dataItem)
         {
             this.systemIdentificationCode = dataItem[1];
@@ -235,16 +255,45 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetDataSourceIdentifier(dataItem);
                 }
-                if (boolFSPEC[1] == true)
+                if (boolFSPEC[1] == true) //Target Report
                 {
+                    byte[] dataItem = GetVariableLengthItem();
+                    SetTargetReport(dataItem);
 
                 }
-                if (boolFSPEC[2] == true)
+                if (boolFSPEC[2] == true) //Track Number
                 {
-
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetTrackNumber(dataItem);
                 }
-
+                if (boolFSPEC[3] == true) //Service Identification
+                {
+                    byte[] dataItem = GetFixedLengthItem(1);
+                    SetServiceIdentification(dataItem);
+                }
             }
+        }
+
+        private void SetServiceIdentification(byte[] dataItem)
+        {
+            
+        }
+
+        private void SetTrackNumber(byte[] dataItem)
+        {
+            Console.WriteLine(dataItem[0]);
+            Console.WriteLine(dataItem[1]);
+            Console.WriteLine(dataItem[0]*256);
+            this.trackNumber = dataItem[0] * 256 + dataItem[1];
+        }
+
+        private void SetTargetReport(byte[] dataItem)
+        {
+            for(int i=0; i<dataItem.Length; i++)
+            {
+                Console.WriteLine("Target Report: " + dataItem[i]);
+            }
+            
         }
     }
 

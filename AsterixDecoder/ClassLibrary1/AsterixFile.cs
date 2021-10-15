@@ -38,8 +38,6 @@ namespace AsterixDecoder
         public void leer()
         {
 
-            //StreamReader fichero = new StreamReader(path);
-            //string linea_1 = fichero.ReadLine();
             byte[] fileBytes = File.ReadAllBytes(path);
             List<byte[]> listabyte = new List<byte[]>();
             int i = 0;
