@@ -10,7 +10,6 @@ namespace ClassLibrary
         //Initialization
         byte[] arraystring;
         List<byte> data;
-        int cat;
         int length;
 
         //Field Especification
@@ -23,7 +22,23 @@ namespace ClassLibrary
         int trackNumber;
         int serviceIdentification;
 
-        int[] TargetReportDescriptor;
+        //Target Report Descriptor
+        string atp;
+        string arc;
+        string rc;
+        string rab;
+        string dcr;
+        string gbs;
+        string sim;
+        string tst;
+        string saa;
+        string cl;
+        string ipc;
+        string nogo;
+        string cpr;
+        string ldpj;
+        string rcf;
+
 
         int[] TimeofApplicabilityforPosition = new int[3];
         int[] PositioninWGS84coordinates = new int[6];
@@ -77,6 +92,7 @@ namespace ClassLibrary
         public CAT21(byte[] arraystring)
         {
             this.arraystring = arraystring;
+            this.length = -1;
             this.data = new List<byte>();
             SetData();
             this.systemIdentificationCode = -1;
@@ -86,7 +102,7 @@ namespace ClassLibrary
 
 
             //this.cat = HexToDec(data[0]);
-            //this.length = HexToDec(data[2]);
+            
             data.RemoveAt(0);
             data.RemoveAt(0);
             data.RemoveAt(0);
@@ -119,10 +135,6 @@ namespace ClassLibrary
         public int GetTrackNumber()
         {
             return this.trackNumber;
-        }
-        public int GetCategory()
-        {
-            return this.cat;
         }
 
         public byte[] GetFieldEspec()
@@ -276,24 +288,234 @@ namespace ClassLibrary
 
         private void SetServiceIdentification(byte[] dataItem)
         {
-            
+            this.serviceIdentification = dataItem[0];
         }
 
         private void SetTrackNumber(byte[] dataItem)
         {
-            Console.WriteLine(dataItem[0]);
-            Console.WriteLine(dataItem[1]);
-            Console.WriteLine(dataItem[0]*256);
             this.trackNumber = dataItem[0] * 256 + dataItem[1];
         }
 
         private void SetTargetReport(byte[] dataItem)
         {
-            for(int i=0; i<dataItem.Length; i++)
+            byte atpMask = 224;
+
+            byte arcMask = 24;
+            byte rcMask = 4;
+            byte rabMask = 2;
+
+            int atp = ((dataItem[0] & atpMask) >> 5);
+
+            int arc = ((dataItem[0] & arcMask) >> 3);
+            int rc = ((dataItem[0] & rcMask) >> 2);
+            int rab = ((dataItem[0] & rabMask) >> 1);
+            switch (atp)
             {
-                Console.WriteLine("Target Report: " + dataItem[i]);
+                case 0:
+                    this.atp = "24-BIT ICAO address";
+                    break;
+                case 1:
+                    this.atp = "Duplicate address";
+                    break;
+                case 2:
+                    this.atp = "Surface vehicle address";
+                    break;
+                case 3:
+                    this.atp = "Anonmous address";
+                    break;
+                case 4:
+                    this.atp = "Reserved for future use";
+                    break;
+                case 5:
+                    this.atp = "Reserved for future use";
+                    break;
+                case 6:
+                    this.atp = "Reserved for future use";
+                    break;
+                case 7:
+                    this.atp = "Reserved for future use";
+                    break;
             }
-            
+            switch (arc)
+            {
+                case 0:
+                    this.arc = "25 ft";
+                    break;
+                case 1:
+                    this.arc = "100 ft";
+                    break;
+                case 2:
+                    this.arc = "Unknown";
+                    break;
+                case 3:
+                    this.arc = "Invalid";
+                    break;
+            }
+            switch (rc)
+            {
+                case 0:
+                    this.rc = "Default";
+                    break;
+                case 1:
+                    this.rc = "Range Check passed, CPR Validation pending";
+                    break;
+            }
+            switch (rab)
+            {
+                case 0:
+                    this.rab = "Report from taget transponder";
+                    break;
+                case 1:
+                    this.rab = "Report from field monitor(fixed transponder)";
+                    break;
+            }
+
+            if (dataItem.Length >= 2)
+            {
+                byte dcrMask = 128;
+                byte gbsMask = 64;
+                byte simMask = 32;
+                byte tstMask = 16;
+                byte saaMask = 8;
+                byte clMask = 6;
+
+                int dcr = ((dataItem[1] & dcrMask) >> 7);
+                int gbs = ((dataItem[1] & gbsMask) >> 6);
+                int sim = ((dataItem[1] & simMask) >> 5);
+                int tst = ((dataItem[1] & tstMask) >> 4);
+                int saa = ((dataItem[1] & saaMask) >> 3);
+                int cl = ((dataItem[1] & clMask) >> 1);
+                switch (dcr)
+                {
+                    case 0:
+                        this.dcr = "No differential correction(ADS-B)";
+                        break;
+                    case 1:
+                        this.dcr = "Differential correction(ADS-B)";
+                        break;
+                }
+                switch (gbs)
+                {
+                    case 0:
+                        this.gbs = "Ground Bit no set";
+                        break;
+                    case 1:
+                        this.gbs = "Ground bit set";
+                        break;
+                }
+                switch (sim)
+                {
+                    case 0:
+                        this.sim = "Actual target report";
+                        break;
+                    case 1:
+                        this.sim = "Simulated target report";
+                        break;
+                }
+                switch (tst)
+                {
+                    case 0:
+                        this.tst = "Default";
+                        break;
+                    case 1:
+                        this.tst = "Test target";
+                        break;
+                }
+                switch (saa)
+                {
+                    case 0:
+                        this.saa = "equipment capable to provide selected altitude";
+                        break;
+                    case 1:
+                        this.saa = "Equipment not capable to provide selected altitude";
+                        break;
+                }
+                switch (dcr)
+                {
+                    case 0:
+                        this.dcr = "No differential correction(ADS-B)";
+                        break;
+                    case 1:
+                        this.dcr = "Differential correction(ADS-B)";
+                        break;
+                }
+
+                switch (cl)
+                {
+                    case 0:
+                        this.cl = "Report Valid";
+                        break;
+                    case 1:
+                        this.cl = "Report suspect";
+                        break;
+                    case 2:
+                        this.cl = "No information";
+                        break;
+                    case 3:
+                        this.cl = "Reserved future use";
+                        break;
+                }
+            }
+            if (dataItem.Length >= 3)
+            {
+                byte ipcMask = 32;
+                byte nogoMask = 16;
+                byte cprMask = 8;
+                byte ldpjMask = 4;
+                byte rcfMask = 2;
+                int ipc = ((dataItem[2] & ipcMask) >> 5);
+                int nogo = ((dataItem[2] & nogoMask) >> 4);
+                int cpr = ((dataItem[2] & cprMask) >> 3);
+                int ldpj = ((dataItem[2] & ldpjMask) >> 2);
+                int rcf = ((dataItem[2] & rcfMask) >> 1);
+
+                switch (ipc)
+                {
+                    case 0:
+                        this.ipc = "default(see note)";
+                        break;
+                    case 1:
+                        this.ipc = "independent Position Check failed";
+                        break;
+                }
+                switch (nogo)
+                {
+                    case 0:
+                        this.nogo = "NOGO-bit not set";
+                        break;
+                    case 1:
+                        this.nogo = "NOGO-bit set";
+                        break;
+                }
+                switch (cpr)
+                {
+                    case 0:
+                        this.cpr = "CPR Validation correct";
+                        break;
+                    case 1:
+                        this.cpr = "CPR Validation failed";
+                        break;
+                }
+                switch (ldpj)
+                {
+                    case 0:
+                        this.ldpj = "LDPJ not detected";
+                        break;
+                    case 1:
+                        this.ldpj = "LDPJ detected";
+                        break;
+                }
+                switch (rcf)
+                {
+                    case 0:
+                        this.rcf = "default";
+                        break;
+                    case 1:
+                        this.rcf = "Range Check failed";
+                        break;
+                }
+            }
+
         }
     }
 
