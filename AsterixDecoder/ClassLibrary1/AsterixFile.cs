@@ -12,11 +12,12 @@ namespace AsterixDecoder
     {
         string path;
         List<CAT10> listaCAT10 = new List<CAT10>();
+        //List<CAT20> listaCAT20 = new List<CAT20>();
         List<CAT21> listaCAT21 = new List<CAT21>();
         DataTable tablaCAT10 = new DataTable();
         DataTable tablaCAT20 = new DataTable();
         DataTable tablaCAT21 = new DataTable();
-        
+
 
 
         public AsterixFile(string nombre)
@@ -30,7 +31,10 @@ namespace AsterixDecoder
         {
             return listaCAT10;
         }
-
+        //public List<CAT20> getListCAT20()
+        //{
+        //    return listaCAT20;
+        //}
         public List<CAT21> getListCAT21()
         {
             return listaCAT21;
@@ -45,9 +49,6 @@ namespace AsterixDecoder
             List<byte[]> listabyte = new List<byte[]>();
             int i = 0;
             int contador = fileBytes[2];
-            Console.WriteLine(contador);
-            //int length = 0;
-            
 
             while (i < fileBytes.Length)
             {
@@ -65,12 +66,12 @@ namespace AsterixDecoder
                     contador = fileBytes[i + 2];
                 }
 
-                
-            }
-            
-            
 
-            List<string[]> listahex = new List<string[]>();
+            }
+
+
+            /*
+           List<byte[]> listahex = new List<byte[]>();
             for (int x = 0; x < listabyte.Count; x++)
             {
                 byte[] buffer = listabyte[x];
@@ -78,36 +79,38 @@ namespace AsterixDecoder
                 for (int y = 0; y < buffer.Length; y++)
                 {
                     arrayhex[y] = buffer[y].ToString("X");
-
-                }
-                listahex.Add(arrayhex);
-            }
-            
-
-            for (int q = 0; q < listahex.Count; q++)
-            {
-                string[] arraystring = listahex[q];
-                int CAT = int.Parse(arraystring[0], System.Globalization.NumberStyles.HexNumber);
-                
-                if (CAT == 10)
-                {
-                    CAT10 newcat10 = new CAT10(arraystring);
-                    listaCAT10.Add(newcat10);
+                    //Console.WriteLine(arrayhex[y]);
                     
                 }
+                //Console.WriteLine("--------------------");
+                listahex.Add(listabyte);
+            }*/
 
-                else if (CAT == 21)
+
+            for (int q = 0; q < listabyte.Count; q++)
+            {
+                byte[] arraystring = listabyte[q];
+                //int CAT = int.Parse(arraystring[0], System.Globalization.NumberStyles.HexNumber);
+                int CAT = arraystring[0];
+                //if (CAT == 10)
+                //{
+                //    CAT10 newcat10 = new CAT10(arraystring);
+                //    listaCAT10.Add(newcat10);
+
+                //}
+
+                if (CAT == 21)
                 {
                     CAT21 newcat21 = new CAT21(arraystring);
                     listaCAT21.Add(newcat21);
-                    
+
 
                 }
 
             }
 
         }
-        
+
 
         public DataTable getTablaCAT10()
         {
@@ -119,5 +122,6 @@ namespace AsterixDecoder
             return tablaCAT21;
         }
     }
+
 }
 

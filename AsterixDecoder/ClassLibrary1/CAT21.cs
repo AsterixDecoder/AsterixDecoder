@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,14 +8,13 @@ namespace ClassLibrary
     public class CAT21
     {
         //Initialization
-        string[] arraystring;
-        List<string> data;
+        byte[] arraystring;
+        List<byte> data;
         int cat;
         int length;
 
         //Field Especification
-        List<string> FSPEC;
-        int[] fieldEspec;
+        byte[] FSPEC;
 
         //Data items
         int[] DataSourceIdentification = new int[2];
@@ -72,23 +72,19 @@ namespace ClassLibrary
         
 
 
-        public CAT21(string[] arraystring)
+        public CAT21(byte[] arraystring)
         {
             this.arraystring = arraystring;
-            this.data = null;
-           
-            for (int i=0; i < this.arraystring.Length; i++)
-            {
-                this.data.Add(arraystring[i]);
-            }
+            this.data = new List<byte>();
+            SetData();
 
-            this.cat = HexToDec(data[0]);
-            this.length = HexToDec(data[2]);
+
+            //this.cat = HexToDec(data[0]);
+            //this.length = HexToDec(data[2]);
             data.RemoveAt(0);
             data.RemoveAt(0);
             data.RemoveAt(0);
-            this.FSPEC = GetFSPEC(data);
-            this.fieldEspec= SetFieldEspec(this.FSPEC);
+            byte[] FSPECNew = GetFSPEC();
 
             this.SetDataItems();
             //this.sourceIdentifier[0] = HexToDec(arraystring[10]);
@@ -99,7 +95,7 @@ namespace ClassLibrary
             //}
         }
 
-        public string[] GetArray()
+        public byte[] GetArray()
         {
             return this.arraystring;
         }
@@ -114,9 +110,9 @@ namespace ClassLibrary
             return this.cat;
         }
 
-        public int[] GetFieldEspec()
+        public byte[] GetFieldEspec()
         {
-            return this.fieldEspec;
+            return this.FSPEC;
         }
 
         public int HexToDec(string hexValue)
@@ -132,71 +128,71 @@ namespace ClassLibrary
             return binValue;
         }
 
-        public List<string> GetFSPEC(List<string> data) //Obtiene el FSPEC y lo separa del array mensaje
+        public byte[] GetFSPEC() //Obtiene el FSPEC y lo separa del array mensaje
         {
 
             int moreFSPEC = 1;
-            int i=0;
-            List<string> FSPEC = new List<string>();
+            byte lastBitCheck = 1;
+            List<byte> FSPEC = new List<byte>();
             while (moreFSPEC == 1)
             {
-                string binValue =HextoBin(data[0]);
-                int len = binValue.Length;
-                string lastBit = Convert.ToString(binValue[len - 1]);
-                int lastBitCheck = Convert.ToInt32(lastBit);
-                if (lastBitCheck==1)
+                
+                if ((data[0] & lastBitCheck)!=0)
                 {
-                    FSPEC.Add(binValue);
+                    FSPEC.Add(data[0]);
                     data.RemoveAt(0);
-                    i++;
+                   
                 }
                 else
                 {
-                    FSPEC.Add(binValue);
+                    FSPEC.Add(data[0]);
                     data.RemoveAt(0);
                     moreFSPEC = 0;
                 }
-                //for (int j = 0; j < FSPEC.Count; j++)
-                //{
-                  //  Console.WriteLine(FSPEC[j]);
-               // }
-
             }
-            return FSPEC;
-
-        }
-        public int[] SetFieldEspec(List<string> FSPEC)
-        {
-            int m = 0;
-            int len = FSPEC.Count;
-            int[] fieldEspec = new int[len * 8];
-            for (int i = 0; i < len; i++)
-            {
-                string binValue = FSPEC[i];
-                string padding = "0";
-                if (binValue.Length < 8)
-                {
-                    int zeroPadding = 8 - binValue.Length;
-                    for (int k = 1; k < zeroPadding; k++)
-                    {
-                        padding = padding + "0";
-                    }
-                    binValue = padding + binValue;
-                }
-                for (int j = 0; j < 8; j++)
-                {
-                    string binString = Convert.ToString(binValue[j]);
-                    fieldEspec[m] = Convert.ToInt32(binString);
-                    m = m + 1;
-                }
-            }
+            byte[] fieldEspec = FSPEC.ToArray();
+            this.FSPEC = fieldEspec;
             return fieldEspec;
 
         }
+        //public int[] SetFieldEspec(List<string> FSPEC)
+        //{
+        //    int m = 0;
+        //    int len = FSPEC.Count;
+        //    int[] fieldEspec = new int[len * 8];
+        //    for (int i = 0; i < len; i++)
+        //    {
+        //        string binValue = FSPEC[i];
+        //        string padding = "0";
+        //        if (binValue.Length < 8)
+        //        {
+        //            int zeroPadding = 8 - binValue.Length;
+        //            for (int k = 1; k < zeroPadding; k++)
+        //            {
+        //                padding = padding + "0";
+        //            }
+        //            binValue = padding + binValue;
+        //        }
+        //        for (int j = 0; j < 8; j++)
+        //        {
+        //            string binString = Convert.ToString(binValue[j]);
+        //            fieldEspec[m] = Convert.ToInt32(binString);
+        //            m = m + 1;
+        //        }
+        //    }
+        //    return fieldEspec;
 
-        public string[] GetFixedLengthItem(int length)
+        //}
+        public void SetData()
         {
-            string[] dataItem = new string[length];
+            for (int i = 0; i < this.arraystring.Length; i++)
+            {
+                data.Add(this.arraystring[i]);
+            }
+        }
+        public byte[] GetFixedLengthItem(int length)
+        {
+            byte[] dataItem = new byte[length];
             for (int i=0; i<length; i++)
             {
                 dataItem[i] = this.data[0];
@@ -205,10 +201,10 @@ namespace ClassLibrary
             return dataItem;
         }
 
-        public string[] GetVariableLengthItem() //Hay que pasarlo a byte para que funcione
+        public byte[] GetVariableLengthItem() //Hay que pasarlo a byte para que funcione
         {
 
-            List<string> dataItem = new List<string>();
+            List<byte> dataItem = new List<byte>();
             dataItem.Add(this.data[0]);
             data.RemoveAt(0);
             int i = 0;
@@ -220,77 +216,30 @@ namespace ClassLibrary
             //}
             return dataItem.ToArray();
         }
-        public void SetDataSourceIdentifier(string[] dataItem)
+        public void SetDataSourceIdentifier(byte[] dataItem)
         {
-            string[]
+            this.systemIdentificationCode = dataItem[1];
+            this.systemAreaCode = dataItem[0];
         }
         public void SetDataItems()
         {
-            List<string> FSPEC = this.FSPEC;
-            int[] fieldEspec = this.fieldEspec;
-            if (FSPEC.Count>=1)
+            BitArray boolFSPEC = new BitArray(this.FSPEC);
+            if (FSPEC.Length>=1)
             {
-                if (fieldEspec[0]==1) //Data Source Identifier
+                if (boolFSPEC[0]==true) //Data Source Identifier
                 {
-                    string[] dataItem = GetFixedLengthItem(2);
+                    byte[] dataItem = GetFixedLengthItem(2);
                     SetDataSourceIdentifier(dataItem);
                 }
-                if (fieldEspec[1] == 1)
+                if (boolFSPEC[1] == true)
                 {
 
                 }
-                if (fieldEspec[2] == 1)
-                {
-
-                }
-                if (fieldEspec[3] == 1)
-                {
-
-                }
-                if (fieldEspec[4] == 1)
-                {
-
-                }
-                if (fieldEspec[5] == 1)
-                {
-
-                }
-                if (fieldEspec[6] == 1)
+                if (boolFSPEC[2] == true)
                 {
 
                 }
 
-            }
-            if (FSPEC.Count >= 2)
-            {
-                if (fieldEspec[9] == 1)
-                {
-
-                }
-                if (fieldEspec[10] == 1)
-                {
-
-                }
-                if (fieldEspec[11] == 1)
-                {
-
-                }
-                if (fieldEspec[12] == 1)
-                {
-
-                }
-                if (fieldEspec[13] == 1)
-                {
-
-                }
-                if (fieldEspec[14] == 1)
-                {
-
-                }
-                if (fieldEspec[15] == 1)
-                {
-
-                }
             }
         }
     }
