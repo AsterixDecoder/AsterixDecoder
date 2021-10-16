@@ -18,12 +18,9 @@ namespace ClassLibrary
         //Data items
         int systemIdentificationCode;
         int systemAreaCode;
-
         int trackNumber;
         int serviceIdentification;
-
-        //Target Report Descriptor
-        string atp;
+        string atp;//Target Report Descriptor
         string arc;
         string rc;
         string rab;
@@ -37,31 +34,29 @@ namespace ClassLibrary
         string nogo;
         string cpr;
         string ldpj;
-        string rcf;
-
+        string rcf;//Target Report Descriptor
         TimeSpan timeofApplicabilityPosition;
-        TimeSpan timeofApplicabilityVelocity;
-
-        //WGS-84 Positions
-        double latitudeWGS84;
+        double latitudeWGS84;//WGS-84 Positions
         double longitudeWGS84;
-
         double latitudeWGS84high;
-        double longitudeWGS84high;
+        double longitudeWGS84high;//WGS-84 Positions
 
-        //Air Speed
-        double airspeed;
+
+        TimeSpan timeofApplicabilityVelocity;
+        double airspeed;//Airspeed
         string IMairspeed;
         double trueAirSpeed;
-        string rangeExceeded;
+        string rangeExceeded;//Airspeed
+        int targetAddress;
+        TimeSpan timeofMessageReceptionPosition;
+        string FSIPositionHighPrecision;
+        string FSIVelocityHighPrecision;
+        TimeSpan timeofMessageReceptionPositionHighPrecision;
+        TimeSpan timeofMessageReceptionVelocity;
+        TimeSpan timeofMessageReceptionVelocityHighPrecision;
 
 
-        int[] TargetAddress = new int[3];
-        int[] TimeofMessageReceptionofPosition = new int[3];
-        int[] TimeofMessageReceptionofPositionHighPrecision = new int[3];
-        int[] TimeofMessageReceptionofVelocity= new int[3];
 
-        int[] TimeofMessageReceptionofVelocityHighPrecision = new int[3];
         int[] GeometricHeight = new int[3];
         int[] QualityIndicators = new int[3];
         int[] MOPSVersion = new int[3];
@@ -128,8 +123,6 @@ namespace ClassLibrary
             this.serviceIdentification = -1;
 
             this.timeofApplicabilityPosition = new TimeSpan();
-            this.timeofApplicabilityVelocity = new TimeSpan();
-
             //Position WGS84
             this.latitudeWGS84= double.NaN;
             this.longitudeWGS84= double.NaN;
@@ -137,12 +130,22 @@ namespace ClassLibrary
             this.latitudeWGS84high=double.NaN;
             this.longitudeWGS84high=double.NaN;
 
+            this.timeofApplicabilityVelocity = new TimeSpan();
             //Airspeed
-            double airspeed=double.NaN;
+            this.airspeed=double.NaN;
             this.IMairspeed = "N/A";
-            double trueAirSpeed= double.NaN;
+            this.trueAirSpeed= double.NaN;
             this.rangeExceeded = "N/A";
+
+            this.targetAddress = -1;
+            this.timeofMessageReceptionPosition = new TimeSpan();
+            this.FSIPositionHighPrecision="N/A";
+            this.timeofMessageReceptionPositionHighPrecision= new TimeSpan();
+            this.timeofMessageReceptionVelocity=new TimeSpan();
+            this.FSIVelocityHighPrecision = "N/A";
+            this.timeofMessageReceptionVelocityHighPrecision=new TimeSpan();
             
+
 
             data.RemoveAt(0);
             data.RemoveAt(0);
@@ -203,7 +206,10 @@ namespace ClassLibrary
         {
             return this.FSPEC;
         }
-
+        public int GetTargetAddress()
+        {
+            return this.targetAddress;
+        }
         public int HexToDec(string hexValue)
         {
             int intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
@@ -219,7 +225,6 @@ namespace ClassLibrary
 
         public byte[] GetFSPEC() //Obtiene el FSPEC y lo separa del array mensaje
         {
-
             int moreFSPEC = 1;
             byte lastBitCheck = 1;
             List<byte> FSPEC = new List<byte>();
@@ -244,34 +249,7 @@ namespace ClassLibrary
             return fieldEspec;
 
         }
-        //public int[] SetFieldEspec(List<string> FSPEC)
-        //{
-        //    int m = 0;
-        //    int len = FSPEC.Count;
-        //    int[] fieldEspec = new int[len * 8];
-        //    for (int i = 0; i < len; i++)
-        //    {
-        //        string binValue = FSPEC[i];
-        //        string padding = "0";
-        //        if (binValue.Length < 8)
-        //        {
-        //            int zeroPadding = 8 - binValue.Length;
-        //            for (int k = 1; k < zeroPadding; k++)
-        //            {
-        //                padding = padding + "0";
-        //            }
-        //            binValue = padding + binValue;
-        //        }
-        //        for (int j = 0; j < 8; j++)
-        //        {
-        //            string binString = Convert.ToString(binValue[j]);
-        //            fieldEspec[m] = Convert.ToInt32(binString);
-        //            m = m + 1;
-        //        }
-        //    }
-        //    return fieldEspec;
 
-        //}
         public void SetData()
         {
             for (int i = 0; i < this.arraystring.Length; i++)
@@ -379,27 +357,158 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetTrueAirSpeed(dataItem);
                 }
-                if (boolFSPEC[11] == true) //Service Identification
-                {
-                    byte[] dataItem = GetFixedLengthItem(1);
-                    SetServiceIdentification(dataItem);
-                }
-                if (boolFSPEC[12] == true) //Time of Applicability for Position
+                if (boolFSPEC[11] == true) //TargetAdress
                 {
                     byte[] dataItem = GetFixedLengthItem(3);
-                    SetTimeOfApplicabilityPosition(dataItem);
+                    SetTargetAdress(dataItem);
                 }
-                if (boolFSPEC[13] == true) //Position WGS84 
+                if (boolFSPEC[12] == true) //Time of message reception Position
                 {
-                    byte[] dataItem = GetFixedLengthItem(6);
-                    SetPositionWGS84(dataItem);
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionPosition(dataItem);
                 }
-                if (boolFSPEC[14] == true) //Position WGS84 High Resolution
+                if (boolFSPEC[13] == true) //Time of message reception Position High Precision
                 {
-                    byte[] dataItem = GetFixedLengthItem(8);
-                    SetPositionWGS84HighResolution(dataItem);
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                }
+                if (boolFSPEC[14] == true) //Time of message reception Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionVelocity(dataItem);
+
                 }
             }
+            if (FSPEC.Length >= 3)
+            {
+                if (boolFSPEC[16] == true) //Time of message reception Velocity High Resolution
+                {
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetTimeOfMessageReceptionVelocityHighResolution(dataItem);
+                }
+                //if (boolFSPEC[17] == true) //Geometric Height
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(2);
+                //    SetGeometricHeight(dataItem);
+                //}
+                //if (boolFSPEC[18] == true) //Quality Indicators
+                //{
+                //    byte[] dataItem = GetVariableLengthItem();
+                //    SetQualityIndicators(dataItem);
+                //}
+                //if (boolFSPEC[19] == true) //MOPS Version
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(1);
+                //    SetMOPSVersion(dataItem);
+                //}
+                //if (boolFSPEC[20] == true) //Mode 3/A Code
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(2);
+                //    SetMode3ACode(dataItem);
+                //}
+                //if (boolFSPEC[21] == true) //Roll Angle
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(2);
+                //    SetRollAngle(dataItem);
+                //}
+                //if (boolFSPEC[22] == true) //Flight Level
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(2);
+                //    SetFlightLevel(dataItem);
+                //}
+            }
+        }
+
+        private void SetTimeOfMessageReceptionVelocityHighResolution(byte[] dataItem)
+        {
+            int len = dataItem.Length;
+            byte mask = 63;
+            int FSI = dataItem[0] >> 6;
+            byte firstbyte = (byte)(dataItem[0] & mask);
+            byte[] data = new byte[len];
+            data[0] = firstbyte;
+
+            for (int i = 1; i < len; i++)
+            {
+                data[i] = dataItem[i];
+            }
+
+            double resolution = Math.Pow(2, -30);//seconds
+            double seconds = ComputeBytes(data, resolution);
+            this.timeofMessageReceptionVelocityHighPrecision = TimeSpan.FromSeconds(seconds);
+
+
+            switch (FSI)
+            {
+                case 0:
+                    this.FSIVelocityHighPrecision = "TOMRp whole seconds=(I021/075) Whole seconds";
+                    break;
+                case 1:
+                    this.FSIVelocityHighPrecision = "TOMRp whole seconds = (I021/075) Whole seconds+1";
+                    break;
+                case 2:
+                    this.FSIVelocityHighPrecision = "TOMRp whole seconds = (I021/075) Whole seconds-1";
+                    break;
+                case 3:
+                    this.FSIVelocityHighPrecision = "Reserved";
+                    break;
+            }
+        }
+
+        private void SetTimeOfMessageReceptionVelocity(byte[] dataItem)
+        {
+            double resolution = Math.Pow(2, -7);
+            double seconds = ComputeBytes(dataItem, resolution);
+            this.timeofMessageReceptionVelocity = TimeSpan.FromSeconds(seconds);
+        }
+
+        private void SetTimeOfMessageReceptionPositionHighPrecision(byte[] dataItem)
+        {
+            int len = dataItem.Length;
+            byte mask = 63;
+            int FSI = dataItem[0] >> 6;
+            byte firstbyte = (byte)(dataItem[0] & mask);
+            byte[] data = new byte[len];
+            data[0] = firstbyte;
+
+            for (int i=1; i<len;i++)
+            {
+                data[i] = dataItem[i];
+            }
+            
+            double resolution = Math.Pow(2, -30);//seconds
+            double seconds = ComputeBytes(data, resolution);
+            this.timeofMessageReceptionPositionHighPrecision = TimeSpan.FromSeconds(seconds);
+
+
+            switch (FSI)
+            {
+                case 0:
+                    this.FSIPositionHighPrecision = "TOMRp whole seconds=(I021/073) Whole seconds";
+                    break;
+                case 1:
+                    this.FSIPositionHighPrecision = "TOMRp whole seconds = (I021/075) Whole seconds+1";
+                    break;
+                case 2:
+                    this.FSIPositionHighPrecision = "TOMRp whole seconds = (I021/075) Whole seconds-1";
+                    break;
+                case 3:
+                    this.FSIPositionHighPrecision = "Reserved";
+                    break;
+            }
+        }
+
+        private void SetTimeOfMessageReceptionPosition(byte[] dataItem)
+        {
+            double resolution = Math.Pow(2, -7);
+            double seconds = ComputeBytes(dataItem, resolution);
+            this.timeofMessageReceptionPosition = TimeSpan.FromSeconds(seconds);
+        }
+
+        private void SetTargetAdress(byte[] dataItem)
+        {
+            double resolution = 1;
+            this.targetAddress = (int)ComputeBytes(dataItem, resolution);
         }
 
         private void SetTrueAirSpeed(byte[] dataItem)
@@ -531,7 +640,8 @@ namespace ClassLibrary
 
         private void SetTrackNumber(byte[] dataItem)
         {
-            this.trackNumber = dataItem[0] * 256 + dataItem[1];
+            double resolution = 1;
+            this.trackNumber = (int)ComputeBytes(dataItem,resolution);
         }
 
         private void SetTargetReport(byte[] dataItem)
