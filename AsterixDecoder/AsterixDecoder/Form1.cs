@@ -32,10 +32,18 @@ namespace AsterixDecoder
             int systemIC = cat21.GetSystemIdentificationCode();
             int systemAC = cat21.GetSystemAreaCode();
             int trackNumber = cat21.GetTrackNumber();
+            double latitude = cat21.GetLatitudeWGS84();
+            double longitude = cat21.GetLongitudeWGS84();
+            double latitudehigh = cat21.GetLatitudeWGS84High();
+            double longitudehigh = cat21.GetLongitudeWGS84High();
             Console.WriteLine("Longitud Field Espec: " + fieldEspec.Length);
             Console.WriteLine("SAC: " + systemAC);
             Console.WriteLine("SIC: " + systemIC);
             Console.WriteLine("Track Number: " + trackNumber);
+            Console.WriteLine("Latitude: " + latitude);
+            Console.WriteLine("Longitude: " + longitude);
+            Console.WriteLine("Latitude High resolution: " + latitudehigh);
+            Console.WriteLine("Longitude High resolution: " + longitudehigh);
             //for (int j = 0; j < CAT21.Length; j++)
             //{
             //    Console.WriteLine(CAT21[j]);
