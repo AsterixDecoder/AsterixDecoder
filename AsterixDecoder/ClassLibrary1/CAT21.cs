@@ -40,17 +40,22 @@ namespace ClassLibrary
         string rcf;
 
         TimeSpan timeofApplicabilityPosition;
+        TimeSpan timeofApplicabilityVelocity;
 
+        //WGS-84 Positions
         double latitudeWGS84;
         double longitudeWGS84;
 
         double latitudeWGS84high;
         double longitudeWGS84high;
 
+        //Air Speed
+        double airspeed;
+        string IMairspeed;
+        double trueAirSpeed;
+        string rangeExceeded;
 
-        int[] TimeofApplicabilityforVelocity = new int[3];
-        int[] AirSpeed = new int[2];
-        int[] TrueAirSpeed = new int[3];
+
         int[] TargetAddress = new int[3];
         int[] TimeofMessageReceptionofPosition = new int[3];
         int[] TimeofMessageReceptionofPositionHighPrecision = new int[3];
@@ -123,8 +128,7 @@ namespace ClassLibrary
             this.serviceIdentification = -1;
 
             this.timeofApplicabilityPosition = new TimeSpan();
-
-
+            this.timeofApplicabilityVelocity = new TimeSpan();
 
             //Position WGS84
             this.latitudeWGS84= double.NaN;
@@ -133,8 +137,12 @@ namespace ClassLibrary
             this.latitudeWGS84high=double.NaN;
             this.longitudeWGS84high=double.NaN;
 
-
-            //this.cat = HexToDec(data[0]);
+            //Airspeed
+            double airspeed=double.NaN;
+            this.IMairspeed = "N/A";
+            double trueAirSpeed= double.NaN;
+            this.rangeExceeded = "N/A";
+            
 
             data.RemoveAt(0);
             data.RemoveAt(0);
@@ -183,7 +191,14 @@ namespace ClassLibrary
         {
             return this.longitudeWGS84high;
         }
-
+        public double GetAirspeed()
+        {
+            return this.airspeed;
+        }
+        public double GetTrueAirspeed()
+        {
+            return this.trueAirSpeed;
+        }
         public byte[] GetFieldEspec()
         {
             return this.FSPEC;
@@ -346,6 +361,86 @@ namespace ClassLibrary
                     SetPositionWGS84HighResolution(dataItem);
                 }
             }
+            if (FSPEC.Length >= 2)
+            {
+                if (boolFSPEC[8] == true) //Time of Applicability for Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfApplicabilityVelocity(dataItem);
+                }
+                if (boolFSPEC[9] == true) //Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetAirSpeed(dataItem);
+
+                }
+                if (boolFSPEC[10] == true) //True Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetTrueAirSpeed(dataItem);
+                }
+                if (boolFSPEC[11] == true) //Service Identification
+                {
+                    byte[] dataItem = GetFixedLengthItem(1);
+                    SetServiceIdentification(dataItem);
+                }
+                if (boolFSPEC[12] == true) //Time of Applicability for Position
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfApplicabilityPosition(dataItem);
+                }
+                if (boolFSPEC[13] == true) //Position WGS84 
+                {
+                    byte[] dataItem = GetFixedLengthItem(6);
+                    SetPositionWGS84(dataItem);
+                }
+                if (boolFSPEC[14] == true) //Position WGS84 High Resolution
+                {
+                    byte[] dataItem = GetFixedLengthItem(8);
+                    SetPositionWGS84HighResolution(dataItem);
+                }
+            }
+        }
+
+        private void SetTrueAirSpeed(byte[] dataItem)
+        {
+            double resolution = 1;
+            byte mask = 127;
+            int RE = ((dataItem[0]) >> 7);
+            byte firstbyte = (byte)(dataItem[0] & mask);
+            byte[] airspeed = { firstbyte, dataItem[1] };
+
+            if (RE == 1)
+            {
+                this.rangeExceeded = "Value exceeds defined range";
+            }
+            else if (RE == 0)
+            {
+                this.rangeExceeded = "Value in defined range";
+            }
+            this.trueAirSpeed = ComputeBytes(airspeed, resolution);
+        }
+
+        private void SetAirSpeed(byte[] dataItem)
+        {
+            double resolution = 1;
+            byte mask = 127;
+            int IM = ((dataItem[0]) >> 7);
+            byte firstbyte = (byte)(dataItem[0] & mask);
+            byte[] airspeed = { firstbyte, dataItem[1] };
+
+
+            if (IM == 1) 
+            { 
+                resolution = 0.001;
+                this.IMairspeed = "MACH";
+            }
+            else if (IM == 0) 
+            { 
+                resolution = (2 ^ -14);
+                this.IMairspeed = "IAS";
+            }
+            this.airspeed = ComputeBytes(airspeed, resolution);
         }
 
         private void SetPositionWGS84HighResolution(byte[] dataItem)
@@ -382,7 +477,7 @@ namespace ClassLibrary
             this.longitudeWGS84high = longitude * resolution;
         }
 
-        private void SetPositionWGS84(byte[] dataItem)
+        private void SetPositionWGS84(byte[] dataItem)//
         {
             byte[] lat = new byte[3];
             byte[] longi = new byte[3];
@@ -418,7 +513,14 @@ namespace ClassLibrary
 
         private void SetTimeOfApplicabilityPosition(byte[] dataItem)
         {
-            double time = dataItem[0] * (65536/128) + dataItem[1]* (256/128) +dataItem[2]*(1/128);
+            double resolution = Math.Pow(2, -7);
+            double time = ComputeBytes(dataItem, resolution);
+            this.timeofApplicabilityPosition = TimeSpan.FromSeconds(time);
+        }
+        private void SetTimeOfApplicabilityVelocity(byte[] dataItem)
+        {
+            double resolution = Math.Pow(2, -7);
+            double time = ComputeBytes(dataItem, resolution);
             this.timeofApplicabilityPosition = TimeSpan.FromSeconds(time);
         }
 
@@ -646,6 +748,18 @@ namespace ClassLibrary
                 }
             }
 
+        }
+
+        private double ComputeBytes(byte[] dataItem, double resolution)
+        {
+            double value = 0;
+            int len = dataItem.Length;
+            for (int i=0; i<len; i++)
+            {
+                value = value + dataItem[i] * Math.Pow(2, 8*(len - i-1));
+            }
+            value = value * resolution;
+            return value;
         }
     }
 
