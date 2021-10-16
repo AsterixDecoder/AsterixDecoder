@@ -386,16 +386,16 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(4);
                     SetTimeOfMessageReceptionVelocityHighResolution(dataItem);
                 }
-                //if (boolFSPEC[17] == true) //Geometric Height
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(2);
-                //    SetGeometricHeight(dataItem);
-                //}
-                //if (boolFSPEC[18] == true) //Quality Indicators
-                //{
-                //    byte[] dataItem = GetVariableLengthItem();
-                //    SetQualityIndicators(dataItem);
-                //}
+                if (boolFSPEC[17] == true) //Geometric Height
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetGeometricHeight(dataItem);
+                }
+                if (boolFSPEC[18] == true) //Quality Indicators
+                {
+                    byte[] dataItem = GetVariableLengthItem();
+                    SetQualityIndicators(dataItem);
+                }
                 //if (boolFSPEC[19] == true) //MOPS Version
                 //{
                 //    byte[] dataItem = GetFixedLengthItem(1);
@@ -417,6 +417,35 @@ namespace ClassLibrary
                 //    SetFlightLevel(dataItem);
                 //}
             }
+        }
+
+        private void SetQualityIndicators(byte[] dataItem)//Aixo no se com fer-ho
+        {
+            int len = dataItem.Length;
+            if (len>=1)
+            {
+                byte nucpmask = 30;
+
+                int nucr = dataItem[0] >> 5;
+                int nucp = ((dataItem[0] & nucpmask) >> 1);
+            }
+            //if (len >= 2)
+            //{ 
+            //}
+            //if (len >= 3)
+            //{
+
+            //}
+            //if (len >= 4)
+            //{
+
+            //}
+        }
+
+        private void SetGeometricHeight(byte[] dataItem)//Hay que hacer el twos complement pero no entiendo como se hace
+        {
+            double resolution = 6.25; //In ft
+            
         }
 
         private void SetTimeOfMessageReceptionVelocityHighResolution(byte[] dataItem)
@@ -552,7 +581,7 @@ namespace ClassLibrary
             this.airspeed = ComputeBytes(airspeed, resolution);
         }
 
-        private void SetPositionWGS84HighResolution(byte[] dataItem)
+        private void SetPositionWGS84HighResolution(byte[] dataItem)//Twos complement no se hacerlo
         {
             byte[] lat = new byte[4];
             byte[] longi = new byte[4];
@@ -586,7 +615,7 @@ namespace ClassLibrary
             this.longitudeWGS84high = longitude * resolution;
         }
 
-        private void SetPositionWGS84(byte[] dataItem)//
+        private void SetPositionWGS84(byte[] dataItem)//Twos complement no se hacerlo
         {
             byte[] lat = new byte[3];
             byte[] longi = new byte[3];

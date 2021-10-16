@@ -16,8 +16,6 @@ namespace AsterixDecoder
         DataTable tablaCAT10 = new DataTable();
         DataTable tablaCAT21 = new DataTable();
 
-
-
         public AsterixFile(string nombre)
         {
             this.path = nombre;
@@ -60,8 +58,6 @@ namespace AsterixDecoder
 
             }
 
-
-
             for (int q = 0; q < listabyte.Count; q++)
             {
                 byte[] arraystring = listabyte[q];
@@ -71,15 +67,12 @@ namespace AsterixDecoder
                 {
                     CAT10 newcat10 = new CAT10(arraystring);
                     listaCAT10.Add(newcat10);
-
                 }
 
                 else if (CAT == 21)
                 {
                     CAT21 newcat21 = new CAT21(arraystring);
                     listaCAT21.Add(newcat21);
-
-
                 }
 
             }
