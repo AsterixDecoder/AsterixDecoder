@@ -397,23 +397,23 @@ namespace ClassLibrary
             longi[2] = dataItem[5];
 
             double latitude;
-            double longitude;
-            if (lat[0] > 127)
-                latitude = (lat[0]-127) * 65536 + (lat[1]) * 256 + lat[2];
-            else
-                latitude = lat[0] * 65536 + lat[1] * 256 + lat[2];
-
-            if (longi[0] > 127)
-                longitude = (longi[0]-256) * 65536 + (longi[1]) * 256 + ~longi[2];
-            else
-                longitude = longi[0] * 65536 + longi[1] * 256 + longi[2];
+            double longitude;         
+            latitude = lat[0] * 65536 + lat[1] * 256 + lat[2];
+            longitude = longi[0] * 65536 + longi[1] * 256 + longi[2];
 
             Console.WriteLine("Latitude real: " + lat[0]);
             Console.WriteLine("Latitude complement: "+ ~lat[0]);
             
             double resolution =180 / Math.Pow(2, 23);
-            this.latitudeWGS84 = latitude * resolution;
-            this.longitudeWGS84 = longitude * resolution;
+            if ((latitude * resolution)>90)
+                this.latitudeWGS84 = (latitude * resolution) - 180;
+            else
+                this.latitudeWGS84 = (latitude * resolution);
+            if ((longitude*resolution)>180)
+                this.longitudeWGS84 = (longitude * resolution)-360;
+            else
+                this.longitudeWGS84 = (longitude * resolution);
+
         }
 
         private void SetTimeOfApplicabilityPosition(byte[] dataItem)
