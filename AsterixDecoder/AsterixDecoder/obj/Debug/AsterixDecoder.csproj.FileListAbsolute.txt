@@ -33,3 +33,15 @@ E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.cspr
 E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CopyComplete
 E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.exe
 E:\Programacion\PGTA\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.exe.config
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.exe
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.pdb
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.dll
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.pdb
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csprojAssemblyReference.cache
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Form1.resources
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Properties.Resources.resources
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.GenerateResource.cache
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CopyComplete
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.exe
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb

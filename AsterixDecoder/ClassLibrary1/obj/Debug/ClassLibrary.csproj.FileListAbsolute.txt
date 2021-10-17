@@ -10,3 +10,8 @@ E:\Programacion\PGTA\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary1.dll
 E:\Programacion\PGTA\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
 E:\Programacion\PGTA\AsterixDecoder\ClassLibrary1\bin\Debug\ClassLibrary1.dll
 E:\Programacion\PGTA\AsterixDecoder\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary.csprojAssemblyReference.cache
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
