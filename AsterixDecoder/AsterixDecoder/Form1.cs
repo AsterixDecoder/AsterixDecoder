@@ -36,14 +36,23 @@ namespace AsterixDecoder
             double longitude = cat21.GetLongitudeWGS84();
             double latitudehigh = cat21.GetLatitudeWGS84High();
             double longitudehigh = cat21.GetLongitudeWGS84High();
-            Console.WriteLine("Longitud Field Espec: " + fieldEspec.Length);
-            Console.WriteLine("SAC: " + systemAC);
-            Console.WriteLine("SIC: " + systemIC);
+            double GeometricHeight = cat21.GetGeometricHeight();
+            //Console.WriteLine("Longitud Field Espec: " + fieldEspec.Length);
+            //Console.WriteLine("SAC: " + systemAC);
+            //Console.WriteLine("SIC: " + systemIC);
             Console.WriteLine("Track Number: " + trackNumber);
-            Console.WriteLine("Latitude: " + latitude);
-            Console.WriteLine("Longitude: " + longitude);
-            Console.WriteLine("Latitude High resolution: " + latitudehigh);
-            Console.WriteLine("Longitude High resolution: " + longitudehigh);
+            //Console.WriteLine("Latitude: " + latitude);
+            //Console.WriteLine("Longitude: " + longitude);
+            //Console.WriteLine("Latitude High resolution: " + latitudehigh);
+            //Console.WriteLine("Longitude High resolution: " + longitudehigh);
+            Console.WriteLine("GeometricHeight: " + GeometricHeight);
+
+            byte[] arraystringcopy =cat21.GetArray();
+            for (int j = 0; j < arraystringcopy.Length; j++) {
+                Console.WriteLine("{0:X}", arraystringcopy[j]);
+                //Console.WriteLine( j +":::"+ arraystringcopy[j]) ;
+
+            }
             //for (int j = 0; j < CAT21.Length; j++)
             //{
             //    Console.WriteLine(CAT21[j]);
