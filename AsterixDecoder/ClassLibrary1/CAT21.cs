@@ -303,40 +303,38 @@ namespace ClassLibrary
             BitArray boolFSPEC = new BitArray(this.FSPEC);
             if (FSPEC.Length >= 1)
             {
-                if (boolFSPEC[7-0] == true) //Data Source Identifier
+                if (boolFSPEC[7] == true) //Data Source Identifier
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetDataSourceIdentifier(dataItem);
                 }
-                if (boolFSPEC[7-1] == true) //Target Report
+                if (boolFSPEC[6] == true) //Target Report
                 {
                     byte[] dataItem = GetVariableLengthItem();
                     SetTargetReport(dataItem);
 
                 }
-                if (boolFSPEC[7 - 2] == true) //Track Number
+                if (boolFSPEC[5] == true) //Track Number
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetTrackNumber(dataItem);
-                   // Console.WriteLine(dataItem[0] + dataItem[1] + "tracknumber");
-
                 }
-                if (boolFSPEC[7 - 3] == true) //Service Identification
+                if (boolFSPEC[4] == true) //Service Identification
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetServiceIdentification(dataItem);
                 }
-                if (boolFSPEC[7 - 4] == true) //Time of Applicability for Position
+                if (boolFSPEC[3] == true) //Time of Applicability for Position
                 {
                     byte[] dataItem = GetFixedLengthItem(3);
                     SetTimeOfApplicabilityPosition(dataItem);
                 }
-                if (boolFSPEC[7 - 5] == true) //Position WGS84 
+                if (boolFSPEC[2] == true) //Position WGS84 
                 {
                     byte[] dataItem = GetFixedLengthItem(6);
                     SetPositionWGS84(dataItem);
                 }
-                if (boolFSPEC[7 - 6] == true) //Position WGS84 High Resolution
+                if (boolFSPEC[1] == true) //Position WGS84 High Resolution
                 {
                     byte[] dataItem = GetFixedLengthItem(8);
                     SetPositionWGS84HighResolution(dataItem);
@@ -353,7 +351,6 @@ namespace ClassLibrary
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetAirSpeed(dataItem);
-
                 }
                 if (boolFSPEC[13] == true) //True Air Speed
                 {
@@ -449,17 +446,11 @@ namespace ClassLibrary
             this.systemIdentificationCode = dataItem[1];
             this.systemAreaCode = dataItem[0];
         }
-        private void SetGeometricHeight(byte[] dataItem)//Hay que hacer el twos complement pero no entiendo como se hace
+        private void SetGeometricHeight(byte[] dataItem)
         {
-
-
-
-
             double C2GeometricHeight = ConvertTwosComplementByteToInteger( dataItem);
             double resolution = 6.25; //In ft
             this.GeometricHeight = C2GeometricHeight * resolution;
-           
-
         }
 
         private void SetTimeOfMessageReceptionVelocityHighResolution(byte[] dataItem)
@@ -608,28 +599,15 @@ namespace ClassLibrary
             longi[1] = dataItem[5];
             longi[2] = dataItem[6];
             longi[3] = dataItem[7];
+            double latitude= ConvertTwosComplementByteToInteger(lat);
+            double longitude= ConvertTwosComplementByteToInteger(longi);
 
-
-            bool latnegative = false;
-            bool longinegative = false;
-            if (lat[0] > 127)
-                latnegative = true;
-            if (longi[0] > 127)
-                longinegative = true;
-            double latitude = lat[0] * Math.Pow(2, 24) + lat[1] * 65536 + lat[2] * 256 + lat[3];
-            //Console.WriteLine("Latitude real: " + lat[0]);
-            //Console.WriteLine("Latitude complement: " + ~lat[0]);
-            double longitude = longi[0] * Math.Pow(2, 24) + longi[1] * 65536 + longi[2] * 256 + longi[3];
             double resolution = 180 / Math.Pow(2, 30);
-            if (latnegative)
-                latitude = latitude - Math.Pow(2, 32);
-            if (longinegative)
-                longitude = longitude - Math.Pow(2, 32);
             this.latitudeWGS84high = latitude * resolution;
             this.longitudeWGS84high = longitude * resolution;
         }
 
-        private void SetPositionWGS84(byte[] dataItem)//Twos complement no se hacerlo
+        private void SetPositionWGS84(byte[] dataItem)
         {
             byte[] lat = new byte[3];
             byte[] longi = new byte[3];
@@ -643,24 +621,12 @@ namespace ClassLibrary
             longi[1] = dataItem[4];
             longi[2] = dataItem[5];
 
-            double latitude;
-            double longitude;
-            latitude = lat[0] * 65536 + lat[1] * 256 + lat[2];
-            longitude = longi[0] * 65536 + longi[1] * 256 + longi[2];
-
-            //Console.WriteLine("Latitude real: " + lat[0]);
-            //Console.WriteLine("Latitude complement: " + ~lat[0]);
+            double latitude = ConvertTwosComplementByteToInteger(lat);
+            double longitude = ConvertTwosComplementByteToInteger(longi);
 
             double resolution = 180 / Math.Pow(2, 23);
-            if ((latitude * resolution) > 90)
-                this.latitudeWGS84 = (latitude * resolution) - 180;
-            else
-                this.latitudeWGS84 = (latitude * resolution);
-            if ((longitude * resolution) > 180)
-                this.longitudeWGS84 = (longitude * resolution) - 360;
-            else
-                this.longitudeWGS84 = (longitude * resolution);
-
+            this.latitudeWGS84high = latitude * resolution;
+            this.longitudeWGS84high = longitude * resolution;
         }
 
         private void SetTimeOfApplicabilityPosition(byte[] dataItem)
@@ -915,49 +881,26 @@ namespace ClassLibrary
             return value;
         }
 
-
-        //static int ConvertTwosComplementByteToInteger(byte rawValue)
-        //{
-        //    // If a positive value, return it
-        //    if ((rawValue & 0x80) == 0)
-        //    {
-        //        return rawValue;
-        //    }
-
-        //    // Otherwise perform the 2's complement math on the value
-        //    return (byte)(~(rawValue - 0x01)) * -1;
-        //}
         private double ConvertTwosComplementByteToInteger(byte[] ByteVect)
         {
 
-            //Console.WriteLine(ByteVect[0] + "," + ByteVect[1]);
             double ValueDec =double.NaN;
             int len = ByteVect.Length;
-            if ((ByteVect[0] & 0x80) == 0) //0101.0011 0000.0001   
+            if ((ByteVect[0] & 0x80) == 0)  
             {
-                ValueDec = ComputeBytes(ByteVect, 1);
-               
+                ValueDec = ComputeBytes(ByteVect, 1); 
             }
-
             else 
             {
-
                 for (int i = 0; i < len; i++)
                 {
                     ByteVect[i] = (byte)~(ByteVect[i]);
                 }
-
                 ValueDec = ComputeBytes(ByteVect, 1) ;
                 ValueDec = (ValueDec+1)*-1;
                 Console.WriteLine("negative"+ValueDec);
-               
-
             }
-
-
             return ValueDec;
-
-
         }
     }
 

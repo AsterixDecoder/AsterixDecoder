@@ -22,12 +22,8 @@ namespace AsterixDecoder
         {
             AsterixFile asterixfile= new AsterixFile("201002-lebl-080001_adsb.ast");
             List<CAT21> lista=asterixfile.getListCAT21();
-            CAT21 cat21 = lista[0];
-            //for (int i = 0; i < CAT21.Length; i++)
-            //{
-            //    Console.WriteLine(CAT21[i]);
-            //}
-            //Console.WriteLine(lista[0].GetCategory());
+            CAT21 cat21 = lista[2];
+
             byte[] fieldEspec = cat21.GetFieldEspec();
             int systemIC = cat21.GetSystemIdentificationCode();
             int systemAC = cat21.GetSystemAreaCode();
@@ -37,26 +33,30 @@ namespace AsterixDecoder
             double latitudehigh = cat21.GetLatitudeWGS84High();
             double longitudehigh = cat21.GetLongitudeWGS84High();
             double GeometricHeight = cat21.GetGeometricHeight();
-            //Console.WriteLine("Longitud Field Espec: " + fieldEspec.Length);
-            //Console.WriteLine("SAC: " + systemAC);
-            //Console.WriteLine("SIC: " + systemIC);
+            Console.WriteLine("Longitud Field Espec: " + fieldEspec.Length);
+            Console.WriteLine("SAC: " + systemAC);
+            Console.WriteLine("SIC: " + systemIC);
             Console.WriteLine("Track Number: " + trackNumber);
-            //Console.WriteLine("Latitude: " + latitude);
-            //Console.WriteLine("Longitude: " + longitude);
-            //Console.WriteLine("Latitude High resolution: " + latitudehigh);
-            //Console.WriteLine("Longitude High resolution: " + longitudehigh);
+            Console.WriteLine("Latitude: " + latitude);
+            Console.WriteLine("Longitude: " + longitude);
+            Console.WriteLine("Latitude High resolution: " + latitudehigh);
+            Console.WriteLine("Longitude High resolution: " + longitudehigh);
             Console.WriteLine("GeometricHeight: " + GeometricHeight);
 
-            byte[] arraystringcopy =cat21.GetArray();
-            for (int j = 0; j < arraystringcopy.Length; j++) {
-                Console.WriteLine("{0:X}", arraystringcopy[j]);
-                //Console.WriteLine( j +":::"+ arraystringcopy[j]) ;
+            //Print en hexadecimal
+            //byte[] arraystringcopy =cat21.GetArray();
+            //for (int j = 0; j < arraystringcopy.Length; j++) {
+            //Console.WriteLine("{0:X}", arraystringcopy[j]);
+            //Console.WriteLine( j +":::"+ arraystringcopy[j]) ;
+            //}
+
+            //Print en decimal
+            for (int j = 0; j < lista.Count; j++)
+            {
+                //Console.WriteLine("Vuelo"+(j+1) +" "+ lista[j].GetLatitudeWGS84High());
+                Console.WriteLine("Vuelo" + (j + 1) + " " + lista[j].GetLongitudeWGS84High());
 
             }
-            //for (int j = 0; j < CAT21.Length; j++)
-            //{
-            //    Console.WriteLine(CAT21[j]);
-            //}
 
 
         }
