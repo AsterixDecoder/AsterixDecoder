@@ -51,12 +51,12 @@ namespace AsterixDecoder
             //}
 
             //Print en decimal
-            for (int j = 0; j < lista.Count; j++)
-            {
-                //Console.WriteLine("Vuelo"+(j+1) +" "+ lista[j].GetLatitudeWGS84High());
-                Console.WriteLine("Vuelo" + (j + 1) + " " + lista[j].GetLongitudeWGS84High());
+            //for (int j = 0; j < lista.Count; j++)
+            //{
+            //    //Console.WriteLine("Vuelo"+(j+1) +" "+ lista[j].GetLatitudeWGS84High());
+            //    //Console.WriteLine("Vuelo" + (j + 1) + " " + lista[j].GetLongitudeWGS84High());
 
-            }
+            //}
 
 
         }

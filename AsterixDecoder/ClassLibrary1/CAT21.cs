@@ -57,12 +57,16 @@ namespace ClassLibrary
 
 
 
-        double GeometricHeight;
+        double geometricHeight;
+
+
+
+        double rollAngle;
+        double flightLevel;
+
         int[] QualityIndicators = new int[3];
         int[] MOPSVersion = new int[3];
         int[] Mode3ACode = new int[3];
-        int[] RollAngle = new int[3];
-        int[] FlightLevel = new int[3];
 
         int[] MagneticHeading = new int[3];
         int[] TargetStatus = new int[3];
@@ -145,9 +149,10 @@ namespace ClassLibrary
             this.timeofMessageReceptionVelocity = new TimeSpan();
             this.FSIVelocityHighPrecision = "N/A";
             this.timeofMessageReceptionVelocityHighPrecision = new TimeSpan();
-            this.GeometricHeight = double.NaN;
+            this.geometricHeight = double.NaN;
 
-
+            this.rollAngle= double.NaN;
+            this.flightLevel = double.NaN;
             data.RemoveAt(0);
             data.RemoveAt(0);
             data.RemoveAt(0);
@@ -213,7 +218,7 @@ namespace ClassLibrary
         }
         public double GetGeometricHeight()
         {
-            return this.GeometricHeight;
+            return this.geometricHeight;
         }
         public int HexToDec(string hexValue)
         {
@@ -406,16 +411,16 @@ namespace ClassLibrary
                 //    byte[] dataItem = GetFixedLengthItem(2);
                 //    SetMode3ACode(dataItem);
                 //}
-                //if (boolFSPEC[21] == true) //Roll Angle
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(2);
-                //    SetRollAngle(dataItem);
-                //}
-                //if (boolFSPEC[22] == true) //Flight Level
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(2);
-                //    SetFlightLevel(dataItem);
-                //}
+                if (boolFSPEC[21] == true) //Roll Angle
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetRollAngle(dataItem);
+                }
+                if (boolFSPEC[22] == true) //Flight Level
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetFlightLevel(dataItem);
+                }
             }
         }
 
@@ -448,9 +453,9 @@ namespace ClassLibrary
         }
         private void SetGeometricHeight(byte[] dataItem)
         {
-            double C2GeometricHeight = ConvertTwosComplementByteToInteger( dataItem);
+            double C2GeometricHeight = ConvertTwosComplementByteToDouble(dataItem);
             double resolution = 6.25; //In ft
-            this.GeometricHeight = C2GeometricHeight * resolution;
+            this.geometricHeight = C2GeometricHeight * resolution;
         }
 
         private void SetTimeOfMessageReceptionVelocityHighResolution(byte[] dataItem)
@@ -586,7 +591,7 @@ namespace ClassLibrary
             this.airspeed = ComputeBytes(airspeed, resolution);
         }
 
-        private void SetPositionWGS84HighResolution(byte[] dataItem)//Twos complement no se hacerlo
+        private void SetPositionWGS84HighResolution(byte[] dataItem)
         {
             byte[] lat = new byte[4];
             byte[] longi = new byte[4];
@@ -599,8 +604,8 @@ namespace ClassLibrary
             longi[1] = dataItem[5];
             longi[2] = dataItem[6];
             longi[3] = dataItem[7];
-            double latitude= ConvertTwosComplementByteToInteger(lat);
-            double longitude= ConvertTwosComplementByteToInteger(longi);
+            double latitude= ConvertTwosComplementByteToDouble(lat);
+            double longitude= ConvertTwosComplementByteToDouble(longi);
 
             double resolution = 180 / Math.Pow(2, 30);
             this.latitudeWGS84high = latitude * resolution;
@@ -621,8 +626,8 @@ namespace ClassLibrary
             longi[1] = dataItem[4];
             longi[2] = dataItem[5];
 
-            double latitude = ConvertTwosComplementByteToInteger(lat);
-            double longitude = ConvertTwosComplementByteToInteger(longi);
+            double latitude = ConvertTwosComplementByteToDouble(lat);
+            double longitude = ConvertTwosComplementByteToDouble(longi);
 
             double resolution = 180 / Math.Pow(2, 23);
             this.latitudeWGS84high = latitude * resolution;
@@ -869,6 +874,17 @@ namespace ClassLibrary
 
         }
 
+        private void SetRollAngle(byte[] dataItem)
+        {
+            double resolution = 0.01;//degrees
+            this.rollAngle = ConvertTwosComplementByteToDouble(dataItem)*resolution;
+        }
+        private void SetFlightLevel(byte[] dataItem)
+        {
+            double resolution = (1.0 / 4.0);
+            this.flightLevel = ConvertTwosComplementByteToDouble(dataItem)*resolution;
+        }
+
         private double ComputeBytes(byte[] dataItem, double resolution)
         {
             double value = 0;
@@ -881,7 +897,7 @@ namespace ClassLibrary
             return value;
         }
 
-        private double ConvertTwosComplementByteToInteger(byte[] ByteVect)
+        private double ConvertTwosComplementByteToDouble(byte[] ByteVect)
         {
 
             double ValueDec =double.NaN;
