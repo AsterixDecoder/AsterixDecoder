@@ -63,7 +63,16 @@ namespace ClassLibrary
         string mopsVNS;
         string mopsVN;
         string mopsLTT;
-        int[] QualityIndicators = new int[3];
+        //Quality Indicators
+        int nucr;
+        int nucp;
+        int nicbaro;
+        int sil;
+        int nacp;
+        int silSupplement;
+        int sda;
+        int gva;
+        int pic;
         int m3ACode;
 
         double rollAngle;
@@ -84,10 +93,11 @@ namespace ClassLibrary
         double groundSpeed;
         double trackAngle;
         double trackAngleRate;
+        TimeSpan timeOfReportTransmission;
 
 
 
-        
+
         int[] TimeofReportTransmission = new int[3];
 
         int[] TargetIdentification = new int[3];
@@ -164,6 +174,18 @@ namespace ClassLibrary
             this.FSIVelocityHighPrecision = "N/A";
             this.timeofMessageReceptionVelocityHighPrecision = new TimeSpan();
             this.geometricHeight = double.NaN;
+
+            //Quality Indicators
+            this.nucr=-1;
+            this.nucp=-1;
+            this.nicbaro=-1;
+            this.sil=-1;
+            this.nacp=-1;
+            this.silSupplement=-1;
+            this.sda=-1;
+            this.gva = -1;
+            this.pic = -1;
+           
             this.mopsVNS = "N/A";
             this.mopsVN = "N/A";
             this.mopsLTT = "N/A";
@@ -186,6 +208,8 @@ namespace ClassLibrary
             this.groundSpeed = double.NaN;
             this.trackAngle = double.NaN;
             this.trackAngleRate = double.NaN;
+
+            this.timeOfReportTransmission = new TimeSpan();
 
 
 
@@ -502,13 +526,13 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetTrackAngleRate(dataItem);
                 }
-                //    if (boolFSPEC[25] == true) //
-                //    {
-                //        byte[] dataItem = GetFixedLengthItem(3);
-                //        SetTimeOfMessageReceptionVelocity(dataItem);
+                if (boolFSPEC[25] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfReportTransmission(dataItem);
 
+                }
             }
-            //}
             //if (FSPEC.Length >= 5)
             //{
             //    if (boolFSPEC[15] == true) //Time of Applicability for Velocity
@@ -628,29 +652,6 @@ namespace ClassLibrary
             //}
         }
 
-
-        private void SetQualityIndicators(byte[] dataItem)//Aixo no se com fer-ho
-        {
-            int len = dataItem.Length;
-            if (len >= 1)
-            {
-                byte nucpmask = 30;
-
-                int nucr = dataItem[0] >> 5;
-                int nucp = ((dataItem[0] & nucpmask) >> 1);
-            }
-            //if (len >= 2)
-            //{ 
-            //}
-            //if (len >= 3)
-            //{
-
-            //}
-            //if (len >= 4)
-            //{
-
-            //}
-        }
         public void SetDataSourceIdentifier(byte[] dataItem)
         {
             this.systemIdentificationCode = dataItem[1];
@@ -1078,7 +1079,39 @@ namespace ClassLibrary
             }
 
         }
+        private void SetQualityIndicators(byte[] dataItem)
+        {
+            int len = dataItem.Length;
+            if (len >= 1)
+            {
+                byte nucpmask = 30;
 
+                this.nucr = dataItem[0] >> 5;
+                this.nucp = ((dataItem[0] & nucpmask) >> 1);
+            }
+            if (len >= 2)
+            {
+                byte silmask = 96;
+                byte nacpmask = 30;
+                this.nicbaro = dataItem[1] >> 7;
+                this.sil = (dataItem[1] & silmask) >> 5;
+                this.nacp = (dataItem[1] & nacpmask) >> 1;
+            }
+            if (len >= 3)
+            {
+                byte sdamask = 24;
+                byte gvamask = 6;
+                this.silSupplement = dataItem[2] >> 5;
+                this.sda = (dataItem[2] & sdamask) >> 3;
+                this.gva = (dataItem[2] & gvamask) >> 1;
+
+            }
+            if (len >= 4)
+            {
+                this.pic = dataItem[3] >> 4;
+
+            }
+        }
         private void SetMOPSVersion(byte[] dataItem)
         {
             byte vnsMask = 64;
@@ -1301,7 +1334,10 @@ namespace ClassLibrary
             double resolution = 1.0 / 32.0;
             this.trackAngleRate=ConvertTwosComplementByteToDouble(dataItem) * resolution;
         }
-
+        private void SetTimeOfReportTransmission(byte[] dataItem)
+        {
+            throw new NotImplementedException();
+        }
         private double ComputeBytes(byte[] dataItem, double resolution)
         {
             double value = 0;
@@ -1337,4 +1373,4 @@ namespace ClassLibrary
         }
     }
 
-}
+    }
