@@ -42,6 +42,7 @@ namespace AsterixDecoder
             Console.WriteLine("Latitude High resolution: " + latitudehigh);
             Console.WriteLine("Longitude High resolution: " + longitudehigh);
             Console.WriteLine("GeometricHeight: " + GeometricHeight);
+            
 
             //Print en hexadecimal
             //byte[] arraystringcopy =cat21.GetArray();
