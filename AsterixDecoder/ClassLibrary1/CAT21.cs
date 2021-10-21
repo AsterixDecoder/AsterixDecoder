@@ -60,7 +60,9 @@ namespace ClassLibrary
 
         double geometricHeight;
 
-
+        string mopsVNS;
+        string mopsVN;
+        string mopsLTT;
 
         double rollAngle;
         double flightLevel;
@@ -77,13 +79,8 @@ namespace ClassLibrary
         string reGVR;
 
         int[] QualityIndicators = new int[3];
-        int[] MOPSVersion = new int[3];
         int[] Mode3ACode = new int[3];
 
-        //int[] MagneticHeading = new int[3];
-        int[] TargetStatus = new int[3];
-        int[] BarometricVerticalRate = new int[3];
-        int[] GeometricVerticalRate = new int[3];
         int[] AirborneGroundVector = new int[3];
         int[] TrackAngleRate = new int[3];
         int[] TimeofReportTransmission = new int[3];
@@ -162,6 +159,9 @@ namespace ClassLibrary
             this.FSIVelocityHighPrecision = "N/A";
             this.timeofMessageReceptionVelocityHighPrecision = new TimeSpan();
             this.geometricHeight = double.NaN;
+            this.mopsVNS = "N/A";
+            this.mopsVN = "N/A";
+            this.mopsLTT = "N/A";
 
             this.rollAngle= double.NaN;
             this.flightLevel = double.NaN;
@@ -438,11 +438,11 @@ namespace ClassLibrary
                     byte[] dataItem = GetVariableLengthItem();
                     SetQualityIndicators(dataItem);
                 }
-                //if (boolFSPEC[19] == true) //MOPS Version
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(1);
-                //    SetMOPSVersion(dataItem);
-                //}
+                if (boolFSPEC[19] == true) //MOPS Version
+                {
+                    byte[] dataItem = GetFixedLengthItem(1);
+                    SetMOPSVersion(dataItem);
+                }
                 //if (boolFSPEC[20] == true) //Mode 3/A Code
                 //{
                 //    byte[] dataItem = GetFixedLengthItem(2);
@@ -616,6 +616,7 @@ namespace ClassLibrary
             //    }
             //}
         }
+
 
         private void SetQualityIndicators(byte[] dataItem)//Aixo no se com fer-ho
         {
@@ -1067,6 +1068,58 @@ namespace ClassLibrary
 
         }
 
+        private void SetMOPSVersion(byte[] dataItem)
+        {
+            byte vnsMask = 64;
+            byte vnMask = 56;
+            byte lttMask = 7;
+            int vns = (dataItem[0] & vnsMask) >> 6;
+            int vn = (dataItem[0] & vnMask) >> 3;
+            int ltt = dataItem[0] & lttMask;
+
+            switch (vns)
+            {
+                case 0:
+                    this.mopsVNS = "The MOPS Version is supported by the GS";
+                    break;
+                case 1:
+                    this.mopsVNS = "The MOPS Version is not supported by the GS";
+                    break;
+
+            }
+            switch (vn)
+            {
+                case 0:
+                    this.mopsVN = "ED102/DO-260[Ref.8]";
+                    break;
+                case 1:
+                    this.mopsVN = "DO-260A[Ref.9]";
+                    break;
+                case 2:
+                    this.mopsVN = "ED102A/DO-260B[Ref.11]";
+                    break;
+
+            }
+
+            switch (ltt)
+            {
+                case 0:
+                    this.mopsLTT = "Other";
+                    break;
+                case 1:
+                    this.mopsLTT = "UAT";
+                    break;
+                case 2:
+                    this.mopsLTT = "1090 ES";
+                    break;
+                case 3:
+                    this.mopsLTT = "VDL 4";
+                    break;
+                default:
+                    this.mopsLTT = "Not assigned";
+                    break;
+            }
+        }
         private void SetRollAngle(byte[] dataItem)
         {
             double resolution = 0.01;//degrees
