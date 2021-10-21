@@ -63,6 +63,8 @@ namespace ClassLibrary
         string mopsVNS;
         string mopsVN;
         string mopsLTT;
+        int[] QualityIndicators = new int[3];
+        int m3ACode;
 
         double rollAngle;
         double flightLevel;
@@ -78,11 +80,14 @@ namespace ClassLibrary
         double geometricVerticalRate;
         string reGVR;
 
-        int[] QualityIndicators = new int[3];
-        int[] Mode3ACode = new int[3];
+        string reAirborneGroundVector;
+        double groundSpeed;
+        double trackAngle;
+        double trackAngleRate;
 
-        int[] AirborneGroundVector = new int[3];
-        int[] TrackAngleRate = new int[3];
+
+
+        
         int[] TimeofReportTransmission = new int[3];
 
         int[] TargetIdentification = new int[3];
@@ -162,6 +167,7 @@ namespace ClassLibrary
             this.mopsVNS = "N/A";
             this.mopsVN = "N/A";
             this.mopsLTT = "N/A";
+            this.m3ACode = -1;
 
             this.rollAngle= double.NaN;
             this.flightLevel = double.NaN;
@@ -175,6 +181,11 @@ namespace ClassLibrary
             this.reBVR = "N/A";
             this.geometricVerticalRate = double.NaN;
             this.reGVR= "N/A";
+
+            this.reAirborneGroundVector = "N/A";
+            this.groundSpeed = double.NaN;
+            this.trackAngle = double.NaN;
+            this.trackAngleRate = double.NaN;
 
 
 
@@ -443,11 +454,11 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetMOPSVersion(dataItem);
                 }
-                //if (boolFSPEC[20] == true) //Mode 3/A Code
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(2);
-                //    SetMode3ACode(dataItem);
-                //}
+                if (boolFSPEC[20] == true) //Mode 3/A Code
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetMode3ACode(dataItem);
+                }
                 if (boolFSPEC[18] == true) //Roll Angle
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
@@ -481,16 +492,16 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetGeometricVerticalRate(dataItem);
                 }
-                //    if (boolFSPEC[27] == true) //
-                //    {
-                //        byte[] dataItem = GetFixedLengthItem(3);
-                //        SetTimeOfMessageReceptionPosition(dataItem);
-                //    }
-                //    if (boolFSPEC[26] == true) //
-                //    {
-                //        byte[] dataItem = GetFixedLengthItem(4);
-                //        SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
-                //    }
+                if (boolFSPEC[27] == true) //Airborne Ground Vector
+                {
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetAirborneGroundVector(dataItem);
+                }
+                if (boolFSPEC[26] == true) //Track Angle Rate
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetTrackAngleRate(dataItem);
+                }
                 //    if (boolFSPEC[25] == true) //
                 //    {
                 //        byte[] dataItem = GetFixedLengthItem(3);
@@ -1120,6 +1131,22 @@ namespace ClassLibrary
                     break;
             }
         }
+        private void SetMode3ACode(byte[] dataItem)
+        {
+            int firstByte = (byte)(dataItem[0]);
+            int B4mask=1;
+            int B21mask=192;
+            int Cmask=56;
+            int Dmask=7;
+            int A = (byte)(firstByte >> 1);
+            byte B4 = (byte)((firstByte & B4mask) << 2);
+            byte B21 = (byte)((dataItem[1] & B21mask) >> 6);
+            int B = (int)(B4 + B21);
+            int C = (int)((dataItem[1] & Cmask) >> 3);
+            int D = (int)(dataItem[1] & Dmask);
+
+            this.m3ACode = A * 1000 + B * 100 + C * 10 + D;
+        }
         private void SetRollAngle(byte[] dataItem)
         {
             double resolution = 0.01;//degrees
@@ -1246,6 +1273,33 @@ namespace ClassLibrary
                 this.reGVR = "Value in defined range";
             }
             this.geometricVerticalRate = ConvertTwosComplementByteToDouble(geometric) * resolution;
+        }
+        private void SetAirborneGroundVector(byte[] dataItem)
+        {
+            double resolutionSpeed = Math.Pow(2,-14);
+            double resolutionAngle = 360 / Math.Pow(2, 16);
+            byte mask = 127;
+            int RE = dataItem[0] >> 7;
+            byte firstbyte = (byte)(dataItem[0] & mask);
+            byte[] groundspeed= { firstbyte, dataItem[1] };
+            byte[] trackangle = { dataItem[2], dataItem[3] };
+
+            if (RE == 1)
+            {
+                this.reAirborneGroundVector = "Value exceeds defined range";
+            }
+            else if (RE == 0)
+            {
+                this.reAirborneGroundVector = "Value in defined range";
+            }
+            this.groundSpeed = ComputeBytes(groundspeed, resolutionSpeed);
+            this.trackAngle= ComputeBytes(trackangle, resolutionAngle);
+        }
+
+        private void SetTrackAngleRate(byte[] dataItem)
+        {
+            double resolution = 1.0 / 32.0;
+            this.trackAngleRate=ConvertTwosComplementByteToDouble(dataItem) * resolution;
         }
 
         private double ComputeBytes(byte[] dataItem, double resolution)
