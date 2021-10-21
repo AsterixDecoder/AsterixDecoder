@@ -66,7 +66,11 @@ namespace ClassLibrary
         double flightLevel;
 
         double magneticHeading;
-        double targetStatus;
+        string icf;
+        string lnav;
+        string ps;
+        string ss;
+
         double barometricVerticalRate;
         string reBVR;//BarometricVerticalRange
         double geometricVerticalRate;
@@ -163,6 +167,10 @@ namespace ClassLibrary
             this.flightLevel = double.NaN;
 
             this.magneticHeading = double.NaN;
+            this.icf= "N/A";
+            this.lnav="N/A";
+            this.ps= "N/A";
+            this.ss="N/A"; 
             this.barometricVerticalRate = double.NaN;
             this.reBVR = "N/A";
             this.geometricVerticalRate = double.NaN;
@@ -243,10 +251,6 @@ namespace ClassLibrary
             return this.magneticHeading;
         }
 
-        public double GetTargetStatus()
-        {
-            return this.targetStatus;
-        }
         
         public double GetBarometricVerticalRate()
         {
@@ -462,12 +466,12 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetMagneticHeading(dataItem);
                 }
-                //if (boolFSPEC[30] == true) //
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(1);
-                //    SetTargetStatus(dataItem);
-                //}
-                if (boolFSPEC[29] == true) //
+                if (boolFSPEC[30] == true) //Target Status
+                {
+                    byte[] dataItem = GetFixedLengthItem(1);
+                    SetTargetStatus(dataItem);
+                }
+                if (boolFSPEC[29] == true) //Barometric Vertical Rate
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetBarometricVerticalRate(dataItem);
@@ -1081,9 +1085,77 @@ namespace ClassLibrary
 
         private void SetTargetStatus(byte[] dataItem)
         {
-            ////////////////////
-            //double resolution = (360 / 2 ^ 16);
-            //this.magneticHeading = (double)ComputeBytes(dataItem, resolution);
+
+            byte lnavMask = 64;
+            byte psMask = 28;
+            byte ssMask = 3;
+
+            int icf = dataItem[0] >> 7;
+
+            int lnav = (dataItem[0] & lnavMask) >> 6;
+            int ps = (dataItem[0] & psMask) >> 2;
+            int ss = dataItem[0] & ssMask;
+
+            switch (icf)
+            {
+                case 0:
+                    this.icf = "No intent change active";
+                    break;
+                case 1:
+                    this.icf = "Intent change flag raised ";
+                    break;
+            }
+            switch (lnav)
+            {
+                case 0:
+                    this.lnav = "LNAV Mode engaged";
+                    break;
+                case 1:
+                    this.lnav = "LNAV Mode not engaged";
+                    break;
+            }
+            switch (ps)
+            {
+                case 0:
+                    this.ps = "No emergency / not reported";
+                    break;
+                case 1:
+                    this.ps = "General emergency";
+                    break;
+                case 2:
+                    this.ps = "Lifeguard / medical emergency";
+                    break;
+                case 3:
+                    this.ps = "Minimum fuel";
+                    break;
+                case 4:
+                    this.ps = "No communications";
+                    break;
+                case 5:
+                    this.ps = "Unlawful interference";
+                    break;
+                case 6:
+                    this.ps = "“Downed” Aircraft ";
+                    break;
+                case 7:
+                    this.ps = "N/A";
+                    break;
+            }
+            switch (ss)
+            {
+                case 0:
+                    this.ss = "No condition reported";
+                    break;
+                case 1:
+                    this.ss = "Permanent Alert";
+                    break;
+                case 2:
+                    this.ss = "Temporary Alert";
+                    break;
+                case 3:
+                    this.ss = "SPI set";
+                    break;
+            }
         }
 
         private void SetBarometricVerticalRate(byte[] dataItem)
