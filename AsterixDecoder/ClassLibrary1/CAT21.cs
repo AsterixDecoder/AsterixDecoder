@@ -47,6 +47,7 @@ namespace ClassLibrary
         string IMairspeed;
         double trueAirSpeed;
         string rangeExceeded;//Airspeed
+        string rangeExceededBarVR;//BarometricVerticalRange
         int targetAddress;
         TimeSpan timeofMessageReceptionPosition;
         string FSIPositionHighPrecision;
@@ -64,11 +65,15 @@ namespace ClassLibrary
         double rollAngle;
         double flightLevel;
 
+        double magneticHeading;
+        double targetStatus;
+        double barometricVerticalRate;
+
         int[] QualityIndicators = new int[3];
         int[] MOPSVersion = new int[3];
         int[] Mode3ACode = new int[3];
 
-        int[] MagneticHeading = new int[3];
+        //int[] MagneticHeading = new int[3];
         int[] TargetStatus = new int[3];
         int[] BarometricVerticalRate = new int[3];
         int[] GeometricVerticalRate = new int[3];
@@ -141,6 +146,7 @@ namespace ClassLibrary
             this.IMairspeed = "N/A";
             this.trueAirSpeed = double.NaN;
             this.rangeExceeded = "N/A";
+            this.rangeExceededBarVR = "N/A";
 
             this.targetAddress = -1;
             this.timeofMessageReceptionPosition = new TimeSpan();
@@ -153,6 +159,13 @@ namespace ClassLibrary
 
             this.rollAngle= double.NaN;
             this.flightLevel = double.NaN;
+
+            this.magneticHeading = double.NaN;
+            this.barometricVerticalRate = double.NaN;
+
+
+
+
             data.RemoveAt(0);
             data.RemoveAt(0);
             data.RemoveAt(0);
@@ -220,6 +233,21 @@ namespace ClassLibrary
         {
             return this.geometricHeight;
         }
+        public double GetMagneticHeading()
+        {
+            return this.magneticHeading;
+        }
+
+        public double GetTargetStatus()
+        {
+            return this.targetStatus;
+        }
+        
+        public double GetBarometricVerticalRate()
+        {
+            return this.barometricVerticalRate;
+        }
+
         public int HexToDec(string hexValue)
         {
             int intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
@@ -420,6 +448,162 @@ namespace ClassLibrary
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetFlightLevel(dataItem);
+                }
+            }
+            if (FSPEC.Length >= 4)
+            {
+                if (boolFSPEC[15] == true) //Magnetic heading
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetMagneticHeading(dataItem);
+                }
+                if (boolFSPEC[14] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetBarometricVerticalRate(dataItem);
+                }
+                if (boolFSPEC[13] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetTrueAirSpeed(dataItem);
+                }
+                if (boolFSPEC[12] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTargetAdress(dataItem);
+                }
+                if (boolFSPEC[11] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionPosition(dataItem);
+                }
+                if (boolFSPEC[10] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                }
+                if (boolFSPEC[9] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionVelocity(dataItem);
+
+                }
+            }
+            if (FSPEC.Length >= 5)
+            {
+                if (boolFSPEC[15] == true) //Time of Applicability for Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfApplicabilityVelocity(dataItem);
+                }
+                if (boolFSPEC[14] == true) //Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetAirSpeed(dataItem);
+                }
+                if (boolFSPEC[13] == true) //True Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetTrueAirSpeed(dataItem);
+                }
+                if (boolFSPEC[12] == true) //TargetAdress
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTargetAdress(dataItem);
+                }
+                if (boolFSPEC[11] == true) //Time of message reception Position
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionPosition(dataItem);
+                }
+                if (boolFSPEC[10] == true) //Time of message reception Position High Precision
+                {
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                }
+                if (boolFSPEC[9] == true) //Time of message reception Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionVelocity(dataItem);
+
+                }
+            }
+            if (FSPEC.Length >= 6)
+            {
+                if (boolFSPEC[15] == true) //Time of Applicability for Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfApplicabilityVelocity(dataItem);
+                }
+                if (boolFSPEC[14] == true) //Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetAirSpeed(dataItem);
+                }
+                if (boolFSPEC[13] == true) //True Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetTrueAirSpeed(dataItem);
+                }
+                if (boolFSPEC[12] == true) //TargetAdress
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTargetAdress(dataItem);
+                }
+                if (boolFSPEC[11] == true) //Time of message reception Position
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionPosition(dataItem);
+                }
+                if (boolFSPEC[10] == true) //Time of message reception Position High Precision
+                {
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                }
+                if (boolFSPEC[9] == true) //Time of message reception Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionVelocity(dataItem);
+
+                }
+            }
+            if (FSPEC.Length >= 7)
+            {
+                if (boolFSPEC[15] == true) //Time of Applicability for Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfApplicabilityVelocity(dataItem);
+                }
+                if (boolFSPEC[14] == true) //Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetAirSpeed(dataItem);
+                }
+                if (boolFSPEC[13] == true) //True Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetTrueAirSpeed(dataItem);
+                }
+                if (boolFSPEC[12] == true) //TargetAdress
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTargetAdress(dataItem);
+                }
+                if (boolFSPEC[11] == true) //Time of message reception Position
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionPosition(dataItem);
+                }
+                if (boolFSPEC[10] == true) //Time of message reception Position High Precision
+                {
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                }
+                if (boolFSPEC[9] == true) //Time of message reception Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionVelocity(dataItem);
+
                 }
             }
         }
@@ -884,7 +1068,40 @@ namespace ClassLibrary
             double resolution = (1.0 / 4.0);
             this.flightLevel = ConvertTwosComplementByteToDouble(dataItem)*resolution;
         }
+        private void SetMagneticHeading(byte[] dataItem)
+        {
+            ////////////////////
+            double resolution = (360 / 2^16);
+            this.magneticHeading = (double)ComputeBytes(dataItem, resolution);
+        }
 
+        private void SetTargetStatus(byte[] dataItem)
+        {
+            ////////////////////
+            //double resolution = (360 / 2 ^ 16);
+            //this.magneticHeading = (double)ComputeBytes(dataItem, resolution);
+        }
+
+        private void SetBarometricVerticalRate(byte[] dataItem)
+        {
+            ////////////////////
+            double resolution = 6.25;//feet/min
+            byte mask = 127;
+            int RE = ((dataItem[0]) >> 7);
+            byte firstbyte = (byte)(dataItem[0] & mask);
+            byte[] barometric = { firstbyte, dataItem[1] };
+
+            if (RE == 1)
+            {
+                this.rangeExceededBarVR = "Value exceeds defined range";
+            }
+            else if (RE == 0)
+            {
+                this.rangeExceededBarVR = "Value in defined range";
+            }
+            this.barometricVerticalRate = ComputeBytes(barometric, resolution);
+        }
+  
         private double ComputeBytes(byte[] dataItem, double resolution)
         {
             double value = 0;
