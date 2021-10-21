@@ -22,7 +22,7 @@ namespace AsterixDecoder
         {
             AsterixFile asterixfile= new AsterixFile("201002-lebl-080001_adsb.ast");
             List<CAT21> lista=asterixfile.getListCAT21();
-            CAT21 cat21 = lista[2];
+            CAT21 cat21 = lista[546];
 
             byte[] fieldEspec = cat21.GetFieldEspec();
             int systemIC = cat21.GetSystemIdentificationCode();
@@ -33,6 +33,8 @@ namespace AsterixDecoder
             double latitudehigh = cat21.GetLatitudeWGS84High();
             double longitudehigh = cat21.GetLongitudeWGS84High();
             double GeometricHeight = cat21.GetGeometricHeight();
+            double roll = cat21.GetRollAngle();
+            double flightlevel = cat21.GetFlightLevel();
             Console.WriteLine("Longitud Field Espec: " + fieldEspec.Length);
             Console.WriteLine("SAC: " + systemAC);
             Console.WriteLine("SIC: " + systemIC);
@@ -42,7 +44,9 @@ namespace AsterixDecoder
             Console.WriteLine("Latitude High resolution: " + latitudehigh);
             Console.WriteLine("Longitude High resolution: " + longitudehigh);
             Console.WriteLine("GeometricHeight: " + GeometricHeight);
-            
+            Console.WriteLine("Roll Angle: " + roll);
+            Console.WriteLine("Flight Level: " + flightlevel);
+
 
             //Print en hexadecimal
             //byte[] arraystringcopy =cat21.GetArray();

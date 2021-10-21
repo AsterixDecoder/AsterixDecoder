@@ -281,16 +281,25 @@ namespace ClassLibrary
         {
             return this.geometricHeight;
         }
+        public double GetRollAngle()
+        {
+            return this.rollAngle;
+        }
+        public double GetFlightLevel()
+        {
+            return this.flightLevel;
+        }
         public double GetMagneticHeading()
         {
             return this.magneticHeading;
         }
 
-        
         public double GetBarometricVerticalRate()
         {
             return this.barometricVerticalRate;
         }
+
+
 
         public int HexToDec(string hexValue)
         {
@@ -1336,7 +1345,9 @@ namespace ClassLibrary
         }
         private void SetTimeOfReportTransmission(byte[] dataItem)
         {
-            throw new NotImplementedException();
+            double resolution = Math.Pow(2, -7);
+            double seconds = ConvertTwosComplementByteToDouble(dataItem)*resolution;
+            this.timeOfReportTransmission = TimeSpan.FromSeconds(seconds);
         }
         private double ComputeBytes(byte[] dataItem, double resolution)
         {
@@ -1373,4 +1384,4 @@ namespace ClassLibrary
         }
     }
 
-    }
+}
