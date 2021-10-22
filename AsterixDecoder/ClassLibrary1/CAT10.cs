@@ -26,8 +26,15 @@ namespace ClassLibrary
         int[] D12_Mode3_a = new int[7]; //V,G,L,A,B,C,D
         int[] D13_TargetAddress = new int[3];//valor de cada byte
         int D17_VFI;
-        int[] D18_FLBinary = new int[3];
-
+        double[] D18_FLBinary = new double[3];
+        double D19_MeasuredHeight;
+        double[] D20_TargerSizeOrientation=new double[3];
+        int[] D21_SystemStatus = new int[5];
+        int[] D22_PreProgrammedMessage = new int[2];
+        double[] D24_StandardDeviationOfPosition = new double[3];
+        double[] D25_Presence = new double[3];
+        int D26_AmplitudeOfPrimaryPlot;
+        double[] D27_CalculatedAcceleration = new double[2];
         
 
 
@@ -49,6 +56,7 @@ namespace ClassLibrary
             bool[] bufferBool2 = new bool[2];
             bool[] bufferBool3 = new bool[3];
             bool[] bufferBool6 = new bool[6];
+            bool[] bufferBool7 = new bool[7];
             int[] temp = new int[1];
             bool tempBool;
             int tempInt;
@@ -285,8 +293,124 @@ namespace ClassLibrary
                             bufferBit2 = new BitArray(bufferBool6);
                             bufferBit2.CopyTo(buffer2,0);
                             bufferBit1 = new BitArray(buffer2);
-                            bufferBit2.CopyTo(buffer1, 0);
-
+                            bufferBit1.CopyTo(temp, 0);
+                            D18_FLBinary[2] = temp[0] * 0.25;
+                            cont= 2 + cont;
+                            break;
+                        case 19:
+                            buffer2[0] = arraystring[cont];
+                            buffer2[1] = arraystring[cont + 1];
+                            bufferBit1 = new BitArray(buffer2);
+                            bufferBit1.CopyTo(temp, 0);
+                            D19_MeasuredHeight = temp[0] * 6.25;
+                            cont= cont + 2;
+                            break;
+                        case 20:
+                            tempBool = true;
+                            tempInt = 0;
+                            while (tempBool) {
+                                buffer1[0] = arraystring[cont];
+                                bufferBit1 = new BitArray(buffer1);
+                                tempBool = bufferBit1[0];
+                                if(bufferBit1[0])  cont++ ;
+                                for (int j = 0; j < 7; j++)
+                                {
+                                    bufferBool7[j] = bufferBit1[7 - j];
+                                }
+                                bufferBit1 = new BitArray(bufferBool7);
+                                bufferBit1.CopyTo(temp, 0);
+                                switch (tempInt)
+                                {
+                                    case 1: 
+                                    case 3:
+                                        D20_TargerSizeOrientation[tempInt] = temp[0];
+                                        break;
+                                    case 2:
+                                        D20_TargerSizeOrientation[tempInt] = temp[0] * 2.81;
+                                        break;
+                                }
+                                tempInt++;
+                            }
+                            cont++;
+                            break;
+                        case 21:
+                            buffer1[0] = arraystring[cont];
+                            bufferBit1 = new BitArray(buffer1);
+                            bufferBool2[1] = bufferBit1[7];
+                            bufferBool2[0] = bufferBit1[6];
+                            bufferBit2 = new BitArray(bufferBool2);
+                            bufferBit2.CopyTo(temp, 0);
+                            D21_SystemStatus[0] = temp[0];
+                            for (int j = 1; i < 5; i++)
+                            {
+                                D21_SystemStatus[j] = bufferBit1[6-j] ? 1 : 0;
+                            }
+                            cont++;
+                            break;
+                            
+                        case 22:
+                            buffer1[0] = arraystring[cont];
+                            bufferBit1 = new BitArray(buffer1);
+                            D22_PreProgrammedMessage[0] = bufferBit1[7] ? 1 : 0;
+                            for (int j = 0; i < 6; i++)
+                            {
+                                bufferBool7[j] = bufferBit1[j];
+                            }
+                            bufferBit1 = new BitArray(bufferBool7);
+                            bufferBit1.CopyTo(temp, 0);
+                            D22_PreProgrammedMessage[1] = temp[0];
+                            cont++;
+                            break;
+                        case 24:
+                            for (int j = 0; j < 2; j++)
+                            {
+                                buffer1[0] = arraystring[cont + j];
+                                bufferBit1 = new BitArray(buffer1);
+                                bufferBit1.CopyTo(temp, 0);
+                                D24_StandardDeviationOfPosition[j] = temp[0] * 0.25;
+                            }
+                            buffer2[1] = arraystring[cont + 2];
+                            buffer2[0] = arraystring[cont + 3];
+                            bufferBit1 = new BitArray(buffer2);
+                            bufferBit1.CopyTo(temp, 0);
+                            D24_StandardDeviationOfPosition[2] = temp[0] * 0.25;
+                            cont = cont + 4;
+                            break;
+                        case 25:
+                            for (int j = 0; j < 3; j++)
+                            {
+                                buffer1[0] = arraystring[cont + j];
+                                bufferBit1 = new BitArray(buffer1);
+                                bufferBit1.CopyTo(temp, 0);
+                                switch (j)
+                                {
+                                    case 0:
+                                    case 1:
+                                        D25_Presence[j] = temp[0];
+                                        break;
+                                    case 2:
+                                        D25_Presence[j] = temp[0]*0.15;
+                                        break;
+                                }
+                                
+                            }
+                            cont = cont + 3;
+                            break;
+                        case 26:
+                            buffer1[0] = arraystring[cont];
+                            bufferBit1 = new BitArray(buffer1);
+                            bufferBit1.CopyTo(temp, 0);
+                            D26_AmplitudeOfPrimaryPlot = temp[0];
+                            cont++;
+                            break;
+                        case 27:
+                            for (int j = 0; j < 2; j++)
+                            {
+                                buffer1[0] = arraystring[cont + j];
+                                bufferBit1 = new BitArray(buffer1);
+                                bufferBit1.CopyTo(temp, 0);
+                                D27_CalculatedAcceleration[j] = temp[0] * 0.25;
+                            }
                             break;
                     }
                         
