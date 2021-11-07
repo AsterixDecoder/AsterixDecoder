@@ -95,13 +95,13 @@ namespace ClassLibrary
         double trackAngleRate;
         TimeSpan timeOfReportTransmission;
 
+        string targetIdentification;
+        string emitterCategory;
+        string metInformation;
+        //int[] TimeofReportTransmission = new int[3];
 
-
-
-        int[] TimeofReportTransmission = new int[3];
-
-        int[] TargetIdentification = new int[3];
-        int[] EmitterCategory = new int[3];
+        // int[] TargetIdentification = new int[3];
+        //int[] EmitterCategory = new int[3];
         int[] MetInformation = new int[3];
         int[] SelectedAltitude = new int[3];
         int[] FinalStateSelectedAltitude = new int[3];
@@ -211,8 +211,9 @@ namespace ClassLibrary
 
             this.timeOfReportTransmission = new TimeSpan();
 
-
-
+            this.targetIdentification = "N/A";
+            this.emitterCategory = "N/A";
+            this.metInformation = "N/A";
 
             data.RemoveAt(0);
             data.RemoveAt(0);
@@ -542,45 +543,52 @@ namespace ClassLibrary
 
                 }
             }
-            //if (FSPEC.Length >= 5)
-            //{
-            //    if (boolFSPEC[15] == true) //Time of Applicability for Velocity
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfApplicabilityVelocity(dataItem);
-            //    }
-            //    if (boolFSPEC[14] == true) //Air Speed
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(2);
-            //        SetAirSpeed(dataItem);
-            //    }
-            //    if (boolFSPEC[13] == true) //True Air Speed
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(2);
-            //        SetTrueAirSpeed(dataItem);
-            //    }
-            //    if (boolFSPEC[12] == true) //TargetAdress
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTargetAdress(dataItem);
-            //    }
-            //    if (boolFSPEC[11] == true) //Time of message reception Position
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfMessageReceptionPosition(dataItem);
-            //    }
-            //    if (boolFSPEC[10] == true) //Time of message reception Position High Precision
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(4);
-            //        SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
-            //    }
-            //    if (boolFSPEC[9] == true) //Time of message reception Velocity
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfMessageReceptionVelocity(dataItem);
 
-            //    }
-            //}
+          
+
+
+                if (FSPEC.Length >= 5)
+            {
+                if (boolFSPEC[39] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(6);
+                    SetTargetIdentification(dataItem);
+                }
+                if (boolFSPEC[38] == true) //
+                {
+                    byte[] dataItem = GetFixedLengthItem(1);
+                        SetEmitterCategory(dataItem);
+                }
+                if (boolFSPEC[37] == true) //
+                {
+                    byte[] dataItem = GetVariableLengthItem();
+                    SetMetInformation(dataItem);
+                }
+
+
+
+                if (boolFSPEC[36] == true) //TargetAdress
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTargetAdress(dataItem);
+                }
+                if (boolFSPEC[35] == true) //Time of message reception Position
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionPosition(dataItem);
+                }
+                if (boolFSPEC[34] == true) //Time of message reception Position High Precision
+                {
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                }
+                if (boolFSPEC[33] == true) //Time of message reception Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionVelocity(dataItem);
+
+                }
+            }
             //if (FSPEC.Length >= 6)
             //{
             //    if (boolFSPEC[15] == true) //Time of Applicability for Velocity
@@ -1349,6 +1357,125 @@ namespace ClassLibrary
             double seconds = ConvertTwosComplementByteToDouble(dataItem)*resolution;
             this.timeOfReportTransmission = TimeSpan.FromSeconds(seconds);
         }
+
+        private void SetTargetIdentification(byte[] dataItem)
+        {
+           
+        }
+        private void SetEmitterCategory(byte[] dataItem)
+        {
+           
+            int ECAT = dataItem[0] >> 0;
+
+
+            switch (ECAT)
+            {
+                case 0:
+                    this.emitterCategory = "No ADS-B Emitter Category Information";
+                    break;
+                case 1:
+                    this.emitterCategory = "light aircraft <= 15500 lbs";
+                    break;
+                case 2:
+                    this.emitterCategory = "15500 lbs < small aircraft <75000 lbs  ";
+                    break;
+                case 3:
+                    this.emitterCategory = "75000 lbs < medium a/c < 300000 lbs  ";
+                    break;
+                case 4:
+                    this.emitterCategory = "High Vortex Large";
+                    break;
+                case 5:
+                    this.emitterCategory = "300000 lbs <= heavy aircraft ";
+                    break;
+                case 6:
+                    this.emitterCategory = "highly manoeuvrable (5g acceleration capability) and high speed(> 400 knotscruise)  ";
+                    break;
+                case 7:
+                    this.emitterCategory = "reserved  ";
+                    break;
+                case 8:
+                    this.emitterCategory = "reserved  ";
+                    break;
+                case 9:
+                    this.emitterCategory = "reserved  ";
+                    break;
+                case 10:
+                    this.emitterCategory = "rotocraft ";
+                    break;
+                case 11:
+                    this.emitterCategory = " glider / sailplane  ";
+                    break;
+                case 12:
+                    this.emitterCategory = "ighter-than-air  ";
+                    break;
+                case 13:
+                    this.emitterCategory = "= unmanned aerial vehicle  ";
+                    break;
+                case 14:
+                    this.emitterCategory = "=  space / transatmospheric vehicle   ";
+                    break;
+
+                case 15:
+                    this.emitterCategory = "ultralight / handglider / paraglider ";
+                    break;
+
+                case 16:
+                    this.emitterCategory = "=  parachutist / skydiver   ";
+                    break;
+
+                case 17:
+                    this.emitterCategory = "=reserved  ";
+                    break;
+
+                case 18:
+                    this.emitterCategory = "reserved  ";
+                    break;
+
+                case 19:
+                    this.emitterCategory = "reserved  ";
+                    break;
+
+                case 20:
+                    this.emitterCategory = "surface emergency vehicle ";
+                    break;
+
+                case 21:
+                    this.emitterCategory = "surface service vehicle   ";
+                    break;
+
+                case 22:
+                    this.emitterCategory = " fixed ground or tethered obstruction   ";
+                    break;
+
+                case 23:
+                    this.emitterCategory = " cluster obstacle  ";
+                    break;
+
+                case 24:
+                    this.emitterCategory = "line obstacle  ";
+                    break;
+
+               
+
+
+            }
+
+
+
+        }
+        private void SetMetInformation(byte[] dataItem)
+        {
+
+        }
+        
+
+
+
+
+
+
+
         private double ComputeBytes(byte[] dataItem, double resolution)
         {
             double value = 0;
