@@ -98,6 +98,11 @@ namespace ClassLibrary
         string targetIdentification;
         string emitterCategory;
         string metInformation;
+        double serviceManagement;
+        string trajectoryIntent;
+        //SelectedAltitude
+        //FinalStateSelectedAltitude
+
         //int[] TimeofReportTransmission = new int[3];
 
         // int[] TargetIdentification = new int[3];
@@ -214,6 +219,12 @@ namespace ClassLibrary
             this.targetIdentification = "N/A";
             this.emitterCategory = "N/A";
             this.metInformation = "N/A";
+            this.serviceManagement = double.NaN;
+            this.trajectoryIntent = "N/A";
+
+
+
+
 
             data.RemoveAt(0);
             data.RemoveAt(0);
@@ -565,30 +576,30 @@ namespace ClassLibrary
                     SetMetInformation(dataItem);
                 }
 
-
-
                 if (boolFSPEC[36] == true) //TargetAdress
                 {
-                    byte[] dataItem = GetFixedLengthItem(3);
-                    SetTargetAdress(dataItem);
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetSelectedAltitude(dataItem);
                 }
                 if (boolFSPEC[35] == true) //Time of message reception Position
                 {
-                    byte[] dataItem = GetFixedLengthItem(3);
-                    SetTimeOfMessageReceptionPosition(dataItem);
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetFinalStateSelectedAltitude(dataItem);
                 }
                 if (boolFSPEC[34] == true) //Time of message reception Position High Precision
                 {
-                    byte[] dataItem = GetFixedLengthItem(4);
-                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                    byte[] dataItem = GetVariableLengthItem();
+                    SetTrajectoryIntent(dataItem);
                 }
                 if (boolFSPEC[33] == true) //Time of message reception Velocity
                 {
-                    byte[] dataItem = GetFixedLengthItem(3);
-                    SetTimeOfMessageReceptionVelocity(dataItem);
+                    byte[] dataItem = GetFixedLengthItem(1);
+                    SetServiceManagement(dataItem);
 
                 }
             }
+
+
             //if (FSPEC.Length >= 6)
             //{
             //    if (boolFSPEC[15] == true) //Time of Applicability for Velocity
@@ -1467,6 +1478,26 @@ namespace ClassLibrary
         private void SetMetInformation(byte[] dataItem)
         {
 
+        }
+        private void SetSelectedAltitude(byte[] dataItem)
+        {
+
+        }
+
+        private void SetFinalStateSelectedAltitude(byte[] dataItem)
+        {
+
+        }
+        private void SetTrajectoryIntent(byte[] dataItem)
+        {
+
+        }
+
+
+        private void SetServiceManagement(byte[] dataItem)
+        {
+            double resolution = 0.5;//sec
+            this.serviceManagement = ComputeBytes(dataItem, resolution);
         }
         
 
