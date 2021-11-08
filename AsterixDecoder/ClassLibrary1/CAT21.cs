@@ -101,6 +101,9 @@ namespace ClassLibrary
         double serviceManagement;
         string trajectoryIntent;
         //SelectedAltitude
+        string sas;
+        string source;
+        double selectedAltitude;
         //FinalStateSelectedAltitude
 
         //int[] TimeofReportTransmission = new int[3];
@@ -219,6 +222,9 @@ namespace ClassLibrary
             this.targetIdentification = "N/A";
             this.emitterCategory = "N/A";
             this.metInformation = "N/A";
+            this.sas = "N/A";
+            this.source = "N/A";
+            this.selectedAltitude = double.NaN;
             this.serviceManagement = double.NaN;
             this.trajectoryIntent = "N/A";
 
@@ -547,7 +553,7 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetTrackAngleRate(dataItem);
                 }
-                if (boolFSPEC[25] == true) //
+                if (boolFSPEC[25] == true) //Time of Report Transmission
                 {
                     byte[] dataItem = GetFixedLengthItem(3);
                     SetTimeOfReportTransmission(dataItem);
@@ -560,15 +566,15 @@ namespace ClassLibrary
 
                 if (FSPEC.Length >= 5)
             {
-                if (boolFSPEC[39] == true) //
+                if (boolFSPEC[39] == true) //Target Identification
                 {
                     byte[] dataItem = GetFixedLengthItem(6);
                     SetTargetIdentification(dataItem);
                 }
-                if (boolFSPEC[38] == true) //
+                if (boolFSPEC[38] == true) //Emitter Category
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
-                        SetEmitterCategory(dataItem);
+                    SetEmitterCategory(dataItem);
                 }
                 if (boolFSPEC[37] == true) //
                 {
@@ -576,22 +582,22 @@ namespace ClassLibrary
                     SetMetInformation(dataItem);
                 }
 
-                if (boolFSPEC[36] == true) //TargetAdress
+                if (boolFSPEC[36] == true) //
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetSelectedAltitude(dataItem);
                 }
-                if (boolFSPEC[35] == true) //Time of message reception Position
+                if (boolFSPEC[35] == true) //
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetFinalStateSelectedAltitude(dataItem);
                 }
-                if (boolFSPEC[34] == true) //Time of message reception Position High Precision
+                if (boolFSPEC[34] == true) //
                 {
                     byte[] dataItem = GetVariableLengthItem();
                     SetTrajectoryIntent(dataItem);
                 }
-                if (boolFSPEC[33] == true) //Time of message reception Velocity
+                if (boolFSPEC[33] == true) //Service Management
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetServiceManagement(dataItem);
@@ -1371,12 +1377,12 @@ namespace ClassLibrary
 
         private void SetTargetIdentification(byte[] dataItem)
         {
-           
+           //Mirar tabla e ir poniendo los valores
         }
         private void SetEmitterCategory(byte[] dataItem)
         {
            
-            int ECAT = dataItem[0] >> 0;
+            int ECAT = dataItem[0]>>7;
 
 
             switch (ECAT)
@@ -1477,10 +1483,38 @@ namespace ClassLibrary
         }
         private void SetMetInformation(byte[] dataItem)
         {
-
+            //Coger funcion parecida y adaptarla
         }
         private void SetSelectedAltitude(byte[] dataItem)
         {
+            int valueSAS=dataItem[1] >> 7;
+            int sourceMask = 96;
+            int valueSource = (dataItem[1] & sourceMask) >> 5;
+
+            switch(valueSAS)
+            {
+                case 0:
+                    this.sas = "No source information provided";
+                    break;
+                case 1:
+                    this.sas = "Source information provided";
+                    break;
+            }
+            switch(valueSource)
+            {
+                case 0:
+                    this.source = "Unknown";
+                    break;
+                case 1:
+                    this.source = "Aircraft Altitude";
+                    break;
+                case 2:
+                    this.source = "MCP/FCU Selected Altitude";
+                    break;
+                case 3:
+                    this.source = "FMS Selected Altitude";
+                    break;
+            }
 
         }
 
@@ -1497,7 +1531,14 @@ namespace ClassLibrary
         private void SetServiceManagement(byte[] dataItem)
         {
             double resolution = 0.5;//sec
-            this.serviceManagement = ComputeBytes(dataItem, resolution);
+            double service = ComputeBytes(dataItem, resolution);
+            if (service >= 127.5)
+            {
+                this.serviceManagement = 127.5;
+            }
+            else
+                this.serviceManagement = service;
+            
         }
         
 
