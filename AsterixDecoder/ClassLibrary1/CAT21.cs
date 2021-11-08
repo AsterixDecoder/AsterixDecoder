@@ -104,6 +104,24 @@ namespace ClassLibrary
         string sas;
         string source;
         double selectedAltitude;
+
+        string aircraftOperationalStatus;
+       
+        // aircraftOperationalStatus  parameters
+      
+        string ra;
+        string tc;
+        string ts;
+        string arv;
+        string cdtia;
+        string notticas;
+        string sa; 
+
+
+
+
+        double messageAmplitude;
+        double receiverID;
         //FinalStateSelectedAltitude
 
         //int[] TimeofReportTransmission = new int[3];
@@ -229,6 +247,16 @@ namespace ClassLibrary
             this.trajectoryIntent = "N/A";
 
 
+            this.aircraftOperationalStatus = "N/A";
+            this.ra = "N/A";
+            this.tc = "N/A";
+            this.ts = "N/A";
+            this.arv = "N/A";
+            this.cdtia = "N/A";
+            this.notticas = "N/A";
+            this.sa = "N/A";
+            this.messageAmplitude = double.NaN;
+            this.receiverID = double.NaN;
 
 
 
@@ -618,10 +646,10 @@ namespace ClassLibrary
                     byte[] dataItem = GetVariableLengthItem();
                     SetAirSpeed(dataItem);
                 }
-                if (boolFSPEC[45] == true) //True Air Speed
+                if (boolFSPEC[45] == true) //message amplitude
                 {
-                    byte[] dataItem = GetFixedLengthItem(2);
-                    SetTrueAirSpeed(dataItem);
+                    byte[] dataItem = GetFixedLengthItem(1);
+                    SetMessageAmplitude(dataItem);
                 }
                 if (boolFSPEC[44] == true) //TargetAdress
                 {
@@ -635,8 +663,8 @@ namespace ClassLibrary
                 }
                 if (boolFSPEC[42] == true) //Time of message reception Position High Precision
                 {
-                    byte[] dataItem = GetFixedLengthItem(4);
-                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                    byte[] dataItem = GetFixedLengthItem(1);
+                    SetReceiverID(dataItem);
                 }
                 if (boolFSPEC[41] == true) //Time of message reception Velocity
                 {
@@ -686,10 +714,10 @@ namespace ClassLibrary
         //}
     }
 
-        private void SetAircraftOperationalStatus(byte[] dataItem)
-        {
-            throw new NotImplementedException();
-        }
+        //private void SetAircraftOperationalStatus(byte[] dataItem)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void SetDataSourceIdentifier(byte[] dataItem)
         {
@@ -1493,12 +1521,12 @@ namespace ClassLibrary
         private void SetSelectedAltitude(byte[] dataItem)
         {
             double resolution = 25;//ft
-            int valueSAS=dataItem[1] >> 7;
+            int valueSAS = dataItem[1] >> 7;
             int sourceMask = 96;
             int valueSource = (dataItem[1] & sourceMask) >> 5;
             byte secondbyte = (byte)(dataItem[1] & 31);
-            byte[] altitude = {dataItem[0], secondbyte};
-            this.selectedAltitude=ConvertTwosComplementGeneralByteToDouble(altitude, 13,resolution);
+            byte[] altitude = { dataItem[0], secondbyte };
+            this.selectedAltitude = ConvertTwosComplementGeneralByteToDouble(altitude, 13, resolution);
 
             switch (valueSAS)
             {
@@ -1509,7 +1537,7 @@ namespace ClassLibrary
                     this.sas = "Source information provided";
                     break;
             }
-            switch(valueSource)
+            switch (valueSource)
             {
                 case 0:
                     this.source = "Unknown";
@@ -1549,7 +1577,125 @@ namespace ClassLibrary
                 this.serviceManagement = service;
             
         }
-        
+        private void SetAircraftOperationalStatus(byte[] dataItem)
+        {
+
+
+            byte TCMask = 96;
+            byte TSMask = 16;
+            byte ARVMask = 8;
+            byte CDTIAMask = 4;
+            byte notTICASMask = 2;
+            byte SAMask = 1;
+
+            int RA = dataItem[0] >> 7;
+            int TC = (dataItem[0] & TCMask) >> 5;
+            int TS = (dataItem[0] & TSMask) >> 4;
+            int ARV = (dataItem[0] & ARVMask) >> 3;
+            int CDTIA = (dataItem[0] & CDTIAMask) >> 2;
+            int notTICAS = (dataItem[0] & notTICASMask) >> 1;
+            int SA = (dataItem[0] & SAMask);
+
+            switch (RA)
+            {
+                case 0:
+                    this.ra = "TCAS II or ACAS RA not active";
+                    break;
+                case 1:
+                    this.ra = "TCAS RA active";
+                    break;
+
+
+            }
+            switch (TC)
+            {
+                case 0:
+                    this.tc = "no capability for Trajectory Change Reports ";
+                    break;
+                case 1:
+                    this.tc = "support for TC+0 reports only ";
+                    break;
+                case 2:
+                    this.tc = "support for multiple TC reports";
+                    break;
+                case 3:
+                    this.tc = "reserved";
+                    break;
+
+
+            }
+
+            switch (TS)
+            {
+                case 0:
+                    this.ts = "no capability to support Target State Report";
+                    break;
+                case 1:
+                    this.ts = "capable of supporting target State Reports ";
+                    break;
+
+
+            }
+            switch (ARV)
+            {
+                case 0:
+                    this.arv = "no capability to generate ARV-reports";
+                    break;
+                case 1:
+                    this.arv = "capable of generate ARV-reports  ";
+                    break;
+
+
+            }
+            switch (CDTIA)
+            {
+                case 0:
+                    this.cdtia = "CDTI not operationa";
+                    break;
+                case 1:
+                    this.cdtia = "CDTI operational";
+                    break;
+
+
+            }
+            switch (notTICAS)
+            {
+                case 0:
+                    this.notticas = "TCAS operational ";
+                    break;
+                case 1:
+                    this.notticas = "TCAS not operational";
+                    break;
+
+
+            }
+            switch (SA)
+            {
+                case 0:
+                    this.sa = "Antenna Diversity ";
+                    break;
+                case 1:
+                    this.sa = "Single Antenna only ";
+                    break;
+
+
+            }
+
+        }
+        private void SetMessageAmplitude(byte[] dataItem)
+        {
+            double resolution = 1;//dBm
+            this.messageAmplitude = ConvertTwosComplementByteToDouble(dataItem) * resolution;
+            
+        }
+       
+        private void SetReceiverID(byte[] dataItem)
+        {
+            double resolution = 1;//sec
+            this.receiverID = ComputeBytes(dataItem, resolution);
+        }
+       
+
         private double ComputeBytes(byte[] dataItem, double resolution)
         {
             double value = 0;
