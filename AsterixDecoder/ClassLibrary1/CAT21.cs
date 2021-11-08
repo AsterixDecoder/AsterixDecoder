@@ -576,23 +576,23 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetEmitterCategory(dataItem);
                 }
-                if (boolFSPEC[37] == true) //
+                if (boolFSPEC[37] == true) //Muy largo queda pendiente
                 {
                     byte[] dataItem = GetVariableLengthItem();
                     SetMetInformation(dataItem);
                 }
 
-                if (boolFSPEC[36] == true) //
+                if (boolFSPEC[36] == true) //Selected Altitude
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetSelectedAltitude(dataItem);
                 }
-                if (boolFSPEC[35] == true) //
+                if (boolFSPEC[35] == true) //Ulises pendiente
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetFinalStateSelectedAltitude(dataItem);
                 }
-                if (boolFSPEC[34] == true) //
+                if (boolFSPEC[34] == true) //Muy largo queda pendiente
                 {
                     byte[] dataItem = GetVariableLengthItem();
                     SetTrajectoryIntent(dataItem);
@@ -606,84 +606,89 @@ namespace ClassLibrary
             }
 
 
-            //if (FSPEC.Length >= 6)
-            //{
-            //    if (boolFSPEC[15] == true) //Time of Applicability for Velocity
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfApplicabilityVelocity(dataItem);
-            //    }
-            //    if (boolFSPEC[14] == true) //Air Speed
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(2);
-            //        SetAirSpeed(dataItem);
-            //    }
-            //    if (boolFSPEC[13] == true) //True Air Speed
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(2);
-            //        SetTrueAirSpeed(dataItem);
-            //    }
-            //    if (boolFSPEC[12] == true) //TargetAdress
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTargetAdress(dataItem);
-            //    }
-            //    if (boolFSPEC[11] == true) //Time of message reception Position
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfMessageReceptionPosition(dataItem);
-            //    }
-            //    if (boolFSPEC[10] == true) //Time of message reception Position High Precision
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(4);
-            //        SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
-            //    }
-            //    if (boolFSPEC[9] == true) //Time of message reception Velocity
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfMessageReceptionVelocity(dataItem);
+            if (FSPEC.Length >= 6)
+            {
+                if (boolFSPEC[47] == true) //Aircraft Operational Status
+                {
+                    byte[] dataItem = GetFixedLengthItem(1);
+                    SetAircraftOperationalStatus(dataItem);
+                }
+                if (boolFSPEC[46] == true) //Surface Capabilities
+                {
+                    byte[] dataItem = GetVariableLengthItem();
+                    SetAirSpeed(dataItem);
+                }
+                if (boolFSPEC[45] == true) //True Air Speed
+                {
+                    byte[] dataItem = GetFixedLengthItem(2);
+                    SetTrueAirSpeed(dataItem);
+                }
+                if (boolFSPEC[44] == true) //TargetAdress
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTargetAdress(dataItem);
+                }
+                if (boolFSPEC[43] == true) //Time of message reception Position
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionPosition(dataItem);
+                }
+                if (boolFSPEC[42] == true) //Time of message reception Position High Precision
+                {
+                    byte[] dataItem = GetFixedLengthItem(4);
+                    SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+                }
+                if (boolFSPEC[41] == true) //Time of message reception Velocity
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetTimeOfMessageReceptionVelocity(dataItem);
 
-            //    }
-            //}
-            //if (FSPEC.Length >= 7)
-            //{
-            //    if (boolFSPEC[15] == true) //Time of Applicability for Velocity
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfApplicabilityVelocity(dataItem);
-            //    }
-            //    if (boolFSPEC[14] == true) //Air Speed
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(2);
-            //        SetAirSpeed(dataItem);
-            //    }
-            //    if (boolFSPEC[13] == true) //True Air Speed
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(2);
-            //        SetTrueAirSpeed(dataItem);
-            //    }
-            //    if (boolFSPEC[12] == true) //TargetAdress
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTargetAdress(dataItem);
-            //    }
-            //    if (boolFSPEC[11] == true) //Time of message reception Position
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfMessageReceptionPosition(dataItem);
-            //    }
-            //    if (boolFSPEC[10] == true) //Time of message reception Position High Precision
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(4);
-            //        SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
-            //    }
-            //    if (boolFSPEC[9] == true) //Time of message reception Velocity
-            //    {
-            //        byte[] dataItem = GetFixedLengthItem(3);
-            //        SetTimeOfMessageReceptionVelocity(dataItem);
+                }
+            }
+        //if (FSPEC.Length >= 7)
+        //{
+        //    if (boolFSPEC[15] == true) //Time of Applicability for Velocity
+        //    {
+        //        byte[] dataItem = GetFixedLengthItem(3);
+        //        SetTimeOfApplicabilityVelocity(dataItem);
+        //    }
+        //    if (boolFSPEC[14] == true) //Air Speed
+        //    {
+        //        byte[] dataItem = GetFixedLengthItem(2);
+        //        SetAirSpeed(dataItem);
+        //    }
+        //    if (boolFSPEC[13] == true) //True Air Speed
+        //    {
+        //        byte[] dataItem = GetFixedLengthItem(2);
+        //        SetTrueAirSpeed(dataItem);
+        //    }
+        //    if (boolFSPEC[12] == true) //TargetAdress
+        //    {
+        //        byte[] dataItem = GetFixedLengthItem(3);
+        //        SetTargetAdress(dataItem);
+        //    }
+        //    if (boolFSPEC[11] == true) //Time of message reception Position
+        //    {
+        //        byte[] dataItem = GetFixedLengthItem(3);
+        //        SetTimeOfMessageReceptionPosition(dataItem);
+        //    }
+        //    if (boolFSPEC[10] == true) //Time of message reception Position High Precision
+        //    {
+        //        byte[] dataItem = GetFixedLengthItem(4);
+        //        SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
+        //    }
+        //    if (boolFSPEC[9] == true) //Time of message reception Velocity
+        //    {
+        //        byte[] dataItem = GetFixedLengthItem(3);
+        //        SetTimeOfMessageReceptionVelocity(dataItem);
 
-            //    }
-            //}
+        //    }
+        //}
+    }
+
+        private void SetAircraftOperationalStatus(byte[] dataItem)
+        {
+            throw new NotImplementedException();
         }
 
         public void SetDataSourceIdentifier(byte[] dataItem)
@@ -1487,11 +1492,15 @@ namespace ClassLibrary
         }
         private void SetSelectedAltitude(byte[] dataItem)
         {
+            double resolution = 25;//ft
             int valueSAS=dataItem[1] >> 7;
             int sourceMask = 96;
             int valueSource = (dataItem[1] & sourceMask) >> 5;
+            byte secondbyte = (byte)(dataItem[1] & 31);
+            byte[] altitude = {dataItem[0], secondbyte};
+            this.selectedAltitude=ConvertTwosComplementGeneralByteToDouble(altitude, 13,resolution);
 
-            switch(valueSAS)
+            switch (valueSAS)
             {
                 case 0:
                     this.sas = "No source information provided";
@@ -1541,13 +1550,6 @@ namespace ClassLibrary
             
         }
         
-
-
-
-
-
-
-
         private double ComputeBytes(byte[] dataItem, double resolution)
         {
             double value = 0;
@@ -1580,6 +1582,24 @@ namespace ClassLibrary
                 Console.WriteLine("negative"+ValueDec);
             }
             return ValueDec;
+        }
+
+        private double ConvertTwosComplementGeneralByteToDouble(byte[] ByteVect, int bits, double res)
+        {
+            int length= ByteVect.Length;
+            int exp = Convert.ToInt32((bits - (length - 1) * 8) - 1);
+            int mask = Convert.ToInt32(Math.Pow(2, exp));
+            double ValueDec;
+            if ((ByteVect[length] & mask) == 0)
+            {
+                ValueDec = ComputeBytes(ByteVect, 1);
+            }
+            else
+            {
+                double value=ComputeBytes(ByteVect, 1);
+                ValueDec = (Math.Pow(2, bits) - value) * -1;
+            }
+            return ValueDec*res;
         }
     }
 
