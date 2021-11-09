@@ -98,13 +98,20 @@ namespace ClassLibrary
         string targetIdentification;
         string emitterCategory;
         string metInformation;
+        double windspeed;
+        double turbulence;
+        double temperature;
+        double windDirection;
         double serviceManagement;
         string trajectoryIntent;
         //SelectedAltitude
         string sas;
         string source;
         double selectedAltitude;
-
+        double finalStateSelectedAltitude;
+        string mv;
+        string ah;
+        string am;
         string aircraftOperationalStatus;
        
         // aircraftOperationalStatus  parameters
@@ -240,9 +247,19 @@ namespace ClassLibrary
             this.targetIdentification = "N/A";
             this.emitterCategory = "N/A";
             this.metInformation = "N/A";
+            //metinformation parameters
+            this.windspeed = double.NaN;
+            this.turbulence=double.NaN;
+            this.temperature=double.NaN;
+            this.windDirection=double.NaN;
             this.sas = "N/A";
             this.source = "N/A";
             this.selectedAltitude = double.NaN;
+            this.finalStateSelectedAltitude = double.NaN;
+            ///finalaltittude parameteres
+            this.mv= "N/A";
+            this.ah= "N/A";
+            this.am= "N/A";
             this.serviceManagement = double.NaN;
             this.trajectoryIntent = "N/A";
 
@@ -1517,6 +1534,59 @@ namespace ClassLibrary
         private void SetMetInformation(byte[] dataItem)
         {
             //Coger funcion parecida y adaptarla
+            /////lets go 
+            ///
+
+         
+            byte WDMask =64;
+            byte TMPMask = 32;
+            byte TRBMAsk = 16;
+
+            
+
+            int ws = dataItem[0] >> 7;
+            int wd = (dataItem[0] & WDMask) >> 6;
+            int tmp = (dataItem[0] & TMPMask) >> 5;
+            int trb = (dataItem[0] & TRBMAsk) >> 4;
+
+
+            int index = 0;
+            if (ws == 1)
+            {
+                
+                double resolucion = 1;
+               
+                byte[] windspeedbyte = { dataItem[index+1], dataItem[index+2] };
+                this.windspeed = ComputeBytes(windspeedbyte, resolucion);
+                index = index + 2;
+            }
+
+
+            if (wd == 1)
+            {
+                index = index + 1;
+                double resolucion = 1;
+
+                byte[] windsDirectionbyte = { dataItem[index+1], dataItem[index + 2] };
+                this.windDirection = ComputeBytes(windsDirectionbyte, resolucion);
+            }
+            if (tmp == 1)
+            {
+                index = index + 1;
+                double resolution = 0.25;
+
+                byte[] windsDirectionbyte = { dataItem[index + 1], dataItem[index + 2] };
+                this.temperature = ConvertTwosComplementGeneralByteToDouble(windsDirectionbyte, 16, resolution);
+            }
+            if (trb == 1)
+            {
+                index = index + 1;
+                double resolution = 1;
+               
+                byte[] turbulencebyte = { (dataItem[index + 1]) } ;
+               this.turbulence = ComputeBytes(turbulencebyte, resolution);
+            }
+          
         }
         private void SetSelectedAltitude(byte[] dataItem)
         {
@@ -1557,6 +1627,48 @@ namespace ClassLibrary
 
         private void SetFinalStateSelectedAltitude(byte[] dataItem)
         {
+
+
+
+            byte AHMAsk =64;
+            byte AMMask = 32;
+
+            
+            int Valuemv = dataItem[1] >> 7;
+            int Valueah = (dataItem[1] & AHMAsk) >> 6;
+            int Valueam = (dataItem[1] & AMMask) >> 5;
+            switch (Valuemv)
+            {
+                case 0:
+                    this.mv = "Not active or unknown";
+                    break;
+                case 1:
+                    this.mv = "Active";
+                    break;
+            }
+            switch (Valueah)
+            {
+                case 0:
+                    this.ah = "Not active or unknown";
+                    break;
+                case 1:
+                    this.ah = "Active";
+                    break;
+            }
+            switch (Valueam)
+            {
+                case 0:
+                    this.am = "Not active or unknown";
+                    break;
+                case 1:
+                    this.am = "Active";
+                    break;
+            }
+
+            double resolution = 25;//ft
+            byte secondbyte = (byte)(dataItem[1] & 31);
+            byte[] altitude = { dataItem[0], secondbyte };
+            this.finalStateSelectedAltitude = ConvertTwosComplementGeneralByteToDouble(altitude, 13, resolution);
 
         }
         private void SetTrajectoryIntent(byte[] dataItem)
