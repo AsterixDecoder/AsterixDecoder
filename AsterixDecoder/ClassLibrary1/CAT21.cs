@@ -122,10 +122,21 @@ namespace ClassLibrary
         string arv;
         string cdtia;
         string notticas;
-        string sa; 
+        string sa;
 
 
 
+        double surfaceCapabilitiesandCharacteristics;
+        //surfacecapaparameters
+
+
+        string poa;
+        string cdtis;
+        string b2low;
+        string ras;
+        string ident;
+        string widthv1;
+        string lengthv1;
 
         double messageAmplitude;
         double receiverID;
@@ -140,7 +151,6 @@ namespace ClassLibrary
         int[] FinalStateSelectedAltitude = new int[3];
         int[] TrajectoryIntent = new int[3];
         int[] ServiceManagement = new int[3];
-
         int[] AircraftOperationalStatus = new int[3];
         int[] SurfaceCapabilitiesandCharacteristics = new int[3];
         int[] MessageAmplitude = new int[3];
@@ -272,6 +282,14 @@ namespace ClassLibrary
             this.cdtia = "N/A";
             this.notticas = "N/A";
             this.sa = "N/A";
+            this.surfaceCapabilitiesandCharacteristics = double.NaN;
+            this.poa = "N/A";
+            this.cdtis= "N/A";
+            this.b2low= "N/A";
+            this.ras= "N/A";
+            this.ident= "N/A";
+            this.widthv1="N/A";
+            this.lengthv1="N/A";
             this.messageAmplitude = double.NaN;
             this.receiverID = double.NaN;
 
@@ -661,7 +679,7 @@ namespace ClassLibrary
                 if (boolFSPEC[46] == true) //Surface Capabilities
                 {
                     byte[] dataItem = GetVariableLengthItem();
-                    SetAirSpeed(dataItem);
+                    SetsurfaceCapabilitiesandCharacteristics(dataItem);
                 }
                 if (boolFSPEC[45] == true) //message amplitude
                 {
@@ -1794,6 +1812,134 @@ namespace ClassLibrary
             }
 
         }
+        private void SetsurfaceCapabilitiesandCharacteristics(byte[] dataItem)
+        {
+            byte POAMask = 32;
+            byte CDTISMask = 16;
+            byte B2lowMask = 8;
+            byte RASMask = 4;
+            byte IDENTMask = 2;
+
+
+
+            int poavalue = (dataItem[0] & POAMask) >> 5;
+            int cdtisvalue = (dataItem[0] & CDTISMask) >> 4;
+            int b2lowvalue = (dataItem[0] & B2lowMask) >> 3;
+            int rasvalue = (dataItem[0] & RASMask) >> 2;
+            int identvalue = (dataItem[0] & IDENTMask) >> 1;
+
+
+            switch (poavalue)
+            {
+                case 0:
+                    this.poa = "Position transmitted is not ADS-B position reference point";
+                    break;
+                case 1:
+                    this.poa = "Position transmitted is the ADS-B position reference point";
+                    break;
+            }
+            switch (cdtisvalue)
+            {
+                case 0:
+                    this.cdtis = "CDTI not operational";
+                    break;
+                case 1:
+                    this.cdtis = "CDTI operational ";
+                    break;
+            }
+            switch (cdtisvalue)
+            {
+                case 0:
+                    this.b2low = "≥ 70 Watts ";
+                    break;
+                case 1:
+                    this.b2low = "< 70 Watts ";
+                    break;
+            }
+            switch (cdtisvalue)
+            {
+                case 0:
+                    this.ras = "Aircraft not receiving ATC-services ";
+                    break;
+                case 1:
+                    this.ras = "Aircraft receiving ATC services";
+                    break;
+            }
+            switch (cdtisvalue)
+            {
+                case 0:
+                    this.ident = "IDENT switch not active";
+                    break;
+                case 1:
+                    this.ident = "IDENT switch active ";
+                    break;
+            }
+
+            if (dataItem.Length >= 2)
+            {
+                byte LplusWMask = 15;
+
+
+
+                
+                byte[] LplusWValue = { (byte)(dataItem[1] & LplusWMask) };
+                double LplusW  = ComputeBytes(LplusWValue, 1);
+
+                switch (LplusW)
+                {
+                    case 0:
+                        this.widthv1 = "W < 11.5";
+                        this.lengthv1 = "L < 15";
+                        break;
+                    case 1:
+                        this.widthv1 = "W < 23";
+                        this.lengthv1 = "L < 15";
+                        break;
+                    case 2:
+                        this.widthv1 = "W < 28.5";
+                        this.lengthv1 = "L < 25 ";
+                        break;
+                    case 3:
+                        this.widthv1 = "W < 34";
+                        this.lengthv1 = "L < 25 ";
+                        break;
+                    case 4:
+                        this.widthv1 = "W < 33";
+                        this.lengthv1 = "L < 35 ";
+                        break;
+                    case 5:
+                        this.widthv1 = "W < 38";
+                        this.lengthv1 = "L < 35 ";
+                        break;
+                    case 6:
+                        this.widthv1 = "W < 39.5";
+                        this.lengthv1 = "L < 45 ";
+                        break;
+                    case 7:
+                        this.widthv1 = "W < 45";
+                        this.lengthv1 = "L < 45 ";
+                        break;
+                    case 8:
+                        this.widthv1 = "W <45";
+                        this.lengthv1 = "L < 55 ";
+                        break;
+                    case 9:
+                        this.widthv1 = "W < 52";
+                        this.lengthv1 = "L < 55 ";
+                        break;
+                    case 10:
+                        this.widthv1 = "W <59.5";
+                        this.lengthv1 = "L < 65 ";
+                        break;
+                    case 11:
+                        this.widthv1 = "W < 67";
+                        this.lengthv1 = "L < 65 ";
+                        break;
+                }
+
+            }
+        }
+        
         private void SetMessageAmplitude(byte[] dataItem)
         {
             double resolution = 1;//dBm
