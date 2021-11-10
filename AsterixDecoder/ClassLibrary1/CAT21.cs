@@ -366,14 +366,55 @@ namespace ClassLibrary
         {
             return this.magneticHeading;
         }
+        public string GetTargetStatus()
+        {
+            return this.icf;
+        }
 
         public double GetBarometricVerticalRate()
         {
             return this.barometricVerticalRate;
         }
+        public double GetGeometricVerticalRate()
+        {
+            return this.geometricVerticalRate;
+        }
+        public string GetAirborneVector()
+        {
+            return this.reAirborneGroundVector;
+        }
+        public double GetTrackAngleRate()
+        {
+            return this.trackAngleRate;
+        }
         public TimeSpan GetTimeOfReportTransmission()
         {
             return this.timeOfReportTransmission;
+        }
+
+        public TimeSpan GetTimeOfApplicabilityPosition()
+        {
+            return this.timeofApplicabilityPosition;
+        }
+        public TimeSpan GetTimeOfApplicabilityVelocity()
+        {
+            return this.timeofApplicabilityVelocity;
+        }
+        public TimeSpan GetTimeOfMessagePosition()
+        {
+            return this.timeofMessageReceptionPosition;
+        }
+        public TimeSpan GetTimeOfMessagePositionHigh()
+        {
+            return this.timeofMessageReceptionPositionHighPrecision;
+        }
+        public TimeSpan GetTimeOfMessageVelocity()
+        {
+            return this.timeofMessageReceptionVelocity;
+        }
+        public TimeSpan GetTimeOfMessageVelocityHigh()
+        {
+            return this.timeofMessageReceptionVelocityHighPrecision;
         }
         public int GetServiceIdentification()
         {
@@ -391,7 +432,10 @@ namespace ClassLibrary
         {
             return this.targetIdentification;
         }
-
+        public int GetNucr()
+        {
+            return this.nucr;
+        }
         public int HexToDec(string hexValue)
         {
             int intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
@@ -629,7 +673,6 @@ namespace ClassLibrary
                 {
                     byte[] dataItem = GetFixedLengthItem(3);
                     SetTimeOfReportTransmission(dataItem);
-
                 }
             }
 
@@ -678,11 +721,11 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetFinalStateSelectedAltitude(dataItem);
                 }
-                //if (boolFSPEC[34] == true) //Trajectory Intent (Muy largo queda pendiente)
-                //{
-                //    byte[] dataItem = GetVariableLengthItem();
-                //    SetTrajectoryIntent(dataItem);
-                //}
+                if (boolFSPEC[34] == true) //Trajectory Intent 
+                {
+                    byte[] dataItem = GetVariableLengthItem();
+                    SetTrajectoryIntent(dataItem);
+                }
                 if (boolFSPEC[33] == true) //Service Management
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
@@ -690,7 +733,6 @@ namespace ClassLibrary
 
                 }
             }
-
 
             if (FSPEC.Length >= 6)
             {
@@ -709,16 +751,16 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetMessageAmplitude(dataItem);
                 }
-                //if (boolFSPEC[44] == true) //Mode S MB Data (No hay que hacerlo)
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(3);
-                //    SetModeSMBData(dataItem);
-                //}
-                //if (boolFSPEC[43] == true) //ACAS Resolution
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(7);
-                //    SetACASResolution(dataItem);
-                //}
+                if (boolFSPEC[44] == true) //Mode S MB Data (No hay que hacerlo)
+                {
+                    byte[] dataItem = GetFixedLengthItem(3);
+                    SetModeSMBData(dataItem);
+                }
+                if (boolFSPEC[43] == true) //ACAS Resolution
+                {
+                    byte[] dataItem = GetFixedLengthItem(7);
+                    SetACASResolution(dataItem);
+                }
                 if (boolFSPEC[42] == true) //Receiver ID
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
@@ -741,6 +783,16 @@ namespace ClassLibrary
                     byte[] dataItem = GetVariableLengthItem();
                 }
             }
+        }
+
+        private void SetACASResolution(byte[] dataItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SetModeSMBData(byte[] dataItem)
+        {
+            throw new NotImplementedException();
         }
 
         public void SetDataSourceIdentifier(byte[] dataItem)
@@ -1975,7 +2027,7 @@ namespace ClassLibrary
                 }
                 ValueDec = ComputeBytes(ByteVect, 1) ;
                 ValueDec = (ValueDec+1)*-1;
-                Console.WriteLine("negative"+ValueDec);
+                
             }
             return ValueDec;
         }

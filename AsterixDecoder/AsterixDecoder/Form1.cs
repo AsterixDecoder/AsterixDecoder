@@ -74,7 +74,7 @@ namespace AsterixDecoder
             //    //Console.WriteLine("Vuelo" + (j + 1) + " " + lista[j].GetLongitudeWGS84High());
 
             //}
-            dataGridView1.ColumnCount = 14;
+            dataGridView1.ColumnCount = 26;
             dataGridView1.Columns[0].Name = "Number";
             dataGridView1.Columns[1].Name = "Category";
             dataGridView1.Columns[2].Name = "SAC";
@@ -89,6 +89,20 @@ namespace AsterixDecoder
             dataGridView1.Columns[11].Name = "Air Speed";
             dataGridView1.Columns[12].Name = "True Airspeed";
             dataGridView1.Columns[13].Name = "Target Adress";
+            dataGridView1.Columns[14].Name = "Time of Applicability Position";
+            dataGridView1.Columns[15].Name = "Time of Applicability Velocity";
+            dataGridView1.Columns[16].Name = "Time of Message Reception Position";
+            dataGridView1.Columns[17].Name = "Time of Message Reception Position High Res";
+            dataGridView1.Columns[18].Name = "Time of Message Reception Velocity";
+            dataGridView1.Columns[19].Name = "Time of Message Reception Velocity High Res";
+            dataGridView1.Columns[20].Name = "Geometric Height";
+            dataGridView1.Columns[21].Name = "Quality Indicators";
+            dataGridView1.Columns[22].Name = "MOPS Version";
+            dataGridView1.Columns[23].Name = "Mode 3A Code";
+            dataGridView1.Columns[24].Name = "Roll Angle";
+            dataGridView1.Columns[25].Name = "Flight Level";
+
+
 
             for (int i=0;i<10;i++)
             {
@@ -105,7 +119,20 @@ namespace AsterixDecoder
                 string airspeed = Convert.ToString(cat21.GetAirspeed());
                 string trueairspeed = Convert.ToString(cat21.GetTrueAirspeed());
                 string targetaddress = Convert.ToString(cat21.GetTargetAddress());
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber," ", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress};
+                //TimeSpans
+                string tappposition = Convert.ToString(cat21.GetTimeOfApplicabilityPosition());
+                string tappvelocity = Convert.ToString(cat21.GetTimeOfApplicabilityVelocity());
+                string tmessageposition = Convert.ToString(cat21.GetTimeOfMessagePosition());
+                string tmessagepositionhigh = Convert.ToString(cat21.GetTimeOfMessagePositionHigh());
+                string tmessagevel = Convert.ToString(cat21.GetTimeOfMessageVelocity());
+                string tmessagevelhigh = Convert.ToString(cat21.GetTimeOfMessageVelocityHigh());
+                string geometricHeight = Convert.ToString(cat21.GetGeometricHeight());
+                string nucr = Convert.ToString(cat21.GetNucr());
+                string mopsversion = cat21.GetMOPSVersion();
+                string m3acode = cat21.GetMode3ACode();
+                string rollangle = Convert.ToString(cat21.GetRollAngle());
+                string flightlevel = Convert.ToString(cat21.GetFlightLevel());
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight, "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel};
                 dataGridView1.Rows.Add(row);
      
             }
