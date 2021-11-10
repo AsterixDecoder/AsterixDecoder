@@ -627,19 +627,19 @@ namespace ClassLibrary
           
 
 
-                if (FSPEC.Length >= 5)
+            if (FSPEC.Length >= 5)
             {
-                if (boolFSPEC[39] == true) //Target Identification
-                {
-                    byte[] dataItem = GetFixedLengthItem(6);
-                    SetTargetIdentification(dataItem);
-                }
+                //if (boolFSPEC[39] == true) //Target Identification
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(6);
+                //    SetTargetIdentification(dataItem);
+                //}
                 if (boolFSPEC[38] == true) //Emitter Category
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetEmitterCategory(dataItem);
                 }
-                if (boolFSPEC[37] == true) //Muy largo queda pendiente
+                if (boolFSPEC[37] == true) //Met Information (Revisar)
                 {
                     byte[] dataItem = GetVariableLengthItem();
                     SetMetInformation(dataItem);
@@ -650,16 +650,16 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetSelectedAltitude(dataItem);
                 }
-                if (boolFSPEC[35] == true) //Ulises pendiente
+                if (boolFSPEC[35] == true) //Final State Selected Altitude
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetFinalStateSelectedAltitude(dataItem);
                 }
-                if (boolFSPEC[34] == true) //Muy largo queda pendiente
-                {
-                    byte[] dataItem = GetVariableLengthItem();
-                    SetTrajectoryIntent(dataItem);
-                }
+                //if (boolFSPEC[34] == true) //Trajectory Intent (Muy largo queda pendiente)
+                //{
+                //    byte[] dataItem = GetVariableLengthItem();
+                //    SetTrajectoryIntent(dataItem);
+                //}
                 if (boolFSPEC[33] == true) //Service Management
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
@@ -681,32 +681,31 @@ namespace ClassLibrary
                     byte[] dataItem = GetVariableLengthItem();
                     SetsurfaceCapabilitiesandCharacteristics(dataItem);
                 }
-                if (boolFSPEC[45] == true) //message amplitude
+                if (boolFSPEC[45] == true) //Message amplitude
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetMessageAmplitude(dataItem);
                 }
-                if (boolFSPEC[44] == true) //TargetAdress
-                {
-                    byte[] dataItem = GetFixedLengthItem(3);
-                    SetTargetAdress(dataItem);
-                }
-                if (boolFSPEC[43] == true) //Time of message reception Position
-                {
-                    byte[] dataItem = GetFixedLengthItem(3);
-                    SetTimeOfMessageReceptionPosition(dataItem);
-                }
-                if (boolFSPEC[42] == true) //Time of message reception Position High Precision
+                //if (boolFSPEC[44] == true) //Mode S MB Data (No hay que hacerlo)
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(3);
+                //    SetModeSMBData(dataItem);
+                //}
+                //if (boolFSPEC[43] == true) //ACAS Resolution
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(7);
+                //    SetACASResolution(dataItem);
+                //}
+                if (boolFSPEC[42] == true) //Receiver ID
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetReceiverID(dataItem);
                 }
-                if (boolFSPEC[41] == true) //Time of message reception Velocity
-                {
-                    byte[] dataItem = GetFixedLengthItem(3);
-                    SetTimeOfMessageReceptionVelocity(dataItem);
-
-                }
+                //if (boolFSPEC[41] == true) //DataAges
+                //{
+                //    byte[] dataItem = GetFixedLengthItem(3);
+                //    SetTimeOfMessageReceptionVelocity(dataItem);
+                //}
             }
         //if (FSPEC.Length >= 7)
         //{
@@ -1376,6 +1375,7 @@ namespace ClassLibrary
         private void SetBarometricVerticalRate(byte[] dataItem)
         {
             double resolution = 6.25;//feet/min
+            int len = 15;
             byte mask = 127;
             int RE = ((dataItem[0]) >> 7);
             byte firstbyte = (byte)(dataItem[0] & mask);
@@ -1389,11 +1389,12 @@ namespace ClassLibrary
             {
                 this.reBVR = "Value in defined range";
             }
-            this.barometricVerticalRate = ConvertTwosComplementByteToDouble(barometric)*resolution;
+            this.barometricVerticalRate = ConvertTwosComplementGeneralByteToDouble(barometric,len,resolution);
         }
         private void SetGeometricVerticalRate(byte[] dataItem)
         {
             double resolution = 6.25;//feet/min
+            int len = 15;
             byte mask = 127;
             int RE = ((dataItem[0]) >> 7);
             byte firstbyte = (byte)(dataItem[0] & mask);
@@ -1407,7 +1408,7 @@ namespace ClassLibrary
             {
                 this.reGVR = "Value in defined range";
             }
-            this.geometricVerticalRate = ConvertTwosComplementByteToDouble(geometric) * resolution;
+            this.geometricVerticalRate = ConvertTwosComplementGeneralByteToDouble(geometric,len,resolution);
         }
         private void SetAirborneGroundVector(byte[] dataItem)
         {
@@ -1434,7 +1435,8 @@ namespace ClassLibrary
         private void SetTrackAngleRate(byte[] dataItem)
         {
             double resolution = 1.0 / 32.0;
-            this.trackAngleRate=ConvertTwosComplementByteToDouble(dataItem) * resolution;
+            int len = 10;
+            this.trackAngleRate=ConvertTwosComplementGeneralByteToDouble(dataItem,len,resolution);
         }
         private void SetTimeOfReportTransmission(byte[] dataItem)
         {
@@ -1450,7 +1452,7 @@ namespace ClassLibrary
         private void SetEmitterCategory(byte[] dataItem)
         {
            
-            int ECAT = dataItem[0]>>7;
+            int ECAT = dataItem[0];
 
 
             switch (ECAT)
@@ -1541,19 +1543,12 @@ namespace ClassLibrary
                     this.emitterCategory = "line obstacle  ";
                     break;
 
-               
-
-
             }
-
-
 
         }
         private void SetMetInformation(byte[] dataItem)
         {
-            //Coger funcion parecida y adaptarla
-            /////lets go 
-            ///
+            //Puede tener longitud variable pero no se indica
 
          
             byte WDMask =64;
@@ -1646,9 +1641,7 @@ namespace ClassLibrary
         private void SetFinalStateSelectedAltitude(byte[] dataItem)
         {
 
-
-
-            byte AHMAsk =64;
+            byte AHMAsk = 64;
             byte AMMask = 32;
 
             
@@ -1709,7 +1702,6 @@ namespace ClassLibrary
         }
         private void SetAircraftOperationalStatus(byte[] dataItem)
         {
-
 
             byte TCMask = 96;
             byte TSMask = 16;
@@ -1878,10 +1870,6 @@ namespace ClassLibrary
             if (dataItem.Length >= 2)
             {
                 byte LplusWMask = 15;
-
-
-
-                
                 byte[] LplusWValue = { (byte)(dataItem[1] & LplusWMask) };
                 double LplusW  = ComputeBytes(LplusWValue, 1);
 
@@ -1994,7 +1982,7 @@ namespace ClassLibrary
             int exp = Convert.ToInt32((bits - (length - 1) * 8) - 1);
             int mask = Convert.ToInt32(Math.Pow(2, exp));
             double ValueDec;
-            if ((ByteVect[length] & mask) == 0)
+            if ((ByteVect[length-1] & mask) == 0)
             {
                 ValueDec = ComputeBytes(ByteVect, 1);
             }
