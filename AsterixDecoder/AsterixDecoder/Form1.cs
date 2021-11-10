@@ -88,7 +88,7 @@ namespace AsterixDecoder
             dataGridView1.Columns[10].Name = "Position in WGS-84 Coordinates High Resolution";
             dataGridView1.Columns[11].Name = "Air Speed";
             dataGridView1.Columns[12].Name = "True Airspeed";
-            dataGridView1.Columns[13].Name = "Target Adress";
+            dataGridView1.Columns[13].Name = "MOPS Version";
 
             for (int i=0;i<10;i++)
             {
@@ -104,7 +104,7 @@ namespace AsterixDecoder
                 string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + " " + Convert.ToString(cat21.GetLongitudeWGS84High());
                 string airspeed = Convert.ToString(cat21.GetAirspeed());
                 string trueairspeed = Convert.ToString(cat21.GetTrueAirspeed());
-                string targetaddress = Convert.ToString(cat21.GetTargetAddress());
+                string targetaddress = cat21.GetMOPSVersion();
                 string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber," ", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress};
                 dataGridView1.Rows.Add(row);
      

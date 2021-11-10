@@ -379,6 +379,14 @@ namespace ClassLibrary
         {
             return this.serviceIdentification;
         }
+        public string GetMOPSVersion()
+        {
+            return this.mopsVN;
+        }
+        public int GetMode3ACode()
+        {
+            return this.m3ACode;
+        }
         public string GetTargetIdentification()
         {
             return this.targetIdentification;
@@ -481,7 +489,6 @@ namespace ClassLibrary
                 {
                     byte[] dataItem = GetVariableLengthItem();
                     SetTargetReport(dataItem);
-
                 }
                 if (boolFSPEC[5] == true) //Track Number
                 {

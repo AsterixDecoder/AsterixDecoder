@@ -58,11 +58,13 @@ namespace AsterixDecoder
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(999, 409);
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(1005, 325);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 32);
+            this.button1.Size = new System.Drawing.Size(96, 54);
             this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
+            this.button1.Text = "Load Data";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
