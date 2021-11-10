@@ -624,9 +624,6 @@ namespace ClassLibrary
                 }
             }
 
-          
-
-
             if (FSPEC.Length >= 5)
             {
                 //if (boolFSPEC[39] == true) //Target Identification
@@ -707,46 +704,18 @@ namespace ClassLibrary
                 //    SetTimeOfMessageReceptionVelocity(dataItem);
                 //}
             }
-        //if (FSPEC.Length >= 7)
-        //{
-        //    if (boolFSPEC[15] == true) //Time of Applicability for Velocity
-        //    {
-        //        byte[] dataItem = GetFixedLengthItem(3);
-        //        SetTimeOfApplicabilityVelocity(dataItem);
-        //    }
-        //    if (boolFSPEC[14] == true) //Air Speed
-        //    {
-        //        byte[] dataItem = GetFixedLengthItem(2);
-        //        SetAirSpeed(dataItem);
-        //    }
-        //    if (boolFSPEC[13] == true) //True Air Speed
-        //    {
-        //        byte[] dataItem = GetFixedLengthItem(2);
-        //        SetTrueAirSpeed(dataItem);
-        //    }
-        //    if (boolFSPEC[12] == true) //TargetAdress
-        //    {
-        //        byte[] dataItem = GetFixedLengthItem(3);
-        //        SetTargetAdress(dataItem);
-        //    }
-        //    if (boolFSPEC[11] == true) //Time of message reception Position
-        //    {
-        //        byte[] dataItem = GetFixedLengthItem(3);
-        //        SetTimeOfMessageReceptionPosition(dataItem);
-        //    }
-        //    if (boolFSPEC[10] == true) //Time of message reception Position High Precision
-        //    {
-        //        byte[] dataItem = GetFixedLengthItem(4);
-        //        SetTimeOfMessageReceptionPositionHighPrecision(dataItem);
-        //    }
-        //    if (boolFSPEC[9] == true) //Time of message reception Velocity
-        //    {
-        //        byte[] dataItem = GetFixedLengthItem(3);
-        //        SetTimeOfMessageReceptionVelocity(dataItem);
-
-        //    }
-        //}
-    }
+            if (FSPEC.Length >= 7)
+            {
+                if (boolFSPEC[50] == true) //Reserved Expansion Field
+                {
+                    byte[] dataItem = GetVariableLengthItem();   
+                }
+                if (boolFSPEC[49] == true) //Special Purpose Field
+                {
+                    byte[] dataItem = GetVariableLengthItem();
+                }
+            }
+        }
 
         //private void SetAircraftOperationalStatus(byte[] dataItem)
         //{
