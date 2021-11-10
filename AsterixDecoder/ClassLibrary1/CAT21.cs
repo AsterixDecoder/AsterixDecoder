@@ -75,7 +75,7 @@ namespace ClassLibrary
         int sda;
         int gva;
         int pic;
-        int m3ACode;
+        string m3ACode;
 
         double rollAngle;
         double flightLevel;
@@ -220,7 +220,7 @@ namespace ClassLibrary
             this.mopsVNS = "N/A";
             this.mopsVN = "N/A";
             this.mopsLTT = "N/A";
-            this.m3ACode = -1;
+            this.m3ACode = "N/A";
 
             this.rollAngle= double.NaN;
             this.flightLevel = double.NaN;
@@ -383,7 +383,7 @@ namespace ClassLibrary
         {
             return this.mopsVN;
         }
-        public int GetMode3ACode()
+        public string GetMode3ACode()
         {
             return this.m3ACode;
         }
@@ -572,12 +572,12 @@ namespace ClassLibrary
                     byte[] dataItem = GetVariableLengthItem();
                     SetQualityIndicators(dataItem);
                 }
-                if (boolFSPEC[19] == true) //MOPS Version
+                if (boolFSPEC[20] == true) //MOPS Version
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetMOPSVersion(dataItem);
                 }
-                if (boolFSPEC[20] == true) //Mode 3/A Code
+                if (boolFSPEC[19] == true) //Mode 3/A Code
                 {
                     byte[] dataItem = GetFixedLengthItem(2);
                     SetMode3ACode(dataItem);
@@ -1269,7 +1269,7 @@ namespace ClassLibrary
             int C = (int)((dataItem[1] & Cmask) >> 3);
             int D = (int)(dataItem[1] & Dmask);
 
-            this.m3ACode = A * 1000 + B * 100 + C * 10 + D;
+            this.m3ACode = Convert.ToString(A * 1000 + B * 100 + C * 10 + D);
         }
         private void SetRollAngle(byte[] dataItem)
         {
@@ -1452,7 +1452,7 @@ namespace ClassLibrary
                 {0,' '},{1,'A'},{2,'B'}, {3,'C'},{4,'D'},{5,'E'},{6,'F'},{7,'G'},{8,'H'},{9,'I'},{10,'J'},
                 {11,'K'},{12,'L'},{13,'M'},{14,'N'},{15,'O'},{16,'P'},{17,'Q'},{18,'R'},{19,'S'},{20,'T'},
                 {21,'U'},{22,'V'},{23,'W'},{24,'X'},{25,'Y'},{26,'Z'},{27,'*'},{28,'*'},{29,'*'},{30,'*'},{31,'*'},
-                {32,' '},{33,'*'},{34,'*'},{35,'*'},{36,'*'},{37,'*'},{38,'*'},{39,'*'},{40,'*'},{41,'*'},{42,'*'},
+                {32,' '},{33,'*'},{34,'*'},{35,'*'},{36,'*'},{37,'*'},{38,'*'},{39,'*'},{40,'*'},{41,'*'},{42,'*'},{43,'*'},
                 {44,'*'},{45,'*'},{46,'*'},{47,'*'},
                 {48,'0'},{49,'1'},{50,'2'},{51,'3'},{52,'4'},{53,'5'},{54,'6'},{55,'7'},{56,'8'},
                 {57,'9'},{58,'*'},{59,'*'},{60,'*'},{61,'*'},{62,'*'},{63,'*'},
