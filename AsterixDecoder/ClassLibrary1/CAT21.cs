@@ -115,9 +115,10 @@ namespace ClassLibrary
         string ah;
         string am;
         string aircraftOperationalStatus;
+
+
        
         // aircraftOperationalStatus  parameters
-      
         string ra;
         string tc;
         string ts;
@@ -130,8 +131,6 @@ namespace ClassLibrary
 
         double surfaceCapabilitiesandCharacteristics;
         //surfacecapaparameters
-
-
         string poa;
         string cdtis;
         string b2low;
@@ -142,27 +141,13 @@ namespace ClassLibrary
 
         double messageAmplitude;
         double receiverID;
-        //FinalStateSelectedAltitude
 
-        //int[] TimeofReportTransmission = new int[3];
 
-        // int[] TargetIdentification = new int[3];
-        //int[] EmitterCategory = new int[3];
-        int[] MetInformation = new int[3];
-        int[] SelectedAltitude = new int[3];
-        int[] FinalStateSelectedAltitude = new int[3];
-        int[] TrajectoryIntent = new int[3];
-        int[] ServiceManagement = new int[3];
-        int[] AircraftOperationalStatus = new int[3];
-        int[] SurfaceCapabilitiesandCharacteristics = new int[3];
-        int[] MessageAmplitude = new int[3];
         int[] ModeSMBData = new int[3];
         int[] ACASResolutionAdvisoryReport = new int[3];
-        int[] ReceiverID = new int[3];
         int[] DataAges = new int[3];
 
-        int[] ReservedExpansionField = new int[3];
-        int[] SpecialPurposeField = new int[3];
+
 
 
 
@@ -638,10 +623,27 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetEmitterCategory(dataItem);
                 }
-                if (boolFSPEC[37] == true) //Met Information (Revisar)
+                if (boolFSPEC[37] == true) //Met Information
                 {
-                    byte[] dataItem = GetVariableLengthItem();
-                    SetMetInformation(dataItem);
+                    byte[] dataItem1 = GetFixedLengthItem(1);
+                    byte WDMask = 64;
+                    byte TMPMask = 32;
+                    byte TRBMAsk = 16;
+                    int ws = dataItem1[0] >> 7;
+                    int wd = (dataItem1[0] & WDMask) >> 6;
+                    int tmp = (dataItem1[0] & TMPMask) >> 5;
+                    int trb = (dataItem1[0] & TRBMAsk) >> 4;
+                    int suma = ws*2 + wd*2 + tmp*2 + trb;
+                    byte[] dataItem2 = GetFixedLengthItem(suma);
+                    int n = 0;
+                    byte[] dataItem = new byte[suma+1];
+                    dataItem[0] = dataItem1[0];
+                    while (n < suma)
+                    {
+                         dataItem[n+1]=dataItem2[n];
+                    }
+                    
+                    SetMetInformation(dataItem,ws,wd,tmp,trb);
                 }
 
                 if (boolFSPEC[36] == true) //Selected Altitude
@@ -1538,58 +1540,40 @@ namespace ClassLibrary
             }
 
         }
-        private void SetMetInformation(byte[] dataItem)
+        private void SetMetInformation(byte[] dataItem, int ws, int wd, int tmp, int trb)
         {
-            //Puede tener longitud variable pero no se indica
-
-         
-            byte WDMask =64;
-            byte TMPMask = 32;
-            byte TRBMAsk = 16;
-
-            
-
-            int ws = dataItem[0] >> 7;
-            int wd = (dataItem[0] & WDMask) >> 6;
-            int tmp = (dataItem[0] & TMPMask) >> 5;
-            int trb = (dataItem[0] & TRBMAsk) >> 4;
-
 
             int index = 0;
             if (ws == 1)
             {
-                
                 double resolucion = 1;
                
                 byte[] windspeedbyte = { dataItem[index+1], dataItem[index+2] };
                 this.windspeed = ComputeBytes(windspeedbyte, resolucion);
                 index = index + 2;
             }
-
-
             if (wd == 1)
             {
-                index = index + 1;
                 double resolucion = 1;
 
                 byte[] windsDirectionbyte = { dataItem[index+1], dataItem[index + 2] };
                 this.windDirection = ComputeBytes(windsDirectionbyte, resolucion);
+                index = index + 2;
             }
             if (tmp == 1)
             {
-                index = index + 1;
                 double resolution = 0.25;
 
                 byte[] windsDirectionbyte = { dataItem[index + 1], dataItem[index + 2] };
                 this.temperature = ConvertTwosComplementGeneralByteToDouble(windsDirectionbyte, 16, resolution);
+                index = index + 2;
             }
             if (trb == 1)
             {
-                index = index + 1;
                 double resolution = 1;
                
                 byte[] turbulencebyte = { (dataItem[index + 1]) } ;
-               this.turbulence = ComputeBytes(turbulencebyte, resolution);
+                this.turbulence = ComputeBytes(turbulencebyte, resolution);
             }
           
         }
@@ -1681,28 +1665,6 @@ namespace ClassLibrary
 
             int tis = ((tisMask & dataItem[0]) >> 7);
             int tid = ((tidMask & dataItem[0]) >> 6);
-            switch (tis)
-            {
-                case 0:
-                    this.tiTis = "Absence of subfield #1";
-                    break;
-                case 1:
-                    this.tiTis = "Presence of subfield #1";
-                    break;
-
-
-            }
-            switch (tid)
-            {
-                case 0:
-                    this.tiTid = "Absence of subfield #2";
-                    break;
-                case 1:
-                    this.tiTid = "Presence of subfield #2";
-                    break;
-
-
-            }
         }
 
 
