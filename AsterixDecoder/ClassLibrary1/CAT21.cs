@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using ClassLibrary;
 
 namespace ClassLibrary
 {
@@ -11,6 +12,7 @@ namespace ClassLibrary
         byte[] arraystring;
         List<byte> data;
         int length;
+        public Tools tools;
 
         //Field Especification
         byte[] FSPEC;
@@ -626,11 +628,11 @@ namespace ClassLibrary
 
             if (FSPEC.Length >= 5)
             {
-                //if (boolFSPEC[39] == true) //Target Identification
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(6);
-                //    SetTargetIdentification(dataItem);
-                //}
+                if (boolFSPEC[39] == true) //Target Identification
+                {
+                    byte[] dataItem = GetFixedLengthItem(6);
+                    SetTargetIdentification(dataItem);
+                }
                 if (boolFSPEC[38] == true) //Emitter Category
                 {
                     byte[] dataItem = GetFixedLengthItem(1);
@@ -716,11 +718,6 @@ namespace ClassLibrary
                 }
             }
         }
-
-        //private void SetAircraftOperationalStatus(byte[] dataItem)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public void SetDataSourceIdentifier(byte[] dataItem)
         {
@@ -1416,7 +1413,33 @@ namespace ClassLibrary
 
         private void SetTargetIdentification(byte[] dataItem)
         {
-           //Mirar tabla e ir poniendo los valores
+            byte char1 = (byte)((dataItem[0] & 252) >> 2);
+            byte char2 = (byte)(((dataItem[1] & 240) >> 4) + ((dataItem[0] & 3) << 4));
+            byte char3 = (byte)(((dataItem[2] & 192) >> 6) + ((dataItem[1] & 15) << 2));
+            byte char4 = (byte)((dataItem[2] & 63));
+            byte char5 = (byte)((dataItem[3] & 252) >> 2);
+            byte char6 = (byte)(((dataItem[4] & 240) >> 4) + ((dataItem[3] & 3) << 4));
+            byte char7 = (byte)(((dataItem[5] & 192) >> 6) + ((dataItem[4] & 15) << 2));
+            byte char8 = (byte)((dataItem[5] & 63));
+            
+            byte[] chars = { char1, char2, char3, char4, char5, char6, char7, char8 };
+            Dictionary<byte, char> targetID = new Dictionary<byte, char>
+            {
+                {0,' '},{1,'A'},{2,'B'}, {3,'C'},{4,'D'},{5,'E'},{6,'F'},{7,'G'},{8,'H'},{9,'I'},{10,'J'},
+                {11,'K'},{12,'L'},{13,'M'},{14,'N'},{15,'O'},{16,'P'},{17,'Q'},{18,'R'},{19,'S'},{20,'T'},
+                {21,'U'},{22,'V'},{23,'W'},{24,'X'},{25,'Y'},{26,'Z'},
+                {32,' '},{48,'0'},{49,'1'},{50,'2'},{51,'3'},{52,'4'},{53,'5'},{54,'6'},{55,'7'},{56,'8'},
+                {57,'9'},
+            };
+            int i = 0;
+            string id = "";
+            while (i < chars.Length)
+            {
+                id += targetID[chars[i]];
+                i++;
+            }
+            this.targetIdentification = id;
+
         }
         private void SetEmitterCategory(byte[] dataItem)
         {
@@ -1653,7 +1676,33 @@ namespace ClassLibrary
         }
         private void SetTrajectoryIntent(byte[] dataItem)
         {
+            byte tisMask = 128;
+            byte tidMask = 64;
 
+            int tis = ((tisMask & dataItem[0]) >> 7);
+            int tid = ((tidMask & dataItem[0]) >> 6);
+            switch (tis)
+            {
+                case 0:
+                    this.tiTis = "Absence of subfield #1";
+                    break;
+                case 1:
+                    this.tiTis = "Presence of subfield #1";
+                    break;
+
+
+            }
+            switch (tid)
+            {
+                case 0:
+                    this.tiTid = "Absence of subfield #2";
+                    break;
+                case 1:
+                    this.tiTid = "Presence of subfield #2";
+                    break;
+
+
+            }
         }
 
 
