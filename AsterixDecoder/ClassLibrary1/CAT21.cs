@@ -12,6 +12,7 @@ namespace ClassLibrary
         byte[] arraystring;
         List<byte> data;
         int length;
+        int category;
 
         //Field Especification
         byte[] FSPEC;
@@ -156,6 +157,7 @@ namespace ClassLibrary
             this.arraystring = arraystring;
             this.length = -1;
             this.data = new List<byte>();
+            this.category = 21;
             SetData();
             this.systemIdentificationCode = -1;
             this.systemAreaCode = -1;
@@ -289,6 +291,10 @@ namespace ClassLibrary
             this.SetDataItems();
         }
 
+        public int GetCategory()
+        {
+            return this.category;
+        }
         public byte[] GetArray()
         {
             return this.arraystring;
@@ -365,8 +371,18 @@ namespace ClassLibrary
         {
             return this.barometricVerticalRate;
         }
-
-
+        public TimeSpan GetTimeOfReportTransmission()
+        {
+            return this.timeOfReportTransmission;
+        }
+        public int GetServiceIdentification()
+        {
+            return this.serviceIdentification;
+        }
+        public string GetTargetIdentification()
+        {
+            return this.targetIdentification;
+        }
 
         public int HexToDec(string hexValue)
         {
