@@ -464,6 +464,49 @@ namespace ClassLibrary
         {
             return this.trajectoryIntent;
         }
+        public double GetReceiverID()
+        {
+            return this.receiverID;
+        }
+        public double GetMessageAmplitude()
+        {
+            return this.messageAmplitude;
+        }
+
+        public string GetModeSMBData()
+        {
+            return this.modeSMbData;
+        }
+        public string GetAcasResolution()
+        {
+            return this.acasResolution;
+        }
+        public string[] GetOperationalStatus()
+        {
+            string[] operationalstatus = new string[7];
+            operationalstatus[0] = this.ra;
+            operationalstatus[1] = this.tc;
+            operationalstatus[2] = this.ts;
+            operationalstatus[3] = this.arv;
+            operationalstatus[4] = this.cdtia;
+            operationalstatus[5] = this.notticas;
+            operationalstatus[6] = this.sa;
+            return operationalstatus;
+        }
+
+        public string[] GetSurfaceCapabilities()
+        {
+            string[] data = new string[7];
+            data[0] = this.poa;
+            data[1] = this.cdtis;
+            data[2] = this.b2low;
+            data[3] = this.ras;
+            data[4] = this.ident;
+            data[5] = this.lengthv1;
+            data[6] = this.widthv1;
+
+            return data;
+        }
         public int HexToDec(string hexValue)
         {
             int intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);

@@ -50,7 +50,7 @@ namespace AsterixDecoder
             //    //Console.WriteLine("Vuelo" + (j + 1) + " " + lista[j].GetLongitudeWGS84High());
 
             //}
-            dataGridView1.ColumnCount = 38;
+            dataGridView1.ColumnCount = 45;
             dataGridView1.Columns[0].Name = "Number";
             dataGridView1.Columns[1].Name = "Category";
             dataGridView1.Columns[2].Name = "SAC";
@@ -89,6 +89,14 @@ namespace AsterixDecoder
             dataGridView1.Columns[35].Name = "Final State Selected Altitude";
             dataGridView1.Columns[36].Name = "Trajectory Intent";
             dataGridView1.Columns[37].Name = "Service Management";
+            dataGridView1.Columns[38].Name = "Aircraft Operational Status";
+            dataGridView1.Columns[39].Name = "Surface Capabilities and Characteristics";
+            dataGridView1.Columns[40].Name = "Message Amplitude";
+            dataGridView1.Columns[41].Name = "Mode S MB Data";
+            dataGridView1.Columns[42].Name = "ACAS Resolution";
+            dataGridView1.Columns[43].Name = "Receiver ID";
+            dataGridView1.Columns[44].Name = "Data Ages";
+
 
 
 
@@ -102,8 +110,8 @@ namespace AsterixDecoder
                 string trackNumber = Convert.ToString(cat21.GetTrackNumber());
                 string serviceID = Convert.ToString(cat21.GetServiceIdentification());
                 string timeofreport = Convert.ToString(cat21.GetTimeOfReportTransmission());
-                string position= Convert.ToString(cat21.GetLatitudeWGS84())+" "+ Convert.ToString(cat21.GetLongitudeWGS84());
-                string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + " " + Convert.ToString(cat21.GetLongitudeWGS84High());
+                string position= Convert.ToString(cat21.GetLatitudeWGS84())+"/n" + Convert.ToString(cat21.GetLongitudeWGS84());
+                string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + "/n" + Convert.ToString(cat21.GetLongitudeWGS84High());
                 string airspeed = Convert.ToString(cat21.GetAirspeed());
                 string trueairspeed = Convert.ToString(cat21.GetTrueAirspeed());
                 string targetaddress = Convert.ToString(cat21.GetTargetAddress());
@@ -132,7 +140,16 @@ namespace AsterixDecoder
                 string finalselAltitude = Convert.ToString(cat21.GetFinalStateSelectedAltitude());
                 string trajectoryintent = cat21.GetTrajectoryIntent();
                 string servicemanagement = Convert.ToString(cat21.GetServiceManagement());
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight +" ft", "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel+ " FL", magneticheading, targetstatus,barometricrate + " ft/min",geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude +" ft", finalselAltitude, trajectoryintent,servicemanagement};
+                string[] opstatusData = cat21.GetOperationalStatus();
+                string opstatus = opstatusData[0] + Environment.NewLine + opstatusData[1] + Environment.NewLine + opstatusData[2] + Environment.NewLine + opstatusData[3] + Environment.NewLine + opstatusData[4] + Environment.NewLine + opstatusData[5] + Environment.NewLine + opstatusData[6];
+                string[] surfaceData = cat21.GetSurfaceCapabilities();
+                string surface = surfaceData[0] + Environment.NewLine + surfaceData[1] + Environment.NewLine + surfaceData[2] + Environment.NewLine + surfaceData[3] + Environment.NewLine + surfaceData[4] + Environment.NewLine + surfaceData[5] + Environment.NewLine + surfaceData[6];
+                string messageAmplitude = Convert.ToString(cat21.GetMessageAmplitude());
+                string modeSMBData = cat21.GetModeSMBData();
+                string acasResolution = cat21.GetAcasResolution();
+                string receiverID = Convert.ToString(cat21.GetReceiverID());
+                //string dataAges = cat21.GetDataAges();
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight +" ft", "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel+ " FL", magneticheading, targetstatus,barometricrate + " ft/min",geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude +" ft", finalselAltitude, trajectoryintent,servicemanagement,opstatus,surface,messageAmplitude,modeSMBData,acasResolution,receiverID,"Data Ages"};
                 dataGridView1.Rows.Add(row);
      
             }
