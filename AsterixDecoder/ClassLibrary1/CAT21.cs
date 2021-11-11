@@ -117,10 +117,8 @@ namespace ClassLibrary
         string mv;
         string ah;
         string am;
+
         string aircraftOperationalStatus;
-
-
-       
         // aircraftOperationalStatus  parameters
         string ra;
         string tc;
@@ -145,10 +143,10 @@ namespace ClassLibrary
         double messageAmplitude;
         double receiverID;
 
+        string acasResolution;
+        string modeSMbData;
 
-        int[] ModeSMBData = new int[3];
-        int[] ACASResolutionAdvisoryReport = new int[3];
-        int[] DataAges = new int[3];
+
 
 
 
@@ -282,6 +280,8 @@ namespace ClassLibrary
             this.widthv1="N/A";
             this.lengthv1="N/A";
             this.messageAmplitude = double.NaN;
+            this.modeSMbData = "N/A";
+            this.acasResolution = "N/A";
             this.receiverID = double.NaN;
 
 
@@ -455,6 +455,14 @@ namespace ClassLibrary
         public double GetFinalStateSelectedAltitude()
         {
             return this.finalStateSelectedAltitude;
+        }
+        public double GetServiceManagement()
+        {
+            return this.serviceManagement;
+        }
+        public string GetTrajectoryIntent()
+        {
+            return this.trajectoryIntent;
         }
         public int HexToDec(string hexValue)
         {

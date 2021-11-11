@@ -50,7 +50,7 @@ namespace AsterixDecoder
             //    //Console.WriteLine("Vuelo" + (j + 1) + " " + lista[j].GetLongitudeWGS84High());
 
             //}
-            dataGridView1.ColumnCount = 36;
+            dataGridView1.ColumnCount = 38;
             dataGridView1.Columns[0].Name = "Number";
             dataGridView1.Columns[1].Name = "Category";
             dataGridView1.Columns[2].Name = "SAC";
@@ -87,6 +87,8 @@ namespace AsterixDecoder
             dataGridView1.Columns[33].Name = "Met Information";
             dataGridView1.Columns[34].Name = "Selected Altitude";
             dataGridView1.Columns[35].Name = "Final State Selected Altitude";
+            dataGridView1.Columns[36].Name = "Trajectory Intent";
+            dataGridView1.Columns[37].Name = "Service Management";
 
 
 
@@ -128,7 +130,9 @@ namespace AsterixDecoder
                 string[] meteo = cat21.GetMetInformation();
                 string selectedAltitude = Convert.ToString(cat21.GetSelectedAltitude());
                 string finalselAltitude = Convert.ToString(cat21.GetFinalStateSelectedAltitude());
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight +" ft", "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel+ " FL", magneticheading, targetstatus,barometricrate + " ft/min",geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude +" ft", finalselAltitude};
+                string trajectoryintent = cat21.GetTrajectoryIntent();
+                string servicemanagement = Convert.ToString(cat21.GetServiceManagement());
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight +" ft", "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel+ " FL", magneticheading, targetstatus,barometricrate + " ft/min",geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude +" ft", finalselAltitude, trajectoryintent,servicemanagement};
                 dataGridView1.Rows.Add(row);
      
             }
