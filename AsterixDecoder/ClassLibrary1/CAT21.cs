@@ -145,12 +145,30 @@ namespace ClassLibrary
 
         string acasResolution;
         string modeSMbData;
-
-
-
-
-
-
+        //Data Ages
+        string aos;
+        string trd;
+        string m3a;
+        string qi;
+        string ti;
+        string mam;
+        string gh;
+        string fl;
+        string isa;
+        string fsa;
+        string asage;
+        string tas;
+        string mh;
+        string bvr;
+        string gvr;
+        string gv;
+        string tar;
+        string ti2;
+        string tsage;
+        string met;
+        string roa;
+        string ara;
+        string scc;
 
         public CAT21(byte[] arraystring)
         {
@@ -283,6 +301,29 @@ namespace ClassLibrary
             this.modeSMbData = "N/A";
             this.acasResolution = "N/A";
             this.receiverID = double.NaN;
+            this.aos="N/A";
+            this.trd ="N/A";
+            this.m3a="N/A";
+            this.qi = "N/A";
+            this.ti="N/A";
+            this.mam="N/A";
+            this.gh="N/A";
+            this.fl="N/A";
+            this.isa="N/A";
+            this.fsa="N/A";
+            this.asage="N/A";
+            this.tas="N/A";
+            this.mh="N/A";
+            this.bvr="N/A";
+            this.gvr="N/A";
+            this.gv="N/A";
+            this.tar="N/A";
+            this.ti2="N/A";
+            this.tsage="N/A";
+            this.met="N/A";
+            this.roa="N/A";
+            this.ara="N/A";
+            this.scc="N/A";
 
 
 
@@ -837,11 +878,29 @@ namespace ClassLibrary
                     byte[] dataItem = GetFixedLengthItem(1);
                     SetReceiverID(dataItem);
                 }
-                //if (boolFSPEC[41] == true) //DataAges
-                //{
-                //    byte[] dataItem = GetFixedLengthItem(3);
-                //    SetTimeOfMessageReceptionVelocity(dataItem);
-                //}
+                if (boolFSPEC[41] == true) //DataAges
+                {
+                    List<byte> dataItem = new List<byte>();
+                    dataItem.Add(GetFixedLengthItem(1)[0]);
+                    if ((dataItem[0] & 1) == 1)
+                    {
+                         dataItem.Add(GetFixedLengthItem(1)[0]);
+                    }
+                    if ((dataItem[1] & 1) == 1)
+                    {
+                        dataItem.Add(GetFixedLengthItem(1)[0]);
+                    }
+                    if ((dataItem[2] & 1) == 1)
+                    {
+                        dataItem.Add(GetFixedLengthItem(1)[0]);
+                    }
+                    if ((dataItem[3] & 1) == 1)
+                    {
+                        dataItem.Add(GetFixedLengthItem(1)[0]);
+                    }
+
+                    SetDataAges(dataItem);
+                }
             }
             if (FSPEC.Length >= 7)
             {
@@ -856,15 +915,7 @@ namespace ClassLibrary
             }
         }
 
-        private void SetACASResolution(byte[] dataItem)
-        {
-            throw new NotImplementedException();
-        }
 
-        private void SetModeSMBData(byte[] dataItem)
-        {
-            throw new NotImplementedException();
-        }
 
         public void SetDataSourceIdentifier(byte[] dataItem)
         {
@@ -2072,8 +2123,61 @@ namespace ClassLibrary
             double resolution = 1;//sec
             this.receiverID = ComputeBytes(dataItem, resolution);
         }
-       
 
+        private void SetDataAges(List<byte> dataItem)
+        {
+            byte[] fieldE = dataItem.ToArray();
+            BitArray boolFSPEC = new BitArray(fieldE);
+            double resolution = 0.1;
+            if (fieldE.Length >= 1)
+            {
+                if (boolFSPEC[7] == true) 
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.aos=Convert.ToString(ComputeBytes(data,resolution));
+                }
+                if (boolFSPEC[6] == true) 
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[5] == true) 
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[4] == true) 
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[3] == true) 
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[2] == true) 
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[1] == true) 
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                }
+            }
+        }
+
+        private void SetACASResolution(byte[] dataItem)
+        {
+            this.acasResolution = "Not Available";
+        }
+
+        private void SetModeSMBData(byte[] dataItem)
+        {
+            this.modeSMbData = "Not Available";
+        }
         private double ComputeBytes(byte[] dataItem, double resolution)
         {
             double value = 0;
