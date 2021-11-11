@@ -128,7 +128,7 @@ namespace AsterixDecoder
                 string[] meteo = cat21.GetMetInformation();
                 string selectedAltitude = Convert.ToString(cat21.GetSelectedAltitude());
                 string finalselAltitude = Convert.ToString(cat21.GetFinalStateSelectedAltitude());
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight, "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel, magneticheading, targetstatus,barometricrate,geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude, finalselAltitude};
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight +" ft", "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel+ " FL", magneticheading, targetstatus,barometricrate + " ft/min",geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude +" ft", finalselAltitude};
                 dataGridView1.Rows.Add(row);
      
             }
