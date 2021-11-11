@@ -99,11 +99,14 @@ namespace ClassLibrary
 
         string targetIdentification;
         string emitterCategory;
-        string metInformation;
+
+        //Met Information
+        string[] metInformation;
         double windspeed;
-        double turbulence;
-        double temperature;
         double windDirection;
+        double temperature;
+        double turbulence;
+
         double serviceManagement;
         string trajectoryIntent;
         //SelectedAltitude
@@ -244,7 +247,7 @@ namespace ClassLibrary
 
             this.targetIdentification = "N/A";
             this.emitterCategory = "N/A";
-            this.metInformation = "N/A";
+            this.metInformation = new string[4];
             //metinformation parameters
             this.windspeed = double.NaN;
             this.turbulence=double.NaN;
@@ -435,6 +438,23 @@ namespace ClassLibrary
         public int GetNucr()
         {
             return this.nucr;
+        }
+        public string GetEmitterCategory()
+        {
+            return this.emitterCategory;
+        }
+        public string[] GetMetInformation()
+        {
+            return this.metInformation;
+        }
+
+        public double GetSelectedAltitude()
+        {
+            return this.selectedAltitude;
+        }
+        public double GetFinalStateSelectedAltitude()
+        {
+            return this.finalStateSelectedAltitude;
         }
         public int HexToDec(string hexValue)
         {
@@ -1277,13 +1297,13 @@ namespace ClassLibrary
             switch (vn)
             {
                 case 0:
-                    this.mopsVN = "ED102/DO-260[Ref.8]";
+                    this.mopsVN = "ED102/DO-260";
                     break;
                 case 1:
-                    this.mopsVN = "DO-260A[Ref.9]";
+                    this.mopsVN = "DO-260A";
                     break;
                 case 2:
-                    this.mopsVN = "ED102A/DO-260B[Ref.11]";
+                    this.mopsVN = "ED102A/DO-260B";
                     break;
 
             }
@@ -1531,86 +1551,86 @@ namespace ClassLibrary
                     this.emitterCategory = "No ADS-B Emitter Category Information";
                     break;
                 case 1:
-                    this.emitterCategory = "light aircraft <= 15500 lbs";
+                    this.emitterCategory = "Light aircraft";
                     break;
                 case 2:
-                    this.emitterCategory = "15500 lbs < small aircraft <75000 lbs  ";
+                    this.emitterCategory = "Small aircraft";
                     break;
                 case 3:
-                    this.emitterCategory = "75000 lbs < medium a/c < 300000 lbs  ";
+                    this.emitterCategory = "Medium aircraft";
                     break;
                 case 4:
                     this.emitterCategory = "High Vortex Large";
                     break;
                 case 5:
-                    this.emitterCategory = "300000 lbs <= heavy aircraft ";
+                    this.emitterCategory = "Heavy aircraft";
                     break;
                 case 6:
-                    this.emitterCategory = "highly manoeuvrable (5g acceleration capability) and high speed(> 400 knotscruise)  ";
+                    this.emitterCategory = "Highly manoeuvrable (5g acceleration capability) and high speed(> 400 knotscruise)";
                     break;
                 case 7:
-                    this.emitterCategory = "reserved  ";
+                    this.emitterCategory = "Reserved";
                     break;
                 case 8:
-                    this.emitterCategory = "reserved  ";
+                    this.emitterCategory = "Reserved";
                     break;
                 case 9:
-                    this.emitterCategory = "reserved  ";
+                    this.emitterCategory = "Reserved";
                     break;
                 case 10:
-                    this.emitterCategory = "rotocraft ";
+                    this.emitterCategory = "Rotocraft";
                     break;
                 case 11:
-                    this.emitterCategory = " glider / sailplane  ";
+                    this.emitterCategory = "Glider / Sailplane";
                     break;
                 case 12:
-                    this.emitterCategory = "ighter-than-air  ";
+                    this.emitterCategory = "Lighter-than-air";
                     break;
                 case 13:
-                    this.emitterCategory = "= unmanned aerial vehicle  ";
+                    this.emitterCategory = "Unmanned aerial vehicle";
                     break;
                 case 14:
-                    this.emitterCategory = "=  space / transatmospheric vehicle   ";
+                    this.emitterCategory = "Space / Transatmospheric vehicle";
                     break;
 
                 case 15:
-                    this.emitterCategory = "ultralight / handglider / paraglider ";
+                    this.emitterCategory = "Ultralight / Handglider / Paraglider";
                     break;
 
                 case 16:
-                    this.emitterCategory = "=  parachutist / skydiver   ";
+                    this.emitterCategory = "Parachutist / Skydiver";
                     break;
 
                 case 17:
-                    this.emitterCategory = "=reserved  ";
+                    this.emitterCategory = "Reserved";
                     break;
 
                 case 18:
-                    this.emitterCategory = "reserved  ";
+                    this.emitterCategory = "Reserved";
                     break;
 
                 case 19:
-                    this.emitterCategory = "reserved  ";
+                    this.emitterCategory = "Reserved";
                     break;
 
                 case 20:
-                    this.emitterCategory = "surface emergency vehicle ";
+                    this.emitterCategory = "Surface emergency vehicle";
                     break;
 
                 case 21:
-                    this.emitterCategory = "surface service vehicle   ";
+                    this.emitterCategory = "Surface service vehicle";
                     break;
 
                 case 22:
-                    this.emitterCategory = " fixed ground or tethered obstruction   ";
+                    this.emitterCategory = "Fixed ground or tethered obstruction";
                     break;
 
                 case 23:
-                    this.emitterCategory = " cluster obstacle  ";
+                    this.emitterCategory = "Cluster obstacle";
                     break;
 
                 case 24:
-                    this.emitterCategory = "line obstacle  ";
+                    this.emitterCategory = "Line obstacle";
                     break;
 
             }
@@ -1651,16 +1671,21 @@ namespace ClassLibrary
                 byte[] turbulencebyte = { (dataItem[index + 1]) } ;
                 this.turbulence = ComputeBytes(turbulencebyte, resolution);
             }
-          
+
+            this.metInformation[0] = Convert.ToString(this.windspeed);
+            this.metInformation[1] = Convert.ToString(this.windDirection);
+            this.metInformation[2] = Convert.ToString(this.temperature);
+            this.metInformation[3] = Convert.ToString(this.turbulence);
+
         }
         private void SetSelectedAltitude(byte[] dataItem)
         {
             double resolution = 25;//ft
-            int valueSAS = dataItem[1] >> 7;
+            int valueSAS = dataItem[0] >> 7;
             int sourceMask = 96;
-            int valueSource = (dataItem[1] & sourceMask) >> 5;
-            byte secondbyte = (byte)(dataItem[1] & 31);
-            byte[] altitude = { dataItem[0], secondbyte };
+            int valueSource = (dataItem[0] & sourceMask) >> 5;
+            byte firstbyte = (byte)(dataItem[0] & 31);
+            byte[] altitude = { firstbyte, dataItem[1]};
             this.selectedAltitude = ConvertTwosComplementGeneralByteToDouble(altitude, 13, resolution);
 
             switch (valueSAS)
@@ -2038,7 +2063,7 @@ namespace ClassLibrary
             int exp = Convert.ToInt32((bits - (length - 1) * 8) - 1);
             int mask = Convert.ToInt32(Math.Pow(2, exp));
             double ValueDec;
-            if ((ByteVect[length-1] & mask) == 0)
+            if ((ByteVect[0] & mask) == 0)
             {
                 ValueDec = ComputeBytes(ByteVect, 1);
             }

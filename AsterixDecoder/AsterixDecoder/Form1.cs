@@ -35,30 +35,6 @@ namespace AsterixDecoder
         {
             AsterixFile asterixfile = new AsterixFile("201002-lebl-080001_adsb.ast");
             List<CAT21> lista = asterixfile.getListCAT21();
-            //CAT21 cat21 = lista[546];
-
-            //byte[] fieldEspec = cat21.GetFieldEspec();
-            //int systemIC = cat21.GetSystemIdentificationCode();
- 
-            //double latitude = cat21.GetLatitudeWGS84();
-            //double longitude = cat21.GetLongitudeWGS84();
-            //double latitudehigh = cat21.GetLatitudeWGS84High();
-            //double longitudehigh = cat21.GetLongitudeWGS84High();
-            //double GeometricHeight = cat21.GetGeometricHeight();
-            //double roll = cat21.GetRollAngle();
-            //double flightlevel = cat21.GetFlightLevel();
-            //Console.WriteLine("Longitud Field Espec: " + fieldEspec.Length);
-            //Console.WriteLine("SAC: " + systemAC);
-            //Console.WriteLine("SIC: " + systemIC);
-            //Console.WriteLine("Track Number: " + trackNumber);
-            //Console.WriteLine("Latitude: " + latitude);
-            //Console.WriteLine("Longitude: " + longitude);
-            //Console.WriteLine("Latitude High resolution: " + latitudehigh);
-            //Console.WriteLine("Longitude High resolution: " + longitudehigh);
-            //Console.WriteLine("GeometricHeight: " + GeometricHeight);
-            //Console.WriteLine("Roll Angle: " + roll);
-            //Console.WriteLine("Flight Level: " + flightlevel);
-
 
             //Print en hexadecimal
             //byte[] arraystringcopy =cat21.GetArray();
@@ -74,7 +50,7 @@ namespace AsterixDecoder
             //    //Console.WriteLine("Vuelo" + (j + 1) + " " + lista[j].GetLongitudeWGS84High());
 
             //}
-            dataGridView1.ColumnCount = 26;
+            dataGridView1.ColumnCount = 36;
             dataGridView1.Columns[0].Name = "Number";
             dataGridView1.Columns[1].Name = "Category";
             dataGridView1.Columns[2].Name = "SAC";
@@ -101,6 +77,16 @@ namespace AsterixDecoder
             dataGridView1.Columns[23].Name = "Mode 3A Code";
             dataGridView1.Columns[24].Name = "Roll Angle";
             dataGridView1.Columns[25].Name = "Flight Level";
+            dataGridView1.Columns[26].Name = "Magentic Heading";
+            dataGridView1.Columns[27].Name = "Target Status";
+            dataGridView1.Columns[28].Name = "Barometric Vertical Rate";
+            dataGridView1.Columns[29].Name = "Geometric Vertical Rate";
+            dataGridView1.Columns[30].Name = "Airborne Ground Vector";
+            dataGridView1.Columns[31].Name = "Track Angle Rate";
+            dataGridView1.Columns[32].Name = "Emitter Category";
+            dataGridView1.Columns[33].Name = "Met Information";
+            dataGridView1.Columns[34].Name = "Selected Altitude";
+            dataGridView1.Columns[35].Name = "Final State Selected Altitude";
 
 
 
@@ -132,7 +118,17 @@ namespace AsterixDecoder
                 string m3acode = cat21.GetMode3ACode();
                 string rollangle = Convert.ToString(cat21.GetRollAngle());
                 string flightlevel = Convert.ToString(cat21.GetFlightLevel());
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight, "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel};
+                string magneticheading = Convert.ToString(cat21.GetMagneticHeading());
+                string targetstatus = cat21.GetTargetStatus();
+                string barometricrate = Convert.ToString(cat21.GetBarometricVerticalRate());
+                string geometricrate = Convert.ToString(cat21.GetGeometricVerticalRate());
+                string airborneVector = cat21.GetAirborneVector();
+                string trackanglerate = Convert.ToString(cat21.GetTrackAngleRate());
+                string emitterCategory = cat21.GetEmitterCategory();
+                string[] meteo = cat21.GetMetInformation();
+                string selectedAltitude = Convert.ToString(cat21.GetSelectedAltitude());
+                string finalselAltitude = Convert.ToString(cat21.GetFinalStateSelectedAltitude());
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight, "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel, magneticheading, targetstatus,barometricrate,geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude, finalselAltitude};
                 dataGridView1.Rows.Add(row);
      
             }
