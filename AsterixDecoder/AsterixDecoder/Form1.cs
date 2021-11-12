@@ -109,7 +109,13 @@ namespace AsterixDecoder
                 string targetID = cat21.GetTargetIdentification();
                 string trackNumber = Convert.ToString(cat21.GetTrackNumber());
                 string serviceID = Convert.ToString(cat21.GetServiceIdentification());
-                string timeofreport = Convert.ToString(cat21.GetTimeOfReportTransmission());
+                //decimal timeofreportnopadded = Convert.ToDecimal(cat21.GetTimeOfReportTransmission());
+               
+                string timeofreport0 = Convert.ToString(cat21.GetTimeOfReportTransmission());
+                string timeofreport1 = timeofreport0.Remove( timeofreport0.Length-1);
+                string timeofreport2 = timeofreport1.Remove(timeofreport1.Length - 1);
+                string timeofreport = timeofreport2.Remove(timeofreport2.Length - 1);
+
                 string position= Convert.ToString(cat21.GetLatitudeWGS84())+"/n" + Convert.ToString(cat21.GetLongitudeWGS84());
                 string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + "/n" + Convert.ToString(cat21.GetLongitudeWGS84High());
                 string airspeed = Convert.ToString(cat21.GetAirspeed());
@@ -118,9 +124,34 @@ namespace AsterixDecoder
                 //TimeSpans
                 string tappposition = Convert.ToString(cat21.GetTimeOfApplicabilityPosition());
                 string tappvelocity = Convert.ToString(cat21.GetTimeOfApplicabilityVelocity());
-                string tmessageposition = Convert.ToString(cat21.GetTimeOfMessagePosition());
+
+                string tmessageposition;
+                string tmessageposition0 = Convert.ToString(cat21.GetTimeOfMessagePosition());//
+                if (tmessageposition0.Length >= 10)
+                {
+                    string tmessageposition1 = tmessageposition0.Remove(tmessageposition0.Length - 1);
+                    string tmessageposition2 = tmessageposition1.Remove(tmessageposition1.Length - 1);
+                    string tmessageposition3 = tmessageposition2.Remove(tmessageposition2.Length - 1);
+                    tmessageposition = tmessageposition3.Remove(tmessageposition3.Length - 1);
+                }
+                else {
+                    tmessageposition = tmessageposition0;//
+                }
+                
                 string tmessagepositionhigh = Convert.ToString(cat21.GetTimeOfMessagePositionHigh());
-                string tmessagevel = Convert.ToString(cat21.GetTimeOfMessageVelocity());
+
+                string tmessagevel;
+                string tmessagevel0 = Convert.ToString(cat21.GetTimeOfMessageVelocity());//
+                if (tmessagevel0.Length >= 10)
+                {
+                    string tmessagevel1 = tmessagevel0.Remove(tmessagevel0.Length - 1);
+                    string tmessagevel2 = tmessagevel1.Remove(tmessagevel1.Length - 1);
+                    string tmessagevel3 = tmessagevel2.Remove(tmessagevel2.Length - 1);
+                    tmessagevel = tmessagevel3.Remove(tmessagevel3.Length - 1);
+                }
+                else {
+                    tmessagevel = Convert.ToString(cat21.GetTimeOfMessageVelocity());//
+                }
                 string tmessagevelhigh = Convert.ToString(cat21.GetTimeOfMessageVelocityHigh());
                 string geometricHeight = Convert.ToString(cat21.GetGeometricHeight());
                 string nucr = Convert.ToString(cat21.GetNucr());
