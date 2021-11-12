@@ -106,8 +106,9 @@ namespace AsterixDecoder
                 string serviceID = Convert.ToString(cat21.GetServiceIdentification());
                 //decimal timeofreportnopadded = Convert.ToDecimal(cat21.GetTimeOfReportTransmission());
                
-                string timeofreport0 = Convert.ToString(cat21.GetTimeOfReportTransmission());
-                string timeofreport = timeofreport0.Remove(timeofreport0.Length - 4);
+                string timeofreport = Convert.ToString(cat21.GetTimeOfReportTransmission());
+                timeofreport = StringTime(timeofreport);
+                
 
                 string position= Convert.ToString(cat21.GetLatitudeWGS84())+ " " + Convert.ToString(cat21.GetLongitudeWGS84());
                 string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + " " + Convert.ToString(cat21.GetLongitudeWGS84High());
@@ -116,79 +117,90 @@ namespace AsterixDecoder
                 string targetaddress = Convert.ToString(cat21.GetTargetAddress());
                 //TimeSpans
                 string tappposition = Convert.ToString(cat21.GetTimeOfApplicabilityPosition());
-                if (tappposition.Length >= 10)
-                {
-                    tappposition = tappposition.Remove(tappposition.Length - 4);
-                }
-                else
-                {
-                    tappposition = "Not Available";
-                }
+                tappposition = StringTime(tappposition);
+
                 string tappvelocity = Convert.ToString(cat21.GetTimeOfApplicabilityVelocity());
-                if (tappvelocity.Length >= 10)
-                {
-                    tappvelocity= tappvelocity.Remove(tappvelocity.Length - 4);
-                }
-                else
-                {
-                    tappvelocity = "Not Available";
-                }
+                tappvelocity = StringTime(tappvelocity);
 
                 string tmessageposition = Convert.ToString(cat21.GetTimeOfMessagePosition());
-                if (tmessageposition.Length >= 10)
-                {
-                    tmessageposition = tmessageposition.Remove(tmessageposition.Length - 4);
-                }
-                else {
-                    tmessageposition = "Not Available";
-                }
-                
+                tmessageposition = StringTime(tmessageposition);
                 string tmessagepositionhigh = Convert.ToString(cat21.GetTimeOfMessagePositionHigh());
 
-                string tmessagevel;
-                string tmessagevel0 = Convert.ToString(cat21.GetTimeOfMessageVelocity());
-                if (tmessagevel0.Length >= 10)
-                {
-
-                    tmessagevel = tmessagevel0.Remove(tmessagevel0.Length - 4);
-                }
-                else {
-                    tmessagevel = "Not Available";
-                }
+                string tmessagevel = Convert.ToString(cat21.GetTimeOfMessageVelocity());
+                tmessagevel = StringTime(tmessagevel);
                 string tmessagevelhigh = Convert.ToString(cat21.GetTimeOfMessageVelocityHigh());
+
                 string geometricHeight = Convert.ToString(cat21.GetGeometricHeight());
+                geometricHeight = StringUnits(geometricHeight, "ft");
+
                 string nucr = Convert.ToString(cat21.GetNucr());
                 string mopsversion = cat21.GetMOPSVersion();
                 string m3acode = cat21.GetMode3ACode();
                 string rollangle = Convert.ToString(cat21.GetRollAngle());
                 string flightlevel = Convert.ToString(cat21.GetFlightLevel());
+                flightlevel = StringUnits(flightlevel, "FL");
+
                 string magneticheading = Convert.ToString(cat21.GetMagneticHeading());
                 string targetstatus = cat21.GetTargetStatus();
                 string barometricrate = Convert.ToString(cat21.GetBarometricVerticalRate());
+                barometricrate = StringUnits(barometricrate, "ft/min");
+
                 string geometricrate = Convert.ToString(cat21.GetGeometricVerticalRate());
+                geometricrate = StringUnits(geometricrate, "ft/min");
+
                 string airborneVector = cat21.GetAirborneVector();
                 string trackanglerate = Convert.ToString(cat21.GetTrackAngleRate());
                 string emitterCategory = cat21.GetEmitterCategory();
                 string[] meteo = cat21.GetMetInformation();
                 string selectedAltitude = Convert.ToString(cat21.GetSelectedAltitude());
+                selectedAltitude = StringUnits(selectedAltitude, "ft");
                 string finalselAltitude = Convert.ToString(cat21.GetFinalStateSelectedAltitude());
+                finalselAltitude = StringUnits(finalselAltitude, "ft");
                 string trajectoryintent = cat21.GetTrajectoryIntent();
                 string servicemanagement = Convert.ToString(cat21.GetServiceManagement());
+                servicemanagement = StringUnits(servicemanagement, "sec");
                 string[] opstatusData = cat21.GetOperationalStatus();
                 string opstatus = opstatusData[0] + Environment.NewLine + opstatusData[1] + Environment.NewLine + opstatusData[2] + Environment.NewLine + opstatusData[3] + Environment.NewLine + opstatusData[4] + Environment.NewLine + opstatusData[5] + Environment.NewLine + opstatusData[6];
                 string[] surfaceData = cat21.GetSurfaceCapabilities();
                 string surface = surfaceData[0] + Environment.NewLine + surfaceData[1] + Environment.NewLine + surfaceData[2] + Environment.NewLine + surfaceData[3] + Environment.NewLine + surfaceData[4] + Environment.NewLine + surfaceData[5] + Environment.NewLine + surfaceData[6];
                 string messageAmplitude = Convert.ToString(cat21.GetMessageAmplitude());
+                messageAmplitude = StringUnits(messageAmplitude, "dBm");
                 string modeSMBData = cat21.GetModeSMBData();
                 string acasResolution = cat21.GetAcasResolution();
                 string receiverID = Convert.ToString(cat21.GetReceiverID());
                 string[] dataAges = cat21.GetDataAges();
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight +" ft", "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel+ " FL", magneticheading, targetstatus,barometricrate + " ft/min",geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude +" ft", finalselAltitude, trajectoryintent,servicemanagement,opstatus,surface,messageAmplitude,modeSMBData,acasResolution,receiverID,dataAges[0]};
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight, "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel, magneticheading, targetstatus,barometricrate,geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude, finalselAltitude, trajectoryintent,servicemanagement,opstatus,surface,messageAmplitude,modeSMBData,acasResolution,receiverID,dataAges[0]};
                 dataGridView1.Rows.Add(row);
      
             }
 
 
+        }
+
+        private string StringTime(string time)
+        {
+            if (time.Length >= 10)
+            {
+                time = time.Remove(time.Length - 4);
+            }
+            else
+            {
+                time = "Not Available";
+            }
+            return time;
+        }
+
+        private string StringUnits(string value, string units)
+        {
+            if (value == "NaN")
+            {
+                value = "Not Available";
+            }
+            else
+            {
+                value = value + " " + units;
+            }
+            return value;
         }
     }
 }
