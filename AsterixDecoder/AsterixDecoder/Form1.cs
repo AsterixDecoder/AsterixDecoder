@@ -26,11 +26,6 @@ namespace AsterixDecoder
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             AsterixFile asterixfile = new AsterixFile("201002-lebl-080001_adsb.ast");
@@ -68,9 +63,9 @@ namespace AsterixDecoder
             dataGridView1.Columns[14].Name = "Time of Applicability Position";
             dataGridView1.Columns[15].Name = "Time of Applicability Velocity";
             dataGridView1.Columns[16].Name = "Time of Message Reception Position";
-            dataGridView1.Columns[17].Name = "Time of Message Reception Position High Res";
+            dataGridView1.Columns[17].Name = "Time of Message Reception Position High Res";//Lo quitaremos porque no sale en ningun vuelo y ya esta lo mismo pero en baja resolucion
             dataGridView1.Columns[18].Name = "Time of Message Reception Velocity";
-            dataGridView1.Columns[19].Name = "Time of Message Reception Velocity High Res";
+            dataGridView1.Columns[19].Name = "Time of Message Reception Velocity High Res";//Lo quitaremos porque no sale en ningun vuelo y ya esta lo mismo pero en baja resolucion
             dataGridView1.Columns[20].Name = "Geometric Height";
             dataGridView1.Columns[21].Name = "Quality Indicators";
             dataGridView1.Columns[22].Name = "MOPS Version";
@@ -112,45 +107,53 @@ namespace AsterixDecoder
                 //decimal timeofreportnopadded = Convert.ToDecimal(cat21.GetTimeOfReportTransmission());
                
                 string timeofreport0 = Convert.ToString(cat21.GetTimeOfReportTransmission());
-                string timeofreport1 = timeofreport0.Remove( timeofreport0.Length-1);
-                string timeofreport2 = timeofreport1.Remove(timeofreport1.Length - 1);
-                string timeofreport = timeofreport2.Remove(timeofreport2.Length - 1);
+                string timeofreport = timeofreport0.Remove(timeofreport0.Length - 4);
 
-                string position= Convert.ToString(cat21.GetLatitudeWGS84())+"/n" + Convert.ToString(cat21.GetLongitudeWGS84());
-                string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + "/n" + Convert.ToString(cat21.GetLongitudeWGS84High());
+                string position= Convert.ToString(cat21.GetLatitudeWGS84())+ " " + Convert.ToString(cat21.GetLongitudeWGS84());
+                string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + " " + Convert.ToString(cat21.GetLongitudeWGS84High());
                 string airspeed = Convert.ToString(cat21.GetAirspeed());
                 string trueairspeed = Convert.ToString(cat21.GetTrueAirspeed());
                 string targetaddress = Convert.ToString(cat21.GetTargetAddress());
                 //TimeSpans
                 string tappposition = Convert.ToString(cat21.GetTimeOfApplicabilityPosition());
-                string tappvelocity = Convert.ToString(cat21.GetTimeOfApplicabilityVelocity());
-
-                string tmessageposition;
-                string tmessageposition0 = Convert.ToString(cat21.GetTimeOfMessagePosition());//
-                if (tmessageposition0.Length >= 10)
+                if (tappposition.Length >= 10)
                 {
-                    string tmessageposition1 = tmessageposition0.Remove(tmessageposition0.Length - 1);
-                    string tmessageposition2 = tmessageposition1.Remove(tmessageposition1.Length - 1);
-                    string tmessageposition3 = tmessageposition2.Remove(tmessageposition2.Length - 1);
-                    tmessageposition = tmessageposition3.Remove(tmessageposition3.Length - 1);
+                    tappposition = tappposition.Remove(tappposition.Length - 4);
+                }
+                else
+                {
+                    tappposition = "Not Available";
+                }
+                string tappvelocity = Convert.ToString(cat21.GetTimeOfApplicabilityVelocity());
+                if (tappvelocity.Length >= 10)
+                {
+                    tappvelocity= tappvelocity.Remove(tappvelocity.Length - 4);
+                }
+                else
+                {
+                    tappvelocity = "Not Available";
+                }
+
+                string tmessageposition = Convert.ToString(cat21.GetTimeOfMessagePosition());
+                if (tmessageposition.Length >= 10)
+                {
+                    tmessageposition = tmessageposition.Remove(tmessageposition.Length - 4);
                 }
                 else {
-                    tmessageposition = tmessageposition0;//
+                    tmessageposition = "Not Available";
                 }
                 
                 string tmessagepositionhigh = Convert.ToString(cat21.GetTimeOfMessagePositionHigh());
 
                 string tmessagevel;
-                string tmessagevel0 = Convert.ToString(cat21.GetTimeOfMessageVelocity());//
+                string tmessagevel0 = Convert.ToString(cat21.GetTimeOfMessageVelocity());
                 if (tmessagevel0.Length >= 10)
                 {
-                    string tmessagevel1 = tmessagevel0.Remove(tmessagevel0.Length - 1);
-                    string tmessagevel2 = tmessagevel1.Remove(tmessagevel1.Length - 1);
-                    string tmessagevel3 = tmessagevel2.Remove(tmessagevel2.Length - 1);
-                    tmessagevel = tmessagevel3.Remove(tmessagevel3.Length - 1);
+
+                    tmessagevel = tmessagevel0.Remove(tmessagevel0.Length - 4);
                 }
                 else {
-                    tmessagevel = Convert.ToString(cat21.GetTimeOfMessageVelocity());//
+                    tmessagevel = "Not Available";
                 }
                 string tmessagevelhigh = Convert.ToString(cat21.GetTimeOfMessageVelocityHigh());
                 string geometricHeight = Convert.ToString(cat21.GetGeometricHeight());
@@ -179,8 +182,8 @@ namespace AsterixDecoder
                 string modeSMBData = cat21.GetModeSMBData();
                 string acasResolution = cat21.GetAcasResolution();
                 string receiverID = Convert.ToString(cat21.GetReceiverID());
-                //string dataAges = cat21.GetDataAges();
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight +" ft", "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel+ " FL", magneticheading, targetstatus,barometricrate + " ft/min",geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude +" ft", finalselAltitude, trajectoryintent,servicemanagement,opstatus,surface,messageAmplitude,modeSMBData,acasResolution,receiverID,"Data Ages"};
+                string[] dataAges = cat21.GetDataAges();
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight +" ft", "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel+ " FL", magneticheading, targetstatus,barometricrate + " ft/min",geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude +" ft", finalselAltitude, trajectoryintent,servicemanagement,opstatus,surface,messageAmplitude,modeSMBData,acasResolution,receiverID,dataAges[0]};
                 dataGridView1.Rows.Add(row);
      
             }

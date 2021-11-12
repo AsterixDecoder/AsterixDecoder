@@ -548,6 +548,36 @@ namespace ClassLibrary
 
             return data;
         }
+        public string[] GetDataAges()
+        {
+            string[] data = new string[23];
+            data[0] = this.aos;
+            data[1] = this.trd;
+            data[2] = this.m3a;
+            data[3] = this.qi;
+            data[4] = this.ti;
+            data[5] = this.mam;
+            data[6] = this.gh;
+            data[7] = this.fl;
+            data[8] = this.isa;
+            data[9] = this.fsa;
+            data[10] = this.asage;
+            data[11] = this.tas;
+            data[12] = this.mh;
+            data[13] = this.bvr;
+            data[14] = this.gvr;
+            data[15] = this.gv;
+            data[16] = this.tar;
+            data[17] = this.ti2;
+            data[18] = this.ts;
+            data[19] = this.met;
+            data[20] = this.roa;
+            data[21] = this.ara;
+            data[22] = this.scc;
+            
+
+            return data;
+        }
         public int HexToDec(string hexValue)
         {
             int intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
@@ -600,8 +630,12 @@ namespace ClassLibrary
             byte[] dataItem = new byte[length];
             for (int i = 0; i < length; i++)
             {
-                dataItem[i] = this.data[0];
-                data.RemoveAt(0);
+                if (this.data.Count>0)
+                {
+                    dataItem[i] = this.data[0];
+                    data.RemoveAt(0);
+                }
+                     
             }
             return dataItem;
         }
@@ -880,37 +914,33 @@ namespace ClassLibrary
                 }
                 if (boolFSPEC[41] == true) //DataAges
                 {
-                    List<byte> dataItem = new List<byte>();
-                    dataItem.Add(GetFixedLengthItem(1)[0]);
-                    if ((dataItem[0] & 1) == 1)
+                    int i = 0;
+                    List<byte> dataItem = new List<byte>
                     {
-                         dataItem.Add(GetFixedLengthItem(1)[0]);
-                    }
-                    if ((dataItem[1] & 1) == 1)
-                    {
-                        dataItem.Add(GetFixedLengthItem(1)[0]);
-                    }
-                    if ((dataItem[2] & 1) == 1)
+                        GetFixedLengthItem(1)[0]
+                    };
+                    if ((dataItem[i] & 1) == 1)
                     {
                         dataItem.Add(GetFixedLengthItem(1)[0]);
+                        i++;
                     }
-                    if ((dataItem[3] & 1) == 1)
+                    if ((dataItem[i] & 1) == 1 && dataItem.Count==(i+1))
+                    {
+                        dataItem.Add(GetFixedLengthItem(1)[0]);
+                        i++;
+                    }
+                    if ((dataItem[i] & 1) == 1 && dataItem.Count==(i+1))
+                    {
+                        dataItem.Add(GetFixedLengthItem(1)[0]);
+                        i++;
+                    }
+                    if ((dataItem[i] & 1) == 1 && dataItem.Count == (i + 1))
                     {
                         dataItem.Add(GetFixedLengthItem(1)[0]);
                     }
 
+
                     SetDataAges(dataItem);
-                }
-            }
-            if (FSPEC.Length >= 7)
-            {
-                if (boolFSPEC[50] == true) //Reserved Expansion Field
-                {
-                    byte[] dataItem = GetVariableLengthItem();   
-                }
-                if (boolFSPEC[49] == true) //Special Purpose Field
-                {
-                    byte[] dataItem = GetVariableLengthItem();
                 }
             }
         }
@@ -2139,33 +2169,123 @@ namespace ClassLibrary
                 if (boolFSPEC[6] == true) 
                 {
                     byte[] data = GetFixedLengthItem(1);
-                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                    this.trd = Convert.ToString(ComputeBytes(data, resolution));
                 }
                 if (boolFSPEC[5] == true) 
                 {
                     byte[] data = GetFixedLengthItem(1);
-                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                    this.m3a = Convert.ToString(ComputeBytes(data, resolution));
                 }
                 if (boolFSPEC[4] == true) 
                 {
                     byte[] data = GetFixedLengthItem(1);
-                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                    this.qi = Convert.ToString(ComputeBytes(data, resolution));
                 }
                 if (boolFSPEC[3] == true) 
                 {
                     byte[] data = GetFixedLengthItem(1);
-                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                    this.ti = Convert.ToString(ComputeBytes(data, resolution));
                 }
                 if (boolFSPEC[2] == true) 
                 {
                     byte[] data = GetFixedLengthItem(1);
-                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                    this.mam = Convert.ToString(ComputeBytes(data, resolution));
                 }
                 if (boolFSPEC[1] == true) 
                 {
                     byte[] data = GetFixedLengthItem(1);
-                    this.aos = Convert.ToString(ComputeBytes(data, resolution));
+                    this.gh = Convert.ToString(ComputeBytes(data, resolution));
                 }
+            }
+            if (fieldE.Length >= 2)
+            {
+                if (boolFSPEC[7] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.fl = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[6] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.isa = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[5] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.fsa = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[4] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.asage = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[3] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.tas = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[2] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.mh = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[1] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.bvr = Convert.ToString(ComputeBytes(data, resolution));
+                }
+            }
+            if (fieldE.Length >= 3)
+            {
+                if (boolFSPEC[7] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.gvr = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[6] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.gv = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[5] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.tar = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[4] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.ti2 = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[3] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.ts = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[2] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.met = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[1] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.roa = Convert.ToString(ComputeBytes(data, resolution));
+                }
+            }
+            if (fieldE.Length >= 4)
+            {
+                if (boolFSPEC[7] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.ara = Convert.ToString(ComputeBytes(data, resolution));
+                }
+                if (boolFSPEC[6] == true)
+                {
+                    byte[] data = GetFixedLengthItem(1);
+                    this.scc = Convert.ToString(ComputeBytes(data, resolution));
+                }
+
             }
         }
 
