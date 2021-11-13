@@ -113,7 +113,9 @@ namespace AsterixDecoder
                 string position= Convert.ToString(cat21.GetLatitudeWGS84())+ " " + Convert.ToString(cat21.GetLongitudeWGS84());
                 string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + " " + Convert.ToString(cat21.GetLongitudeWGS84High());
                 string airspeed = Convert.ToString(cat21.GetAirspeed());
+                airspeed = StringUnits(airspeed, "Mach");
                 string trueairspeed = Convert.ToString(cat21.GetTrueAirspeed());
+                trueairspeed = StringUnits(trueairspeed,"knot");
                 string targetaddress = Convert.ToString(cat21.GetTargetAddress());
                 //TimeSpans
                 string tappposition = Convert.ToString(cat21.GetTimeOfApplicabilityPosition());
@@ -137,19 +139,22 @@ namespace AsterixDecoder
                 string mopsversion = cat21.GetMOPSVersion();
                 string m3acode = cat21.GetMode3ACode();
                 string rollangle = Convert.ToString(cat21.GetRollAngle());
+                rollangle = StringUnits(rollangle, "°");
                 string flightlevel = Convert.ToString(cat21.GetFlightLevel());
                 flightlevel = StringUnits(flightlevel, "FL");
 
                 string magneticheading = Convert.ToString(cat21.GetMagneticHeading());
+                magneticheading = StringUnits(magneticheading, "°");
                 string targetstatus = cat21.GetTargetStatus();
+
                 string barometricrate = Convert.ToString(cat21.GetBarometricVerticalRate());
                 barometricrate = StringUnits(barometricrate, "ft/min");
-
                 string geometricrate = Convert.ToString(cat21.GetGeometricVerticalRate());
                 geometricrate = StringUnits(geometricrate, "ft/min");
 
                 string airborneVector = cat21.GetAirborneVector();
                 string trackanglerate = Convert.ToString(cat21.GetTrackAngleRate());
+                trackanglerate = StringUnits(trackanglerate, "°/s");
                 string emitterCategory = cat21.GetEmitterCategory();
                 string[] meteo = cat21.GetMetInformation();
                 string selectedAltitude = Convert.ToString(cat21.GetSelectedAltitude());
