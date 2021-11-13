@@ -85,7 +85,7 @@ namespace ClassLibrary
         string lnav;
         string ps;
         string ss;
-
+        
         double barometricVerticalRate;
         string reBVR;//BarometricVerticalRange
         double geometricVerticalRate;
@@ -263,7 +263,7 @@ namespace ClassLibrary
 
             this.targetIdentification = "N/A";
             this.emitterCategory = "N/A";
-            this.metInformation = new string[4];
+            this.metInformation = new string[] {"N/A","N/A","N/A","N/A"};
             //metinformation parameters
             this.windspeed = double.NaN;
             this.turbulence=double.NaN;
@@ -410,9 +410,10 @@ namespace ClassLibrary
         {
             return this.magneticHeading;
         }
-        public string GetTargetStatus()
+        public string[] GetTargetStatus()
         {
-            return this.icf;
+            string[] data = new string[] { this.icf, this.lnav, this.ps, this.ss };
+            return data;
         }
 
         public double GetBarometricVerticalRate()
@@ -423,9 +424,10 @@ namespace ClassLibrary
         {
             return this.geometricVerticalRate;
         }
-        public string GetAirborneVector()
+        public string[] GetAirborneVector()
         {
-            return this.reAirborneGroundVector;
+            string[] data = {Convert.ToString(this.groundSpeed), Convert.ToString(this.trackAngle) };
+            return data;
         }
         public double GetTrackAngleRate()
         {
@@ -476,9 +478,10 @@ namespace ClassLibrary
         {
             return this.targetIdentification;
         }
-        public int GetNucr()
+        public int[] GetQualityIndicators()
         {
-            return this.nucr;
+            int[] data = new int[] {this.nucr,this.nucp,this.nicbaro,this.sil,this.nacp,this.silSupplement,this.sda,this.gva,this.pic };
+            return data;
         }
         public string GetEmitterCategory()
         {
@@ -569,12 +572,33 @@ namespace ClassLibrary
             data[15] = this.gv;
             data[16] = this.tar;
             data[17] = this.ti2;
-            data[18] = this.ts;
+            data[18] = this.tsage;
             data[19] = this.met;
             data[20] = this.roa;
             data[21] = this.ara;
             data[22] = this.scc;
             
+
+            return data;
+        }
+        public string[] GetTargetReportDescriptor()
+        {
+            string[] data = new string[15];
+            data[0] = this.atp;
+            data[1] = this.arc;
+            data[2] = this.rc;
+            data[3] = this.rab;
+            data[4] = this.dcr;
+            data[5] = this.gbs;
+            data[6] = this.sim;
+            data[7] = this.tst;
+            data[8] = this.saa;
+            data[9] = this.cl;
+            data[10] = this.ipc;
+            data[11] = this.nogo;
+            data[12] = this.cpr;
+            data[13] = this.ldpj;
+            data[14] = this.rcf;
 
             return data;
         }
@@ -938,8 +962,6 @@ namespace ClassLibrary
                     {
                         dataItem.Add(GetFixedLengthItem(1)[0]);
                     }
-
-
                     SetDataAges(dataItem);
                 }
             }
@@ -1174,64 +1196,69 @@ namespace ClassLibrary
                 int arc = ((dataItem[0] & arcMask) >> 3);
                 int rc = ((dataItem[0] & rcMask) >> 2);
                 int rab = ((dataItem[0] & rabMask) >> 1);
+                this.atp = "Address Type: ";
+                this.arc = "Altitude Reporting Capability: ";
+                this.rc = "Range Check: ";
+                this.rab = "Report Type: ";
                 switch (atp)
                 {
+                    
                     case 0:
-                        this.atp = "24-BIT ICAO address";
+                        this.atp+= "24-BIT ICAO address";
                         break;
                     case 1:
-                        this.atp = "Duplicate address";
+                        this.atp+= "Duplicate address";
                         break;
                     case 2:
-                        this.atp = "Surface vehicle address";
+                        this.atp+= "Surface vehicle address";
                         break;
                     case 3:
-                        this.atp = "Anonymous address";
+                        this.atp+= "Anonymous address";
                         break;
                     case 4:
-                        this.atp = "Reserved for future use";
+                        this.atp+= "Reserved for future use";
                         break;
                     case 5:
-                        this.atp = "Reserved for future use";
+                        this.atp+= "Reserved for future use";
                         break;
                     case 6:
-                        this.atp = "Reserved for future use";
+                        this.atp+= "Reserved for future use";
                         break;
                     case 7:
-                        this.atp = "Reserved for future use";
+                        this.atp+= "Reserved for future use";
                         break;
                 }
                 switch (arc)
                 {
                     case 0:
-                        this.arc = "25 ft";
+                        this.arc+= "25 ft";
                         break;
                     case 1:
-                        this.arc = "100 ft";
+                        this.arc+= "100 ft";
                         break;
                     case 2:
-                        this.arc = "Unknown";
+                        this.arc+= "Unknown";
                         break;
                     case 3:
-                        this.arc = "Invalid";
+                        this.arc+= "Invalid";
                         break;
                 }
                 switch (rc)
                 {
                     case 0:
-                        this.rc = "Default";
+                        this.rc+= "Default";
                         break;
                     case 1:
-                        this.rc = "Range Check passed, CPR Validation pending";
+                        this.rc+= "Range Check passed, CPR Validation pending";
                         break;
                 }
                 switch (rab)
                 {
                     case 0:
-                        this.rab = "Report from target transponder";
+                        this.rab+= "Report from target transponder";
                         break;
                     case 1:
-                        this.rab = "Report from field monitor(fixed transponder)";
+                        this.rab+= "Report from field monitor(fixed transponder)";
                         break;
                 }
             }
@@ -1251,6 +1278,8 @@ namespace ClassLibrary
                 int tst = ((dataItem[1] & tstMask) >> 4);
                 int saa = ((dataItem[1] & saaMask) >> 3);
                 int cl = ((dataItem[1] & clMask) >> 1);
+                this.tst = "Test Target: ";
+                this.cl = "Confidence Level: ";
                 switch (dcr)
                 {
                     case 0:
@@ -1281,10 +1310,10 @@ namespace ClassLibrary
                 switch (tst)
                 {
                     case 0:
-                        this.tst = "Default";
+                        this.tst+= "Default";
                         break;
                     case 1:
-                        this.tst = "Test Target";
+                        this.tst+= "Test Target";
                         break;
                 }
                 switch (saa)
@@ -1300,16 +1329,16 @@ namespace ClassLibrary
                 switch (cl)
                 {
                     case 0:
-                        this.cl = "Report Valid";
+                        this.cl+= "Report Valid";
                         break;
                     case 1:
-                        this.cl = "Report suspect";
+                        this.cl+= "Report suspect";
                         break;
                     case 2:
-                        this.cl = "No information";
+                        this.cl+= "No information";
                         break;
                     case 3:
-                        this.cl = "Reserved for future use";
+                        this.cl+= "Reserved for future use";
                         break;
                 }
             }
@@ -1326,13 +1355,16 @@ namespace ClassLibrary
                 int ldpj = ((dataItem[2] & ldpjMask) >> 2);
                 int rcf = ((dataItem[2] & rcfMask) >> 1);
 
+                this.ipc = "Independent Position Check: ";
+                this.rcf = "Range Check: ";
+
                 switch (ipc)
                 {
                     case 0:
-                        this.ipc = "Default(see note)";
+                        this.ipc+= "Default";
                         break;
                     case 1:
-                        this.ipc = "Independent Position Check failed";
+                        this.ipc+= "Independent Position Check failed";
                         break;
                 }
                 switch (nogo)
@@ -1365,10 +1397,10 @@ namespace ClassLibrary
                 switch (rcf)
                 {
                     case 0:
-                        this.rcf = "Default";
+                        this.rcf+= "Default";
                         break;
                     case 1:
-                        this.rcf = "Range Check failed";
+                        this.rcf+= "Range Check failed";
                         break;
                 }
             }
@@ -1396,6 +1428,7 @@ namespace ClassLibrary
             {
                 byte sdamask = 24;
                 byte gvamask = 6;
+
                 this.silSupplement = dataItem[2] >> 5;
                 this.sda = (dataItem[2] & sdamask) >> 3;
                 this.gva = (dataItem[2] & gvamask) >> 1;
@@ -1606,7 +1639,7 @@ namespace ClassLibrary
         }
         private void SetAirborneGroundVector(byte[] dataItem)
         {
-            double resolutionSpeed = Math.Pow(2,-14);
+            double resolutionSpeed = 0.22;
             double resolutionAngle = 360 / Math.Pow(2, 16);
             byte mask = 127;
             int RE = dataItem[0] >> 7;
@@ -1945,16 +1978,16 @@ namespace ClassLibrary
             switch (TC)
             {
                 case 0:
-                    this.tc = "no capability for Trajectory Change Reports ";
+                    this.tc = "No capability for Trajectory Change Reports ";
                     break;
                 case 1:
-                    this.tc = "support for TC+0 reports only ";
+                    this.tc = "Support for TC+0 reports only ";
                     break;
                 case 2:
-                    this.tc = "support for multiple TC reports";
+                    this.tc = "Support for multiple TC reports";
                     break;
                 case 3:
-                    this.tc = "reserved";
+                    this.tc = "Target Trajectory Change Report Capability: Reserved";
                     break;
 
 
@@ -1963,10 +1996,10 @@ namespace ClassLibrary
             switch (TS)
             {
                 case 0:
-                    this.ts = "no capability to support Target State Report";
+                    this.ts = "No capability to support Target State Report";
                     break;
                 case 1:
-                    this.ts = "capable of supporting target State Reports ";
+                    this.ts = "Capable of supporting target State Reports ";
                     break;
 
 
@@ -1974,10 +2007,10 @@ namespace ClassLibrary
             switch (ARV)
             {
                 case 0:
-                    this.arv = "no capability to generate ARV-reports";
+                    this.arv = "No capability to generate ARV-reports";
                     break;
                 case 1:
-                    this.arv = "capable of generate ARV-reports  ";
+                    this.arv = "Capable of generate ARV-reports  ";
                     break;
 
 
@@ -1985,7 +2018,7 @@ namespace ClassLibrary
             switch (CDTIA)
             {
                 case 0:
-                    this.cdtia = "CDTI not operationa";
+                    this.cdtia = "CDTI not operational";
                     break;
                 case 1:
                     this.cdtia = "CDTI operational";
@@ -2055,10 +2088,10 @@ namespace ClassLibrary
             switch (cdtisvalue)
             {
                 case 0:
-                    this.b2low = "≥ 70 Watts ";
+                    this.b2low = "Class B2 transmit power ≥ 70 Watts ";
                     break;
                 case 1:
-                    this.b2low = "< 70 Watts ";
+                    this.b2low = "Class B2 transmit power < 70 Watts ";
                     break;
             }
             switch (cdtisvalue)
@@ -2089,52 +2122,52 @@ namespace ClassLibrary
                 switch (LplusW)
                 {
                     case 0:
-                        this.widthv1 = "W < 11.5";
-                        this.lengthv1 = "L < 15";
+                        this.widthv1 = "Width < 11.5";
+                        this.lengthv1 = "Length < 15";
                         break;
                     case 1:
-                        this.widthv1 = "W < 23";
-                        this.lengthv1 = "L < 15";
+                        this.widthv1 = "Width < 23";
+                        this.lengthv1 = "Length < 15";
                         break;
                     case 2:
-                        this.widthv1 = "W < 28.5";
-                        this.lengthv1 = "L < 25 ";
+                        this.widthv1 = "Width < 28.5";
+                        this.lengthv1 = "Length < 25 ";
                         break;
                     case 3:
-                        this.widthv1 = "W < 34";
-                        this.lengthv1 = "L < 25 ";
+                        this.widthv1 = "Width < 34";
+                        this.lengthv1 = "Length < 25 ";
                         break;
                     case 4:
-                        this.widthv1 = "W < 33";
-                        this.lengthv1 = "L < 35 ";
+                        this.widthv1 = "Width < 33";
+                        this.lengthv1 = "Length < 35 ";
                         break;
                     case 5:
-                        this.widthv1 = "W < 38";
-                        this.lengthv1 = "L < 35 ";
+                        this.widthv1 = "Width < 38";
+                        this.lengthv1 = "Length < 35 ";
                         break;
                     case 6:
-                        this.widthv1 = "W < 39.5";
-                        this.lengthv1 = "L < 45 ";
+                        this.widthv1 = "Width < 39.5";
+                        this.lengthv1 = "Length < 45 ";
                         break;
                     case 7:
-                        this.widthv1 = "W < 45";
-                        this.lengthv1 = "L < 45 ";
+                        this.widthv1 = "Width < 45";
+                        this.lengthv1 = "Length < 45 ";
                         break;
                     case 8:
-                        this.widthv1 = "W <45";
-                        this.lengthv1 = "L < 55 ";
+                        this.widthv1 = "Width <45";
+                        this.lengthv1 = "Length < 55 ";
                         break;
                     case 9:
-                        this.widthv1 = "W < 52";
-                        this.lengthv1 = "L < 55 ";
+                        this.widthv1 = "Width < 52";
+                        this.lengthv1 = "Length < 55 ";
                         break;
                     case 10:
-                        this.widthv1 = "W <59.5";
-                        this.lengthv1 = "L < 65 ";
+                        this.widthv1 = "Width <59.5";
+                        this.lengthv1 = "Length < 65 ";
                         break;
                     case 11:
-                        this.widthv1 = "W < 67";
-                        this.lengthv1 = "L < 65 ";
+                        this.widthv1 = "Width < 67";
+                        this.lengthv1 = "Length < 65 ";
                         break;
                 }
 
@@ -2260,7 +2293,7 @@ namespace ClassLibrary
                 if (boolFSPEC[3] == true)
                 {
                     byte[] data = GetFixedLengthItem(1);
-                    this.ts = Convert.ToString(ComputeBytes(data, resolution));
+                    this.tsage = Convert.ToString(ComputeBytes(data, resolution));
                 }
                 if (boolFSPEC[2] == true)
                 {

@@ -13,6 +13,7 @@ namespace AsterixDecoder
 {
     public partial class Form1 : Form
     {
+        
         public Form1()
         {
             InitializeComponent();
@@ -79,9 +80,11 @@ namespace AsterixDecoder
             dataGridView1.Columns[44].Name = "Data Ages";
 
             //Adaptamos columnas a texto
+            
             dataGridView1.Columns[9].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[22].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
 
@@ -96,7 +99,8 @@ namespace AsterixDecoder
                 string targetID = cat21.GetTargetIdentification();
                 string trackNumber = Convert.ToString(cat21.GetTrackNumber());
                 string serviceID = Convert.ToString(cat21.GetServiceIdentification());
-                //decimal timeofreportnopadded = Convert.ToDecimal(cat21.GetTimeOfReportTransmission());
+                string[] targetReportDescriptor = cat21.GetTargetReportDescriptor();
+                string targetreport = MultipleString(targetReportDescriptor);
                
                 string timeofreport = Convert.ToString(cat21.GetTimeOfReportTransmission());
                 timeofreport = StringTime(timeofreport);
@@ -132,7 +136,28 @@ namespace AsterixDecoder
                 string geometricHeight = Convert.ToString(cat21.GetGeometricHeight());
                 geometricHeight = StringUnits(geometricHeight, "ft");
 
-                string nucr = Convert.ToString(cat21.GetNucr());
+                int[] qualityIndicatorsInfo = cat21.GetQualityIndicators();
+                string[] qualityIndicatorsName = new string[] { "NUCr or NACv", "NUCp or NIC", "Navigation Integrity Category for Barometric Altitude", "Surveillance or Source Integrity Level", "Navigation Accuracy Category for Position", "SIL-Supplement", "Horizontal Position System Design Assurance Level", "Geometric Altitude Accuracy", "Position Integrity Category" };
+                string[] qualityIndicators=new string[qualityIndicatorsName.Length];
+                string[] qualityUnits = new string[] { "", "", "", "", "", "", "", "", "" };
+                for (int k=0; k < qualityIndicatorsInfo.Length; k++)
+                {
+                    
+                    qualityIndicators[k] = Convert.ToString(qualityIndicatorsInfo[k]);
+                    if (qualityIndicators[k]=="-1")
+                    {
+                        qualityIndicators[k] = "N/A";
+                    }
+                }
+                if (qualityIndicators[5] == "0")
+                {
+                    qualityIndicators[5] = "Measured per flight hour";
+                }
+                if (qualityIndicators[5] == "1")
+                {
+                    qualityIndicators[5] = "Measured per sample";
+                }
+                string quality = MultipleDouble(qualityIndicators, qualityIndicatorsName,qualityUnits);
                 string mopsversion = cat21.GetMOPSVersion();
                 string m3acode = cat21.GetMode3ACode();
                 string rollangle = Convert.ToString(cat21.GetRollAngle());
@@ -142,18 +167,34 @@ namespace AsterixDecoder
 
                 string magneticheading = Convert.ToString(cat21.GetMagneticHeading());
                 magneticheading = StringUnits(magneticheading, "°");
-                string targetstatus = cat21.GetTargetStatus();
+                string[] targetstatusInfo = cat21.GetTargetStatus();
+                targetstatusInfo[2] = "Priority Status: " + targetstatusInfo[2];
+                targetstatusInfo[3] = "Surveillance Status: " + targetstatusInfo[3];
+                string targetstatus = MultipleString(targetstatusInfo);
+
 
                 string barometricrate = Convert.ToString(cat21.GetBarometricVerticalRate());
                 barometricrate = StringUnits(barometricrate, "ft/min");
                 string geometricrate = Convert.ToString(cat21.GetGeometricVerticalRate());
                 geometricrate = StringUnits(geometricrate, "ft/min");
 
-                string airborneVector = cat21.GetAirborneVector();
+                string[] airborneVectorInfo = cat21.GetAirborneVector();
+                string airborneVector;
+                if (airborneVectorInfo[0] == "NaN")
+                {
+                    airborneVector = "Not Available";
+                }
+                else
+                {
+                    airborneVector = "GS: " + airborneVectorInfo[0] + "knts, T.A: " + airborneVectorInfo[1].Remove(6) + "°";
+                }
                 string trackanglerate = Convert.ToString(cat21.GetTrackAngleRate());
                 trackanglerate = StringUnits(trackanglerate, "°/s");
                 string emitterCategory = cat21.GetEmitterCategory();
-                string[] meteo = cat21.GetMetInformation();
+                string[] meteoInfo = cat21.GetMetInformation();
+                string[] meteoName= new string[] { "Wind Speed","Wind Direction","Temperature","Turbulence"};
+                string[] meteoUnits = new string[] { "knot", "°", "°C", "" };
+                string meteo = MultipleDouble(meteoInfo,meteoName,meteoUnits);
                 string selectedAltitude = Convert.ToString(cat21.GetSelectedAltitude());
                 selectedAltitude = StringUnits(selectedAltitude, "ft");
                 string finalselAltitude = Convert.ToString(cat21.GetFinalStateSelectedAltitude());
@@ -162,21 +203,62 @@ namespace AsterixDecoder
                 string servicemanagement = Convert.ToString(cat21.GetServiceManagement());
                 servicemanagement = StringUnits(servicemanagement, "sec");
                 string[] opstatusData = cat21.GetOperationalStatus();
-                string opstatus = opstatusData[0] + Environment.NewLine + opstatusData[1] + Environment.NewLine + opstatusData[2] + Environment.NewLine + opstatusData[3] + Environment.NewLine + opstatusData[4] + Environment.NewLine + opstatusData[5] + Environment.NewLine + opstatusData[6];
+                string opstatus = MultipleString(opstatusData); 
                 string[] surfaceData = cat21.GetSurfaceCapabilities();
-                string surface = surfaceData[0] + Environment.NewLine + surfaceData[1] + Environment.NewLine + surfaceData[2] + Environment.NewLine + surfaceData[3] + Environment.NewLine + surfaceData[4] + Environment.NewLine + surfaceData[5] + Environment.NewLine + surfaceData[6];
+                string surface = MultipleString(surfaceData); 
                 string messageAmplitude = Convert.ToString(cat21.GetMessageAmplitude());
                 messageAmplitude = StringUnits(messageAmplitude, "dBm");
                 string modeSMBData = cat21.GetModeSMBData();
                 string acasResolution = cat21.GetAcasResolution();
                 string receiverID = Convert.ToString(cat21.GetReceiverID());
-                string[] dataAges = cat21.GetDataAges();
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,"Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight, "NUCr or NACv: "+ nucr,mopsversion,m3acode,rollangle,flightlevel, magneticheading, targetstatus,barometricrate,geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: "+ meteo[0]+ "Wind Direction: " + meteo[1] +"Temperature: "+meteo[2] +"Turbulence"+ meteo[3], selectedAltitude, finalselAltitude, trajectoryintent,servicemanagement,opstatus,surface,messageAmplitude,modeSMBData,acasResolution,receiverID,dataAges[0]};
+                string[] dataAgesInfo = cat21.GetDataAges();
+                string[] dataAgesName = new string[] { "Age of latest information of Aircraft Operational Status", "Age of last update of Target Report Descriptor", "Age of last update of Mode 3A Code", "Age of last update of Quality Indicators", "Age of last update Trajectory Intent", "Age of latest measurement of Message Amplitude", "Age of Geometric Height information", "Age of Flight Level information","Age of Selected Altitude","Age of Final Selected Altitude","Age of Air Speed information","Age of value of True Air Speed","Age of value for Magnetic Heading","Age of Barometric Vertical Rate","Age of Geometric Vertical Rate","Age of the Ground Vector","Age of the Track Angle Rate","Age of the Target Identification","Age of the Target Status","Age of the Meteorological data","Age of Roll Angle","Age of ACAS Resolution","Age of Surface Capabilities"};
+                string[] dataAgesUnits = new string[] { "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s", "s" };
+                string dataAges = MultipleDouble(dataAgesInfo, dataAgesName,dataAgesUnits);
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight, quality,mopsversion,m3acode,rollangle,flightlevel, magneticheading, targetstatus,barometricrate,geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent,servicemanagement,opstatus,surface,messageAmplitude,modeSMBData,acasResolution,receiverID,dataAges};
                 dataGridView1.Rows.Add(row);
      
             }
 
 
+        }
+
+        private string MultipleDouble(string[] value, string[] name,string[] units)
+        {
+            string data="";
+            for(int i=0;i<value.Length;i++)
+            {
+                if (value[i] != "N/A")
+                {
+                    data = data + name[i] + ": " + value[i] +units[i]+ Environment.NewLine;
+                }
+            }
+            if (data == "")
+            {
+                data = "N/A";
+            }
+            return data;
+        }
+        private string MultipleString(string[] info)
+        {
+            string data = "";
+            int length = info.Length;
+            for (int i = 0; i < length; i++)
+            {
+                if (info[i] != "N/A" && i!=length-1)
+                {
+                    data = data + info[i] + Environment.NewLine;
+                }
+                if (info[i] != "N/A" && i == length - 1)
+                {
+                    data = data + info[i];
+                }
+            }
+            if (data == "")
+            {
+                data = "N/A";
+            }
+            return data;
         }
 
         private string StringTime(string time)
@@ -237,6 +319,19 @@ namespace AsterixDecoder
 
             }
             return position;
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int column = e.ColumnIndex;
+            int row = e.RowIndex;
+
+            //dataGridView1.AutoResizeRow(row, DataGridViewAutoSizeRowMode.AllCells);
+            //dataGridView1.Rows[row].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView1.Columns[column].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[column].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
         }
     }
 }
