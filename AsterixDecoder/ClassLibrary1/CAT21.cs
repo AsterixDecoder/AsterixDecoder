@@ -1131,8 +1131,8 @@ namespace ClassLibrary
             double longitude = ConvertTwosComplementByteToDouble(longi);
 
             double resolution = 180 / Math.Pow(2, 23);
-            this.latitudeWGS84high = latitude * resolution;
-            this.longitudeWGS84high = longitude * resolution;
+            this.latitudeWGS84 = latitude * resolution;
+            this.longitudeWGS84 = longitude * resolution;
         }
 
         private void SetTimeOfApplicabilityPosition(byte[] dataItem)

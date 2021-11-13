@@ -31,20 +31,6 @@ namespace AsterixDecoder
             AsterixFile asterixfile = new AsterixFile("201002-lebl-080001_adsb.ast");
             List<CAT21> lista = asterixfile.getListCAT21();
 
-            //Print en hexadecimal
-            //byte[] arraystringcopy =cat21.GetArray();
-            //for (int j = 0; j < arraystringcopy.Length; j++) {
-            //Console.WriteLine("{0:X}", arraystringcopy[j]);
-            //Console.WriteLine( j +":::"+ arraystringcopy[j]) ;
-            //}
-
-            //Print en decimal
-            //for (int j = 0; j < lista.Count; j++)
-            //{
-            //    //Console.WriteLine("Vuelo"+(j+1) +" "+ lista[j].GetLatitudeWGS84High());
-            //    //Console.WriteLine("Vuelo" + (j + 1) + " " + lista[j].GetLongitudeWGS84High());
-
-            //}
             dataGridView1.ColumnCount = 45;
             dataGridView1.Columns[0].Name = "Number";
             dataGridView1.Columns[1].Name = "Category";
@@ -92,6 +78,12 @@ namespace AsterixDecoder
             dataGridView1.Columns[43].Name = "Receiver ID";
             dataGridView1.Columns[44].Name = "Data Ages";
 
+            //Adaptamos columnas a texto
+            dataGridView1.Columns[9].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[22].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
 
 
 
@@ -108,15 +100,20 @@ namespace AsterixDecoder
                
                 string timeofreport = Convert.ToString(cat21.GetTimeOfReportTransmission());
                 timeofreport = StringTime(timeofreport);
-                
 
-                string position= Convert.ToString(cat21.GetLatitudeWGS84())+ " " + Convert.ToString(cat21.GetLongitudeWGS84());
-                string positionHigh = Convert.ToString(cat21.GetLatitudeWGS84High()) + " " + Convert.ToString(cat21.GetLongitudeWGS84High());
+
+                double latitude = cat21.GetLatitudeWGS84();
+                double longitude = cat21.GetLongitudeWGS84();
+                string position = StringPosition(latitude, longitude,4);
+                latitude = cat21.GetLatitudeWGS84High();
+                longitude = cat21.GetLongitudeWGS84High();
+                string positionHigh = StringPosition(latitude, longitude,7);
                 string airspeed = Convert.ToString(cat21.GetAirspeed());
                 airspeed = StringUnits(airspeed, "Mach");
                 string trueairspeed = Convert.ToString(cat21.GetTrueAirspeed());
                 trueairspeed = StringUnits(trueairspeed,"knot");
-                string targetaddress = Convert.ToString(cat21.GetTargetAddress());
+                int target = cat21.GetTargetAddress();
+                string targetaddress = target.ToString("X");
                 //TimeSpans
                 string tappposition = Convert.ToString(cat21.GetTimeOfApplicabilityPosition());
                 tappposition = StringTime(tappposition);
@@ -206,6 +203,40 @@ namespace AsterixDecoder
                 value = value + " " + units;
             }
             return value;
+        }
+        private string StringPosition(double lat, double lon, int presition)
+        {
+            string position;
+            if (lat == double.NaN || lon==double.NaN)
+            {
+                position = "Not Available";
+            }
+            else
+            {
+                int deg = (int)lat;
+                double degDouble = Convert.ToDouble(deg);
+                position = Convert.ToString(deg) + "°";
+                double minDouble = (lat - degDouble)*60;
+                int min = (int) minDouble;
+                position = position + Convert.ToString(min) + "'";
+                double sec = (minDouble - Convert.ToDouble(min)) * 60;
+                string secString = Convert.ToString(sec);
+                secString= secString.Remove(presition);
+                position = position + secString + "'',";
+                deg = (int) lon;
+                degDouble = Convert.ToDouble(deg);
+                position = position + Convert.ToString(deg) + "°";
+                minDouble = (lon - degDouble) * 60;
+                min = (int) minDouble;
+                position = position + Convert.ToString(min) + "'";
+                sec = (minDouble - Convert.ToDouble(min)) * 60;
+                secString = Convert.ToString(sec);
+                secString = secString.Remove(presition);
+                position = position + secString + "''";
+
+
+            }
+            return position;
         }
     }
 }
