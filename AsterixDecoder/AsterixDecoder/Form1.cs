@@ -13,8 +13,11 @@ namespace AsterixDecoder
 {
     public partial class Form1 : Form
     {
+        AsterixFile asterixFile;
+        List<CAT10> lista10;
         public Form1()
         {
+
             InitializeComponent();
 
         }
@@ -22,9 +25,9 @@ namespace AsterixDecoder
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            AsterixFile asterixFile = new AsterixFile("201002-lebl-080001_smr.ast");
-            List<CAT10> lista10 = asterixFile.getListCAT10();
-            dataGridView1.ColumnCount = 45;
+            asterixFile = new AsterixFile("201002-lebl-080001_smr.ast");
+            lista10 = asterixFile.getListCAT10();
+            dataGridView1.ColumnCount = 28;
             dataGridView1.Columns[0].Name = "Number";
             dataGridView1.Columns[1].Name = "Category";
             dataGridView1.Columns[2].Name = "SAC";
@@ -54,20 +57,105 @@ namespace AsterixDecoder
             dataGridView1.Columns[26].Name = "Amplitude of Primary Plor";
             dataGridView1.Columns[27].Name = "Calculated Acceleration";
 
+            dataGridView1.Columns[5].AutoSizeMode=DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[13].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
 
 
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
 
 
-                //string dataAges = cat21.GetDataAges();
-                string[] row = lista10[i].GetValues(27);
-                //new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber, "Target Report Descriptor", serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition, tappvelocity, tmessageposition, tmessagepositionhigh, tmessagevel, tmessagevelhigh, geometricHeight + " ft", "NUCr or NACv: " + nucr, mopsversion, m3acode, rollangle, flightlevel + " FL", magneticheading, targetstatus, barometricrate + " ft/min", geometricrate, airborneVector, trackanglerate, emitterCategory, "WindSpeed: " + meteo[0] + "Wind Direction: " + meteo[1] + "Temperature: " + meteo[2] + "Turbulence" + meteo[3], selectedAltitude + " ft", finalselAltitude, trajectoryintent, servicemanagement, opstatus, surface, messageAmplitude, modeSMBData, acasResolution, receiverID, "Data Ages" };
+                
+                string[] row = lista10[i].GetValues(28);
+                row[0] = i.ToString();
+                row[1] = "10";
+
                 dataGridView1.Rows.Add(row);
 
             }
         }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            Size s = new Size(this.ClientSize.Width - 50, this.ClientSize.Height - 50);
+            dataGridView1.MaximumSize=s;
+
+            dataGridView1.AutoSize = true;
+            dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.CurrentCell.ColumnIndex == 5 && dataGridView1.CurrentCell.Value != "No Data")
+            {
+                if (dataGridView1.CurrentCell.Value!= "Click to Expand")
+                {
+                    dataGridView1.CurrentCell.Value = "Click to Expand";
+                }
+                else
+                dataGridView1.CurrentCell.Value = lista10[dataGridView1.CurrentCell.RowIndex].GetTargetDescriptor();
+                //dataGridView1.CurrentRow.Height = 200;
+            }
+            if (dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
+            {
+                if (dataGridView1.CurrentCell.Value != "Click to Expand")
+                {
+                    dataGridView1.CurrentCell.Value = "Click to Expand";
+                }
+                else
+                    dataGridView1.CurrentCell.Value = lista10[dataGridView1.CurrentCell.RowIndex].GetTrackStatus();
+
+            }
+        }
+
+        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.CurrentCell.ColumnIndex == 5|| dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
+            {
+                dataGridView1.CurrentCell.Value = "Click to Expand";
+
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                try { dataGridView1.Rows[i].Visible = false; } catch (Exception) { }
+                    
+            }
+            string s;
+            for (int i = 0; i < 28; i++)
+            {
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    try
+                    {
+                        s = row.Cells[i].Value.ToString();
+                        if (System.Text.RegularExpressions.Regex.IsMatch(s, textBox1.Text) || textBox1.Text == "")
+                        {
+                            row.Visible = true;
+
+                        }
+                        
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+
+
+                }
+            }
+
+
+            
+        }
+
     }
 }

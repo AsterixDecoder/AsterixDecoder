@@ -26,6 +26,7 @@ namespace ClassLibrary
         int[] D11_TrackStatus = new int[10];//CNF,TRE,CST,MAH,TCC,STH,TOM,DOU,MRS,GHO
         int[] D12_Mode3_a = new int[7]; //V,G,L,A,B,C,D
         int[] D13_TargetAddress = new int[3];//valor de cada byte
+        int[] D16_Mode_S = new int[2];
         int D17_VFI;
         double[] D18_FLBinary = new double[3];
         double D19_MeasuredHeight;
@@ -56,6 +57,7 @@ namespace ClassLibrary
             byte[] buffer4 = new byte[4];
             bool[] bufferBool2 = new bool[2];
             bool[] bufferBool3 = new bool[3];
+            bool[] bufferBool4 = new bool[4];
             bool[] bufferBool6 = new bool[6];
             bool[] bufferBool7 = new bool[7];
             int[] temp = new int[1];
@@ -390,11 +392,23 @@ namespace ClassLibrary
                                 buffer1[0] = arraystring[j + cont];
                                 D13_TargetAddress[j] = buffer1[0];
                             }
+                            cont = cont + 3;
                             break;
-                        case 14://Como se lee?
+                        case 14://Dijo que no habia que hacer
 
                             break;
-                        case 16: //tampoco se como se lee los bits de MSB
+                        case 16:
+                            cont = cont + 8;
+                            buffer1[0] = arraystring[cont];
+                            bufferBit1 = new BitArray(buffer1);
+                            for (int j = 0; j < 2; j++)
+                            {
+                                for (int z = 0; z < 4; z++)
+                                    bufferBool4[z] = bufferBit1[z + j * 4];
+                                bufferBit2 = new BitArray(bufferBool4);
+                                bufferBit2.CopyTo(D16_Mode_S, j);
+
+                            }
                             break;
                         case 17:
                             buffer1[0] = arraystring[cont];
@@ -564,35 +578,173 @@ namespace ClassLibrary
                     {
                         switch (i)
                         {
-                            case 1:
-                                row[1+i] = D00_DataSource[0].ToString();
-                                row[2+i] = D00_DataSource[1].ToString();
+                            case 0:
+                                row[2+i] = D00_DataSource[0].ToString();
+                                row[3+i] = D00_DataSource[1].ToString();
                                 break;
-                            case 2:
+                            case 1:
                                 switch (D01_MessageType)
                                 {
                                     case 1:
-                                        row[2+i] = "Target Report";
+                                        row[3+i] = "Target Report";
                                         break;
                                     case 2:
-                                        row[2+i] = "Start of Update Cycle";
+                                        row[3+i] = "Start of Update Cycle";
                                         break;
                                     case 3:
-                                        row[2+i] = "Periodic Status Message";
+                                        row[3+i] = "Periodic Status Message";
                                         break;
                                     case 4:
-                                        row[2+i] = "Event-triggered Status Message";
+                                        row[3+i] = "Event-triggered Status Message";
                                         break;
                                 }
                                 break;
-                            case 3:
+                            case 2:
+                                row[3 + i] = "Click to Expand";
 
+                                break;
+                            case 3:
+                                row[3+i]=D03_TimeOfDate[0].ToString()+":"+D03_TimeOfDate[1].ToString() + ":"+D03_TimeOfDate[2].ToString() + ":"+D03_TimeOfDate[3].ToString();
                                 break;
                             case 4:
-                                row[2+i]=D03_TimeOfDate[0].ToString()+":"+D03_TimeOfDate[1].ToString() + ":"+D03_TimeOfDate[2].ToString() + ":"+D03_TimeOfDate[3].ToString();
+                                //row[3+i]=
                                 break;
                             case 5:
+                                row[3 + i] = "R = " + D05_PolarCoor[0].ToString() + "m θ = " + D05_PolarCoor[1].ToString()+ "°";
+                                break;
+                            case 6:
+                                row[3 + i] = "X = " + D06_CartCoor[0].ToString() + "m Y = " + D06_CartCoor[1].ToString() + "m";
+                                break;
+                            case 8:
+                                row[2 + i] = "GS = " + D08_PolarSpeed[0].ToString() + "m/s θ = " + D08_PolarSpeed[1].ToString() + "°";
+                                break;
+                            case 9:
+                                row[2 + i] = "Vx = " + D09_CartSpeed[0].ToString() + "m/s Vy = " + D09_CartSpeed[1].ToString()+"m/s";
+                                break;
+                            case 10:
+                                row[2 + i] = D10_TrackNum.ToString() ;
+                                break;
+                            case 11://///////////////////////////////////////////////////Expand
+                                row[2 + i] = "Click to Expand";
+                                break;
+                            case 12://///////////////////////////////////////////////////Expand
+                                row[2 + i] = "Click to Expand";
+                                break;
+                            case 13:
+                                row[2 + i] = D13_TargetAddress[0] .ToString()+ D13_TargetAddress[1] + D13_TargetAddress[2];
+                                break;
+                            case 14:
+                                //No hay que hacer 
+                                break;
+                            case 16:
+                                row[1 + i] = "BDS1: " + D16_Mode_S[0] + " BDS2: " + D16_Mode_S[1];
+                                break;
+                            case 17:
+                                switch (D17_VFI)
+                                {
+                                    case 0:
+                                        row[1 + i] = "Unknown";
+                                        break;
+                                    case 1:
+                                        row[1 + i] = "ATC equipment maintenance";
+                                        break;
+                                    case 2:
+                                        row[1 + i] = "Airport maintenance";
+                                        break;
+                                    case 3:
+                                        row[1 + i] = "Fire";
+                                        break;
+                                    case 4:
+                                        row[1 + i] = "Bird scarer";
+                                        break;
+                                    case 5:
+                                        row[1 + i] = "Snow plough";
+                                        break;
+                                    case 6:
+                                        row[1 + i] = "Runway sweeper";
+                                        break;
+                                    case 7:
+                                        row[1 + i] = "Emergency";
+                                        break;
+                                    case 8:
+                                        row[1 + i] = "Police";
+                                        break;
+                                    case 9:
+                                        row[1 + i] = "Bus";
+                                        break;
+                                    case 10:
+                                        row[1 + i] = "Tug (push/tow)";
+                                        break;
+                                    case 11:
+                                        row[1 + i] = "Grass cutter";
+                                        break;
+                                    case 12:
+                                        row[1 + i] = "Fuel";
+                                        break;
+                                    case 13:
+                                        row[1 + i] = "Baggage";
+                                        break;
+                                    case 14:
+                                        row[1 + i] = "Catering";
+                                        break;
+                                    case 15:
+                                        row[1 + i] = "Aircraft maintenance";
+                                        break;
+                                    case 16:
+                                        row[1 + i] = "Flyco (follow me)";
+                                        break;
+                                }
 
+                                break;
+                            case 18:
+                                if (D18_FLBinary[0] == 0)
+                                    row[1 + i] = "Code validated";
+                                else row[1+i]= "Code not validated";
+                                if (D18_FLBinary[1] == 0)
+                                    row[1 + i] = row[1 + i]+ " - Code validated - " + D18_FLBinary[2];
+                                else row[1 + i] = row[1 + i]+" - Garbled code - "+D18_FLBinary[2];
+                                break;
+                            case 19:
+                                row[i + 1] = D19_MeasuredHeight.ToString();
+                                break;
+                            case 20:
+                                row[i + 1] = "Size: " + D20_TargerSizeOrientation[0] + " Orientation: " + D20_TargerSizeOrientation[1] + " Width: " + D20_TargerSizeOrientation[2];
+                                break;
+                            case 21:////////////////////////////////////Expand
+                                row[i + 1] = "Click to Expand";
+                                break;
+                            case 22:
+                                row[1 + i] = D22_PreProgrammedMessage[0] == 0 ? "Default - " : "In Trouble - ";
+                                switch (D22_PreProgrammedMessage[1])
+                                {
+                                    case 1:
+                                        row[1 + i] = row[1 + i] + "Towing aircraft";
+                                        break;
+                                    case 2:
+                                        row[1 + i] = row[1 + i] + "“Follow me” operation";
+                                        break;
+                                    case 3:
+                                        row[1 + i] = row[1 + i] + "Runway check";
+                                        break;
+                                    case 4:
+                                        row[1 + i] = row[1 + i] + "Emergency operation (fire, medical…)";
+                                        break;
+                                    case 5:
+                                        row[1 + i] = row[1 + i] + "Work in progress (maintenance, birds scarer, sweepers…)";
+                                        break;
+                                }
+                                break;
+                            case 24:
+                                row[i] = "σx = " + D24_StandardDeviationOfPosition[0] + " σy = " + D24_StandardDeviationOfPosition[1] + " σxy = " + D24_StandardDeviationOfPosition[2];
+                                break;
+                            case 25:
+                                row[i] = "Rep = " + D25_Presence[0] + " DRHO = " + D25_Presence[1] + " DTHETA = " + D25_Presence[2];
+                                break;
+                            case 26:
+                                row[i] = "Pam = " + D26_AmplitudeOfPrimaryPlot;
+                                break;
+                            case 27:
+                                row[i] = "Ax = " + D27_CalculatedAcceleration[0] + " Ay = " + D27_CalculatedAcceleration[1];
                                 break;
                         }
                     }
@@ -605,10 +757,223 @@ namespace ClassLibrary
             return row;
         }
 
-        
+        public string GetTargetDescriptor()
+        {
+            string row="";
+            string nl = Environment.NewLine;
+
+            switch (D02_TargetReportDescriptor[0])
+            {
+                case 0:
+                    row = "SSR multilateration";
+                    break;
+                case 1:
+                    row = "Mode S multilateration";
+                    break;
+                case 2:
+                    row = "ADS-B";
+                    break;
+                case 3:
+                    row = "PSR";
+                    break;
+                case 4:
+                    row = "Magnetic Loop System";
+                    break;
+                case 5:
+                    row = "HF multilateration";
+                    break;
+                case 6:
+                    row = "Not defined";
+                    break;
+                case 7:
+                    row = "Other types";
+                    break;
+            }
+
+
+
+            if (D02_TargetReportDescriptor[1] == 0)
+                row = row + nl+"No differential correction (ADS-B)";
+            else
+                row = row + nl+"Differential correction (ADS-B)";
+
+            if (D02_TargetReportDescriptor[2] == 0)
+                row = row + nl+"Chain 1";
+            else
+                row = row + nl+"Chain 2";
+
+            if (D02_TargetReportDescriptor[3] == 0)
+                row = row + nl+"Transponder Ground bit not set";
+            else
+                row = row + nl+"Transponder Ground bit set";
+
+            if (D02_TargetReportDescriptor[4] == 0)
+                row = row + nl+"No Corrupted reply in multilateration";
+            else
+                row = row + nl+"Corrupted replies in multilateration";
+
+            if (D02_TargetReportDescriptor[5] == 0)
+                row = row + nl+"Actual target report";
+            else
+                row = row + nl+"Simulated target report";
+
+            if (D02_TargetReportDescriptor[6] == 0)
+                row = row + nl+"Default";
+            else
+                row = row + nl+"Test Target";
+
+            if (D02_TargetReportDescriptor[7] == 0)
+                row = row + nl+"Report from target transponder";
+            else
+                row = row + nl+"Report from field monitor (fixed transponder)";
+
+            switch (D02_TargetReportDescriptor[8])
+            {
+                case 0:
+                    row = row+nl+"Undetermined";
+                    break;
+                case 1:
+                    row = row+nl+"Loop start";
+                    break;
+                case 2:
+                    row = row+nl+"Loop finish";
+                    break;
+            }
+            switch (D02_TargetReportDescriptor[9])
+            {
+                case 0:
+                    row = row + nl +"Undetermined";
+                    break;
+                case 1:
+                    row = row + nl +"Aircraft";
+                    break;
+                case 2:
+                    row = row + nl +"Ground vehicle";
+                    break;
+                case 3:
+                    row = row + nl +"Helicopter";
+                    break;
+            }
+            if (D02_TargetReportDescriptor[10] == 0)
+                row = row + nl+"Absence of SPI";
+            else
+                row = row + nl+"Special Position Identification";
+            return row;
+        }
+        public string GetTrackStatus()
+        {
+            string row = "";
+            string nl = Environment.NewLine;
+
+            if (D11_TrackStatus[0] == 0)
+                row = row + "Confirmed track";
+            else
+                row = row + "Track in initialisation phase";
+
+            if (D11_TrackStatus[1] == 0)
+                row = row + nl + "Default";
+            else
+                row = row + nl + "Last report for a track";
+            switch (D11_TrackStatus[2])
+            {
+                case 0:
+                    row = row + nl + "No extrapolation";
+                    break;
+                case 1:
+                    row = row + nl + "Predictable extrapolation due to sensor refresh period (see NOTE)";
+                    break;
+                case 2:
+                    row = row + nl + "Predictable extrapolation in masked area";
+                    break;
+                case 3:
+                    row = row + nl + "Extrapolation due to unpredictable absence of detection";
+                    break;
+            }
+
+            if (D11_TrackStatus[3] == 0)
+                row = row + nl + "Default";
+            else
+                row = row + nl + "Horizontal manoeuvre";
+
+            if (D11_TrackStatus[4] == 0)
+                row = row + nl + "Tracking performed in 'Sensor Plane', i.e. neither slant range correction nor projection was applied.";
+            else
+                row = row + nl + "Slant range correction and a suitable projection technique are used to track in a 2D.reference plane, tangential to the earth model at the Sensor Site co-ordinates.";
+
+            if (D11_TrackStatus[5] == 0)
+                row = row + nl + "Measured position";
+            else
+                row = row + nl + "Smoothed position";
+
+            switch (D11_TrackStatus[6])
+            {
+                case 0:
+                    row = row + nl + "Unknown type of movement";
+                    break;
+                case 1:
+                    row = row + nl + "Taking-off";
+                    break;
+                case 2:
+                    row = row + nl + "Landing";
+                    break;
+                case 3:
+                    row = row + nl + "Other types of movement";
+                    break;
+            }
 
 
 
 
-}
+            switch (D11_TrackStatus[7])
+            {
+                case 0:
+                    row = row + nl + "No doubt";
+                    break;
+                case 1:
+                    row = row + nl + "Doubtful correlation (undetermined reason)";
+                    break;
+                case 2:
+                    row = row + nl + "Doubtful correlation in clutter";
+                    break;
+                case 3:
+                    row = row + nl + "Loss of accuracy";
+                    break;
+                case 4:
+                    row = row + nl + "Loss of accuracy in clutter";
+                    break;
+                case 5:
+                    row = row + nl + "Unstable track";
+                    break;
+                case 6:
+                    row = row + nl + "Previously coasted";
+                    break;
+
+            }
+            switch (D11_TrackStatus[8])
+            {
+                case 0:
+                    row = row + nl + "Merge or split indication undetermined";
+                    break;
+                case 1:
+                    row = row + nl + "Track merged by association to plot";
+                    break;
+                case 2:
+                    row = row + nl + "Track merged by non-association to plot";
+                    break;
+                case 3:
+                    row = row + nl + "Split track";
+                    break;
+            }
+
+
+            if (D11_TrackStatus[9] == 0)
+                row = row + nl + "Default";
+            else
+                row = row + nl + "Ghost track";
+            return row;
+        }
+
+
+
+    }
 }
