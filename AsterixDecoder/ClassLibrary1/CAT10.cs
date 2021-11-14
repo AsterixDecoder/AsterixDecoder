@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace ClassLibrary
 {
@@ -13,9 +14,9 @@ namespace ClassLibrary
         BitArray EspcCamp;
         int[] D00_DataSource=new int[2];
         int D01_MessageType;
-        int D02_TargetReportDescriptorTYP;
-        bool[] D02_TargerReportDescriptorBOOLS = new bool[5];
-        int[] D03_TimeOfDate = new int[3]; // [h,min,sec]
+
+        int[] D02_TargetReportDescriptor = new int[11];
+        int[] D03_TimeOfDate = new int[4]; // [h,min,sec]
         double[] D04_PositionWS64 = new double[2];
         double[] D05_PolarCoor = new double[2];
         int[] D06_CartCoor = new int[2];
@@ -58,17 +59,72 @@ namespace ClassLibrary
             bool[] bufferBool6 = new bool[6];
             bool[] bufferBool7 = new bool[7];
             int[] temp = new int[1];
-            bool tempBool;
+            bool tempBool=true;
             int tempInt;
 
-            for (int i = 0; i < 4; i++)
+            int cont = 3;
+
+            while(tempBool)
             {
-                buffer4[i] = arraystring[i + 3];
+                buffer1[0] = arraystring[cont];
+                bufferBit1 = new BitArray(buffer1);
+                tempBool = bufferBit1[0];
+                cont++;
+            }
+            switch (cont - 4)
+            {
+                case 0:
+                    buffer1[0] = arraystring[cont - 1];
+                    bufferBit1 = new BitArray(buffer1);
+                    bufferBit2 = new BitArray(buffer1);
+                    for (int i = 0; i < 8; i++)
+                        bufferBit2[i] = bufferBit1[7 - i];
+                    EspcCamp = bufferBit2;
+                    break;
+                case 1:
+                    buffer2[0] = arraystring[cont - 2];
+                    buffer2[1] = arraystring[cont - 1];
+                    bufferBit1 = new BitArray(buffer2);
+                    bufferBit2 = new BitArray(buffer2);
+                    for (int j = 0; j < 2; j++)
+                    {
+                        for (int i = 0; i < 8; i++)
+                            bufferBit2[i + 8 * j] = bufferBit1[8 * (j + 1) - 1 - i];
+                    }
+                    EspcCamp = bufferBit2;
+                    break;
+                case 2:
+                    buffer3[0] = arraystring[cont - 3];
+                    buffer3[1] = arraystring[cont - 2];
+                    buffer3[2] = arraystring[cont - 1];
+                    bufferBit1 = new BitArray(buffer4);
+                    bufferBit2 = new BitArray(buffer4);
+                    for (int j = 0; j < 3; j++)
+                    {
+                        for (int i = 0; i < 8; i++)
+                            bufferBit2[i + 8 * j] = bufferBit1[8 * (j + 1) - 1 - i];
+                    }
+                    EspcCamp = bufferBit2;
+                    break;
+                case 3:
+                    buffer4[0] = arraystring[cont - 4];
+                    buffer4[1] = arraystring[cont - 3];
+                    buffer4[2] = arraystring[cont - 2];
+                    buffer4[3] = arraystring[cont - 1];
+                    bufferBit1 = new BitArray(buffer4);
+                    bufferBit2 = new BitArray(buffer4);
+                    for (int j = 0; j < 4; j++)
+                    {
+                        for (int i = 0; i < 8; i++)
+                            bufferBit2[i+8*j] = bufferBit1[8*(j+1)-1 - i];
+                    }
+                    EspcCamp = bufferBit2;
+                    break;
+
             }
             
+
             
-            EspcCamp = new BitArray(buffer4);
-            int cont = 7;
             for(int i = 0; i < EspcCamp.Length; i++)
             {
                 if (EspcCamp[i] == true)
@@ -86,29 +142,76 @@ namespace ClassLibrary
                             cont++;
                             break;
                         case 2:
-                            buffer1[0] = arraystring[cont];
-                            cont++;
-                            bufferBit1 = new BitArray(buffer1);
-                            bufferBool3[2] = bufferBit1[7];
-                            bufferBool3[1] = bufferBit1[6];
-                            bufferBool3[0] = bufferBit1[5];
-                            bufferBit2 = new BitArray(bufferBool3 );
-                            bufferBit2.CopyTo(buffer1,0);
-                            D02_TargetReportDescriptorTYP = buffer1[0];
-                            D02_TargerReportDescriptorBOOLS[0] = bufferBit1[0];
-                            D02_TargerReportDescriptorBOOLS[1] = bufferBit1[1];
-                            D02_TargerReportDescriptorBOOLS[2] = bufferBit1[2];
-                            D02_TargerReportDescriptorBOOLS[3] = bufferBit1[3];
-                            D02_TargerReportDescriptorBOOLS[4] = bufferBit1[4];
-                            break;
+
+
+                            tempBool = true;
+                            tempInt = 0;
+                            while (tempBool)
+                            {
+                                buffer1[0] = arraystring[cont];
+
+                                bufferBit1 = new BitArray(buffer1);
+                                switch (tempInt)//TYP,DCR,CHN,GBS,CRT,SIM,TST,RAB,LOP,TOT,SPI
+                                {
+                                    case 0:
+                                        bufferBool3[2] = bufferBit1[7];
+                                        bufferBool3[1] = bufferBit1[6];
+                                        bufferBool3[0] = bufferBit1[5];
+                                        bufferBit2 = new BitArray(bufferBool3);
+                                        bufferBit2.CopyTo(buffer1, 0);
+                                        D02_TargetReportDescriptor[0] = buffer1[0];
+
+                                        D02_TargetReportDescriptor[1] = bufferBit1[4] ? 1 : 0;
+                                        D02_TargetReportDescriptor[2] = bufferBit1[3] ? 1 : 0;
+                                        D02_TargetReportDescriptor[3] = bufferBit1[2] ? 1 : 0;
+                                        D02_TargetReportDescriptor[4] = bufferBit1[1] ? 1 : 0;
+                                        if (bufferBit1[0]) tempInt++;
+                                        else tempBool = false;
+                                        cont++;
+                                        break;
+                                    case 1:
+                                        D02_TargetReportDescriptor[5] = bufferBit1[7] ? 1 : 0;
+                                        D02_TargetReportDescriptor[6] = bufferBit1[6] ? 1 : 0;
+                                        D02_TargetReportDescriptor[7] = bufferBit1[5] ? 1 : 0;
+
+                                        bufferBool2[1] = bufferBit1[4];
+                                        bufferBool2[0] = bufferBit1[3];
+                                        bufferBit2 = new BitArray(bufferBool2);
+                                        bufferBit2.CopyTo(buffer1, 0);
+                                        D02_TargetReportDescriptor[8] = buffer1[0];
+
+
+                                        bufferBool2[1] = bufferBit1[2];
+                                        bufferBool2[0] = bufferBit1[1];
+                                        bufferBit2 = new BitArray(bufferBool2);
+                                        bufferBit2.CopyTo(buffer1, 0);
+                                        D02_TargetReportDescriptor[9] = buffer1[0];
+
+
+                                        if (bufferBit1[0]) tempInt++;
+                                        else tempBool = false;
+                                        cont++;
+                                        break;
+                                    case 2:
+                                        D02_TargetReportDescriptor[10] = bufferBit1[7] ? 1 : 0;
+                                        tempBool = false;
+                                        cont++;
+                                        break;
+
+                                }
+                                
+                            }
+                                break;
+                            
                         case 3:
                             
-                            for (int j = 0; j < 4; j++)
+                            for (int j = 0; j < 3; j++)
                             {
-                                buffer3[j] = arraystring[j + cont];
+                                buffer3[2-j] = arraystring[j + cont];
                             }
                             bufferBit1 = new BitArray(buffer3);
                             bufferBit1.CopyTo(D03_TimeOfDate, 2);
+                            D03_TimeOfDate[3] = D03_TimeOfDate[2] % 128*1000/128;
                             D03_TimeOfDate[2] = D03_TimeOfDate[2] / 128;
                             D03_TimeOfDate[0] = D03_TimeOfDate[2] / 3600;
                             D03_TimeOfDate[2] = D03_TimeOfDate[2] % 3600;
@@ -120,10 +223,10 @@ namespace ClassLibrary
                             
                             for(int j = 0; j < 2; j++)
                             {
-                                buffer4[0] = arraystring[cont+j*4];
-                                buffer4[1] = arraystring[cont + 1 + j * 4];
-                                buffer4[2] = arraystring[cont + 2 + j * 4];
-                                buffer4[3] = arraystring[cont + 3 + j * 4];
+                                buffer4[3] = arraystring[cont+j*4];
+                                buffer4[2] = arraystring[cont + 1 + j * 4];
+                                buffer4[1] = arraystring[cont + 2 + j * 4];
+                                buffer4[0] = arraystring[cont + 3 + j * 4];
                                 bufferBit1 = new BitArray(buffer4);
                                 bufferBit1.CopyTo(temp, 0);
                                 D04_PositionWS64[j] = temp[0] *180/ (Math.Pow(2,31));
@@ -132,23 +235,33 @@ namespace ClassLibrary
                             
                             break;
                         case 5:
-                        
-                            for (int j = 0; j < 2; j++)
-                            {
-                                buffer2[0] = arraystring[cont + j * 2];
-                                buffer2[1] = arraystring[cont + 1 + j * 2];
+
+                                buffer2[1] = arraystring[cont ];
+                                buffer2[0] = arraystring[cont + 1];
                                 bufferBit1 = new BitArray(buffer2);
                                 bufferBit1.CopyTo(temp, 0);
-                                D05_PolarCoor[j] = temp[0] * 360 / (Math.Pow(2, 16));
-                            }
+                                D05_PolarCoor[0] = temp[0];
+
+                                buffer2[1] = arraystring[cont +  2];
+                                buffer2[0] = arraystring[cont + 3];
+                                bufferBit1 = new BitArray(buffer2);
+                                bufferBit1.CopyTo(temp, 0);
+                                D05_PolarCoor[1] = temp[0] * 360 / (Math.Pow(2, 16));
+                            
                             cont = cont + 4;
                             break;
-                        case 6:
+                        case 6://////////////////////////////////////////////////////////////////////////
                             for (int j = 0; j < 2; j++)
                             {
-                                buffer2[0] = arraystring[cont + j * 2];
-                                buffer2[1] = arraystring[cont + 1 + j * 2];
+                                buffer2[1] = arraystring[cont + j * 2];
+                                buffer2[0] = arraystring[cont + 1 + j * 2];
                                 bufferBit1 = new BitArray(buffer2);
+                                if (bufferBit1[15])
+                                {
+                                    for (int z = 0; z < 16; z++)
+                                        bufferBit1[z] = bufferBit1[z] ? false : true;
+                                    bufferBit1.Not();
+                                }
                                 bufferBit1.CopyTo(temp, 0);
                                 D06_CartCoor[j] = temp[0];
                             }
@@ -157,12 +270,12 @@ namespace ClassLibrary
                         case 8:
                             for (int j = 0; j < 2; j++)
                             {
-                                buffer2[0] = arraystring[cont + j * 2];
-                                buffer2[1] = arraystring[cont + 1 + j * 2];
+                                buffer2[1] = arraystring[cont + j * 2];
+                                buffer2[0] = arraystring[cont + 1 + j * 2];
                                 bufferBit1 = new BitArray(buffer2);
                                 bufferBit1.CopyTo(temp, 0);
                                 if(j==0)
-                                    D08_PolarSpeed[j]=temp[0]/Math.Pow(2,14);
+                                    D08_PolarSpeed[j]=temp[0]*0.22* 0.514;
                                 else
                                     D08_PolarSpeed[j] = temp[0]*360/Math.Pow(2,16);
                             }
@@ -171,9 +284,15 @@ namespace ClassLibrary
                         case 9:
                             for (int j = 0; j < 2; j++)
                             {
-                                buffer2[0] = arraystring[cont + j * 2];
-                                buffer2[1] = arraystring[cont + 1 + j * 2];
+                                buffer2[1] = arraystring[cont + j * 2];
+                                buffer2[0] = arraystring[cont + 1 + j * 2];
                                 bufferBit1 = new BitArray(buffer2);
+                                if (bufferBit1[15])
+                                {
+                                    for (int z = 0; z < 16; z++)
+                                        bufferBit1[z] = bufferBit1[z] ? false : true;
+                                    bufferBit1.Not();
+                                }
                                 bufferBit1.CopyTo(temp, 0);
                                 D09_CartSpeed[j] = temp[0] *0.25;
 
@@ -181,8 +300,8 @@ namespace ClassLibrary
                             cont = cont + 4;
                             break;
                         case 10:
-                            buffer2[0] = arraystring[cont ];
-                            buffer2[1] = arraystring[cont + 1 ];
+                            buffer2[1] = arraystring[cont ];
+                            buffer2[0] = arraystring[cont + 1 ];
                             bufferBit1 = new BitArray(buffer2);
                             bufferBit1.CopyTo(temp, 0);
                             D10_TrackNum = temp[0];
@@ -221,7 +340,7 @@ namespace ClassLibrary
                                         bufferBool3[2] = bufferBit1[5];
                                         bufferBool3[1] = bufferBit1[4];
                                         bufferBool3[0] = bufferBit1[3];
-                                        bufferBit2 = new BitArray(bufferBool2);
+                                        bufferBit2 = new BitArray(bufferBool3);
                                         bufferBit2.CopyTo(buffer1, 0);
                                         D11_TrackStatus[7] = buffer1[0];
 
@@ -315,17 +434,17 @@ namespace ClassLibrary
                                 if(bufferBit1[0])  cont++ ;
                                 for (int j = 0; j < 7; j++)
                                 {
-                                    bufferBool7[j] = bufferBit1[7 - j];
+                                    bufferBool7[j] = bufferBit1[j+1];
                                 }
                                 bufferBit1 = new BitArray(bufferBool7);
                                 bufferBit1.CopyTo(temp, 0);
                                 switch (tempInt)
                                 {
-                                    case 1: 
-                                    case 3:
+                                    case 0: 
+                                    case 2:
                                         D20_TargerSizeOrientation[tempInt] = temp[0];
                                         break;
-                                    case 2:
+                                    case 1:
                                         D20_TargerSizeOrientation[tempInt] = temp[0] * 2.81;
                                         break;
                                 }
@@ -408,6 +527,12 @@ namespace ClassLibrary
                             {
                                 buffer1[0] = arraystring[cont + j];
                                 bufferBit1 = new BitArray(buffer1);
+                                if (bufferBit1[7])
+                                {
+                                    for (int z = 0; z < 8; z++)
+                                        bufferBit1[z] = bufferBit1[z] ? false : true;
+                                    bufferBit1.Not();
+                                }
                                 bufferBit1.CopyTo(temp, 0);
                                 D27_CalculatedAcceleration[j] = temp[0] * 0.25;
                             }
@@ -422,6 +547,62 @@ namespace ClassLibrary
             
             
              
+        }
+        public string[] GetValues(int n)
+        {
+            string[] row = new string[n];
+            for (int i = 0; i < n; i++)
+            {
+                row[i] = "No Data";
+            }
+
+            if (true)
+            {
+                for (int i = 0; i < EspcCamp.Length; i++)
+                {
+                    if (EspcCamp[i])
+                    {
+                        switch (i)
+                        {
+                            case 1:
+                                row[1+i] = D00_DataSource[0].ToString();
+                                row[2+i] = D00_DataSource[1].ToString();
+                                break;
+                            case 2:
+                                switch (D01_MessageType)
+                                {
+                                    case 1:
+                                        row[2+i] = "Target Report";
+                                        break;
+                                    case 2:
+                                        row[2+i] = "Start of Update Cycle";
+                                        break;
+                                    case 3:
+                                        row[2+i] = "Periodic Status Message";
+                                        break;
+                                    case 4:
+                                        row[2+i] = "Event-triggered Status Message";
+                                        break;
+                                }
+                                break;
+                            case 3:
+
+                                break;
+                            case 4:
+                                row[2+i]=D03_TimeOfDate[0].ToString()+":"+D03_TimeOfDate[1].ToString() + ":"+D03_TimeOfDate[2].ToString() + ":"+D03_TimeOfDate[3].ToString();
+                                break;
+                            case 5:
+
+                                break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                row = null;
+            }
+            return row;
         }
 
         
