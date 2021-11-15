@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,8 @@ namespace AsterixDecoder
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Stopwatch watch = new Stopwatch();
+            
             asterixFile = new AsterixFile("201002-lebl-080001_smr.ast");
             lista10 = asterixFile.getListCAT10();
             dataGridView1.ColumnCount = 28;
@@ -62,8 +65,8 @@ namespace AsterixDecoder
 
 
 
-
-            for (int i = 0; i < 50; i++)
+            watch.Start();
+            for (int i = 0; i < 5000; i++)
             {
 
 
@@ -75,6 +78,11 @@ namespace AsterixDecoder
                 dataGridView1.Rows.Add(row);
 
             }
+            watch.Stop();
+            long milisec = watch.ElapsedMilliseconds / 1000;
+            string tiempo = Convert.ToString(milisec);
+           
+            Console.WriteLine("Codigo tarda "+ tiempo+ "segundos");
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
