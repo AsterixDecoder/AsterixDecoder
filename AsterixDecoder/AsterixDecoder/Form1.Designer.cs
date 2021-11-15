@@ -82,7 +82,7 @@ namespace AsterixDecoder
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(908, 573);
+            this.dataGridView1.Size = new System.Drawing.Size(1334, 573);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
@@ -101,7 +101,7 @@ namespace AsterixDecoder
             // 
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(1005, 325);
+            this.button1.Location = new System.Drawing.Point(1390, 298);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(191, 378);
             this.button1.TabIndex = 2;
@@ -114,7 +114,7 @@ namespace AsterixDecoder
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(59)))), ((int)(((byte)(79)))));
-            this.ClientSize = new System.Drawing.Size(1245, 715);
+            this.ClientSize = new System.Drawing.Size(1942, 1102);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
