@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -105,8 +106,9 @@ namespace AsterixDecoder
             dataGridView1.AutoResizeColumns();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView1.ReadOnly=true;
-
-            for (int i = 0; i < 10000; i++)
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            for (int i = 0; i < 46333; i++)
             {
 
                 CAT21 cat21 = lista[i];
@@ -224,10 +226,10 @@ namespace AsterixDecoder
                 string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber, targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition, tappvelocity, tmessageposition, tmessagepositionhigh, tmessagevel, tmessagevelhigh, geometricHeight, quality, mopsversion, m3acode, rollangle, flightlevel, magneticheading, targetstatus, barometricrate, geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent, servicemanagement, opstatus, surface, messageAmplitude, modeSMBData, acasResolution, receiverID, dataAges };
                 dataGridView1.Rows.Add(row);
                 //progressBar1.PerformStep();
-
-
-
             }
+            watch.Stop();
+            long milliSec = watch.ElapsedMilliseconds/ (1000);
+            Console.WriteLine(milliSec);
             progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
