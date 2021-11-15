@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassLibrary;
@@ -31,10 +32,10 @@ namespace AsterixDecoder
 
         private void button1_Click(object sender, EventArgs e)
         {
+            progressBar1.Visible = true;
             asterixFile = new AsterixFile("201002-lebl-080001_adsb.ast");
             lista = asterixFile.getListCAT21();
             int length = lista.Count;
-
             dataGridView1.ColumnCount = 45;
             dataGridView1.Columns[0].Name = "Number";
             dataGridView1.Columns[1].Name = "Category";
@@ -83,7 +84,14 @@ namespace AsterixDecoder
             dataGridView1.Columns[44].Name = "Data Ages";
 
             //Adaptamos columnas a texto
-            
+            progressBar1.Minimum = 0;
+            // Sets the progress bar's maximum value to a number representing  
+            // all operations complete -- in this case, all five files read.  
+            progressBar1.Maximum = 100000;
+            // Sets the Step property to amount to increase with each iteration.  
+            // In this case, it will increase by one with every file read.  
+            progressBar1.Step = 10;
+
             //dataGridView1.Columns[9].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells;
             //dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //dataGridView1.Columns[22].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -98,18 +106,19 @@ namespace AsterixDecoder
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView1.ReadOnly=true;
 
-            for (int i=0;i<100;i++)
+            for (int i = 0; i < 10000; i++)
             {
+
                 CAT21 cat21 = lista[i];
-                string category=Convert.ToString(cat21.GetCategory());
+                string category = Convert.ToString(cat21.GetCategory());
                 string sac = Convert.ToString(cat21.GetSystemAreaCode());
                 string sic = Convert.ToString(cat21.GetSystemIdentificationCode());
                 string targetID = cat21.GetTargetIdentification();
                 string trackNumber = Convert.ToString(cat21.GetTrackNumber());
                 string serviceID = Convert.ToString(cat21.GetServiceIdentification());
-                
+
                 string targetreport = GetTargetReportDescriptor(i);
-                if (targetreport!="N/A")
+                if (targetreport != "N/A")
                 {
                     targetreport = "Click to expand";
                 }
@@ -120,14 +129,14 @@ namespace AsterixDecoder
 
                 double latitude = cat21.GetLatitudeWGS84();
                 double longitude = cat21.GetLongitudeWGS84();
-                string position = StringPosition(latitude, longitude,5,i);
+                string position = StringPosition(latitude, longitude, 5, i);
                 latitude = cat21.GetLatitudeWGS84High();
                 longitude = cat21.GetLongitudeWGS84High();
-                string positionHigh = StringPosition(latitude, longitude,7,i);
+                string positionHigh = StringPosition(latitude, longitude, 7, i);
                 string airspeed = Convert.ToString(cat21.GetAirspeed());
                 airspeed = StringUnits(airspeed, "Mach");
                 string trueairspeed = Convert.ToString(cat21.GetTrueAirspeed());
-                trueairspeed = StringUnits(trueairspeed,"knot");
+                trueairspeed = StringUnits(trueairspeed, "knot");
                 int target = cat21.GetTargetAddress();
                 string targetaddress = target.ToString("X");
                 //TimeSpans
@@ -176,7 +185,7 @@ namespace AsterixDecoder
                 string geometricrate = Convert.ToString(cat21.GetGeometricVerticalRate());
                 geometricrate = StringUnits(geometricrate, "ft/min");
 
-                string airborneVector=GetAirborneVector(i);
+                string airborneVector = GetAirborneVector(i);
 
                 string trackanglerate = Convert.ToString(cat21.GetTrackAngleRate());
                 trackanglerate = StringUnits(trackanglerate, "°/s");
@@ -190,7 +199,7 @@ namespace AsterixDecoder
                 string trajectoryintent = cat21.GetTrajectoryIntent();
                 string servicemanagement = Convert.ToString(cat21.GetServiceManagement());
                 servicemanagement = StringUnits(servicemanagement, "sec");
-                
+
                 string opstatus = GetAircraftOperationalStatus(i);
                 if (opstatus != "N/A")
                 {
@@ -212,13 +221,18 @@ namespace AsterixDecoder
                 {
                     dataAges = "Click to expand";
                 }
-                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber,targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition,tappvelocity,tmessageposition,tmessagepositionhigh,tmessagevel,tmessagevelhigh,geometricHeight, quality,mopsversion,m3acode,rollangle,flightlevel, magneticheading, targetstatus,barometricrate,geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent,servicemanagement,opstatus,surface,messageAmplitude,modeSMBData,acasResolution,receiverID,dataAges};
+                string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber, targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition, tappvelocity, tmessageposition, tmessagepositionhigh, tmessagevel, tmessagevelhigh, geometricHeight, quality, mopsversion, m3acode, rollangle, flightlevel, magneticheading, targetstatus, barometricrate, geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent, servicemanagement, opstatus, surface, messageAmplitude, modeSMBData, acasResolution, receiverID, dataAges };
                 dataGridView1.Rows.Add(row);
-     
+                progressBar1.PerformStep();
+
+
+
             }
-
-
+            progressBar1.Visible = false;
+            Loading.Visible = true;
+            Loading.Text = "All flights loaded";
         }
+
 
         private string MultipleDouble(string[] value, string[] name,string[] units)
         {
@@ -303,7 +317,10 @@ namespace AsterixDecoder
                 position = position + Convert.ToString(min) + "'";
                 double sec = (minDouble - Convert.ToDouble(min)) * 60;
                 string secString = Convert.ToString(sec);
-                secString= secString.Remove(presition);
+                if (secString.Length > presition)
+                {
+                    secString = secString.Remove(presition);
+                }
                 position = position + secString + "'',";
                 deg = (int) lon;
                 degDouble = Convert.ToDouble(deg);
@@ -506,5 +523,35 @@ namespace AsterixDecoder
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Search_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                try { dataGridView1.Rows[i].Visible = false; } catch (Exception) { }
+
+            }
+            string s;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    try
+                    {
+                        s = Convert.ToString(row.Cells[4].Value);
+                        if (System.Text.RegularExpressions.Regex.IsMatch(s, textBox1.Text) || textBox1.Text == "")
+                        {
+                            row.Visible = true;
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+            }
+        }
     }
 }

@@ -38,6 +38,10 @@ namespace AsterixDecoder
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Search = new System.Windows.Forms.Button();
+            this.Loading = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,12 +113,54 @@ namespace AsterixDecoder
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(850, 107);
+            this.textBox1.MaximumSize = new System.Drawing.Size(200, 200);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(200, 22);
+            this.textBox1.TabIndex = 3;
+            // 
+            // Search
+            // 
+            this.Search.Location = new System.Drawing.Point(1056, 107);
+            this.Search.Name = "Search";
+            this.Search.Size = new System.Drawing.Size(75, 23);
+            this.Search.TabIndex = 4;
+            this.Search.Text = "Search";
+            this.Search.UseVisualStyleBackColor = true;
+            this.Search.Click += new System.EventHandler(this.Search_Click);
+            // 
+            // Loading
+            // 
+            this.Loading.AutoSize = true;
+            this.Loading.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Loading.Location = new System.Drawing.Point(513, 757);
+            this.Loading.MaximumSize = new System.Drawing.Size(500, 500);
+            this.Loading.Name = "Loading";
+            this.Loading.Size = new System.Drawing.Size(79, 29);
+            this.Loading.TabIndex = 5;
+            this.Loading.Text = "label2";
+            this.Loading.Visible = false;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(577, 408);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(353, 49);
+            this.progressBar1.TabIndex = 6;
+            this.progressBar1.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(59)))), ((int)(((byte)(79)))));
             this.ClientSize = new System.Drawing.Size(1942, 1102);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.Loading);
+            this.Controls.Add(this.Search);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
@@ -138,6 +184,10 @@ namespace AsterixDecoder
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button Search;
+        private System.Windows.Forms.Label Loading;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
