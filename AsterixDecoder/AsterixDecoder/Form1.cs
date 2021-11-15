@@ -32,7 +32,7 @@ namespace AsterixDecoder
 
         private void button1_Click(object sender, EventArgs e)
         {
-            progressBar1.Visible = true;
+            //progressBar1.Visible = true;
             asterixFile = new AsterixFile("201002-lebl-080001_adsb.ast");
             lista = asterixFile.getListCAT21();
             int length = lista.Count;
@@ -223,7 +223,7 @@ namespace AsterixDecoder
                 }
                 string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber, targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition, tappvelocity, tmessageposition, tmessagepositionhigh, tmessagevel, tmessagevelhigh, geometricHeight, quality, mopsversion, m3acode, rollangle, flightlevel, magneticheading, targetstatus, barometricrate, geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent, servicemanagement, opstatus, surface, messageAmplitude, modeSMBData, acasResolution, receiverID, dataAges };
                 dataGridView1.Rows.Add(row);
-                progressBar1.PerformStep();
+                //progressBar1.PerformStep();
 
 
 
