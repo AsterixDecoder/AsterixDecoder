@@ -26,7 +26,11 @@ namespace AsterixDecoder
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
+            LoadData GridForm = new LoadData();
+            
+           
+            
 
 
         }
