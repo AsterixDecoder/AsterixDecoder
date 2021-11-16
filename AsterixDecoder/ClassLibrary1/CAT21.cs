@@ -668,8 +668,8 @@ namespace ClassLibrary
         {
             int moreByte = 1;
             List<byte> dataItem = new List<byte>();
-            dataItem.Add(this.data[0]);
-            data.RemoveAt(0);
+            //dataItem.Add(this.data[0]);
+            //data.RemoveAt(0);
             byte lastBitCheck = 1;
             while (moreByte == 1)
             {
@@ -2085,7 +2085,7 @@ namespace ClassLibrary
                     this.cdtis = "CDTI operational ";
                     break;
             }
-            switch (cdtisvalue)
+            switch (b2lowvalue)
             {
                 case 0:
                     this.b2low = "Class B2 transmit power ≥ 70 Watts ";
@@ -2094,7 +2094,7 @@ namespace ClassLibrary
                     this.b2low = "Class B2 transmit power < 70 Watts ";
                     break;
             }
-            switch (cdtisvalue)
+            switch (rasvalue)
             {
                 case 0:
                     this.ras = "Aircraft not receiving ATC-services ";
@@ -2103,7 +2103,7 @@ namespace ClassLibrary
                     this.ras = "Aircraft receiving ATC services";
                     break;
             }
-            switch (cdtisvalue)
+            switch (identvalue)
             {
                 case 0:
                     this.ident = "IDENT switch not active";

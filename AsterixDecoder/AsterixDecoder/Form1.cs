@@ -108,7 +108,7 @@ namespace AsterixDecoder
             dataGridView1.ReadOnly=true;
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
 
                 CAT21 cat21 = lista[i];
@@ -394,7 +394,7 @@ namespace AsterixDecoder
 
         private string GetAircraftOperationalStatus(int row)
         {
-            string[] opstatusData = lista[10].GetOperationalStatus();
+            string[] opstatusData = lista[row].GetOperationalStatus();
             string opstatus = MultipleString(opstatusData);
             return opstatus;
         }
@@ -451,13 +451,14 @@ namespace AsterixDecoder
             int column = e.ColumnIndex;
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
-            for (int i=0;i<dataGridView1.RowCount;i++)
+            for (int i=0;i<dataGridView1.RowCount-1;i++)
             {
                 string val = Convert.ToString(dataGridView1.Rows[i].Cells[6].Value);
                 string val2 = Convert.ToString(dataGridView1.Rows[i].Cells[21].Value);
                 string val3 = Convert.ToString(dataGridView1.Rows[i].Cells[27].Value);
                 string val4 = Convert.ToString(dataGridView1.Rows[i].Cells[38].Value);
-                string val5 = Convert.ToString(dataGridView1.Rows[i].Cells[44].Value);
+                string val5 = Convert.ToString(dataGridView1.Rows[i].Cells[39].Value);
+                string val6 = Convert.ToString(dataGridView1.Rows[i].Cells[44].Value);
 
                 if (val != "N/A"&& i!=row)
                     {
@@ -476,6 +477,10 @@ namespace AsterixDecoder
                     dataGridView1.Rows[i].Cells[38].Value = "Click to expand";
                 }
                 if (val5 != "N/A" && i != row)
+                {
+                    dataGridView1.Rows[i].Cells[39].Value = "Click to expand";
+                }
+                if (val6 != "N/A" && i != row)
                 {
                     dataGridView1.Rows[i].Cells[44].Value = "Click to expand";
                 }
@@ -521,6 +526,16 @@ namespace AsterixDecoder
                 else
                     dataGridView1.CurrentCell.Value = GetAircraftOperationalStatus(row);
                 
+            }
+            if (column == 39 && value != "N/A")
+            {
+                if (value != "Click to expand")
+                {
+                    dataGridView1.CurrentCell.Value = "Click to expand";
+                }
+                else
+                    dataGridView1.CurrentCell.Value = GetSurfaceCapabilities(row);
+
             }
             if (column == 44 && value != "N/A")
             {
