@@ -108,7 +108,7 @@ namespace AsterixDecoder
             dataGridView1.ReadOnly=true;
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            for (int i = 0; i < 46333; i++)
+            for (int i = 0; i < 100; i++)
             {
 
                 CAT21 cat21 = lista[i];
@@ -451,6 +451,36 @@ namespace AsterixDecoder
             int column = e.ColumnIndex;
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
+            for (int i=0;i<dataGridView1.RowCount;i++)
+            {
+                string val = Convert.ToString(dataGridView1.Rows[i].Cells[6].Value);
+                string val2 = Convert.ToString(dataGridView1.Rows[i].Cells[21].Value);
+                string val3 = Convert.ToString(dataGridView1.Rows[i].Cells[27].Value);
+                string val4 = Convert.ToString(dataGridView1.Rows[i].Cells[38].Value);
+                string val5 = Convert.ToString(dataGridView1.Rows[i].Cells[44].Value);
+
+                if (val != "N/A"&& i!=row)
+                    {
+                        dataGridView1.Rows[i].Cells[6].Value = "Click to expand";
+                    }
+                if (val2 != "N/A" && i != row)
+                {
+                    dataGridView1.Rows[i].Cells[21].Value = "Click to expand";
+                }
+                if (val3 != "N/A" && i != row)
+                {
+                    dataGridView1.Rows[i].Cells[27].Value = "Click to expand";
+                }
+                if (val4 != "N/A" && i != row)
+                {
+                    dataGridView1.Rows[i].Cells[38].Value = "Click to expand";
+                }
+                if (val5 != "N/A" && i != row)
+                {
+                    dataGridView1.Rows[i].Cells[44].Value = "Click to expand";
+                }
+
+            }
 
             if (column == 6 && value != "N/A")
             {
@@ -460,7 +490,7 @@ namespace AsterixDecoder
                 }
                 else
                     dataGridView1.CurrentCell.Value = GetTargetReportDescriptor(row);
-                //dataGridView1.CurrentRow.Height = 200;
+                
             }
             if (column == 21 && value != "N/A")
             {
@@ -470,7 +500,7 @@ namespace AsterixDecoder
                 }
                 else
                     dataGridView1.CurrentCell.Value = GetQualityIndicators(row);
-                //dataGridView1.CurrentRow.Height = 200;
+                
             }
             if (column == 27 && value != "N/A")
             {
@@ -480,7 +510,7 @@ namespace AsterixDecoder
                 }
                 else
                     dataGridView1.CurrentCell.Value = GetTargetStatus(row);
-                //dataGridView1.CurrentRow.Height = 200;
+                
             }
             if (column == 38 && value != "N/A")
             {
@@ -490,7 +520,7 @@ namespace AsterixDecoder
                 }
                 else
                     dataGridView1.CurrentCell.Value = GetAircraftOperationalStatus(row);
-                //dataGridView1.CurrentRow.Height = 200;
+                
             }
             if (column == 44 && value != "N/A")
             {
@@ -500,7 +530,7 @@ namespace AsterixDecoder
                 }
                 else
                     dataGridView1.CurrentCell.Value = GetDataAges(row);
-                //dataGridView1.CurrentRow.Height = 200;
+                
             }
 
             //dataGridView1.AutoResizeRow(row, DataGridViewAutoSizeRowMode.AllCells);
@@ -510,20 +540,20 @@ namespace AsterixDecoder
             dataGridView1.Columns[column].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
         }
-        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            int column = e.ColumnIndex;
-            string value = Convert.ToString(dataGridView1.CurrentCell.Value);
-            if (column == 6 || column == 21 || column == 27 || column == 38 || column == 44)
-            {
-                if (value != "N/A")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
+        //private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    int column = e.ColumnIndex;
+        //    string value = Convert.ToString(dataGridView1.CurrentCell.Value);
+        //    if (column == 6 || column == 21 || column == 27 || column == 38 || column == 44)
+        //    {
+        //        if (value != "N/A")
+        //        {
+        //            dataGridView1.CurrentCell.Value = "Click to expand";
+        //        }
                 
 
-            }
-        }
+        //    }
+        //}
 
         private void button2_Click(object sender, EventArgs e)
         {
