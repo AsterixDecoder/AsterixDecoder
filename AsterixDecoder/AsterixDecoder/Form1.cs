@@ -17,28 +17,28 @@ namespace AsterixDecoder
     {
         AsterixFile asterixFile;
         List<CAT21> lista;
+        string filename;
 
         public Form1()
         {
             InitializeComponent();
 
         }
-
+        public void SetFileName(string name)
+        {
+            this.filename = name;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             
             LoadData GridForm = new LoadData();
             
-           
-            
-
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //progressBar1.Visible = true;
-            asterixFile = new AsterixFile("201002-lebl-080001_adsb.ast");
+            progressBar1.Visible = true;
+            asterixFile = new AsterixFile(this.filename);
             lista = asterixFile.getListCAT21();
             int length = lista.Count;
             dataGridView1.ColumnCount = 45;
@@ -92,10 +92,10 @@ namespace AsterixDecoder
             progressBar1.Minimum = 0;
             // Sets the progress bar's maximum value to a number representing  
             // all operations complete -- in this case, all five files read.  
-            progressBar1.Maximum = 100000;
+            progressBar1.Maximum = 1000;
             // Sets the Step property to amount to increase with each iteration.  
             // In this case, it will increase by one with every file read.  
-            progressBar1.Step = 10;
+            progressBar1.Step = 1;
 
             //dataGridView1.Columns[9].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells;
             //dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -112,7 +112,7 @@ namespace AsterixDecoder
             dataGridView1.ReadOnly=true;
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1000; i++)
             {
 
                 CAT21 cat21 = lista[i];
@@ -229,7 +229,7 @@ namespace AsterixDecoder
                 }
                 string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber, targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition, tappvelocity, tmessageposition, tmessagepositionhigh, tmessagevel, tmessagevelhigh, geometricHeight, quality, mopsversion, m3acode, rollangle, flightlevel, magneticheading, targetstatus, barometricrate, geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent, servicemanagement, opstatus, surface, messageAmplitude, modeSMBData, acasResolution, receiverID, dataAges };
                 dataGridView1.Rows.Add(row);
-                //progressBar1.PerformStep();
+                progressBar1.PerformStep();
             }
             watch.Stop();
             long milliSec = watch.ElapsedMilliseconds/ (1000);
