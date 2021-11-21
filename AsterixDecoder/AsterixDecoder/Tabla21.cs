@@ -13,13 +13,13 @@ using ClassLibrary;
 
 namespace AsterixDecoder
 {
-    public partial class Form1 : Form
+    public partial class Tabla21 : Form
     {
         AsterixFile asterixFile;
         List<CAT21> lista;
         string filename;
 
-        public Form1()
+        public Tabla21()
         {
             InitializeComponent();
 

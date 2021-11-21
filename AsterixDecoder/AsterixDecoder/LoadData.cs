@@ -16,7 +16,7 @@ namespace AsterixDecoder
     {
 
         public static TextBox tb = new TextBox();
-        Form1 GridForm = new Form1();
+        Tabla21 GridForm = new Tabla21();
         AsterixFile asterixFile;
         List<CAT21> lista;
         string name;

@@ -3,7 +3,7 @@ using System;
 
 namespace AsterixDecoder
 {
-    partial class Form1
+    partial class Tabla21
     {
         /// <summary>
         /// Variable del diseñador necesaria.
