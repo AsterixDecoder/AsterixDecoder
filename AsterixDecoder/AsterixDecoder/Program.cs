@@ -17,7 +17,7 @@ namespace AsterixDecoder
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoadData());
+            Application.Run(new Tabla10());
         }
     }
 }

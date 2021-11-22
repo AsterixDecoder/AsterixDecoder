@@ -8,7 +8,6 @@ C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\ob
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.exe
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.AssemblyReference.cache
-C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Form1.resources
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Properties.Resources.resources
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.GenerateResource.cache
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CoreCompileInputs.cache
@@ -64,3 +63,4 @@ C:\Users\ulises\Documents\GitHub\AsterixDecoder08112021\AsterixDecoder\AsterixDe
 C:\Users\ulises\Documents\GitHub\AsterixDecoder08112021\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.LoadData.resources
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.LoadData.resources
+C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Tabla21.resources

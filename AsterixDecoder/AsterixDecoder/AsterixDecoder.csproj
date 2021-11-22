@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tabla10.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tabla10.Designer.cs">
+      <DependentUpon>Tabla10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tabla21.cs">
       <SubType>Form</SubType>
     </Compile>
