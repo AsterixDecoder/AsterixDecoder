@@ -66,6 +66,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Tabla10.resx">
+      <DependentUpon>Tabla10.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tabla21.resx">
       <DependentUpon>Tabla21.cs</DependentUpon>
     </EmbeddedResource>

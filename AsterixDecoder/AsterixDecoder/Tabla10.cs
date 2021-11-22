@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassLibrary;
 
+
 namespace AsterixDecoder
 {
     public partial class Tabla10 : Form
@@ -33,7 +34,7 @@ namespace AsterixDecoder
             dataGridView1.Columns[2].Name = "SAC";
             dataGridView1.Columns[3].Name = "SIC";
             dataGridView1.Columns[4].Name = "Message Type";
-            dataGridView1.Columns[5].Name = "Target Report Descriptor";//Mirar como expandir
+            dataGridView1.Columns[5].Name = "Target Report Descriptor";
             dataGridView1.Columns[6].Name = "Time of Day";
             dataGridView1.Columns[7].Name = "Position in WGS-84 Coordinates";
             dataGridView1.Columns[8].Name = "Position in Polar Coordinates";
