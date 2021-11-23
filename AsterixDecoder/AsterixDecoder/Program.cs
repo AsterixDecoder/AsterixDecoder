@@ -17,8 +17,8 @@ namespace AsterixDecoder
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // Application.Run(new Tabla10());
-            Application.Run(new Map());
+            Application.Run(new LoadData());
+            //Application.Run(new Map());
         }
     }
 }

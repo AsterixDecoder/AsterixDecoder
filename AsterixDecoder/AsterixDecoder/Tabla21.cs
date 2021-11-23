@@ -17,7 +17,7 @@ namespace AsterixDecoder
     {
         AsterixFile asterixFile;
         Flight flight;
-        List<Flight> flights;
+        List<Flight> listaflights = new List<Flight>();
         Coordinates coordinates;
         List<CAT21> lista;
         string filename;
@@ -38,8 +38,9 @@ namespace AsterixDecoder
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
+            
             progressBar1.Visible = true;
             asterixFile = new AsterixFile(this.filename);
             lista = asterixFile.getListCAT21();
@@ -237,9 +238,9 @@ namespace AsterixDecoder
 
                 //Añado class flight para googleearth
                 flight = new Flight(receiverID);//no se si i es el id cambialo porfa
-                coordinates = new Coordinates(latitude,longitude);
+                coordinates = new Coordinates(latitude, longitude);
                 flight.SetcoordinatesCAT21(coordinates);
-                flights.Add(flight);
+                listaflights.Add(flight);
 
             }
             watch.Stop();
@@ -249,9 +250,7 @@ namespace AsterixDecoder
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
 
-            //le paso al form map el fligths con coordenadas
-            Map map = new Map();
-            map.SetFlights( flights);
+          
 
 
 
@@ -621,6 +620,14 @@ namespace AsterixDecoder
 
                     }
             }
+        }
+
+        private void btnMap_Click(object sender, EventArgs e)
+        {
+            //le paso al form map el fligths con coordenadas
+            Map map = new Map();
+            map.SetFlights(listaflights);
+            map.Show();
         }
     }
 }

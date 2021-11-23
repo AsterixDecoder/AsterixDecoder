@@ -21,17 +21,17 @@ namespace AsterixDecoder
 
 
 
-        
+
         GMarkerGoogle marker;
         GMapOverlay markerOverlay;
         DataTable dt;
-        List <Flight> flights = new List<Flight>();
+        List<Flight> flights = new List<Flight>();
         int rowSelected = 0;
         double InitialLat = 20.96;
         double InitialLong = -89.625;
         double lat;
         double lng;
-    
+
 
 
 
@@ -138,7 +138,7 @@ namespace AsterixDecoder
 
         private void btnEliminate_Click(object sender, EventArgs e)
         {
-           dataGridView1.Rows.RemoveAt(rowSelected);
+            dataGridView1.Rows.RemoveAt(rowSelected);
         }
 
         private void btnPolygon_Click(object sender, EventArgs e)
@@ -146,7 +146,7 @@ namespace AsterixDecoder
             GMapOverlay polygon = new GMapOverlay("Polygon");
             List<PointLatLng> puntos = new List<PointLatLng>();
             double lng, lat;
-            for (int filas = 0; filas < dataGridView1.Rows.Count-1; filas++) // ojo que le pomngo -1 porqeu el grid me añade un elemento en blanco
+            for (int filas = 0; filas < dataGridView1.Rows.Count - 1; filas++) // ojo que le pomngo -1 porqeu el grid me añade un elemento en blanco
             {
                 lat = Convert.ToDouble(dataGridView1.Rows[filas].Cells[1].Value);
                 lng = Convert.ToDouble(dataGridView1.Rows[filas].Cells[2].Value);
@@ -170,7 +170,7 @@ namespace AsterixDecoder
             GMapOverlay route = new GMapOverlay("RouteLAyer");
             List<PointLatLng> puntos = new List<PointLatLng>();
             double lng, lat;
-            for (int filas = 0; filas < dataGridView1.Rows.Count-1; filas++)// ojo que le pongo -1 porqeu el grid me añade un elemento en blanco
+            for (int filas = 0; filas < dataGridView1.Rows.Count - 1; filas++)// ojo que le pongo -1 porqeu el grid me añade un elemento en blanco
             {
                 lat = Convert.ToDouble(dataGridView1.Rows[filas].Cells[1].Value);
                 lng = Convert.ToDouble(dataGridView1.Rows[filas].Cells[2].Value);
@@ -224,13 +224,17 @@ namespace AsterixDecoder
 
         private void button1_Click(object sender, EventArgs e)
         {
+           
 
-            
-            Flight flight = flights[1];
-            double flightLat = flight.GetLat();
-            double flightLng = flight.GetLng();
-            //dt.Rows.Add(txtdescription.Text, txtlatitude.Text, txtlongitude.Text);
-            dt.Rows.Add(txtdescription.Text, flightLat, flightLng);
+            for (int i = 1; i < flights.Count; i++)
+            {
+                Flight flight = flights[i];
+                double flightLat = flight.GetLat();
+                double flightLng = flight.GetLng();
+                //dt.Rows.Add(txtdescription.Text, txtlatitude.Text, txtlongitude.Text);
+                //txtdescription.Text = flight.GetIdentification();
+                dt.Rows.Add(txtdescription.Text, flightLat, flightLng);
+            }
         }
     }
 }

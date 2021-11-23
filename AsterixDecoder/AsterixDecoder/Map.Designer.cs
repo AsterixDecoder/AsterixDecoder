@@ -48,7 +48,7 @@ namespace AsterixDecoder
             this.trackZoom = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnFleet = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
             this.SuspendLayout();
@@ -235,22 +235,22 @@ namespace AsterixDecoder
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // button1
+            // btnFleet
             // 
-            this.button1.Location = new System.Drawing.Point(959, 307);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnFleet.Location = new System.Drawing.Point(959, 290);
+            this.btnFleet.Name = "btnFleet";
+            this.btnFleet.Size = new System.Drawing.Size(156, 40);
+            this.btnFleet.TabIndex = 20;
+            this.btnFleet.Text = "Add Fleet";
+            this.btnFleet.UseVisualStyleBackColor = true;
+            this.btnFleet.Click += new System.EventHandler(this.button1_Click);
             // 
             // Map
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1237, 685);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnFleet);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.trackZoom);
             this.Controls.Add(this.btnRelieve);
@@ -298,6 +298,6 @@ namespace AsterixDecoder
         private System.Windows.Forms.TrackBar trackZoom;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnFleet;
     }
 }

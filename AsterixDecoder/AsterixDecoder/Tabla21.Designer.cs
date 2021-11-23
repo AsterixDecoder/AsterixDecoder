@@ -42,6 +42,7 @@ namespace AsterixDecoder
             this.Search = new System.Windows.Forms.Button();
             this.Loading = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnMap = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,12 +152,23 @@ namespace AsterixDecoder
             this.progressBar1.TabIndex = 6;
             this.progressBar1.Visible = false;
             // 
-            // Form1
+            // btnMap
+            // 
+            this.btnMap.Location = new System.Drawing.Point(1395, 714);
+            this.btnMap.Name = "btnMap";
+            this.btnMap.Size = new System.Drawing.Size(161, 71);
+            this.btnMap.TabIndex = 7;
+            this.btnMap.Text = "Map";
+            this.btnMap.UseVisualStyleBackColor = true;
+            this.btnMap.Click += new System.EventHandler(this.btnMap_Click);
+            // 
+            // Tabla21
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(59)))), ((int)(((byte)(79)))));
             this.ClientSize = new System.Drawing.Size(1942, 1102);
+            this.Controls.Add(this.btnMap);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.Loading);
             this.Controls.Add(this.Search);
@@ -165,7 +177,7 @@ namespace AsterixDecoder
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Name = "Tabla21";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -188,6 +200,7 @@ namespace AsterixDecoder
         private System.Windows.Forms.Button Search;
         private System.Windows.Forms.Label Loading;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnMap;
     }
 }
 

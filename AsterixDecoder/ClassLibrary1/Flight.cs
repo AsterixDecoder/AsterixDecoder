@@ -21,13 +21,19 @@ namespace ClassLibrary
 
 
         }
+        public string GetIdentification()
+        {
+            return this.identification;
+        }
         public double GetLat()
         {
-            return Convert.ToDouble(this.coordinatesCAT21[0]);
+            Console.WriteLine("here coordinates");
+            Console.WriteLine(coordinatesCAT21[0]);
+            return Convert.ToDouble(this.coordinatesCAT21[0].GetLatitude());
         }
         public double GetLng()
         {
-            return Convert.ToDouble(this.coordinatesCAT21[1]);
+            return Convert.ToDouble(this.coordinatesCAT21[0].GetLongitude());
         }
         public void SetcoordinatesCAT21(Coordinates coordinates)
         {
