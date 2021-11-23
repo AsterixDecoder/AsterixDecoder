@@ -18,6 +18,21 @@ namespace ClassLibrary
             timestampsCAT21 = new List<TimeSpan>();
             coordinatesCAT10 = new List<Coordinates>();
             timestampsCAT10 = new List<TimeSpan>();
+
+
+        }
+        public double GetLat()
+        {
+            return Convert.ToDouble(this.coordinatesCAT21[0]);
+        }
+        public double GetLng()
+        {
+            return Convert.ToDouble(this.coordinatesCAT21[1]);
+        }
+        public void SetcoordinatesCAT21(Coordinates coordinates)
+        {
+            coordinatesCAT21.Add(coordinates);
+
         }
 
     }
@@ -25,21 +40,19 @@ namespace ClassLibrary
     {
         double latitude;
         double longitude;
-
         public Coordinates(double latitude, double longitude)
         {
             this.latitude = latitude;
             this.longitude = longitude;
         }
-
         public double GetLatitude()
         {
             return this.latitude;
         }
-
         public double GetLongitude()
         {
             return this.longitude;
         }
+        
     }
 }

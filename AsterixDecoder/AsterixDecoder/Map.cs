@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ClassLibrary;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
@@ -19,10 +19,13 @@ namespace AsterixDecoder
     public partial class Map : Form
     {
 
+
+
+        
         GMarkerGoogle marker;
         GMapOverlay markerOverlay;
         DataTable dt;
-
+        List <Flight> flights = new List<Flight>();
         int rowSelected = 0;
         double InitialLat = 20.96;
         double InitialLong = -89.625;
@@ -208,9 +211,26 @@ namespace AsterixDecoder
             trackZoom.Value = Convert.ToInt32(gMapControl1.Zoom);
         }
 
+
         private void trackZoom_ValueChanged(object sender, EventArgs e)
         {
             gMapControl1.Zoom = trackZoom.Value;
+        }
+        public void SetFlights(List<Flight> fligths)
+        {
+            this.flights = fligths;
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            
+            Flight flight = flights[1];
+            double flightLat = flight.GetLat();
+            double flightLng = flight.GetLng();
+            //dt.Rows.Add(txtdescription.Text, txtlatitude.Text, txtlongitude.Text);
+            dt.Rows.Add(txtdescription.Text, flightLat, flightLng);
         }
     }
 }
