@@ -1,0 +1,216 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+
+
+namespace AsterixDecoder
+{
+    public partial class Map : Form
+    {
+
+        GMarkerGoogle marker;
+        GMapOverlay markerOverlay;
+        DataTable dt;
+
+        int rowSelected = 0;
+        double InitialLat = 20.96;
+        double InitialLong = -89.625;
+        double lat;
+        double lng;
+    
+
+
+
+        public Map()
+        {
+            InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Map_Load(object sender, EventArgs e)
+        {
+            this.Show();
+
+            dt = new DataTable();
+            dt.Columns.Add(new DataColumn("Description", typeof(string)));
+            dt.Columns.Add(new DataColumn("Latitude", typeof(double)));
+            dt.Columns.Add(new DataColumn("Longitude", typeof(double)));
+            //add point to the datatable
+            dt.Rows.Add("Ubication1:", InitialLat, InitialLong);
+            dataGridView1.DataSource = dt;
+            //desactivate colums lat long
+            dataGridView1.Columns[1].Visible = false;
+            dataGridView1.Columns[2].Visible = false;
+
+
+
+
+            gMapControl1.DragButton = MouseButtons.Left;
+            gMapControl1.CanDragMap = true;
+            gMapControl1.MapProvider = GMapProviders.GoogleMap;
+            gMapControl1.Position = new PointLatLng(InitialLat, InitialLong);
+            gMapControl1.MinZoom = 0;
+            gMapControl1.MaxZoom = 24;
+            gMapControl1.Zoom = 9;
+            gMapControl1.AutoScroll = true;
+
+
+            markerOverlay = new GMapOverlay("marker");
+            marker = new GMarkerGoogle(new PointLatLng(InitialLat, InitialLong), GMarkerGoogleType.green);
+            markerOverlay.Markers.Add(marker);//add mapp
+
+            //add tooltiptext to the marker
+
+            marker.ToolTipMode = MarkerTooltipMode.Always;
+            marker.ToolTipText = string.Format("Ubication: \n Latitude:{0} \n Longitude:{1}", InitialLat, InitialLong);
+            //now add the map and the marquer to the controler
+
+            gMapControl1.Overlays.Add(markerOverlay);
+
+
+
+
+
+        }
+
+        private void SelectRegister(object sender, DataGridViewCellEventArgs e)
+        {
+            rowSelected = e.RowIndex;//selected row
+            txtdescription.Text = dataGridView1.Rows[rowSelected].Cells[0].Value.ToString();
+            txtlatitude.Text = dataGridView1.Rows[rowSelected].Cells[1].Value.ToString();
+            txtlongitude.Text = dataGridView1.Rows[rowSelected].Cells[2].Value.ToString();
+
+            marker.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
+            //focus teh point in the screen
+
+            gMapControl1.Position = marker.Position;
+
+
+
+        }
+
+        private void gMapControl1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            //obtain the coordinates of the user click on the map
+            lat = gMapControl1.FromLocalToLatLng(e.X, e.Y).Lat;
+            lng = gMapControl1.FromLocalToLatLng(e.X, e.Y).Lng;
+
+            txtlatitude.Text = lat.ToString();
+            txtlongitude.Text = lng.ToString();
+
+            //change marker to the new position
+            marker.Position = new PointLatLng(lat, lng);
+            marker.ToolTipText = string.Format("Ubication:\n Latitude:{0} \n Longitude:{1}", lat, lng);
+
+
+
+        }
+
+        private void btnAdd_Click_1(object sender, EventArgs e)
+        {
+
+            //aqui debemos de hacer un for de todos los datos para añadir todsos los vuelos para cat10 antes se debe rotar
+            dt.Rows.Add(txtdescription.Text, txtlatitude.Text, txtlongitude.Text);
+        }
+
+        private void btnEliminate_Click(object sender, EventArgs e)
+        {
+           dataGridView1.Rows.RemoveAt(rowSelected);
+        }
+
+        private void btnPolygon_Click(object sender, EventArgs e)
+        {
+            GMapOverlay polygon = new GMapOverlay("Polygon");
+            List<PointLatLng> puntos = new List<PointLatLng>();
+            double lng, lat;
+            for (int filas = 0; filas < dataGridView1.Rows.Count-1; filas++) // ojo que le pomngo -1 porqeu el grid me añade un elemento en blanco
+            {
+                lat = Convert.ToDouble(dataGridView1.Rows[filas].Cells[1].Value);
+                lng = Convert.ToDouble(dataGridView1.Rows[filas].Cells[2].Value);
+                puntos.Add(new PointLatLng(lat, lng));
+            }
+
+
+            GMapPolygon PuntosPoligono = new GMapPolygon(puntos, "Polygon");
+            polygon.Polygons.Add(PuntosPoligono);
+            gMapControl1.Overlays.Add(polygon);
+            //Reset map
+            gMapControl1.Zoom = gMapControl1.Zoom + 1;
+            gMapControl1.Zoom = gMapControl1.Zoom - 1;
+
+
+
+        }
+
+        private void btnRoute_Click(object sender, EventArgs e)
+        {
+            GMapOverlay route = new GMapOverlay("RouteLAyer");
+            List<PointLatLng> puntos = new List<PointLatLng>();
+            double lng, lat;
+            for (int filas = 0; filas < dataGridView1.Rows.Count-1; filas++)// ojo que le pongo -1 porqeu el grid me añade un elemento en blanco
+            {
+                lat = Convert.ToDouble(dataGridView1.Rows[filas].Cells[1].Value);
+                lng = Convert.ToDouble(dataGridView1.Rows[filas].Cells[2].Value);
+                puntos.Add(new PointLatLng(lat, lng));
+            }
+
+
+            GMapRoute PuntosRoute = new GMapRoute(puntos, "Route");
+            route.Routes.Add(PuntosRoute);
+            gMapControl1.Overlays.Add(route);
+            //Reset map
+            gMapControl1.Zoom = gMapControl1.Zoom + 1;
+            gMapControl1.Zoom = gMapControl1.Zoom - 1;
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSat_Click(object sender, EventArgs e)
+        {
+            gMapControl1.MapProvider = GMapProviders.GoogleChinaSatelliteMap;
+        }
+
+        private void btnOriginal_Click(object sender, EventArgs e)
+        {
+            gMapControl1.MapProvider = GMapProviders.GoogleMap;
+        }
+
+        private void btnRelieve_Click(object sender, EventArgs e)
+        {
+            gMapControl1.MapProvider = GMapProviders.GoogleChinaTerrainMap;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            trackZoom.Value = Convert.ToInt32(gMapControl1.Zoom);
+        }
+
+        private void trackZoom_ValueChanged(object sender, EventArgs e)
+        {
+            gMapControl1.Zoom = trackZoom.Value;
+        }
+    }
+}

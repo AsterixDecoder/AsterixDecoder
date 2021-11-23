@@ -46,8 +46,6 @@
     <Compile Include="CAT10.cs" />
     <Compile Include="CAT21.cs" />
     <Compile Include="Flight.cs" />
-    <Compile Include="GeneralMatrix.cs" />
-    <Compile Include="GeoUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

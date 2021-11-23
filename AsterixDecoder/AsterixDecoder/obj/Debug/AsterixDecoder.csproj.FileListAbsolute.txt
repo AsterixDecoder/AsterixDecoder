@@ -46,7 +46,6 @@ C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\
 C:\Users\Galder\Documents\Uni\PGTA\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.dll
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\ClassLibrary1.pdb
-C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Form1.resources
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CopyComplete
 C:\Users\ulises\Documents\GitHub\AsterixDecoder08112021\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.exe.config
 C:\Users\ulises\Documents\GitHub\AsterixDecoder08112021\AsterixDecoder\AsterixDecoder\bin\Debug\AsterixDecoder.exe
@@ -65,3 +64,8 @@ C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\ob
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.LoadData.resources
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Tabla21.resources
 C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Tabla10.resources
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Map.resources
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Tabla10.resources
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Tabla21.resources
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\GMap.NET.Core.dll
+C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\GMap.NET.WindowsForms.dll
