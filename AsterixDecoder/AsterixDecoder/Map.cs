@@ -64,8 +64,6 @@ namespace AsterixDecoder
             dataGridView1.Columns[2].Visible = false;
 
 
-
-
             gMapControl1.DragButton = MouseButtons.Left;
             gMapControl1.CanDragMap = true;
             gMapControl1.MapProvider = GMapProviders.GoogleMap;
@@ -76,30 +74,21 @@ namespace AsterixDecoder
             gMapControl1.AutoScroll = true;
 
 
-            markerOverlay = new GMapOverlay("marker");
+            //markerOverlay = new GMapOverlay("marker");
        
-            marker = new GMarkerGoogle(new PointLatLng(InitialLat, InitialLong), GMarkerGoogleType.green);
-            markerOverlay.Markers.Add(marker);//add mapp
-            //add tooltiptext to the marker
-            marker.ToolTipMode = MarkerTooltipMode.Always;
-            marker.ToolTipText = string.Format("Ubication: \n Latitude:{0} \n Longitude:{1}", InitialLat, InitialLong);
-            //now add the map and the marquer to the controler
+            //marker = new GMarkerGoogle(new PointLatLng(InitialLat, InitialLong), GMarkerGoogleType.green);
+            //markerOverlay.Markers.Add(marker);//add mapp
+            ////add tooltiptext to the marker
+            //marker.ToolTipMode = MarkerTooltipMode.Always;
+            //marker.ToolTipText = string.Format("Ubication: \n Latitude:{0} \n Longitude:{1}", InitialLat, InitialLong);
+            ////now add the map and the marquer to the controler
 
-            gMapControl1.Overlays.Add(markerOverlay);
-
-
-
-
-
-
+            //gMapControl1.Overlays.Add(markerOverlay);
 
         }
 
         private void SelectRegister(object sender, DataGridViewCellEventArgs e)
         {
-
-
-
 
         }
 

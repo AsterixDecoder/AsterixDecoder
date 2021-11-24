@@ -19,7 +19,6 @@ namespace ClassLibrary
             coordinatesCAT10 = new List<Coordinates>();
             timestampsCAT10 = new List<TimeSpan>();
 
-
         }
         public string GetIdentification()
         {
