@@ -69,3 +69,7 @@ C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\ob
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Tabla21.resources
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\GMap.NET.Core.dll
 C:\Users\ulises\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\GMap.NET.Core.dll
+C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Map.resources
+C:\Users\marcx\Documents\GitHub\AsterixDecoder\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.Menu.resources
