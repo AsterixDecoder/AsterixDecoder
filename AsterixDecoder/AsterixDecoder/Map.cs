@@ -19,9 +19,6 @@ namespace AsterixDecoder
     public partial class Map : Form
     {
 
-
-
-
         GMarkerGoogle marker;
         GMapOverlay markerOverlay;
         DataTable dt;
@@ -100,15 +97,7 @@ namespace AsterixDecoder
 
         private void SelectRegister(object sender, DataGridViewCellEventArgs e)
         {
-            rowSelected = e.RowIndex;//selected row
-            txtdescription.Text = dataGridView1.Rows[rowSelected].Cells[0].Value.ToString();
-            txtlatitude.Text = dataGridView1.Rows[rowSelected].Cells[1].Value.ToString();
-            txtlongitude.Text = dataGridView1.Rows[rowSelected].Cells[2].Value.ToString();
 
-            marker.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
-            //focus teh point in the screen
-
-            //gMapControl1.Position = marker.Position;
 
 
 
@@ -243,11 +232,6 @@ namespace AsterixDecoder
             gMapControl1.Overlays.Add(markerOverlay);
 
 
-
-
-
-
-
             for (int i = 1; i < flights.Count; i++)
             {
                 Flight flight = flights[i];
@@ -255,13 +239,26 @@ namespace AsterixDecoder
                 double flightLng = flight.GetLng();
                 //dt.Rows.Add(txtdescription.Text, txtlatitude.Text, txtlongitude.Text);
                 //txtdescription.Text = flight.GetIdentification();
-                dt.Rows.Add(txtdescription.Text, flightLat, flightLng);
+                dt.Rows.Add(flight.GetIdentification(), flightLat, flightLng);
             }
         }
 
         private void gMapControl1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            rowSelected = e.RowIndex;//selected row
+            txtdescription.Text = dataGridView1.Rows[rowSelected].Cells[0].Value.ToString();
+            txtlatitude.Text = dataGridView1.Rows[rowSelected].Cells[1].Value.ToString();
+            txtlongitude.Text = dataGridView1.Rows[rowSelected].Cells[2].Value.ToString();
+
+            marker.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
+            //focus teh point in the screen
+
+            //gMapControl1.Position = marker.Position;
         }
     }
 }

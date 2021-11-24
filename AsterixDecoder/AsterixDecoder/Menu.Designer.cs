@@ -158,7 +158,6 @@ namespace AsterixDecoder
             this.panelChildForm.ForeColor = System.Drawing.SystemColors.Control;
             this.panelChildForm.Location = new System.Drawing.Point(250, 0);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Padding = new System.Windows.Forms.Padding(10);
             this.panelChildForm.Size = new System.Drawing.Size(1242, 760);
             this.panelChildForm.TabIndex = 1;
             // 
@@ -167,9 +166,9 @@ namespace AsterixDecoder
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(10, 10);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1222, 740);
+            this.pictureBox1.Size = new System.Drawing.Size(1242, 760);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;

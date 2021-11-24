@@ -60,7 +60,7 @@ namespace AsterixDecoder
 
             dataGridView1.Columns[5].AutoSizeMode=DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.Columns[13].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-
+            dataGridView1.ReadOnly = true;
 
 
             watch.Start();
@@ -80,17 +80,17 @@ namespace AsterixDecoder
             long milisec = watch.ElapsedMilliseconds / 1000;
             string tiempo = Convert.ToString(milisec);
            
-            Console.WriteLine("Codigo tarda "+ tiempo+ "segundos");
+            Console.WriteLine("Codigo tarda "+ tiempo+ " segundos");
         }
 
         private void Tabla10_SizeChanged(object sender, EventArgs e)
         {
-            Size s = new Size(this.ClientSize.Width - 50, this.ClientSize.Height - 50);
-            dataGridView1.MaximumSize=s;
+            //Size s = new Size(this.ClientSize.Width - 50, this.ClientSize.Height - 50);
+            //dataGridView1.MaximumSize = s;
 
-            dataGridView1.AutoSize = true;
+            //dataGridView1.AutoSize = true;
             dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            
+
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -162,5 +162,6 @@ namespace AsterixDecoder
 
             
         }
+
     }
 }

@@ -22,10 +22,10 @@ namespace AsterixDecoder
         List<CAT21> lista;
         string filename;
 
-        public Tabla21(string filename)
+        public Tabla21(List<CAT21> lista)
         {
             InitializeComponent();
-            this.filename = filename;
+            this.lista = lista;
 
         }
         public void SetFileName(string name)
@@ -629,6 +629,11 @@ namespace AsterixDecoder
             //Map map = new Map();
             //map.SetFlights(listaflights);
             //map.Show();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

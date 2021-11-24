@@ -30,6 +30,7 @@ namespace AsterixDecoder
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEliminate = new System.Windows.Forms.Button();
@@ -83,6 +84,7 @@ namespace AsterixDecoder
             // 
             // btnAdd
             // 
+            this.btnAdd.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnAdd.Location = new System.Drawing.Point(959, 337);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
@@ -93,6 +95,7 @@ namespace AsterixDecoder
             // 
             // btnEliminate
             // 
+            this.btnEliminate.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnEliminate.Location = new System.Drawing.Point(1040, 337);
             this.btnEliminate.Name = "btnEliminate";
             this.btnEliminate.Size = new System.Drawing.Size(75, 23);
@@ -104,29 +107,32 @@ namespace AsterixDecoder
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(1003, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.Size = new System.Drawing.Size(21, 17);
             this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
+            this.label1.Text = "ID";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label2.Location = new System.Drawing.Point(1003, 112);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.Size = new System.Drawing.Size(71, 17);
             this.label2.TabIndex = 5;
-            this.label2.Text = "label2";
+            this.label2.Text = "Longitude";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1003, 184);
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.Location = new System.Drawing.Point(1003, 172);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 17);
+            this.label3.Size = new System.Drawing.Size(71, 17);
             this.label3.TabIndex = 6;
-            this.label3.Text = "label3";
+            this.label3.Text = "Longitude";
             // 
             // txtdescription
             // 
@@ -137,7 +143,7 @@ namespace AsterixDecoder
             // 
             // txtlongitude
             // 
-            this.txtlongitude.Location = new System.Drawing.Point(1006, 235);
+            this.txtlongitude.Location = new System.Drawing.Point(1006, 192);
             this.txtlongitude.Name = "txtlongitude";
             this.txtlongitude.Size = new System.Drawing.Size(100, 22);
             this.txtlongitude.TabIndex = 8;
@@ -153,16 +159,26 @@ namespace AsterixDecoder
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Location = new System.Drawing.Point(959, 394);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(252, 267);
             this.dataGridView1.TabIndex = 12;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SelectRegister);
             // 
             // btnRoute
             // 
+            this.btnRoute.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnRoute.Location = new System.Drawing.Point(1121, 337);
             this.btnRoute.Name = "btnRoute";
             this.btnRoute.Size = new System.Drawing.Size(75, 23);
@@ -173,6 +189,7 @@ namespace AsterixDecoder
             // 
             // btnPolygon
             // 
+            this.btnPolygon.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnPolygon.Location = new System.Drawing.Point(1121, 290);
             this.btnPolygon.Name = "btnPolygon";
             this.btnPolygon.Size = new System.Drawing.Size(75, 41);
@@ -183,9 +200,11 @@ namespace AsterixDecoder
             // 
             // btnSat
             // 
+            this.btnSat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSat.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnSat.Location = new System.Drawing.Point(22, 628);
             this.btnSat.Name = "btnSat";
-            this.btnSat.Size = new System.Drawing.Size(75, 40);
+            this.btnSat.Size = new System.Drawing.Size(88, 40);
             this.btnSat.TabIndex = 15;
             this.btnSat.Text = "Satellite";
             this.btnSat.UseVisualStyleBackColor = true;
@@ -193,9 +212,11 @@ namespace AsterixDecoder
             // 
             // btnOriginal
             // 
-            this.btnOriginal.Location = new System.Drawing.Point(103, 628);
+            this.btnOriginal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOriginal.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnOriginal.Location = new System.Drawing.Point(116, 628);
             this.btnOriginal.Name = "btnOriginal";
-            this.btnOriginal.Size = new System.Drawing.Size(75, 40);
+            this.btnOriginal.Size = new System.Drawing.Size(91, 40);
             this.btnOriginal.TabIndex = 16;
             this.btnOriginal.Text = "Normal";
             this.btnOriginal.UseVisualStyleBackColor = true;
@@ -203,9 +224,11 @@ namespace AsterixDecoder
             // 
             // btnRelieve
             // 
-            this.btnRelieve.Location = new System.Drawing.Point(184, 628);
+            this.btnRelieve.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRelieve.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnRelieve.Location = new System.Drawing.Point(213, 628);
             this.btnRelieve.Name = "btnRelieve";
-            this.btnRelieve.Size = new System.Drawing.Size(105, 40);
+            this.btnRelieve.Size = new System.Drawing.Size(120, 40);
             this.btnRelieve.TabIndex = 17;
             this.btnRelieve.Text = "Topography";
             this.btnRelieve.UseVisualStyleBackColor = true;
@@ -223,9 +246,11 @@ namespace AsterixDecoder
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label4.Location = new System.Drawing.Point(386, 628);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 17);
+            this.label4.Size = new System.Drawing.Size(57, 18);
             this.label4.TabIndex = 19;
             this.label4.Text = "Zoom:";
             this.label4.Click += new System.EventHandler(this.label4_Click);
@@ -238,6 +263,8 @@ namespace AsterixDecoder
             // 
             // btnFleet
             // 
+            this.btnFleet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFleet.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnFleet.Location = new System.Drawing.Point(959, 290);
             this.btnFleet.Name = "btnFleet";
             this.btnFleet.Size = new System.Drawing.Size(156, 40);
