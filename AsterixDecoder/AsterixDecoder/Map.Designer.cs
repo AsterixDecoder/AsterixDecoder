@@ -78,6 +78,7 @@ namespace AsterixDecoder
             this.gMapControl1.Size = new System.Drawing.Size(907, 609);
             this.gMapControl1.TabIndex = 0;
             this.gMapControl1.Zoom = 0D;
+            this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             this.gMapControl1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseDoubleClick);
             // 
             // btnAdd
@@ -212,17 +213,17 @@ namespace AsterixDecoder
             // 
             // trackZoom
             // 
-            this.trackZoom.Location = new System.Drawing.Point(409, 628);
+            this.trackZoom.Location = new System.Drawing.Point(440, 628);
             this.trackZoom.Maximum = 25;
             this.trackZoom.Name = "trackZoom";
-            this.trackZoom.Size = new System.Drawing.Size(511, 56);
+            this.trackZoom.Size = new System.Drawing.Size(480, 56);
             this.trackZoom.TabIndex = 18;
             this.trackZoom.ValueChanged += new System.EventHandler(this.trackZoom_ValueChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(355, 628);
+            this.label4.Location = new System.Drawing.Point(386, 628);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 17);
             this.label4.TabIndex = 19;
@@ -249,7 +250,7 @@ namespace AsterixDecoder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1237, 685);
+            this.ClientSize = new System.Drawing.Size(1224, 713);
             this.Controls.Add(this.btnFleet);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.trackZoom);

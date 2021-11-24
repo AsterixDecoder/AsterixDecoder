@@ -14,9 +14,11 @@ namespace AsterixDecoder
 {
     public partial class Menu : Form
     {
+
         AsterixFile asterixFile;
         List<CAT21> lista;
         string filename;
+        List<Flight> listaflights = new List<Flight>();
         public Menu()
         {
             InitializeComponent();
@@ -66,9 +68,21 @@ namespace AsterixDecoder
                     if ((myStream = openFileDialog1.OpenFile()) != null)
                     {
                         this.filename = openFileDialog1.FileName;
-
                         filename = Path.GetFileName(filename);
+
+                        asterixFile = new AsterixFile(this.filename);
+                        lista = asterixFile.getListCAT21();
+                        for (int i = 0; i < 1000; i++) // ojo que cuadre 1000 con el de Tabla10
+                        {
+                            //Añado class flight para googleearth
+                            Flight flight = new Flight(Convert.ToString(lista[i].GetReceiverID()));//no se si i es el id cambialo porfa
+                            Coordinates coordinates = new Coordinates(lista[i].GetLatitudeWGS84(), lista[i].GetLongitudeWGS84());
+                            flight.SetcoordinatesCAT21(coordinates);
+                            listaflights.Add(flight);
+                        }
+
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -86,6 +100,12 @@ namespace AsterixDecoder
         private void CAT21Button_Click(object sender, EventArgs e)
         {
             openChildForm(new Tabla21(this.filename));
+        }
+
+        private void MapViewButton_Click(object sender, EventArgs e)
+        {
+           
+            openChildForm(new Map(listaflights));
         }
     }
 }

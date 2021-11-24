@@ -27,17 +27,18 @@ namespace AsterixDecoder
         DataTable dt;
         List<Flight> flights = new List<Flight>();
         int rowSelected = 0;
-        double InitialLat = 20.96;
-        double InitialLong = -89.625;
+        double InitialLat = 41.2899319;
+        double InitialLong = 2.0798492;
         double lat;
         double lng;
 
 
 
 
-        public Map()
+        public Map(List<Flight> listaflights)
         {
             InitializeComponent();
+            this.flights = listaflights;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -72,23 +73,24 @@ namespace AsterixDecoder
             gMapControl1.CanDragMap = true;
             gMapControl1.MapProvider = GMapProviders.GoogleMap;
             gMapControl1.Position = new PointLatLng(InitialLat, InitialLong);
-            gMapControl1.MinZoom = 0;
+            gMapControl1.MinZoom = 4;
             gMapControl1.MaxZoom = 24;
             gMapControl1.Zoom = 9;
             gMapControl1.AutoScroll = true;
 
 
             markerOverlay = new GMapOverlay("marker");
+       
             marker = new GMarkerGoogle(new PointLatLng(InitialLat, InitialLong), GMarkerGoogleType.green);
             markerOverlay.Markers.Add(marker);//add mapp
-
             //add tooltiptext to the marker
-
             marker.ToolTipMode = MarkerTooltipMode.Always;
             marker.ToolTipText = string.Format("Ubication: \n Latitude:{0} \n Longitude:{1}", InitialLat, InitialLong);
             //now add the map and the marquer to the controler
 
             gMapControl1.Overlays.Add(markerOverlay);
+
+
 
 
 
@@ -106,7 +108,7 @@ namespace AsterixDecoder
             marker.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
             //focus teh point in the screen
 
-            gMapControl1.Position = marker.Position;
+            //gMapControl1.Position = marker.Position;
 
 
 
@@ -224,7 +226,27 @@ namespace AsterixDecoder
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
+
+            markerOverlay = new GMapOverlay("marker");
+            for (int i = 0; i < flights.Count; i++)
+            {
+                Flight flight = flights[i];
+                double flightLat = flight.GetLat();
+                double flightLng = flight.GetLng();
+                marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), GMarkerGoogleType.green);
+                markerOverlay.Markers.Add(marker);//add mapp
+                //add tooltiptext to the marker
+                marker.ToolTipMode = MarkerTooltipMode.Always;
+                marker.ToolTipText = string.Format("Ubication: \n Latitude:{0} \n Longitude:{1}", flightLat, flightLng);
+                //now add the map and the marquer to the controler
+            }
+            gMapControl1.Overlays.Add(markerOverlay);
+
+
+
+
+
+
 
             for (int i = 1; i < flights.Count; i++)
             {
@@ -235,6 +257,11 @@ namespace AsterixDecoder
                 //txtdescription.Text = flight.GetIdentification();
                 dt.Rows.Add(txtdescription.Text, flightLat, flightLng);
             }
+        }
+
+        private void gMapControl1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

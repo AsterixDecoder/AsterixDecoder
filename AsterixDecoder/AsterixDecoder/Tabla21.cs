@@ -43,8 +43,8 @@ namespace AsterixDecoder
         {
             
             progressBar1.Visible = true;
-            asterixFile = new AsterixFile(this.filename);
-            lista = asterixFile.getListCAT21();
+            //asterixFile = new AsterixFile(this.filename);
+            //lista = asterixFile.getListCAT21();
             int length = lista.Count;
             dataGridView1.ColumnCount = 45;
             dataGridView1.Columns[0].Name = "Number";
@@ -237,11 +237,11 @@ namespace AsterixDecoder
                 progressBar1.PerformStep();
 
 
-                //Añado class flight para googleearth
-                flight = new Flight(receiverID);//no se si i es el id cambialo porfa
-                coordinates = new Coordinates(latitude, longitude);
-                flight.SetcoordinatesCAT21(coordinates);
-                listaflights.Add(flight);
+                ////Añado class flight para googleearth
+                //flight = new Flight(receiverID);//no se si i es el id cambialo porfa
+                //coordinates = new Coordinates(latitude, longitude);
+                //flight.SetcoordinatesCAT21(coordinates);
+                //listaflights.Add(flight);
 
             }
             watch.Stop();
@@ -626,9 +626,9 @@ namespace AsterixDecoder
         private void btnMap_Click(object sender, EventArgs e)
         {
             //le paso al form map el fligths con coordenadas
-            Map map = new Map();
-            map.SetFlights(listaflights);
-            map.Show();
+            //Map map = new Map();
+            //map.SetFlights(listaflights);
+            //map.Show();
         }
     }
 }

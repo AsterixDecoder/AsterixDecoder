@@ -64,7 +64,7 @@ namespace AsterixDecoder
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.GhostWhite;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 81);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 278);
             this.dataGridView1.MaximumSize = this.ClientSize;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -85,7 +85,7 @@ namespace AsterixDecoder
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1052, 450);
+            this.dataGridView1.Size = new System.Drawing.Size(282, 253);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);

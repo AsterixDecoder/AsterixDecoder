@@ -59,7 +59,7 @@ namespace AsterixDecoder
             this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
             this.panelSideMenu.Name = "panelSideMenu";
-            this.panelSideMenu.Size = new System.Drawing.Size(250, 578);
+            this.panelSideMenu.Size = new System.Drawing.Size(250, 760);
             this.panelSideMenu.TabIndex = 0;
             // 
             // panel2
@@ -82,6 +82,7 @@ namespace AsterixDecoder
             this.MapViewButton.TabIndex = 1;
             this.MapViewButton.Text = "Map View";
             this.MapViewButton.UseVisualStyleBackColor = false;
+            this.MapViewButton.Click += new System.EventHandler(this.MapViewButton_Click);
             // 
             // panel1
             // 
@@ -158,7 +159,7 @@ namespace AsterixDecoder
             this.panelChildForm.Location = new System.Drawing.Point(250, 0);
             this.panelChildForm.Name = "panelChildForm";
             this.panelChildForm.Padding = new System.Windows.Forms.Padding(10);
-            this.panelChildForm.Size = new System.Drawing.Size(1070, 578);
+            this.panelChildForm.Size = new System.Drawing.Size(1242, 760);
             this.panelChildForm.TabIndex = 1;
             // 
             // pictureBox1
@@ -168,7 +169,7 @@ namespace AsterixDecoder
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(10, 10);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1050, 558);
+            this.pictureBox1.Size = new System.Drawing.Size(1222, 740);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -177,10 +178,11 @@ namespace AsterixDecoder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1320, 578);
+            this.ClientSize = new System.Drawing.Size(1492, 760);
             this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panelSideMenu);
             this.Name = "Menu";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Menu";
             this.panelSideMenu.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
