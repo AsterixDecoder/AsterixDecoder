@@ -16,7 +16,7 @@ namespace AsterixDecoder
     {
 
         public static TextBox tb = new TextBox();
-        Tabla21 GridForm = new Tabla21();
+        //Tabla21 GridForm = new Tabla21();
         AsterixFile asterixFile;
         List<CAT21> lista;
         string name;
@@ -26,10 +26,19 @@ namespace AsterixDecoder
             InitializeComponent();
            
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        public string SendFileName()
         {
-            
+            return name;
+        }
+
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
             Stream myStream = null;
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -53,12 +62,12 @@ namespace AsterixDecoder
                         this.name = openFileDialog1.FileName;
 
                         name = Path.GetFileName(name);
-                        GridForm.SetFileName(name);
-                        this.Hide();
-                        GridForm.Show();
-                        
+                        //GridForm.SetFileName(name);
+                        //this.Hide();
+                        //GridForm.Show();
 
-                        Console.WriteLine(name);
+
+                        //Console.WriteLine(name);
                     }
                 }
                 catch (Exception ex)
@@ -66,13 +75,6 @@ namespace AsterixDecoder
                     MessageBox.Show("Error: No se pudo leer el achivo del disco. Error original: " + ex.Message);
                 }
             }
-
-
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
         }
     }
 }

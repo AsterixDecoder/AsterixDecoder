@@ -22,9 +22,10 @@ namespace AsterixDecoder
         List<CAT21> lista;
         string filename;
 
-        public Tabla21()
+        public Tabla21(string filename)
         {
             InitializeComponent();
+            this.filename = filename;
 
         }
         public void SetFileName(string name)

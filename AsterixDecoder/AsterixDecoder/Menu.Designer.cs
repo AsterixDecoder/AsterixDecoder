@@ -29,19 +29,23 @@ namespace AsterixDecoder
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.panelSideMenu = new System.Windows.Forms.Panel();
-            this.panelName = new System.Windows.Forms.Panel();
-            this.LoadFileButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.MapViewButton = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.CAT10button = new System.Windows.Forms.Button();
+            this.CAT21Button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.LoadFileButton = new System.Windows.Forms.Button();
+            this.panelName = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelSideMenu.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panelChildForm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSideMenu
@@ -57,69 +61,6 @@ namespace AsterixDecoder
             this.panelSideMenu.Name = "panelSideMenu";
             this.panelSideMenu.Size = new System.Drawing.Size(250, 578);
             this.panelSideMenu.TabIndex = 0;
-            // 
-            // panelName
-            // 
-            this.panelName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelName.Location = new System.Drawing.Point(0, 0);
-            this.panelName.Name = "panelName";
-            this.panelName.Size = new System.Drawing.Size(250, 110);
-            this.panelName.TabIndex = 0;
-            // 
-            // LoadFileButton
-            // 
-            this.LoadFileButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.LoadFileButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LoadFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadFileButton.Location = new System.Drawing.Point(0, 110);
-            this.LoadFileButton.Name = "LoadFileButton";
-            this.LoadFileButton.Size = new System.Drawing.Size(250, 45);
-            this.LoadFileButton.TabIndex = 1;
-            this.LoadFileButton.Text = "Load File";
-            this.LoadFileButton.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(69, 206);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(0, 55);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(250, 45);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Table CAT10";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(0, 100);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(250, 45);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Table CAT21";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 155);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(250, 145);
-            this.panel1.TabIndex = 1;
             // 
             // panel2
             // 
@@ -142,14 +83,95 @@ namespace AsterixDecoder
             this.MapViewButton.Text = "Map View";
             this.MapViewButton.UseVisualStyleBackColor = false;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.CAT10button);
+            this.panel1.Controls.Add(this.CAT21Button);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 155);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(250, 145);
+            this.panel1.TabIndex = 1;
+            // 
+            // CAT10button
+            // 
+            this.CAT10button.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CAT10button.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CAT10button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CAT10button.Location = new System.Drawing.Point(0, 55);
+            this.CAT10button.Name = "CAT10button";
+            this.CAT10button.Size = new System.Drawing.Size(250, 45);
+            this.CAT10button.TabIndex = 1;
+            this.CAT10button.Text = "Table CAT10";
+            this.CAT10button.UseVisualStyleBackColor = false;
+            this.CAT10button.Click += new System.EventHandler(this.CAT10button_Click);
+            // 
+            // CAT21Button
+            // 
+            this.CAT21Button.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CAT21Button.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CAT21Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CAT21Button.Location = new System.Drawing.Point(0, 100);
+            this.CAT21Button.Name = "CAT21Button";
+            this.CAT21Button.Size = new System.Drawing.Size(250, 45);
+            this.CAT21Button.TabIndex = 1;
+            this.CAT21Button.Text = "Table CAT21";
+            this.CAT21Button.UseVisualStyleBackColor = false;
+            this.CAT21Button.Click += new System.EventHandler(this.CAT21Button_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(69, 206);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // LoadFileButton
+            // 
+            this.LoadFileButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.LoadFileButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LoadFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadFileButton.Location = new System.Drawing.Point(0, 110);
+            this.LoadFileButton.Name = "LoadFileButton";
+            this.LoadFileButton.Size = new System.Drawing.Size(250, 45);
+            this.LoadFileButton.TabIndex = 1;
+            this.LoadFileButton.Text = "Load File";
+            this.LoadFileButton.UseVisualStyleBackColor = false;
+            this.LoadFileButton.Click += new System.EventHandler(this.LoadFileButton_Click);
+            // 
+            // panelName
+            // 
+            this.panelName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelName.Location = new System.Drawing.Point(0, 0);
+            this.panelName.Name = "panelName";
+            this.panelName.Size = new System.Drawing.Size(250, 110);
+            this.panelName.TabIndex = 0;
+            // 
             // panelChildForm
             // 
+            this.panelChildForm.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelChildForm.Controls.Add(this.pictureBox1);
             this.panelChildForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelChildForm.ForeColor = System.Drawing.SystemColors.Control;
             this.panelChildForm.Location = new System.Drawing.Point(250, 0);
             this.panelChildForm.Name = "panelChildForm";
             this.panelChildForm.Padding = new System.Windows.Forms.Padding(10);
             this.panelChildForm.Size = new System.Drawing.Size(1070, 578);
             this.panelChildForm.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(10, 10);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1050, 558);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // Menu
             // 
@@ -161,8 +183,10 @@ namespace AsterixDecoder
             this.Name = "Menu";
             this.Text = "Menu";
             this.panelSideMenu.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panelChildForm.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -173,11 +197,12 @@ namespace AsterixDecoder
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button MapViewButton;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button CAT10button;
+        private System.Windows.Forms.Button CAT21Button;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button LoadFileButton;
         private System.Windows.Forms.Panel panelName;
         private System.Windows.Forms.Panel panelChildForm;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
