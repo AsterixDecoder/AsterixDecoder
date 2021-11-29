@@ -126,7 +126,7 @@ namespace AsterixDecoder
             GMapOverlay polygon = new GMapOverlay("Polygon");
             List<PointLatLng> puntos = new List<PointLatLng>();
             double lng, lat;
-            for (int filas = 0; filas < dataGridView1.Rows.Count - 1; filas++) // ojo que le pomngo -1 porqeu el grid me añade un elemento en blanco
+            for (int filas = 0; filas < 5; filas++) // dataGridView1.Rows.Count -1 ojo que le pomngo -1 porqeu el grid me añade un elemento en blanco
             {
                 lat = Convert.ToDouble(dataGridView1.Rows[filas].Cells[1].Value);
                 lng = Convert.ToDouble(dataGridView1.Rows[filas].Cells[2].Value);
@@ -206,12 +206,12 @@ namespace AsterixDecoder
         {
 
             markerOverlay = new GMapOverlay("marker");
-            for (int i = 0; i < flights.Count; i++)
+            for (int i = 0; i < 5; i++)//flights.Count
             {
                 Flight flight = flights[i];
                 double flightLat = flight.GetLat();
                 double flightLng = flight.GetLng();
-                marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), GMarkerGoogleType.green);
+                marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), new Bitmap("plane.jpg")); // GMarkerGoogleType.green
                 markerOverlay.Markers.Add(marker);//add mapp
                 //add tooltiptext to the marker
                 marker.ToolTipMode = MarkerTooltipMode.Always;
@@ -221,7 +221,7 @@ namespace AsterixDecoder
             gMapControl1.Overlays.Add(markerOverlay);
 
 
-            for (int i = 1; i < flights.Count; i++)
+            for (int i = 1; i < 5; i++)
             {
                 Flight flight = flights[i];
                 double flightLat = flight.GetLat();
@@ -247,7 +247,7 @@ namespace AsterixDecoder
             marker.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
             //focus teh point in the screen
 
-            //gMapControl1.Position = marker.Position;
+            gMapControl1.Position = marker.Position;
         }
     }
 }
