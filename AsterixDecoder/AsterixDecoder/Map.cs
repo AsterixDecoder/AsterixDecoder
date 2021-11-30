@@ -212,7 +212,7 @@ namespace AsterixDecoder
 
             cat21Bmp.MakeTransparent();
             markerOverlay = new GMapOverlay("marker");
-            for (int i = 0; i < 50; i++)//flights.Count
+            for (int i = 0; i < 200; i++)//flights.Count
             {
                 Flight flight = flights[i];
                 double flightLat = flight.GetLat();
@@ -220,14 +220,14 @@ namespace AsterixDecoder
                 marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
                 markerOverlay.Markers.Add(marker);//add mapp
                 //add tooltiptext to the marker
-                marker.ToolTipMode = MarkerTooltipMode.Always;
-                marker.ToolTipText = string.Format("Ubication: \n Latitude:{0} \n Longitude:{1}", flightLat, flightLng);
+                //marker.ToolTipMode = MarkerTooltipMode.Always;
+                //marker.ToolTipText = string.Format("Ubication: \n Latitude:{0} \n Longitude:{1}", flightLat, flightLng);
                 //now add the map and the marquer to the controler
             }
             gMapControl1.Overlays.Add(markerOverlay);
 
 
-            for (int i = 1; i < 50; i++)
+            for (int i = 1; i < 200; i++)
             {
                 Flight flight = flights[i];
                 double flightLat = flight.GetLat();
@@ -259,7 +259,7 @@ namespace AsterixDecoder
         private void pratbtn_Click(object sender, EventArgs e)
         {
             gMapControl1.Zoom = 11;
-            gMapControl1.Position = new PointLatLng(Initialcoords[0], Initialcoords[1]);
+            gMapControl1.Position = new PointLatLng(InitialLat, InitialLong);
         }
 
         private void earthbtn_Click(object sender, EventArgs e)
