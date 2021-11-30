@@ -6,23 +6,17 @@ namespace ClassLibrary
 {
     public class Flight
     {
-
-
-
         string identification;
-        List<Coordinates> coordinatesCAT21;
-        List<TimeSpan> timestampsCAT21;
-        List<Coordinates> coordinatesCAT10;
-        List<TimeSpan> timestampsCAT10;
-        public Flight(string id)
+        int category;
+        List<Coordinates> coordinates;
+        List<TimeSpan> timestamps;
+
+        public Flight(string id, int category)
         {
-
+            this.category = category;
             this.identification = id;
-            coordinatesCAT21 = new List<Coordinates>();
-            timestampsCAT21 = new List<TimeSpan>();
-            coordinatesCAT10 = new List<Coordinates>();
-            timestampsCAT10 = new List<TimeSpan>();
-
+            coordinates = new List<Coordinates>();
+            timestamps = new List<TimeSpan>();
         }
         public string GetIdentification()
         {
@@ -31,16 +25,16 @@ namespace ClassLibrary
         public double GetLat()
         {
             Console.WriteLine("here coordinates");
-            Console.WriteLine(coordinatesCAT21[0]);
-            return Convert.ToDouble(this.coordinatesCAT21[0].GetLatitude());
+            Console.WriteLine(coordinates[0]);
+            return Convert.ToDouble(this.coordinates[0].GetLatitude());
         }
         public double GetLng()
         {
-            return Convert.ToDouble(this.coordinatesCAT21[0].GetLongitude());
+            return Convert.ToDouble(this.coordinates[0].GetLongitude());
         }
-        public void SetcoordinatesCAT21(Coordinates coordinates)
+        public void SetcoordinatesCAT21(Coordinates coord)
         {
-            coordinatesCAT21.Add(coordinates);
+            this.coordinates.Add(coord);
 
         }
 

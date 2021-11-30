@@ -40,10 +40,6 @@ namespace ClassLibrary
         
 
 
-
-
-
-
         public CAT10(byte[] arraystring)
         {
             int len = arraystring.Length;
