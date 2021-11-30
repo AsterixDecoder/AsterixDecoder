@@ -6,6 +6,9 @@ namespace ClassLibrary
 {
     public class Flight
     {
+
+
+
         string identification;
         List<Coordinates> coordinatesCAT21;
         List<TimeSpan> timestampsCAT21;
@@ -13,6 +16,7 @@ namespace ClassLibrary
         List<TimeSpan> timestampsCAT10;
         public Flight(string id)
         {
+
             this.identification = id;
             coordinatesCAT21 = new List<Coordinates>();
             timestampsCAT21 = new List<TimeSpan>();

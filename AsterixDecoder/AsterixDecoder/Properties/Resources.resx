@@ -121,14 +121,26 @@
   <data name="redMarker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>redMarker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spain" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\spain.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mapview" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mapview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="earth" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\earth.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="earth1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\earth1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="airport2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\airport2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cat21" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>cat21.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="loadfile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loadfile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="spain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spain.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="catalunya" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\catalunya.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,20 +148,14 @@
   <data name="catalunya3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\catalunya3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="catalunya2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\catalunya2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="cat10" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>cat10.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="catalunya4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\catalunya3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="airport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\airport.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="airport2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\airport2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="catalunya4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\catalunya3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="catalunya21" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\catalunya21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,13 +166,22 @@
   <data name="catalunya1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\catalunya1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="spain1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spain1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mapview2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mapview2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="loadfile1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loadfile1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="catalunya22" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\catalunya22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="earth" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\earth.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="catalunya2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\catalunya2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spain1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\spain1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="map" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

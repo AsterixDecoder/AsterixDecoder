@@ -133,6 +133,11 @@
     <Content Include="plane.jpg" />
     <Content Include="plane2.jpg" />
     <Content Include="planeu.jpg" />
+    <None Include="Resources\map.png" />
+    <None Include="Resources\mapview2.png" />
+    <None Include="Resources\loadfile1.png" />
+    <None Include="Resources\mapview.png" />
+    <None Include="Resources\loadfile.png" />
     <None Include="Resources\spain1.gif" />
     <None Include="Resources\spain.gif" />
     <None Include="Resources\catalunya22.png" />

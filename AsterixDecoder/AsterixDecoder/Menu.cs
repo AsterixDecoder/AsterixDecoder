@@ -73,14 +73,17 @@ namespace AsterixDecoder
 
                         asterixFile = new AsterixFile(this.filename);
                         cat21 = asterixFile.getListCAT21();
-                        for (int i = 0; i < 1000; i++) // ojo que cuadre 1000 con el de Tabla10
-                        {
-                            //Añado class flight para googleearth
-                            Flight flight = new Flight(Convert.ToString(cat21[i].GetTargetIdentification()));//no se si i es el id cambialo porfa
-                            Coordinates coordinates = new Coordinates(cat21[i].GetLatitudeWGS84(), cat21[i].GetLongitudeWGS84());
-                            flight.SetcoordinatesCAT21(coordinates);
-                            listaflights.Add(flight);
-                        }
+                        listaflights = asterixFile.getFlights();
+
+
+                        //for (int i = 0; i < 1000; i++) // ojo que cuadre 1000 con el de Tabla10
+                        //{
+                        //    //Añado class flight para googleearth
+                        //    Flight flight = new Flight(Convert.ToString(cat21[i].GetTargetIdentification()));//no se si i es el id cambialo porfa
+                        //    Coordinates coordinates = new Coordinates(cat21[i].GetLatitudeWGS84(), cat21[i].GetLongitudeWGS84());
+                        //    flight.SetcoordinatesCAT21(coordinates);
+                        //    listaflights.Add(flight);
+                        //}
 
                     }
 
@@ -106,6 +109,11 @@ namespace AsterixDecoder
         private void MapViewButton_Click(object sender, EventArgs e)
         {
             openChildForm(new Map(listaflights));
+        }
+
+        private void panelSideMenu_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

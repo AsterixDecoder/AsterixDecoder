@@ -106,8 +106,8 @@ namespace AsterixDecoder
             txtlongitude.Text = lng.ToString();
 
             //change marker to the new position
-            marker.Position = new PointLatLng(lat, lng);
-            marker.ToolTipText = string.Format("Ubication:\n Latitude:{0} \n Longitude:{1}", lat, lng);
+            //marker.Position = new PointLatLng(lat, lng);
+            //marker.ToolTipText = string.Format("Ubication:\n Latitude:{0} \n Longitude:{1}", lat, lng);
 
 
 
@@ -212,9 +212,10 @@ namespace AsterixDecoder
 
             cat21Bmp.MakeTransparent();
             markerOverlay = new GMapOverlay("marker");
-            for (int i = 0; i < 200; i++)//flights.Count
+            for (int i = 0; i < 5; i++)//flights.Count
             {
                 Flight flight = flights[i];
+                
                 double flightLat = flight.GetLat();
                 double flightLng = flight.GetLng();
                 marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
@@ -227,7 +228,7 @@ namespace AsterixDecoder
             gMapControl1.Overlays.Add(markerOverlay);
 
 
-            for (int i = 1; i < 200; i++)
+            for (int i = 1; i < 5; i++)
             {
                 Flight flight = flights[i];
                 double flightLat = flight.GetLat();
