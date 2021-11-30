@@ -30,7 +30,7 @@ namespace AsterixDecoder
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEliminate = new System.Windows.Forms.Button();
@@ -50,6 +50,10 @@ namespace AsterixDecoder
             this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnFleet = new System.Windows.Forms.Button();
+            this.spnbtn = new System.Windows.Forms.Button();
+            this.earthbtn = new System.Windows.Forms.Button();
+            this.catabtn = new System.Windows.Forms.Button();
+            this.pratbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
             this.SuspendLayout();
@@ -159,14 +163,14 @@ namespace AsterixDecoder
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Location = new System.Drawing.Point(959, 394);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
@@ -273,11 +277,59 @@ namespace AsterixDecoder
             this.btnFleet.UseVisualStyleBackColor = true;
             this.btnFleet.Click += new System.EventHandler(this.button1_Click);
             // 
+            // spnbtn
+            // 
+            this.spnbtn.Image = global::AsterixDecoder.Properties.Resources.spain1;
+            this.spnbtn.Location = new System.Drawing.Point(866, 663);
+            this.spnbtn.Name = "spnbtn";
+            this.spnbtn.Size = new System.Drawing.Size(54, 50);
+            this.spnbtn.TabIndex = 24;
+            this.spnbtn.UseVisualStyleBackColor = true;
+            this.spnbtn.Click += new System.EventHandler(this.spnbtn_Click);
+            // 
+            // earthbtn
+            // 
+            this.earthbtn.Image = global::AsterixDecoder.Properties.Resources.earth1;
+            this.earthbtn.Location = new System.Drawing.Point(750, 663);
+            this.earthbtn.Name = "earthbtn";
+            this.earthbtn.Size = new System.Drawing.Size(50, 50);
+            this.earthbtn.TabIndex = 23;
+            this.earthbtn.UseVisualStyleBackColor = true;
+            this.earthbtn.Click += new System.EventHandler(this.earthbtn_Click);
+            // 
+            // catabtn
+            // 
+            this.catabtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.catabtn.Image = global::AsterixDecoder.Properties.Resources.catalunya22;
+            this.catabtn.Location = new System.Drawing.Point(806, 663);
+            this.catabtn.Name = "catabtn";
+            this.catabtn.Size = new System.Drawing.Size(54, 50);
+            this.catabtn.TabIndex = 22;
+            this.catabtn.UseVisualStyleBackColor = true;
+            this.catabtn.Click += new System.EventHandler(this.catabtn_Click);
+            // 
+            // pratbtn
+            // 
+            this.pratbtn.Image = global::AsterixDecoder.Properties.Resources.airport2;
+            this.pratbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.pratbtn.Location = new System.Drawing.Point(694, 663);
+            this.pratbtn.Name = "pratbtn";
+            this.pratbtn.Size = new System.Drawing.Size(50, 50);
+            this.pratbtn.TabIndex = 21;
+            this.pratbtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.pratbtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.pratbtn.UseVisualStyleBackColor = true;
+            this.pratbtn.Click += new System.EventHandler(this.pratbtn_Click);
+            // 
             // Map
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1224, 713);
+            this.ClientSize = new System.Drawing.Size(1224, 723);
+            this.Controls.Add(this.spnbtn);
+            this.Controls.Add(this.earthbtn);
+            this.Controls.Add(this.catabtn);
+            this.Controls.Add(this.pratbtn);
             this.Controls.Add(this.btnFleet);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.trackZoom);
@@ -327,5 +379,9 @@ namespace AsterixDecoder
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnFleet;
+        private System.Windows.Forms.Button catabtn;
+        private System.Windows.Forms.Button earthbtn;
+        public System.Windows.Forms.Button pratbtn;
+        private System.Windows.Forms.Button spnbtn;
     }
 }

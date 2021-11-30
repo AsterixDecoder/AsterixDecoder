@@ -31,12 +31,14 @@ namespace AsterixDecoder
         Bitmap original = new Bitmap(7,7);
         Bitmap cat10Bmp = new Bitmap(Properties.Resources.cat10, new Size(14, 14));
         Bitmap cat21Bmp = new Bitmap(Properties.Resources.cat21, new Size(14, 14));
-
+        double[] Initialcoords = new double[2];
 
 
         public Map(List<Flight> listaflights)
         {
             InitializeComponent();
+            Initialcoords[0] = 41.4706278;
+            Initialcoords[1] = 2.18447222;
             this.flights = listaflights;
         }
 
@@ -252,6 +254,30 @@ namespace AsterixDecoder
             //focus teh point in the screen
 
             //gMapControl1.Position = marker.Position;
+        }
+
+        private void pratbtn_Click(object sender, EventArgs e)
+        {
+            gMapControl1.Zoom = 11;
+            gMapControl1.Position = new PointLatLng(Initialcoords[0], Initialcoords[1]);
+        }
+
+        private void earthbtn_Click(object sender, EventArgs e)
+        {
+            gMapControl1.Zoom = 3;
+            gMapControl1.Position = new PointLatLng(Initialcoords[0], Initialcoords[1]);
+        }
+
+        private void catabtn_Click(object sender, EventArgs e)
+        {
+            gMapControl1.Zoom = 8;
+            gMapControl1.Position = new PointLatLng(Initialcoords[0], Initialcoords[1]);
+        }
+
+        private void spnbtn_Click(object sender, EventArgs e)
+        {
+            gMapControl1.Zoom = 5;
+            gMapControl1.Position = new PointLatLng(Initialcoords[0], Initialcoords[1]);
         }
     }
 }
