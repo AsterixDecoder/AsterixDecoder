@@ -28,7 +28,9 @@ namespace AsterixDecoder
         double InitialLong = 2.0798492;
         double lat;
         double lng;
-
+        Bitmap original = new Bitmap(7,7);
+        Bitmap cat10Bmp = new Bitmap(Properties.Resources.cat10, new Size(14, 14));
+        Bitmap cat21Bmp = new Bitmap(Properties.Resources.cat21, new Size(14, 14));
 
 
 
@@ -205,13 +207,15 @@ namespace AsterixDecoder
         private void button1_Click(object sender, EventArgs e)
         {
 
+
+            cat21Bmp.MakeTransparent();
             markerOverlay = new GMapOverlay("marker");
-            for (int i = 0; i < 5; i++)//flights.Count
+            for (int i = 0; i < 50; i++)//flights.Count
             {
                 Flight flight = flights[i];
                 double flightLat = flight.GetLat();
                 double flightLng = flight.GetLng();
-                marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), new Bitmap("plane.jpg")); // GMarkerGoogleType.green
+                marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
                 markerOverlay.Markers.Add(marker);//add mapp
                 //add tooltiptext to the marker
                 marker.ToolTipMode = MarkerTooltipMode.Always;
@@ -221,7 +225,7 @@ namespace AsterixDecoder
             gMapControl1.Overlays.Add(markerOverlay);
 
 
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < 50; i++)
             {
                 Flight flight = flights[i];
                 double flightLat = flight.GetLat();
@@ -247,7 +251,7 @@ namespace AsterixDecoder
             marker.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
             //focus teh point in the screen
 
-            gMapControl1.Position = marker.Position;
+            //gMapControl1.Position = marker.Position;
         }
     }
 }
