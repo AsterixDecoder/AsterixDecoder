@@ -212,7 +212,7 @@ namespace AsterixDecoder
 
             cat21Bmp.MakeTransparent();
             markerOverlay = new GMapOverlay("marker");
-            for (int i = 0; i < 5; i++)//flights.Count
+            for (int i = 0; i < 50; i++)//flights.Count
             {
                 Flight flight = flights[i];
                 

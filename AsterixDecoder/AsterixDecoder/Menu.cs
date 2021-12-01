@@ -115,5 +115,11 @@ namespace AsterixDecoder
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+           
+            Console.WriteLine(cat10[0].GetLatLong(0));
+        }
     }
 }

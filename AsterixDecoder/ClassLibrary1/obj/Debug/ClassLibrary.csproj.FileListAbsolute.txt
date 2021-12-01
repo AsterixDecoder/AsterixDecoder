@@ -27,3 +27,8 @@ C:\Users\ulises\Documents\GitHub\AsterixDecoder08112021\AsterixDecoder\ClassLibr
 C:\Users\ulises\Documents\GitHub\AsterixDecoder08112021\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary.csproj.CoreCompileInputs.cache
 C:\Users\ulises\Documents\GitHub\AsterixDecoder08112021\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary1.dll
 C:\Users\ulises\Documents\GitHub\AsterixDecoder08112021\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
+C:\Users\Galder\Documents\Uni\2021-2\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+C:\Users\Galder\Documents\Uni\2021-2\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+C:\Users\Galder\Documents\Uni\2021-2\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary.csprojAssemblyReference.cache
+C:\Users\Galder\Documents\Uni\2021-2\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+C:\Users\Galder\Documents\Uni\2021-2\PGTA\AsterixDecoder\AsterixDecoder\ClassLibrary1\obj\Debug\ClassLibrary1.pdb

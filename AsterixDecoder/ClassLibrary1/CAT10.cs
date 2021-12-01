@@ -2,13 +2,15 @@
 using System.Text;
 using System.Collections;
 using System.Windows.Forms;
+using MultiCAT6.Utils;
 
 namespace ClassLibrary
 {
+
    
     public class CAT10
     {
-
+        
         byte[] arraystring = new byte[200];
         int Long;
         BitArray EspcCamp;
@@ -69,6 +71,7 @@ namespace ClassLibrary
                 tempBool = bufferBit1[0];
                 cont++;
             }
+            
             switch (cont - 4)
             {
                 case 0:
@@ -557,6 +560,24 @@ namespace ClassLibrary
             
             
              
+        }
+        public string GetTrackNum()
+        {
+            return D10_TrackNum.ToString();
+        }
+        public double[] GetLatLong(int i)
+        {
+
+            double[] SMR_MLAT = { 41.29561833333333, 2.095114166666667, 41.297062777777775 , 2.0784472222222226 };
+            GeoUtils geoUtils = new GeoUtils();
+            Coordinates radarCoordinates = new Coordinates(SMR_MLAT[2*i], SMR_MLAT[2 * i + 1]);
+            CoordinatesWGS84 radarWGS84 = new CoordinatesWGS84(radarCoordinates.GetLatitude() * (Math.PI / 180.0), radarCoordinates.GetLongitude() * (Math.PI / 180.0));
+            CoordinatesXYZ objectCartesian = new CoordinatesXYZ(D06_CartCoor[0],D06_CartCoor[1], 0);
+            CoordinatesXYZ objectGeocentric = geoUtils.change_radar_cartesian2geocentric(radarWGS84, objectCartesian);
+            CoordinatesWGS84 objectWGS84 = geoUtils.change_geocentric2geodesic(objectGeocentric);
+            double[] wgs84 = { objectWGS84.Lat * (180.0 / Math.PI), objectWGS84.Lon * (180.0 / Math.PI) };
+            return wgs84;
+
         }
         public string[] GetValues(int n)
         {

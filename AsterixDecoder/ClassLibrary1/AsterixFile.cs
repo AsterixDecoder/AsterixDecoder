@@ -107,6 +107,26 @@ namespace AsterixDecoder
                     }
                 }
             }
+           for (int i = 0; i < listaCAT10.Count; i++)
+            {
+                CAT10 cat10 = listaCAT10[i];
+                if (cat10.GetTrackNum() != "N/A")
+                {
+                    Flight foundFlight = flights.FirstOrDefault(flight => flight.GetIdentification() == cat10.GetTrackNum());
+                    if (foundFlight != null)
+                    {
+                        Coordinates coordinates = new Coordinates(cat10.GetLatLong(0)[0], cat10.GetLatLong(0)[1]);
+                        foundFlight.SetcoordinatesCAT21(coordinates);
+                    }
+                    else
+                    {
+                        Flight newFlight = new Flight(cat10.GetTrackNum(), 21);
+                        Coordinates coordinates = new Coordinates(cat10.GetLatLong(0)[0], cat10.GetLatLong(0)[1]);
+                        newFlight.SetcoordinatesCAT21(coordinates);
+                        flights.Add(newFlight);
+                    }
+                }
+            }
         }
 
 
