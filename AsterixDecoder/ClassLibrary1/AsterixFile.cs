@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Data;
 using ClassLibrary;
+using System.Windows.Forms;
 
 namespace AsterixDecoder
 {
@@ -18,11 +19,11 @@ namespace AsterixDecoder
         DataTable tablaCAT21 = new DataTable();
         List<Flight> flights = new List<Flight>();
 
-        public AsterixFile(string nombre)
+        public AsterixFile(string nombre,ProgressBar p)
         {
             this.path = nombre;
             Console.WriteLine("Hello World");
-            leer();
+            leer(p);
         }
 
         public List<CAT10> getListCAT10()
@@ -38,7 +39,7 @@ namespace AsterixDecoder
             return listaCAT21;
         }
 
-        public void leer()
+        public void leer(ProgressBar p)
         {
 
             byte[] fileBytes = File.ReadAllBytes(path);
@@ -46,6 +47,8 @@ namespace AsterixDecoder
             int i = 0;
             int contador = fileBytes[2];
 
+            
+            
             while (i < fileBytes.Length)
             {
                 byte[] array = new byte[contador];
@@ -62,7 +65,7 @@ namespace AsterixDecoder
 
 
             }
-
+            p.Maximum = listabyte.Count;
             for (int q = 0; q < listabyte.Count; q++)
             {
                 byte[] arraystring = listabyte[q];
@@ -79,16 +82,18 @@ namespace AsterixDecoder
                     CAT21 newcat21 = new CAT21(arraystring);
                     listaCAT21.Add(newcat21);
                 }
-
+                p.PerformStep();
             }
-            this.DecodeFlights();
+            this.DecodeFlights(p);
 
         }
 
-        public void DecodeFlights()
+        public void DecodeFlights(ProgressBar p)
         {
+            p.Value = 0;
             for (int i = 0; i < listaCAT21.Count; i++)
             {
+                p.PerformStep();
                 CAT21 cat21 = listaCAT21[i];
                 if (cat21.GetTargetIdentification() != "N/A")
                 {
@@ -109,6 +114,7 @@ namespace AsterixDecoder
             }
            for (int i = 0; i < listaCAT10.Count; i++)
             {
+                p.PerformStep();
                 CAT10 cat10 = listaCAT10[i];
                 if (cat10.GetTrackNum() != "N/A")
                 {
@@ -127,6 +133,7 @@ namespace AsterixDecoder
                     }
                 }
             }
+            p.Visible = false;
         }
 
 

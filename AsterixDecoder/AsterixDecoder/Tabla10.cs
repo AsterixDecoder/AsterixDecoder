@@ -15,19 +15,35 @@ namespace AsterixDecoder
 {
     public partial class Tabla10 : Form
     {
-        public Tabla10()
+        AsterixFile asterixFile;
+        Flight flight;
+        List<Flight> listaflights = new List<Flight>();
+        Coordinates coordinates;
+        List<CAT10> lista;
+        string filename;
+        public Tabla10(List<CAT10> lista)
         {
             InitializeComponent();
+            this.lista = lista;       
+           
         }
-		AsterixFile asterixFile;
-        List<CAT10> lista10;
+
 
         private void Tabla10_Load(object sender, EventArgs e)
         {
+            LoadData GridForm = new LoadData();
+            progressBar1.Visible = true;
             Stopwatch watch = new Stopwatch();
-            
-            asterixFile = new AsterixFile("201002-lebl-080001_smr.ast");
-            lista10 = asterixFile.getListCAT10();
+            //Adaptamos columnas a texto
+            progressBar1.Visible = true;
+            progressBar1.Minimum = 0;
+            // Sets the progress bar's maximum value to a number representing  
+            // all operations complete -- in this case, all five files read.  
+            progressBar1.Maximum = 5000;
+            // Sets the Step property to amount to increase with each iteration.  
+            // In this case, it will increase by one with every file read.  
+            progressBar1.Step = 1;
+
             dataGridView1.ColumnCount = 28;
             dataGridView1.Columns[0].Name = "Number";
             dataGridView1.Columns[1].Name = "Category";
@@ -58,9 +74,11 @@ namespace AsterixDecoder
             dataGridView1.Columns[26].Name = "Amplitude of Primary Plor";
             dataGridView1.Columns[27].Name = "Calculated Acceleration";
 
-            dataGridView1.Columns[5].AutoSizeMode=DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.Columns[13].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.ReadOnly = true;
+            dataGridView1.Visible = true;
+            textBox1.Visible = false;
 
 
             watch.Start();
@@ -68,19 +86,23 @@ namespace AsterixDecoder
             {
 
 
-                
-                string[] row = lista10[i].GetValues(28);
+
+                string[] row = lista[i].GetValues(28);
                 row[0] = i.ToString();
                 row[1] = "10";
 
                 dataGridView1.Rows.Add(row);
-
+                progressBar1.PerformStep();
             }
             watch.Stop();
             long milisec = watch.ElapsedMilliseconds / 1000;
             string tiempo = Convert.ToString(milisec);
-           
-            Console.WriteLine("Codigo tarda "+ tiempo+ " segundos");
+            progressBar1.Visible = false;
+            dataGridView1.Visible = true;
+            textBox1.Visible = true;
+            Console.WriteLine("Codigo tarda " + tiempo + " segundos");
+
+
         }
 
         private void Tabla10_SizeChanged(object sender, EventArgs e)
@@ -102,7 +124,7 @@ namespace AsterixDecoder
                     dataGridView1.CurrentCell.Value = "Click to Expand";
                 }
                 else
-                dataGridView1.CurrentCell.Value = lista10[dataGridView1.CurrentCell.RowIndex].GetTargetDescriptor();
+                dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTargetDescriptor();
                 //dataGridView1.CurrentRow.Height = 200;
             }
             if (dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
@@ -112,7 +134,7 @@ namespace AsterixDecoder
                     dataGridView1.CurrentCell.Value = "Click to Expand";
                 }
                 else
-                    dataGridView1.CurrentCell.Value = lista10[dataGridView1.CurrentCell.RowIndex].GetTrackStatus();
+                    dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTrackStatus();
 
             }
         }
@@ -129,35 +151,29 @@ namespace AsterixDecoder
         private void button1_Click(object sender, EventArgs e)
         {
 
-
-            for (int i = 0; i < dataGridView1.RowCount; i++)
-            {
-                try { dataGridView1.Rows[i].Visible = false; } catch (Exception) { }
-                    
-            }
             string s;
-            for (int i = 0; i < 28; i++)
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                foreach (DataGridViewRow row in dataGridView1.Rows)
+                try
                 {
-                    try
+                    s = row.Cells[12].Value.ToString();
+                    if  (s.Equals( textBox1.Text) || textBox1.Text == "")
                     {
-                        s = row.Cells[i].Value.ToString();
-                        if (System.Text.RegularExpressions.Regex.IsMatch(s, textBox1.Text) || textBox1.Text == "")
-                        {
-                            row.Visible = true;
+                        row.Visible = true;
 
-                        }
+                    }
+                    else { row.Visible = false; }
                         
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-
+                }
+                catch (Exception)
+                {
 
                 }
+
+
             }
+            
 
 
             

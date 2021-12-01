@@ -599,27 +599,28 @@ namespace AsterixDecoder
 
         private void Search_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridView1.RowCount; i++)
-            {
-                try { dataGridView1.Rows[i].Visible = false; } catch (Exception) { }
 
-            }
             string s;
+
             foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                try
                 {
-                    try
+                    s = row.Cells[4].Value.ToString();
+                    if (s.Equals(textBox1.Text) || textBox1.Text == "")
                     {
-                        s = Convert.ToString(row.Cells[4].Value);
-                        if (System.Text.RegularExpressions.Regex.IsMatch(s, textBox1.Text) || textBox1.Text == "")
-                        {
-                            row.Visible = true;
-                        }
+                        row.Visible = true;
 
                     }
-                    catch (Exception)
-                    {
+                    else { row.Visible = false; }
 
-                    }
+                }
+                catch (Exception)
+                {
+
+                }
+
+
             }
         }
 
