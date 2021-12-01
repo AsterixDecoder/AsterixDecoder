@@ -561,6 +561,13 @@ namespace ClassLibrary
             
              
         }
+
+        public TimeSpan GetTime()
+        {
+            int[] time = D03_TimeOfDate;
+            TimeSpan timeSpan = new TimeSpan(time[0], time[1], time[2]);
+            return timeSpan;
+        }
         public string GetTrackNum()
         {
             return D10_TrackNum.ToString();

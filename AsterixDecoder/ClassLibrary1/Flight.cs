@@ -32,9 +32,13 @@ namespace ClassLibrary
         {
             return Convert.ToDouble(this.coordinates[0].GetLongitude());
         }
-        public void SetcoordinatesCAT21(Coordinates coord)
+        public void SetCoordinates(Coordinates coord)
         {
             this.coordinates.Add(coord);
+        }
+        public void SetTimestamps(TimeSpan time)
+        {
+            this.timestamps.Add(time);
 
         }
 
