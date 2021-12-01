@@ -101,13 +101,17 @@ namespace AsterixDecoder
                     if (foundFlight != null)
                     {
                         Coordinates coordinates = new Coordinates(cat21.GetLatitudeWGS84(), cat21.GetLongitudeWGS84());
-                        foundFlight.SetcoordinatesCAT21(coordinates);
+                        TimeSpan time = cat21.GetTime();
+                        foundFlight.SetCoordinates(coordinates);
+                        foundFlight.SetTimestamps(time);
                     }
                     else
                     {
                         Flight newFlight = new Flight(cat21.GetTargetIdentification(),21);
                         Coordinates coordinates = new Coordinates(cat21.GetLatitudeWGS84(), cat21.GetLongitudeWGS84());
-                        newFlight.SetcoordinatesCAT21(coordinates);
+                        TimeSpan time = cat21.GetTime();
+                        newFlight.SetCoordinates(coordinates);
+                        newFlight.SetTimestamps(time);
                         flights.Add(newFlight);
                     }
                 }
@@ -122,13 +126,17 @@ namespace AsterixDecoder
                     if (foundFlight != null)
                     {
                         Coordinates coordinates = new Coordinates(cat10.GetLatLong(0)[0], cat10.GetLatLong(0)[1]);
-                        foundFlight.SetcoordinatesCAT21(coordinates);
+                        TimeSpan time = cat10.GetTime();
+                        foundFlight.SetCoordinates(coordinates);
+                        foundFlight.SetTimestamps(time);
                     }
                     else
                     {
-                        Flight newFlight = new Flight(cat10.GetTrackNum(), 21);
+                        Flight newFlight = new Flight(cat10.GetTrackNum(), 10);
                         Coordinates coordinates = new Coordinates(cat10.GetLatLong(0)[0], cat10.GetLatLong(0)[1]);
-                        newFlight.SetcoordinatesCAT21(coordinates);
+                        TimeSpan time = cat10.GetTime();
+                        newFlight.SetCoordinates(coordinates);
+                        newFlight.SetTimestamps(time);
                         flights.Add(newFlight);
                     }
                 }

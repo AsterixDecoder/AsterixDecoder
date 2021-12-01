@@ -602,6 +602,21 @@ namespace ClassLibrary
 
             return data;
         }
+        public TimeSpan GetTime()
+        {
+            TimeSpan time = new TimeSpan();
+            int result = TimeSpan.Compare(this.timeofApplicabilityPosition, TimeSpan.Zero);
+            if (result==1)
+            {
+                time = timeofApplicabilityPosition;
+            }
+            else if (result == 0)
+            {
+                time = timeofMessageReceptionPosition;
+            }
+            return time;
+               
+        }
         public int HexToDec(string hexValue)
         {
             int intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
