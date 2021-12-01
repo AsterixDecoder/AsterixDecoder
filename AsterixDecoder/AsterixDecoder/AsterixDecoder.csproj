@@ -133,6 +133,12 @@
     <Content Include="plane.jpg" />
     <Content Include="plane2.jpg" />
     <Content Include="planeu.jpg" />
+    <None Include="Resources\table1.png" />
+    <None Include="Resources\table.png" />
+    <None Include="Resources\res.png" />
+    <None Include="Resources\minimazar.png" />
+    <None Include="Resources\maxi.png" />
+    <None Include="Resources\cerrar.png" />
     <None Include="Resources\map.png" />
     <None Include="Resources\mapview2.png" />
     <None Include="Resources\loadfile1.png" />
