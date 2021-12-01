@@ -126,7 +126,7 @@ namespace AsterixDecoder
                     }
                     else
                     {
-                        Flight newFlight = new Flight(cat10.GetTrackNum(), 21);
+                        Flight newFlight = new Flight(cat10.GetTrackNum(), 10);
                         Coordinates coordinates = new Coordinates(cat10.GetLatLong(0)[0], cat10.GetLatLong(0)[1]);
                         newFlight.SetcoordinatesCAT21(coordinates);
                         flights.Add(newFlight);
