@@ -43,13 +43,14 @@ namespace AsterixDecoder
             panelChildForm.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+            
 
         }
 
         private void LoadFileButton_Click(object sender, EventArgs e)
         {
             Stream myStream = null;
-
+            
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             //Se crean las opciones que comentaba
@@ -70,9 +71,13 @@ namespace AsterixDecoder
                     {
                         this.filename = openFileDialog1.FileName;
                         filename = Path.GetFileName(filename);
+                        progressBar1.Visible = true;
+                        progressBar1.Minimum = 0;
+                        progressBar1.Step = 1;
+                        asterixFile = new AsterixFile(this.filename,progressBar1);
 
-                        asterixFile = new AsterixFile(this.filename);
                         cat21 = asterixFile.getListCAT21();
+                        cat10 = asterixFile.getListCAT10();
                         listaflights = asterixFile.getFlights();
 
 
@@ -92,23 +97,31 @@ namespace AsterixDecoder
                 {
                     MessageBox.Show("Error: No se pudo leer el achivo del disco. Error original: " + ex.Message);
                 }
+
             }
             //openChildForm(new LoadData());
         }
 
         private void CAT10button_Click(object sender, EventArgs e)
         {
-            openChildForm(new Tabla10());
+            CAT10button.Enabled = false;
+            openChildForm(new Tabla10(this.cat10));
+            
+            CAT10button.Enabled = true;
         }
 
         private void CAT21Button_Click(object sender, EventArgs e)
         {
+            CAT21Button.Enabled = false;
             openChildForm(new Tabla21(this.cat21));
+            CAT21Button.Enabled = true;
         }
 
         private void MapViewButton_Click(object sender, EventArgs e)
         {
+            MapViewButton.Enabled = false;
             openChildForm(new Map(listaflights));
+            MapViewButton.Enabled=true;
         }
 
         private void panelSideMenu_Paint(object sender, PaintEventArgs e)
