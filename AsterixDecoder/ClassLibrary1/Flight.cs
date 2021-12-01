@@ -26,10 +26,12 @@ namespace ClassLibrary
         {
             return timestamps[i];
         }
+
         public int GetCount()
         {
             return coordinates.Count;
         }
+
         public double GetLat(int i)
         {
             return Convert.ToDouble(this.coordinates[i].GetLatitude());
