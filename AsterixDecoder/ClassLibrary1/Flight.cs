@@ -22,15 +22,21 @@ namespace ClassLibrary
         {
             return this.identification;
         }
-        public double GetLat()
+        public TimeSpan GetTime(int i)
         {
-            Console.WriteLine("here coordinates");
-            Console.WriteLine(coordinates[0]);
-            return Convert.ToDouble(this.coordinates[0].GetLatitude());
+            return timestamps[i];
         }
-        public double GetLng()
+        public int GetCount()
         {
-            return Convert.ToDouble(this.coordinates[0].GetLongitude());
+            return coordinates.Count;
+        }
+        public double GetLat(int i)
+        {
+            return Convert.ToDouble(this.coordinates[i].GetLatitude());
+        }
+        public double GetLng(int i)
+        {
+            return Convert.ToDouble(this.coordinates[i].GetLongitude());
         }
         public void SetCoordinates(Coordinates coord)
         {
@@ -41,7 +47,10 @@ namespace ClassLibrary
             this.timestamps.Add(time);
 
         }
-
+        public int GetCat()
+        {
+            return this.category;
+        }
     }
     public class Coordinates
     {
@@ -60,6 +69,7 @@ namespace ClassLibrary
         {
             return this.longitude;
         }
+
         
     }
 }
