@@ -31,6 +31,7 @@ namespace AsterixDecoder
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Map));
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEliminate = new System.Windows.Forms.Button();
@@ -49,23 +50,31 @@ namespace AsterixDecoder
             this.trackZoom = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnFleet = new System.Windows.Forms.Button();
             this.spnbtn = new System.Windows.Forms.Button();
             this.earthbtn = new System.Windows.Forms.Button();
             this.catabtn = new System.Windows.Forms.Button();
             this.pratbtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.horaFin = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.timeButton = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.minFin = new System.Windows.Forms.TextBox();
+            this.segFin = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.segInicio = new System.Windows.Forms.TextBox();
+            this.minInicio = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.horaInicio = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.PlayPause = new System.Windows.Forms.Button();
+            this.x2 = new System.Windows.Forms.Button();
+            this.x3 = new System.Windows.Forms.Button();
+            this.x1 = new System.Windows.Forms.Button();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
@@ -94,7 +103,7 @@ namespace AsterixDecoder
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(680, 495);
+            this.gMapControl1.Size = new System.Drawing.Size(891, 639);
             this.gMapControl1.TabIndex = 0;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
@@ -103,7 +112,7 @@ namespace AsterixDecoder
             // btnAdd
             // 
             this.btnAdd.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAdd.Location = new System.Drawing.Point(719, 274);
+            this.btnAdd.Location = new System.Drawing.Point(922, 703);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(56, 19);
@@ -115,7 +124,7 @@ namespace AsterixDecoder
             // btnEliminate
             // 
             this.btnEliminate.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnEliminate.Location = new System.Drawing.Point(780, 274);
+            this.btnEliminate.Location = new System.Drawing.Point(983, 703);
             this.btnEliminate.Margin = new System.Windows.Forms.Padding(2);
             this.btnEliminate.Name = "btnEliminate";
             this.btnEliminate.Size = new System.Drawing.Size(56, 19);
@@ -128,7 +137,7 @@ namespace AsterixDecoder
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(717, 115);
+            this.label1.Location = new System.Drawing.Point(939, 329);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(18, 13);
@@ -139,7 +148,7 @@ namespace AsterixDecoder
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(717, 152);
+            this.label2.Location = new System.Drawing.Point(936, 236);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 13);
@@ -150,7 +159,7 @@ namespace AsterixDecoder
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(717, 188);
+            this.label3.Location = new System.Drawing.Point(936, 272);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 13);
@@ -159,7 +168,7 @@ namespace AsterixDecoder
             // 
             // txtdescription
             // 
-            this.txtdescription.Location = new System.Drawing.Point(719, 132);
+            this.txtdescription.Location = new System.Drawing.Point(941, 346);
             this.txtdescription.Margin = new System.Windows.Forms.Padding(2);
             this.txtdescription.Name = "txtdescription";
             this.txtdescription.Size = new System.Drawing.Size(76, 20);
@@ -167,7 +176,7 @@ namespace AsterixDecoder
             // 
             // txtlongitude
             // 
-            this.txtlongitude.Location = new System.Drawing.Point(719, 205);
+            this.txtlongitude.Location = new System.Drawing.Point(938, 289);
             this.txtlongitude.Margin = new System.Windows.Forms.Padding(2);
             this.txtlongitude.Name = "txtlongitude";
             this.txtlongitude.Size = new System.Drawing.Size(76, 20);
@@ -175,7 +184,7 @@ namespace AsterixDecoder
             // 
             // txtlatitude
             // 
-            this.txtlatitude.Location = new System.Drawing.Point(719, 168);
+            this.txtlatitude.Location = new System.Drawing.Point(938, 252);
             this.txtlatitude.Margin = new System.Windows.Forms.Padding(2);
             this.txtlatitude.Name = "txtlatitude";
             this.txtlatitude.Size = new System.Drawing.Size(76, 20);
@@ -193,12 +202,12 @@ namespace AsterixDecoder
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Location = new System.Drawing.Point(719, 297);
+            this.dataGridView1.Location = new System.Drawing.Point(941, 370);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(189, 280);
+            this.dataGridView1.Size = new System.Drawing.Size(189, 329);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SelectRegister);
@@ -206,7 +215,7 @@ namespace AsterixDecoder
             // btnRoute
             // 
             this.btnRoute.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnRoute.Location = new System.Drawing.Point(841, 274);
+            this.btnRoute.Location = new System.Drawing.Point(1041, 703);
             this.btnRoute.Margin = new System.Windows.Forms.Padding(2);
             this.btnRoute.Name = "btnRoute";
             this.btnRoute.Size = new System.Drawing.Size(56, 19);
@@ -218,10 +227,10 @@ namespace AsterixDecoder
             // btnPolygon
             // 
             this.btnPolygon.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnPolygon.Location = new System.Drawing.Point(841, 236);
+            this.btnPolygon.Location = new System.Drawing.Point(1100, 703);
             this.btnPolygon.Margin = new System.Windows.Forms.Padding(2);
             this.btnPolygon.Name = "btnPolygon";
-            this.btnPolygon.Size = new System.Drawing.Size(56, 33);
+            this.btnPolygon.Size = new System.Drawing.Size(56, 19);
             this.btnPolygon.TabIndex = 14;
             this.btnPolygon.Text = "Polygon";
             this.btnPolygon.UseVisualStyleBackColor = true;
@@ -231,7 +240,7 @@ namespace AsterixDecoder
             // 
             this.btnSat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSat.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSat.Location = new System.Drawing.Point(16, 510);
+            this.btnSat.Location = new System.Drawing.Point(15, 666);
             this.btnSat.Margin = new System.Windows.Forms.Padding(2);
             this.btnSat.Name = "btnSat";
             this.btnSat.Size = new System.Drawing.Size(66, 32);
@@ -244,7 +253,7 @@ namespace AsterixDecoder
             // 
             this.btnOriginal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOriginal.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnOriginal.Location = new System.Drawing.Point(87, 510);
+            this.btnOriginal.Location = new System.Drawing.Point(86, 666);
             this.btnOriginal.Margin = new System.Windows.Forms.Padding(2);
             this.btnOriginal.Name = "btnOriginal";
             this.btnOriginal.Size = new System.Drawing.Size(68, 32);
@@ -257,7 +266,7 @@ namespace AsterixDecoder
             // 
             this.btnRelieve.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRelieve.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnRelieve.Location = new System.Drawing.Point(160, 510);
+            this.btnRelieve.Location = new System.Drawing.Point(159, 666);
             this.btnRelieve.Margin = new System.Windows.Forms.Padding(2);
             this.btnRelieve.Name = "btnRelieve";
             this.btnRelieve.Size = new System.Drawing.Size(90, 32);
@@ -268,7 +277,7 @@ namespace AsterixDecoder
             // 
             // trackZoom
             // 
-            this.trackZoom.Location = new System.Drawing.Point(330, 510);
+            this.trackZoom.Location = new System.Drawing.Point(329, 666);
             this.trackZoom.Margin = new System.Windows.Forms.Padding(2);
             this.trackZoom.Maximum = 25;
             this.trackZoom.Name = "trackZoom";
@@ -281,7 +290,7 @@ namespace AsterixDecoder
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(290, 510);
+            this.label4.Location = new System.Drawing.Point(289, 666);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 15);
@@ -295,23 +304,10 @@ namespace AsterixDecoder
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnFleet
-            // 
-            this.btnFleet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFleet.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFleet.Location = new System.Drawing.Point(719, 236);
-            this.btnFleet.Margin = new System.Windows.Forms.Padding(2);
-            this.btnFleet.Name = "btnFleet";
-            this.btnFleet.Size = new System.Drawing.Size(117, 32);
-            this.btnFleet.TabIndex = 20;
-            this.btnFleet.Text = "Add Fleet";
-            this.btnFleet.UseVisualStyleBackColor = true;
-            this.btnFleet.Click += new System.EventHandler(this.button1_Click);
-            // 
             // spnbtn
             // 
             this.spnbtn.Image = global::AsterixDecoder.Properties.Resources.spain1;
-            this.spnbtn.Location = new System.Drawing.Point(650, 539);
+            this.spnbtn.Location = new System.Drawing.Point(649, 695);
             this.spnbtn.Margin = new System.Windows.Forms.Padding(2);
             this.spnbtn.Name = "spnbtn";
             this.spnbtn.Size = new System.Drawing.Size(40, 41);
@@ -322,7 +318,7 @@ namespace AsterixDecoder
             // earthbtn
             // 
             this.earthbtn.Image = global::AsterixDecoder.Properties.Resources.earth1;
-            this.earthbtn.Location = new System.Drawing.Point(562, 539);
+            this.earthbtn.Location = new System.Drawing.Point(561, 695);
             this.earthbtn.Margin = new System.Windows.Forms.Padding(2);
             this.earthbtn.Name = "earthbtn";
             this.earthbtn.Size = new System.Drawing.Size(38, 41);
@@ -334,7 +330,7 @@ namespace AsterixDecoder
             // 
             this.catabtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.catabtn.Image = global::AsterixDecoder.Properties.Resources.catalunya22;
-            this.catabtn.Location = new System.Drawing.Point(604, 539);
+            this.catabtn.Location = new System.Drawing.Point(603, 695);
             this.catabtn.Margin = new System.Windows.Forms.Padding(2);
             this.catabtn.Name = "catabtn";
             this.catabtn.Size = new System.Drawing.Size(40, 41);
@@ -346,7 +342,7 @@ namespace AsterixDecoder
             // 
             this.pratbtn.Image = global::AsterixDecoder.Properties.Resources.airport2;
             this.pratbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.pratbtn.Location = new System.Drawing.Point(520, 539);
+            this.pratbtn.Location = new System.Drawing.Point(519, 695);
             this.pratbtn.Margin = new System.Windows.Forms.Padding(2);
             this.pratbtn.Name = "pratbtn";
             this.pratbtn.Size = new System.Drawing.Size(38, 41);
@@ -356,17 +352,18 @@ namespace AsterixDecoder
             this.pratbtn.UseVisualStyleBackColor = true;
             this.pratbtn.Click += new System.EventHandler(this.pratbtn_Click);
             // 
-            // textBox1
+            // horaFin
             // 
-            this.textBox1.Location = new System.Drawing.Point(757, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(22, 20);
-            this.textBox1.TabIndex = 25;
+            this.horaFin.Location = new System.Drawing.Point(979, 72);
+            this.horaFin.Name = "horaFin";
+            this.horaFin.Size = new System.Drawing.Size(22, 20);
+            this.horaFin.TabIndex = 25;
+            this.horaFin.Text = "08";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(783, 45);
+            this.label5.Location = new System.Drawing.Point(1005, 75);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(10, 13);
             this.label5.TabIndex = 26;
@@ -374,7 +371,7 @@ namespace AsterixDecoder
             // 
             // timeButton
             // 
-            this.timeButton.Location = new System.Drawing.Point(763, 68);
+            this.timeButton.Location = new System.Drawing.Point(985, 98);
             this.timeButton.Name = "timeButton";
             this.timeButton.Size = new System.Drawing.Size(97, 19);
             this.timeButton.TabIndex = 27;
@@ -382,24 +379,26 @@ namespace AsterixDecoder
             this.timeButton.UseVisualStyleBackColor = true;
             this.timeButton.Click += new System.EventHandler(this.timeButton_Click);
             // 
-            // textBox2
+            // minFin
             // 
-            this.textBox2.Location = new System.Drawing.Point(799, 42);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(23, 20);
-            this.textBox2.TabIndex = 28;
+            this.minFin.Location = new System.Drawing.Point(1021, 72);
+            this.minFin.Name = "minFin";
+            this.minFin.Size = new System.Drawing.Size(23, 20);
+            this.minFin.TabIndex = 28;
+            this.minFin.Text = "00";
             // 
-            // textBox3
+            // segFin
             // 
-            this.textBox3.Location = new System.Drawing.Point(839, 42);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(21, 20);
-            this.textBox3.TabIndex = 29;
+            this.segFin.Location = new System.Drawing.Point(1061, 72);
+            this.segFin.Name = "segFin";
+            this.segFin.Size = new System.Drawing.Size(21, 20);
+            this.segFin.TabIndex = 29;
+            this.segFin.Text = "02";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(828, 45);
+            this.label6.Location = new System.Drawing.Point(1050, 75);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(10, 13);
             this.label6.TabIndex = 30;
@@ -407,7 +406,7 @@ namespace AsterixDecoder
             // 
             // trackBar2
             // 
-            this.trackBar2.Location = new System.Drawing.Point(695, 92);
+            this.trackBar2.Location = new System.Drawing.Point(928, 127);
             this.trackBar2.Margin = new System.Windows.Forms.Padding(2);
             this.trackBar2.Maximum = 25;
             this.trackBar2.Name = "trackBar2";
@@ -417,64 +416,159 @@ namespace AsterixDecoder
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(828, 19);
+            this.label7.Location = new System.Drawing.Point(1050, 49);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(10, 13);
             this.label7.TabIndex = 36;
             this.label7.Text = ":";
             // 
-            // textBox4
+            // segInicio
             // 
-            this.textBox4.Location = new System.Drawing.Point(839, 16);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(21, 20);
-            this.textBox4.TabIndex = 35;
+            this.segInicio.Location = new System.Drawing.Point(1061, 46);
+            this.segInicio.Name = "segInicio";
+            this.segInicio.Size = new System.Drawing.Size(21, 20);
+            this.segInicio.TabIndex = 35;
+            this.segInicio.Text = "00";
             // 
-            // textBox5
+            // minInicio
             // 
-            this.textBox5.Location = new System.Drawing.Point(799, 16);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(23, 20);
-            this.textBox5.TabIndex = 34;
+            this.minInicio.Location = new System.Drawing.Point(1021, 46);
+            this.minInicio.Name = "minInicio";
+            this.minInicio.Size = new System.Drawing.Size(23, 20);
+            this.minInicio.TabIndex = 34;
+            this.minInicio.Text = "00";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(783, 19);
+            this.label8.Location = new System.Drawing.Point(1005, 49);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(10, 13);
             this.label8.TabIndex = 33;
             this.label8.Text = ":";
             // 
-            // textBox6
+            // horaInicio
             // 
-            this.textBox6.Location = new System.Drawing.Point(757, 16);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(22, 20);
-            this.textBox6.TabIndex = 32;
+            this.horaInicio.Location = new System.Drawing.Point(979, 46);
+            this.horaInicio.Name = "horaInicio";
+            this.horaInicio.Size = new System.Drawing.Size(22, 20);
+            this.horaInicio.TabIndex = 32;
+            this.horaInicio.Text = "08";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(916, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(62, 17);
+            this.checkBox1.TabIndex = 37;
+            this.checkBox1.Text = "CAT 10";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(995, 19);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(62, 17);
+            this.checkBox2.TabIndex = 38;
+            this.checkBox2.Text = "CAT 21";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1051, 344);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 39;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // PlayPause
+            // 
+            this.PlayPause.Image = ((System.Drawing.Image)(resources.GetObject("PlayPause.Image")));
+            this.PlayPause.Location = new System.Drawing.Point(942, 187);
+            this.PlayPause.Name = "PlayPause";
+            this.PlayPause.Size = new System.Drawing.Size(36, 23);
+            this.PlayPause.TabIndex = 40;
+            this.PlayPause.Text = "⏸️";
+            this.PlayPause.UseVisualStyleBackColor = true;
+            this.PlayPause.Click += new System.EventHandler(this.PlayPause_Click);
+            // 
+            // x2
+            // 
+            this.x2.Location = new System.Drawing.Point(1042, 187);
+            this.x2.Name = "x2";
+            this.x2.Size = new System.Drawing.Size(27, 23);
+            this.x2.TabIndex = 41;
+            this.x2.Text = "x2";
+            this.x2.UseVisualStyleBackColor = true;
+            this.x2.Click += new System.EventHandler(this.x2_Click);
+            // 
+            // x3
+            // 
+            this.x3.Location = new System.Drawing.Point(1084, 187);
+            this.x3.Name = "x3";
+            this.x3.Size = new System.Drawing.Size(32, 23);
+            this.x3.TabIndex = 42;
+            this.x3.Text = "x3";
+            this.x3.UseVisualStyleBackColor = true;
+            this.x3.Click += new System.EventHandler(this.x3_Click);
+            // 
+            // x1
+            // 
+            this.x1.Location = new System.Drawing.Point(995, 187);
+            this.x1.Name = "x1";
+            this.x1.Size = new System.Drawing.Size(32, 23);
+            this.x1.TabIndex = 43;
+            this.x1.Text = "x1";
+            this.x1.UseVisualStyleBackColor = true;
+            this.x1.Click += new System.EventHandler(this.x1_Click);
+            // 
+            // timer2
+            // 
+            this.timer2.Interval = 1000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(1076, 18);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(80, 17);
+            this.checkBox3.TabIndex = 44;
+            this.checkBox3.Text = "checkBox3";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // Map
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(918, 587);
+            this.ClientSize = new System.Drawing.Size(1179, 747);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.x1);
+            this.Controls.Add(this.x3);
+            this.Controls.Add(this.x2);
+            this.Controls.Add(this.PlayPause);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.segInicio);
+            this.Controls.Add(this.minInicio);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.horaInicio);
             this.Controls.Add(this.trackBar2);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.segFin);
+            this.Controls.Add(this.minFin);
             this.Controls.Add(this.timeButton);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.horaFin);
             this.Controls.Add(this.spnbtn);
             this.Controls.Add(this.earthbtn);
             this.Controls.Add(this.catabtn);
             this.Controls.Add(this.pratbtn);
-            this.Controls.Add(this.btnFleet);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.trackZoom);
             this.Controls.Add(this.btnRelieve);
@@ -524,22 +618,30 @@ namespace AsterixDecoder
         private System.Windows.Forms.TrackBar trackZoom;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button btnFleet;
         private System.Windows.Forms.Button catabtn;
         private System.Windows.Forms.Button earthbtn;
         public System.Windows.Forms.Button pratbtn;
         private System.Windows.Forms.Button spnbtn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox horaFin;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button timeButton;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox minFin;
+        private System.Windows.Forms.TextBox segFin;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TrackBar trackBar2;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox segInicio;
+        private System.Windows.Forms.TextBox minInicio;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox horaInicio;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button PlayPause;
+        private System.Windows.Forms.Button x2;
+        private System.Windows.Forms.Button x3;
+        private System.Windows.Forms.Button x1;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }

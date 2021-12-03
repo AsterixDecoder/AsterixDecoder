@@ -21,8 +21,8 @@ namespace AsterixDecoder
 
         GMarkerGoogle marker;
         List<GMapOverlay> flightsMarkers= new List<GMapOverlay>();
-        GMapOverlay cat10Marker;
-        GMapOverlay cat21Marker;
+        GMapOverlay cat10Marker = new GMapOverlay("cat10");
+        GMapOverlay cat21Marker= new GMapOverlay("cat21");
         DataTable dt;
         List<Flight> flights = new List<Flight>();
         int rowSelected = 0;
@@ -34,7 +34,8 @@ namespace AsterixDecoder
         Bitmap cat10Bmp = new Bitmap(Properties.Resources.cat10, new Size(14, 14));
         Bitmap cat21Bmp = new Bitmap(Properties.Resources.cat21, new Size(14, 14));
         double[] Initialcoords = new double[2];
-
+        int velocidad = 1;
+//        Boolean seePrevius = true;
 
         public Map(List<Flight> listaflights)
         {
@@ -42,6 +43,8 @@ namespace AsterixDecoder
             Initialcoords[0] = 41.4706278;
             Initialcoords[1] = 2.18447222;
             this.flights = listaflights;
+            for(int i=0;i<flights.Count;i++)
+                flightsMarkers.Add(new GMapOverlay("flights"));
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -79,9 +82,11 @@ namespace AsterixDecoder
             gMapControl1.Zoom = 9;
             gMapControl1.AutoScroll = true;
 
+            cat21Bmp.MakeTransparent();
+            cat10Bmp.MakeTransparent();
 
             //markerOverlay = new GMapOverlay("marker");
-       
+
             //marker = new GMarkerGoogle(new PointLatLng(InitialLat, InitialLong), GMarkerGoogleType.green);
             //markerOverlay.Markers.Add(marker);//add mapp
             ////add tooltiptext to the marker
@@ -208,55 +213,7 @@ namespace AsterixDecoder
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-
-            cat21Bmp.MakeTransparent();
-            cat10Bmp.MakeTransparent();
-            cat10Marker = new GMapOverlay("cat10");
-            cat21Marker = new GMapOverlay("cat21");
-            flightsMarkers.Add( new GMapOverlay("flights"));
-            for (int i = 0; i < flights.Count; i++)//flights.Count
-            {
-                Flight flight = flights[i];
-                flightsMarkers.Add(new GMapOverlay("flights"));
-                for (int j = 0; j < flight.GetCount();j++) { 
-                    double flightLat = flight.GetLat(j);
-                    double flightLng = flight.GetLng(j);
-
-                    if (flight.GetCat() == 21)
-                    {
-                        marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
-                        cat21Marker.Markers.Add(marker);
-                        flightsMarkers[i].Markers.Add(marker);
-                    }
-                    else
-                    {
-                        marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat10Bmp);
-                        cat10Marker.Markers.Add(marker);
-                        flightsMarkers[i].Markers.Add(marker);
-
-                    }
-                    gMapControl1.Overlays.Add(flightsMarkers[i]);
-                }
-                
-
-            }
-            gMapControl1.Overlays.Add(cat10Marker);
-            gMapControl1.Overlays.Add(cat21Marker);
-            
-
-            for (int i = 1; i < flights.Count; i++)
-            {
-                Flight flight = flights[i];
-                double flightLat = flight.GetLat(0);
-                double flightLng = flight.GetLng(0);
-                //dt.Rows.Add(txtdescription.Text, txtlatitude.Text, txtlongitude.Text);
-                //txtdescription.Text = flight.GetIdentification();
-                dt.Rows.Add(flight.GetIdentification(), flightLat, flightLng);
-            }
-        }
 
         private void gMapControl1_Load(object sender, EventArgs e)
         {
@@ -299,27 +256,43 @@ namespace AsterixDecoder
             gMapControl1.Zoom = 5;
             gMapControl1.Position = new PointLatLng(Initialcoords[0], Initialcoords[1]);
         }
-
-        private void timeButton_Click(object sender, EventArgs e)
+        private void sumarUnSegundo()
         {
-            cat21Bmp.MakeTransparent();
-            cat10Bmp.MakeTransparent();
-            TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(textBox6.Text), Int32.Parse(textBox5.Text), Int32.Parse(textBox4.Text));
-            TimeSpan tiempoActual = new TimeSpan(Int32.Parse(textBox1.Text), Int32.Parse(textBox2.Text), Int32.Parse(textBox3.Text));
-            cat10Marker = new GMapOverlay("cat10");
-            cat21Marker = new GMapOverlay("cat21");
-            flightsMarkers.Add(new GMapOverlay("flights"));
-            for (int i = 0; i < flights.Count; i++)//flights.Count
+            if (segFin.Text.Equals("59"))
             {
-                Flight flight = flights[i];
-                flightsMarkers.Add(new GMapOverlay("flights"));
+                if (minFin.Text.Equals("59"))
+                {
+                    horaFin.Text = (Int32.Parse(horaFin.Text) + 1).ToString();
+                    minFin.Text = "00";
+                    segFin.Text = "00";
+                }
+                else
+                {
+                    minFin.Text = (Int32.Parse(minFin.Text) + 1).ToString();
+                    segFin.Text = "00";
+
+                }
+            }
+            else
+                segFin.Text = (Int32.Parse(segFin.Text) + 1).ToString();
+
+        }
+        private void cargarVuelos(TimeSpan tiempoInicio,TimeSpan tiempoActual)
+        {
+            Flight flight;
+            double flightLat=0;
+            double flightLng=0;
+            bool found=false;
+            for (int i = 0; i < flights.Count; i++)
+            {
+                flight = flights[i];
+
                 for (int j = 0; j < flight.GetCount(); j++)
                 {
-                    if (flight.GetTime(j).CompareTo(tiempoInicio)==1&& flight.GetTime(j).CompareTo(tiempoActual) <=0)
+                    flightLat = flight.GetLat(j);
+                    flightLng = flight.GetLng(j);
+                    if (flight.GetTime(j).CompareTo(tiempoInicio) == 1 && flight.GetTime(j).CompareTo(tiempoActual) <= 0)
                     {
-                        double flightLat = flight.GetLat(j);
-                        double flightLng = flight.GetLng(j);
-
                         if (flight.GetCat() == 21)
                         {
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
@@ -334,14 +307,75 @@ namespace AsterixDecoder
 
                         }
                         gMapControl1.Overlays.Add(flightsMarkers[i]);
+                        found = true;
                     }
+                    
                 }
+                if (found && dt.Columns.Contains(flight.GetIdentification()))
+                {
+                    dt.Rows.Add(flight.GetIdentification(), flightLat, flightLng);
+                }
+                else
+                {
+                    dt.Rows.Find(flight.GetIdentification()).SetField(1, flightLat);
+                    dt.Rows.Find(flight.GetIdentification()).SetField(2, flightLng);
+
+                }
+                found = false;
 
 
             }
             gMapControl1.Overlays.Add(cat10Marker);
             gMapControl1.Overlays.Add(cat21Marker);
 
+
+        }
+        private void timeButton_Click(object sender, EventArgs e)
+        {
+
+
+            TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+            TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+            for (int i = 0; i < flightsMarkers.Count; i++) {
+                flightsMarkers[i].Markers.Clear();
+            }
+            cat10Marker.Clear();
+            cat21Marker.Clear();
+            cargarVuelos(tiempoInicio,tiempoActual);
+
+        }
+
+
+
+        private void PlayPause_Click(object sender, EventArgs e)
+        {
+            if (timer2.Enabled)
+                timer2.Stop();
+            else
+                timer2.Start();
+        }
+        private void x1_Click(object sender, EventArgs e)
+        {
+            velocidad = 1;
+        }
+        private void x2_Click(object sender, EventArgs e)
+        {
+            velocidad = 2;
+        }
+
+        private void x3_Click(object sender, EventArgs e)
+        {
+            velocidad = 3;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+            TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+            for (int i = 0; i < velocidad; i++)
+                sumarUnSegundo();
+            TimeSpan tiempoActualNuevo = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+            cargarVuelos(tiempoActual, tiempoActualNuevo);
         }
     }
 }
