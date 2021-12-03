@@ -21,8 +21,6 @@ namespace AsterixDecoder
 
         GMarkerGoogle marker;
         List<GMapOverlay> flightsMarkers= new List<GMapOverlay>();
-        GMapOverlay cat10Marker = new GMapOverlay("cat10");
-        GMapOverlay cat21Marker= new GMapOverlay("cat21");
         DataTable dt;
         List<Flight> flights = new List<Flight>();
         int rowSelected = 0;
@@ -43,8 +41,11 @@ namespace AsterixDecoder
             Initialcoords[0] = 41.4706278;
             Initialcoords[1] = 2.18447222;
             this.flights = listaflights;
-            for(int i=0;i<flights.Count;i++)
-                flightsMarkers.Add(new GMapOverlay("flights"));
+            for (int i = 0; i < flights.Count; i++)
+            {
+                flightsMarkers.Add(new GMapOverlay(flights[i].GetCat()+"-"+flights[i].GetIdentification()));
+                gMapControl1.Overlays.Add(flightsMarkers[i]);
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -65,6 +66,11 @@ namespace AsterixDecoder
             dt.Columns.Add(new DataColumn("Description", typeof(string)));
             dt.Columns.Add(new DataColumn("Latitude", typeof(double)));
             dt.Columns.Add(new DataColumn("Longitude", typeof(double)));
+            dt.Columns[0].Unique = true;
+            var key = new DataColumn[1];
+            key[0] = dt.Columns[0];
+            dt.PrimaryKey = key ;
+            
             //add point to the datatable
             dt.Rows.Add("Ubication1:", InitialLat, InitialLong);
             dataGridView1.DataSource = dt;
@@ -84,6 +90,8 @@ namespace AsterixDecoder
 
             cat21Bmp.MakeTransparent();
             cat10Bmp.MakeTransparent();
+
+
 
             //markerOverlay = new GMapOverlay("marker");
 
@@ -226,11 +234,18 @@ namespace AsterixDecoder
             txtdescription.Text = dataGridView1.Rows[rowSelected].Cells[0].Value.ToString();
             txtlatitude.Text = dataGridView1.Rows[rowSelected].Cells[1].Value.ToString();
             txtlongitude.Text = dataGridView1.Rows[rowSelected].Cells[2].Value.ToString();
-
-            marker.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
             //focus teh point in the screen
-
-            //gMapControl1.Position = marker.Position;
+            gMapControl1.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
+            for (int i = 0; i < gMapControl1.Overlays.Count; i++) {
+                if (gMapControl1.Overlays[i].Id != txtdescription.Text)
+                {
+                    gMapControl1.Overlays[i].IsVisibile = false;
+                }
+                else
+                {
+                    gMapControl1.Overlays[i].IsVisibile = true;
+                }
+            }
         }
 
         private void pratbtn_Click(object sender, EventArgs e)
@@ -263,13 +278,13 @@ namespace AsterixDecoder
                 if (minFin.Text.Equals("59"))
                 {
                     horaFin.Text = (Int32.Parse(horaFin.Text) + 1).ToString();
-                    minFin.Text = "00";
-                    segFin.Text = "00";
+                    minFin.Text = "0";
+                    segFin.Text = "0";
                 }
                 else
                 {
                     minFin.Text = (Int32.Parse(minFin.Text) + 1).ToString();
-                    segFin.Text = "00";
+                    segFin.Text = "0";
 
                 }
             }
@@ -296,26 +311,24 @@ namespace AsterixDecoder
                         if (flight.GetCat() == 21)
                         {
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
-                            cat21Marker.Markers.Add(marker);
                             flightsMarkers[i].Markers.Add(marker);
                         }
                         else
                         {
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat10Bmp);
-                            cat10Marker.Markers.Add(marker);
                             flightsMarkers[i].Markers.Add(marker);
 
                         }
-                        gMapControl1.Overlays.Add(flightsMarkers[i]);
+
                         found = true;
                     }
                     
                 }
-                if (found && dt.Columns.Contains(flight.GetIdentification()))
+                if (found && dt.Rows.Find(flight.GetIdentification())==null)
                 {
                     dt.Rows.Add(flight.GetIdentification(), flightLat, flightLng);
                 }
-                else
+                else if(found)
                 {
                     dt.Rows.Find(flight.GetIdentification()).SetField(1, flightLat);
                     dt.Rows.Find(flight.GetIdentification()).SetField(2, flightLng);
@@ -325,8 +338,8 @@ namespace AsterixDecoder
 
 
             }
-            gMapControl1.Overlays.Add(cat10Marker);
-            gMapControl1.Overlays.Add(cat21Marker);
+
+            
 
 
         }
@@ -339,8 +352,6 @@ namespace AsterixDecoder
             for (int i = 0; i < flightsMarkers.Count; i++) {
                 flightsMarkers[i].Markers.Clear();
             }
-            cat10Marker.Clear();
-            cat21Marker.Clear();
             cargarVuelos(tiempoInicio,tiempoActual);
 
         }
@@ -377,5 +388,58 @@ namespace AsterixDecoder
             TimeSpan tiempoActualNuevo = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
             cargarVuelos(tiempoActual, tiempoActualNuevo);
         }
+
+        private void SearchId_Click(object sender, EventArgs e)
+        {
+            var row =dt.Rows.Find(txtdescription.Text).ItemArray;
+
+            txtlatitude.Text = row[1].ToString();
+            txtlongitude.Text = row[2].ToString();
+            //focus teh point in the screen
+            gMapControl1.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
+            for (int i = 0; i < gMapControl1.Overlays.Count; i++)
+            {
+                if (gMapControl1.Overlays[i].Id != txtdescription.Text)
+                {
+                    gMapControl1.Overlays[i].IsVisibile = false;
+                }
+                else
+                {
+                    gMapControl1.Overlays[i].IsVisibile = true;
+                }
+            }
+        }
+
+        private void viewAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < gMapControl1.Overlays.Count; i++)
+            {
+
+                gMapControl1.Overlays[i].IsVisibile = true;
+                
+            }
+        }
+
+
+        
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < gMapControl1.Overlays.Count; i++)
+            {
+                if (checkBox1.Checked == true)
+                    gMapControl1.Overlays[i].IsVisibile = false;
+                else
+                    gMapControl1.Overlays[i].IsVisibile = true;
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+                gMapControl1.Overlays[1].IsVisibile = false;
+            else
+                gMapControl1.Overlays[1].IsVisibile = true;
+        }
+
     }
 }

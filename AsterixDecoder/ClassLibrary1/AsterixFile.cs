@@ -120,7 +120,7 @@ namespace AsterixDecoder
             {
                 p.PerformStep();
                 CAT10 cat10 = listaCAT10[i];
-                if (cat10.GetTrackNum() != "N/A")
+                if (cat10.GetTrackNum() != "N/A"&& cat10.GetTrackNum() != "0")
                 {
                     Flight foundFlight = flights.FirstOrDefault(flight => flight.GetIdentification() == cat10.GetTrackNum());
                     if (foundFlight != null)
