@@ -32,17 +32,17 @@ namespace AsterixDecoder
         private void Tabla10_Load(object sender, EventArgs e)
         {
             LoadData GridForm = new LoadData();
-            progressBar1.Visible = true;
+            progressBar1CAT10.Visible = true;
             Stopwatch watch = new Stopwatch();
             //Adaptamos columnas a texto
-            progressBar1.Visible = true;
-            progressBar1.Minimum = 0;
+            progressBar1CAT10.Visible = true;
+            progressBar1CAT10.Minimum = 0;
             // Sets the progress bar's maximum value to a number representing  
             // all operations complete -- in this case, all five files read.  
-            progressBar1.Maximum = 5000;
+            progressBar1CAT10.Maximum = 5000;
             // Sets the Step property to amount to increase with each iteration.  
             // In this case, it will increase by one with every file read.  
-            progressBar1.Step = 1;
+            progressBar1CAT10.Step = 1;
 
             dataGridView1.ColumnCount = 28;
             dataGridView1.Columns[0].Name = "Number";
@@ -92,12 +92,12 @@ namespace AsterixDecoder
                 row[1] = "10";
 
                 dataGridView1.Rows.Add(row);
-                progressBar1.PerformStep();
+                progressBar1CAT10.PerformStep();
             }
             watch.Stop();
             long milisec = watch.ElapsedMilliseconds / 1000;
             string tiempo = Convert.ToString(milisec);
-            progressBar1.Visible = false;
+            progressBar1CAT10.Visible = false;
             dataGridView1.Visible = true;
             textBox1.Visible = true;
             Console.WriteLine("Codigo tarda " + tiempo + " segundos");

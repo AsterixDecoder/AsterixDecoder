@@ -52,7 +52,7 @@ namespace AsterixDecoder
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(198, 52);
             this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            //this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
             // 
@@ -117,11 +117,11 @@ namespace AsterixDecoder
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(476, 428);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(426, 34);
-            this.progressBar1.TabIndex = 7;
-            this.progressBar1.Visible = false;
+            //this.progressBar1.Location = new System.Drawing.Point(476, 428);
+            //this.progressBar1.Name = "progressBar1";
+            //this.progressBar1.Size = new System.Drawing.Size(426, 34);
+            //this.progressBar1.TabIndex = 7;
+            //this.progressBar1.Visible = false;
             // 
             // btnloadcat10
             // 
@@ -137,7 +137,7 @@ namespace AsterixDecoder
             this.btnloadcat10.TabIndex = 4;
             this.btnloadcat10.Text = "Load Data";
             this.btnloadcat10.UseVisualStyleBackColor = true;
-            this.btnloadcat10.Click += new System.EventHandler(this.btnloadcat10_Click);
+            //this.btnloadcat10.Click += new System.EventHandler(this.btnloadcat10_Click);
             // 
             // LoadingCAT10
             // 

@@ -103,22 +103,22 @@ namespace AsterixDecoder
             //openChildForm(new LoadData());
         }
 
-        private void CAT10button_Click(object sender, EventArgs e)
-        {
-            CAT10button.Enabled = false;
-            openChildForm(new Tabla10(this.cat10));
+        //private void CAT10button_Click(object sender, EventArgs e)
+        //{
+        //    CAT10button.Enabled = false;
+        //    openChildForm(new Tabla10(this.cat10));
             
-            CAT10button.Enabled = true;
-        }
+        //    CAT10button.Enabled = true;
+        //}
 
-        private void CAT21Button_Click(object sender, EventArgs e)
-        {
-            CAT21Button.Enabled = false;
-            openChildForm(new Tabla21(this.cat21));
-            CAT21Button.Enabled = true;
-            SubTablaMenu.Visible = true;
+        //private void CAT21Button_Click(object sender, EventArgs e)
+        //{
+        //    CAT21Button.Enabled = false;
+        //    openChildForm(new Tabla21(this.cat21));
+        //    CAT21Button.Enabled = true;
+        //    SubTablaMenu.Visible = true;
             
-        }
+        //}
 
         private void MapViewButton_Click(object sender, EventArgs e)
         {
@@ -195,7 +195,7 @@ namespace AsterixDecoder
         private void button2_Click(object sender, EventArgs e)
         {
             SubTablaMenu.Visible = false;
-            openChildForm(new Tabla10());
+            openChildForm(new Tabla10(cat10));
            
 
         }

@@ -34,9 +34,6 @@ namespace AsterixDecoder
             this.panel2 = new System.Windows.Forms.Panel();
             this.MapViewButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.CAT10button = new System.Windows.Forms.Button();
-            this.CAT21Button = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.LoadFileButton = new System.Windows.Forms.Button();
             this.panelName = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
@@ -81,7 +78,6 @@ namespace AsterixDecoder
             this.panelSideMenu.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panelSideMenu.Controls.Add(this.panel2);
             this.panelSideMenu.Controls.Add(this.panel1);
-            this.panelSideMenu.Controls.Add(this.button1);
             this.panelSideMenu.Controls.Add(this.LoadFileButton);
             this.panelSideMenu.Controls.Add(this.panelName);
             this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
@@ -129,52 +125,52 @@ namespace AsterixDecoder
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.CAT10button);
-            this.panel1.Controls.Add(this.CAT21Button);
+            //this.panel1.Controls.Add(this.CAT10button);
+            //this.panel1.Controls.Add(this.CAT21Button);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 135);
             this.panel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(187, 118);
             this.panel1.TabIndex = 1;
-            // 
-            // CAT10button
-            // 
-            this.CAT10button.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.CAT10button.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CAT10button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CAT10button.Location = new System.Drawing.Point(0, 46);
-            this.CAT10button.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.CAT10button.Name = "CAT10button";
-            this.CAT10button.Size = new System.Drawing.Size(187, 36);
-            this.CAT10button.TabIndex = 1;
-            this.CAT10button.Text = "Table CAT10";
-            this.CAT10button.UseVisualStyleBackColor = false;
-            this.CAT10button.Click += new System.EventHandler(this.CAT10button_Click);
-            // 
-            // CAT21Button
-            // 
-            this.CAT21Button.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.CAT21Button.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CAT21Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CAT21Button.Location = new System.Drawing.Point(0, 82);
-            this.CAT21Button.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.CAT21Button.Name = "CAT21Button";
-            this.CAT21Button.Size = new System.Drawing.Size(187, 36);
-            this.CAT21Button.TabIndex = 1;
-            this.CAT21Button.Text = "Table CAT21";
-            this.CAT21Button.UseVisualStyleBackColor = false;
-            this.CAT21Button.Click += new System.EventHandler(this.CAT21Button_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(52, 168);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(56, 19);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            //// 
+            //// CAT10button
+            //// 
+            //this.CAT10button.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            //this.CAT10button.Dock = System.Windows.Forms.DockStyle.Bottom;
+            //this.CAT10button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //this.CAT10button.Location = new System.Drawing.Point(0, 46);
+            //this.CAT10button.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            //this.CAT10button.Name = "CAT10button";
+            //this.CAT10button.Size = new System.Drawing.Size(187, 36);
+            //this.CAT10button.TabIndex = 1;
+            //this.CAT10button.Text = "Table CAT10";
+            //this.CAT10button.UseVisualStyleBackColor = false;
+            //this.CAT10button.Click += new System.EventHandler(this.CAT10button_Click);
+            //// 
+            //// CAT21Button
+            //// 
+            //this.CAT21Button.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            //this.CAT21Button.Dock = System.Windows.Forms.DockStyle.Bottom;
+            //this.CAT21Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //this.CAT21Button.Location = new System.Drawing.Point(0, 82);
+            //this.CAT21Button.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            //this.CAT21Button.Name = "CAT21Button";
+            //this.CAT21Button.Size = new System.Drawing.Size(187, 36);
+            //this.CAT21Button.TabIndex = 1;
+            //this.CAT21Button.Text = "Table CAT21";
+            //this.CAT21Button.UseVisualStyleBackColor = false;
+            //this.CAT21Button.Click += new System.EventHandler(this.CAT21Button_Click);
+            //// 
+            //// button1
+            //// 
+            //this.button1.Location = new System.Drawing.Point(52, 168);
+            //this.button1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            //this.button1.Name = "button1";
+            //this.button1.Size = new System.Drawing.Size(56, 19);
+            //this.button1.TabIndex = 1;
+            //this.button1.Text = "button1";
+            //this.button1.UseVisualStyleBackColor = true;
             // 
             // LoadFileButton
             // 
@@ -457,7 +453,7 @@ namespace AsterixDecoder
             this.btnTable.Text = "Tables";
             this.btnTable.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTable.UseVisualStyleBackColor = false;
-            this.btnTable.Click += new System.EventHandler(this.CAT21Button_Click);
+            //this.btnTable.Click += new System.EventHandler(this.CAT21Button_Click);
             // 
             // LoadFileButton
             // 
@@ -541,8 +537,6 @@ namespace AsterixDecoder
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnTable;
         private System.Windows.Forms.Panel panelName;
-        private System.Windows.Forms.Panel panelChildForm;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel8;

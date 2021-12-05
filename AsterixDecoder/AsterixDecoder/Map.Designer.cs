@@ -80,9 +80,9 @@ namespace AsterixDecoder
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.viewAll = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.SuspendLayout();
             // 
