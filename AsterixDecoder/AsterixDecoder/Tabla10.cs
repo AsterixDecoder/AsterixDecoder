@@ -85,8 +85,6 @@ namespace AsterixDecoder
             for (int i = 0; i < 5000; i++)
             {
 
-
-
                 string[] row = lista[i].GetValues(28);
                 row[0] = i.ToString();
                 row[1] = "10";
