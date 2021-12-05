@@ -586,6 +586,5 @@ namespace AsterixDecoder
             }
         }
 
-
     }
 }

@@ -24,7 +24,7 @@ namespace AsterixDecoder
         DataTable dt;
         List<Flight> flights = new List<Flight>();
         int rowSelected = 0;
-        double InitialLat = 41.2899319;
+        double InitialLat = 41.2959319;
         double InitialLong = 2.0798492;
         double lat;
         double lng;
@@ -221,6 +221,27 @@ namespace AsterixDecoder
 
 
 
+           /* 
+                //marker.ToolTipMode = MarkerTooltipMode.Always;
+                //marker.ToolTipText = string.Format("Ubication: \n Latitude:{0} \n Longitude:{1}", flightLat, flightLng);
+                //now add the map and the marquer to the controler
+            }
+            gMapControl1.Overlays.Add(markerOverlay);
+            gMapControl1.Zoom = gMapControl1.Zoom + 1;
+            gMapControl1.Zoom = gMapControl1.Zoom - 1;
+
+
+            for (int i = 1; i < 50; i++)
+            {
+                Flight flight = flights[i];
+                double flightLat = flight.GetLat();
+                double flightLng = flight.GetLng();
+                //dt.Rows.Add(txtdescription.Text, txtlatitude.Text, txtlongitude.Text);
+                //txtdescription.Text = flight.GetIdentification();
+                dt.Rows.Add(flight.GetIdentification(), flightLat, flightLng);
+            }
+        } */
+
         private void gMapControl1_Load(object sender, EventArgs e)
         {
 
@@ -248,7 +269,7 @@ namespace AsterixDecoder
 
         private void pratbtn_Click(object sender, EventArgs e)
         {
-            gMapControl1.Zoom = 11;
+            gMapControl1.Zoom = 14;
             gMapControl1.Position = new PointLatLng(InitialLat, InitialLong);
         }
 

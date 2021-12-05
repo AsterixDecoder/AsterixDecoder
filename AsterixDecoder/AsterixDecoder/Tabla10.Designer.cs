@@ -36,25 +36,32 @@ namespace AsterixDecoder
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnloadcat10 = new System.Windows.Forms.Button();
+            this.LoadingCAT10 = new System.Windows.Forms.Label();
+            this.progressBar1CAT10 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
             // 
+            this.textBox1.AllowDrop = true;
             this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBox1.Location = new System.Drawing.Point(940, 35);
+            this.textBox1.Location = new System.Drawing.Point(2, 88);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(223, 26);
+            this.textBox1.Size = new System.Drawing.Size(198, 52);
             this.textBox1.TabIndex = 1;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.button1.Location = new System.Drawing.Point(1230, 29);
+            this.button1.Location = new System.Drawing.Point(224, 88);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 42);
+            this.button1.Size = new System.Drawing.Size(100, 52);
             this.button1.TabIndex = 2;
             this.button1.Text = "Search";
             this.button1.UseVisualStyleBackColor = true;
@@ -116,13 +123,58 @@ namespace AsterixDecoder
             this.progressBar1.TabIndex = 7;
             this.progressBar1.Visible = false;
             // 
+            // btnloadcat10
+            // 
+            this.btnloadcat10.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.btnloadcat10.FlatAppearance.BorderSize = 0;
+            this.btnloadcat10.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.btnloadcat10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnloadcat10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnloadcat10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnloadcat10.Location = new System.Drawing.Point(0, -5);
+            this.btnloadcat10.Name = "btnloadcat10";
+            this.btnloadcat10.Size = new System.Drawing.Size(200, 79);
+            this.btnloadcat10.TabIndex = 4;
+            this.btnloadcat10.Text = "Load Data";
+            this.btnloadcat10.UseVisualStyleBackColor = true;
+            this.btnloadcat10.Click += new System.EventHandler(this.btnloadcat10_Click);
+            // 
+            // LoadingCAT10
+            // 
+            this.LoadingCAT10.AllowDrop = true;
+            this.LoadingCAT10.AutoEllipsis = true;
+            this.LoadingCAT10.BackColor = System.Drawing.Color.White;
+            this.LoadingCAT10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LoadingCAT10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
+            this.LoadingCAT10.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.LoadingCAT10.Image = global::AsterixDecoder.Properties.Resources.ok;
+            this.LoadingCAT10.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.LoadingCAT10.Location = new System.Drawing.Point(982, 68);
+            this.LoadingCAT10.MaximumSize = new System.Drawing.Size(500, 500);
+            this.LoadingCAT10.Name = "LoadingCAT10";
+            this.LoadingCAT10.Size = new System.Drawing.Size(230, 72);
+            this.LoadingCAT10.TabIndex = 6;
+            this.LoadingCAT10.Text = "label2";
+            this.LoadingCAT10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.LoadingCAT10.Visible = false;
+            // 
+            // progressBar1CAT10
+            // 
+            this.progressBar1CAT10.Location = new System.Drawing.Point(423, 343);
+            this.progressBar1CAT10.Name = "progressBar1CAT10";
+            this.progressBar1CAT10.Size = new System.Drawing.Size(378, 27);
+            this.progressBar1CAT10.TabIndex = 7;
+            this.progressBar1CAT10.Visible = false;
+            // 
             // Tabla10
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(1377, 891);
-            this.Controls.Add(this.progressBar1);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.ClientSize = new System.Drawing.Size(1224, 713);
+            this.Controls.Add(this.progressBar1CAT10);
+            this.Controls.Add(this.LoadingCAT10);
+            this.Controls.Add(this.btnloadcat10);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
@@ -140,6 +192,8 @@ namespace AsterixDecoder
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnloadcat10;
+        private System.Windows.Forms.Label LoadingCAT10;
+        private System.Windows.Forms.ProgressBar progressBar1CAT10;
     }
 }

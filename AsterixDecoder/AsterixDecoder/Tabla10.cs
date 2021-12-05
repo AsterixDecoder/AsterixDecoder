@@ -104,7 +104,6 @@ namespace AsterixDecoder
 
 
         }
-
         private void Tabla10_SizeChanged(object sender, EventArgs e)
         {
             dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
@@ -179,3 +178,4 @@ namespace AsterixDecoder
         }
     }
 }
+
