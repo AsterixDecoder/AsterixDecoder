@@ -572,6 +572,13 @@ namespace ClassLibrary
         {
             return D10_TrackNum.ToString();
         }
+        public string GetSensor()
+        {
+            if (D00_DataSource[1] == 7)
+                return "SMR";
+            else
+                return "MLAT";
+        }
         public double[] GetLatLong(int i)
         {
 

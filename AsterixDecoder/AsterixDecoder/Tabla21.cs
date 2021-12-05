@@ -36,12 +36,6 @@ namespace AsterixDecoder
         {
             
             LoadData GridForm = new LoadData();
-            
-        }
-
-        public void button1_Click(object sender, EventArgs e)
-        {
-            
             progressBar1.Visible = true;
             //asterixFile = new AsterixFile(this.filename);
             //lista = asterixFile.getListCAT21();
@@ -114,7 +108,7 @@ namespace AsterixDecoder
             //dataGridView1.Columns[44].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.AutoResizeColumns();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridView1.ReadOnly=true;
+            dataGridView1.ReadOnly = true;
             Stopwatch watch = new Stopwatch();
             watch.Start();
             for (int i = 0; i < 1000; i++)
@@ -245,17 +239,14 @@ namespace AsterixDecoder
 
             }
             watch.Stop();
-            long milliSec = watch.ElapsedMilliseconds/ (1000);
+            long milliSec = watch.ElapsedMilliseconds / (1000);
             Console.WriteLine(milliSec);
             progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
-
-          
-
-
-
         }
+
+        
 
 
         private string MultipleDouble(string[] value, string[] name,string[] units)
@@ -467,47 +458,14 @@ namespace AsterixDecoder
             string surface = MultipleString(surfaceData);
             return surface;
         }
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-            int column = e.ColumnIndex;
+
+        
+
+        int column = e.ColumnIndex;
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
-            for (int i=0;i<dataGridView1.RowCount-1;i++)
-            {
-                string val = Convert.ToString(dataGridView1.Rows[i].Cells[6].Value);
-                string val2 = Convert.ToString(dataGridView1.Rows[i].Cells[21].Value);
-                string val3 = Convert.ToString(dataGridView1.Rows[i].Cells[27].Value);
-                string val4 = Convert.ToString(dataGridView1.Rows[i].Cells[38].Value);
-                string val5 = Convert.ToString(dataGridView1.Rows[i].Cells[39].Value);
-                string val6 = Convert.ToString(dataGridView1.Rows[i].Cells[44].Value);
-
-                if (val != "N/A"&& i!=row)
-                    {
-                        dataGridView1.Rows[i].Cells[6].Value = "Click to expand";
-                    }
-                if (val2 != "N/A" && i != row)
-                {
-                    dataGridView1.Rows[i].Cells[21].Value = "Click to expand";
-                }
-                if (val3 != "N/A" && i != row)
-                {
-                    dataGridView1.Rows[i].Cells[27].Value = "Click to expand";
-                }
-                if (val4 != "N/A" && i != row)
-                {
-                    dataGridView1.Rows[i].Cells[38].Value = "Click to expand";
-                }
-                if (val5 != "N/A" && i != row)
-                {
-                    dataGridView1.Rows[i].Cells[39].Value = "Click to expand";
-                }
-                if (val6 != "N/A" && i != row)
-                {
-                    dataGridView1.Rows[i].Cells[44].Value = "Click to expand";
-                }
-
-            }
 
             if (column == 6 && value != "N/A")
             {
@@ -587,15 +545,19 @@ namespace AsterixDecoder
         //        {
         //            dataGridView1.CurrentCell.Value = "Click to expand";
         //        }
-                
+
 
         //    }
         //}
-
-        private void button2_Click(object sender, EventArgs e)
+        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
+            if (dataGridView1.CurrentCell.ColumnIndex == 6 || dataGridView1.CurrentCell.ColumnIndex == 21 || dataGridView1.CurrentCell.ColumnIndex == 27 || dataGridView1.CurrentCell.ColumnIndex == 38 || dataGridView1.CurrentCell.ColumnIndex == 44 && dataGridView1.CurrentCell.Value != "N/A")
+            {
+                dataGridView1.CurrentCell.Value = "Click to Expand";
 
+            }
         }
+
 
         private void Search_Click(object sender, EventArgs e)
         {
@@ -624,17 +586,6 @@ namespace AsterixDecoder
             }
         }
 
-        private void btnMap_Click(object sender, EventArgs e)
-        {
-            //le paso al form map el fligths con coordenadas
-            //Map map = new Map();
-            //map.SetFlights(listaflights);
-            //map.Show();
-        }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

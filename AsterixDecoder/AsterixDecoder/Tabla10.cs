@@ -107,37 +107,9 @@ namespace AsterixDecoder
 
         private void Tabla10_SizeChanged(object sender, EventArgs e)
         {
-            //Size s = new Size(this.ClientSize.Width - 50, this.ClientSize.Height - 50);
-            //dataGridView1.MaximumSize = s;
-
-            //dataGridView1.AutoSize = true;
             dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.CurrentCell.ColumnIndex == 5 && dataGridView1.CurrentCell.Value != "No Data")
-            {
-                if (dataGridView1.CurrentCell.Value!= "Click to Expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to Expand";
-                }
-                else
-                dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTargetDescriptor();
-                //dataGridView1.CurrentRow.Height = 200;
-            }
-            if (dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
-            {
-                if (dataGridView1.CurrentCell.Value != "Click to Expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to Expand";
-                }
-                else
-                    dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTrackStatus();
-
-            }
-        }
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
@@ -178,6 +150,32 @@ namespace AsterixDecoder
 
             
         }
+        
 
+
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.CurrentCell.ColumnIndex == 5 && dataGridView1.CurrentCell.Value != "No Data")
+            {
+                if (dataGridView1.CurrentCell.Value != "Click to Expand")
+                {
+                    dataGridView1.CurrentCell.Value = "Click to Expand";
+                }
+                else
+                    dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTargetDescriptor();
+                //dataGridView1.CurrentRow.Height = 200;
+            }
+            if (dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
+            {
+                if (dataGridView1.CurrentCell.Value != "Click to Expand")
+                {
+                    dataGridView1.CurrentCell.Value = "Click to Expand";
+                }
+                else
+                    dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTrackStatus();
+
+            }
+        }
     }
 }

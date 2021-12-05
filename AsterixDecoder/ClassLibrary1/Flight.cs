@@ -8,11 +8,13 @@ namespace ClassLibrary
     {
         string identification;
         int category;
+        string sensor;
         List<Coordinates> coordinates;
         List<TimeSpan> timestamps;
 
-        public Flight(string id, int category)
+        public Flight(string id, int category,string sensor)
         {
+            this.sensor = sensor;
             this.category = category;
             this.identification = id;
             coordinates = new List<Coordinates>();
@@ -31,7 +33,10 @@ namespace ClassLibrary
         {
             return coordinates.Count;
         }
-
+        public string GetSensor()
+        {
+            return this.sensor;
+        }
         public double GetLat(int i)
         {
             return Convert.ToDouble(this.coordinates[i].GetLatitude());

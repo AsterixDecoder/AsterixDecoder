@@ -13,7 +13,6 @@ namespace AsterixDecoder
     {
         string path;
         List<CAT10> listaCAT10 = new List<CAT10>();
-        //List<CAT20> listaCAT20 = new List<CAT20>();
         List<CAT21> listaCAT21 = new List<CAT21>();
         DataTable tablaCAT10 = new DataTable();
         DataTable tablaCAT21 = new DataTable();
@@ -22,7 +21,6 @@ namespace AsterixDecoder
         public AsterixFile(string nombre,ProgressBar p)
         {
             this.path = nombre;
-            Console.WriteLine("Hello World");
             leer(p);
         }
 
@@ -30,10 +28,7 @@ namespace AsterixDecoder
         {
             return listaCAT10;
         }
-        //public List<CAT20> getListCAT20()
-        //{
-        //    return listaCAT20;
-        //}
+
         public List<CAT21> getListCAT21()
         {
             return listaCAT21;
@@ -107,7 +102,7 @@ namespace AsterixDecoder
                     }
                     else
                     {
-                        Flight newFlight = new Flight(cat21.GetTargetIdentification(),21);
+                        Flight newFlight = new Flight(cat21.GetTargetIdentification(),21,"ADSB");
                         Coordinates coordinates = new Coordinates(cat21.GetLatitudeWGS84(), cat21.GetLongitudeWGS84());
                         TimeSpan time = cat21.GetTime();
                         newFlight.SetCoordinates(coordinates);
@@ -132,7 +127,7 @@ namespace AsterixDecoder
                     }
                     else
                     {
-                        Flight newFlight = new Flight(cat10.GetTrackNum(), 10);
+                        Flight newFlight = new Flight(cat10.GetTrackNum(), 10,cat10.GetSensor());
                         Coordinates coordinates = new Coordinates(cat10.GetLatLong(0)[0], cat10.GetLatLong(0)[1]);
                         TimeSpan time = cat10.GetTime();
                         newFlight.SetCoordinates(coordinates);

@@ -33,6 +33,8 @@ namespace AsterixDecoder
         Bitmap cat21Bmp = new Bitmap(Properties.Resources.cat21, new Size(14, 14));
         double[] Initialcoords = new double[2];
         int velocidad = 1;
+        bool viewOld = true;
+        int avance = 0;
 //        Boolean seePrevius = true;
 
         public Map(List<Flight> listaflights)
@@ -43,15 +45,11 @@ namespace AsterixDecoder
             this.flights = listaflights;
             for (int i = 0; i < flights.Count; i++)
             {
-                flightsMarkers.Add(new GMapOverlay(flights[i].GetCat()+"-"+flights[i].GetIdentification()));
+                flightsMarkers.Add(new GMapOverlay(flights[i].GetIdentification()));
                 gMapControl1.Overlays.Add(flightsMarkers[i]);
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -72,7 +70,7 @@ namespace AsterixDecoder
             dt.PrimaryKey = key ;
             
             //add point to the datatable
-            dt.Rows.Add("Ubication1:", InitialLat, InitialLong);
+            //dt.Rows.Add("Ubication1:", InitialLat, InitialLong);
             dataGridView1.DataSource = dt;
             //desactivate colums lat long
             dataGridView1.Columns[1].Visible = false;
@@ -271,27 +269,50 @@ namespace AsterixDecoder
             gMapControl1.Zoom = 5;
             gMapControl1.Position = new PointLatLng(Initialcoords[0], Initialcoords[1]);
         }
-        private void sumarUnSegundo()
+        private void sumarSegundos(int cont)
         {
-            if (segFin.Text.Equals("59"))
+            if (cont > 0)
             {
-                if (minFin.Text.Equals("59"))
+                if (Int32.Parse( segFin.Text)>=59)
                 {
-                    horaFin.Text = (Int32.Parse(horaFin.Text) + 1).ToString();
-                    minFin.Text = "0";
-                    segFin.Text = "0";
+                    if (Int32.Parse(minFin.Text) >= 59)
+                    {
+                        horaFin.Text = (Int32.Parse(horaFin.Text) +1).ToString();
+                        minFin.Text = "0";
+                        segFin.Text = (Int32.Parse(segFin.Text) -60 + cont).ToString();
+                    }
+                    else
+                    {
+                        minFin.Text = (Int32.Parse(minFin.Text) + 1).ToString();
+                        segFin.Text = (Int32.Parse(segFin.Text) - 60 + cont).ToString();
+
+                    }
                 }
                 else
-                {
-                    minFin.Text = (Int32.Parse(minFin.Text) + 1).ToString();
-                    segFin.Text = "0";
-
-                }
+                    segFin.Text = (Int32.Parse(segFin.Text) + cont).ToString();
             }
             else
-                segFin.Text = (Int32.Parse(segFin.Text) + 1).ToString();
+            {
+                if (Int32.Parse(segFin.Text)-cont <= 0)
+                {
+                    if (Int32.Parse(minFin.Text) - cont <= 0)
+                    {
+                        horaFin.Text = (Int32.Parse(horaFin.Text) -1).ToString();
+                        minFin.Text = "59";
+                        segFin.Text = (Int32.Parse(segFin.Text) + 60 + cont).ToString(); 
+                    }
+                    else
+                    {
+                        minFin.Text = (Int32.Parse(minFin.Text) -1).ToString();
+                        segFin.Text = (Int32.Parse(segFin.Text) + 60 + cont).ToString(); ;
 
+                    }
+                }
+                else
+                    segFin.Text = (Int32.Parse(segFin.Text) + cont).ToString();
+            }
         }
+
         private void cargarVuelos(TimeSpan tiempoInicio,TimeSpan tiempoActual)
         {
             Flight flight;
@@ -304,10 +325,11 @@ namespace AsterixDecoder
 
                 for (int j = 0; j < flight.GetCount(); j++)
                 {
-                    flightLat = flight.GetLat(j);
-                    flightLng = flight.GetLng(j);
+
                     if (flight.GetTime(j).CompareTo(tiempoInicio) == 1 && flight.GetTime(j).CompareTo(tiempoActual) <= 0)
                     {
+                        flightLat = flight.GetLat(j);
+                        flightLng = flight.GetLng(j);
                         if (flight.GetCat() == 21)
                         {
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
@@ -381,10 +403,17 @@ namespace AsterixDecoder
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            if (viewOld)
+            {
+                for (int i = 0; i < flightsMarkers.Count; i++)
+                {
+                    flightsMarkers[i].Markers.Clear();
+                }
+            }
             TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
             TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
-            for (int i = 0; i < velocidad; i++)
-                sumarUnSegundo();
+
+            sumarSegundos(velocidad);
             TimeSpan tiempoActualNuevo = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
             cargarVuelos(tiempoActual, tiempoActualNuevo);
         }
@@ -424,21 +453,69 @@ namespace AsterixDecoder
         
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < gMapControl1.Overlays.Count; i++)
+            for (int i = 0; i < flights.Count; i++)
             {
-                if (checkBox1.Checked == true)
-                    gMapControl1.Overlays[i].IsVisibile = false;
-                else
+                if (checkBox1.Checked == true&&flights[i].GetSensor()=="SMR")
                     gMapControl1.Overlays[i].IsVisibile = true;
+                else if(flights[i].GetSensor() == "SMR")
+                    gMapControl1.Overlays[i].IsVisibile = false;
             }
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true)
-                gMapControl1.Overlays[1].IsVisibile = false;
-            else
-                gMapControl1.Overlays[1].IsVisibile = true;
+            for (int i = 0; i < flights.Count; i++)
+            {
+                if (checkBox2.Checked == true && flights[i].GetSensor() == "MLAT")
+                    gMapControl1.Overlays[i].IsVisibile = true;
+                else if (flights[i].GetSensor() == "MLAT")
+                    gMapControl1.Overlays[i].IsVisibile = false;
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < flights.Count; i++)
+            {
+                if (checkBox3.Checked == true && flights[i].GetSensor() == "ADSB")
+                    gMapControl1.Overlays[i].IsVisibile = true;
+                else if (flights[i].GetSensor() == "ADSB")
+                    gMapControl1.Overlays[i].IsVisibile = false;
+            }
+
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            viewOld = !viewOld;
+            if (!viewOld)
+            {
+                TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+                TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                for (int i = 0; i < flightsMarkers.Count; i++)
+                {
+                    flightsMarkers[i].Markers.Clear();
+                }
+                cargarVuelos(tiempoInicio, tiempoActual);
+            }
+
+
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            sumarSegundos(trackBar2.Value - avance);
+            if (avance != trackBar2.Value) { 
+                avance = trackBar2.Value;
+                TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+                TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                for (int i = 0; i < flightsMarkers.Count; i++)
+                {
+                    flightsMarkers[i].Markers.Clear();
+                }
+                cargarVuelos(tiempoInicio, tiempoActual);
+                //trackBar2.Value = 0;
+            }
         }
 
     }
