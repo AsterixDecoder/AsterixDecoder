@@ -32,6 +32,7 @@ namespace AsterixDecoder
         private void Tabla10_Load(object sender, EventArgs e)
         {
             LoadData GridForm = new LoadData();
+            int length = lista.Count;
             progressBar1CAT10.Visible = true;
             Stopwatch watch = new Stopwatch();
             //Adaptamos columnas a texto
@@ -39,7 +40,7 @@ namespace AsterixDecoder
             progressBar1CAT10.Minimum = 0;
             // Sets the progress bar's maximum value to a number representing  
             // all operations complete -- in this case, all five files read.  
-            progressBar1CAT10.Maximum = 5000;
+            progressBar1CAT10.Maximum = length;
             // Sets the Step property to amount to increase with each iteration.  
             // In this case, it will increase by one with every file read.  
             progressBar1CAT10.Step = 1;
@@ -82,7 +83,7 @@ namespace AsterixDecoder
 
 
             watch.Start();
-            for (int i = 0; i < 5000; i++)
+            for (int i = 0; i < length; i++)
             {
 
                 string[] row = lista[i].GetValues(28);
@@ -102,10 +103,10 @@ namespace AsterixDecoder
 
 
         }
-        private void Tabla10_SizeChanged(object sender, EventArgs e)
-        {
-            dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-        }
+        //private void Tabla10_SizeChanged(object sender, EventArgs e)
+        //{
+        //    //dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+        //}
 
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
@@ -173,6 +174,11 @@ namespace AsterixDecoder
                     dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTrackStatus();
 
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

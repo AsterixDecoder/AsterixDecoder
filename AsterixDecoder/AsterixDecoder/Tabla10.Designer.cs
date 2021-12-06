@@ -113,6 +113,7 @@ namespace AsterixDecoder
             this.dataGridView1.Size = new System.Drawing.Size(1476, 880);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
             // 
             // btnloadcat10
@@ -175,7 +176,7 @@ namespace AsterixDecoder
             this.Name = "Tabla10";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Tabla10_Load);
-            this.SizeChanged += new System.EventHandler(this.Tabla10_SizeChanged);
+            //this.SizeChanged += new System.EventHandler(this.Tabla10_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

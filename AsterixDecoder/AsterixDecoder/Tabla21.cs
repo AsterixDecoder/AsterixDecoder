@@ -20,6 +20,7 @@ namespace AsterixDecoder
         List<Flight> listaflights = new List<Flight>();
         Coordinates coordinates;
         List<CAT21> lista;
+        DataTable dataTable = new DataTable();
         string filename;
 
         public Tabla21(List<CAT21> lista)
@@ -35,63 +36,97 @@ namespace AsterixDecoder
         private void Form1_Load(object sender, EventArgs e)
         {
             
-            LoadData GridForm = new LoadData();
+            //LoadData GridForm = new LoadData();
             progressBar1.Visible = true;
             //asterixFile = new AsterixFile(this.filename);
             //lista = asterixFile.getListCAT21();
             int length = lista.Count;
-            dataGridView1.ColumnCount = 45;
-            dataGridView1.Columns[0].Name = "Number";
-            dataGridView1.Columns[1].Name = "Category";
-            dataGridView1.Columns[2].Name = "SAC";
-            dataGridView1.Columns[3].Name = "SIC";
-            dataGridView1.Columns[4].Name = "Target Identification";
-            dataGridView1.Columns[5].Name = "Track Number";
-            dataGridView1.Columns[6].Name = "Target Report Descriptor";//Mirar como expandir
-            dataGridView1.Columns[7].Name = "Service Identification";
-            dataGridView1.Columns[8].Name = "Time of Report Transmission";
-            dataGridView1.Columns[9].Name = "Position in WGS-84 Coordinates";
-            dataGridView1.Columns[10].Name = "Position in WGS-84 Coordinates High Resolution";
-            dataGridView1.Columns[11].Name = "Air Speed";
-            dataGridView1.Columns[12].Name = "True Airspeed";
-            dataGridView1.Columns[13].Name = "Target Adress";
-            dataGridView1.Columns[14].Name = "Time of Applicability Position";
-            dataGridView1.Columns[15].Name = "Time of Applicability Velocity";
-            dataGridView1.Columns[16].Name = "Time of Message Reception Position";
-            dataGridView1.Columns[17].Name = "Time of Message Reception Position High Res";//Lo quitaremos porque no sale en ningun vuelo y ya esta lo mismo pero en baja resolucion
-            dataGridView1.Columns[18].Name = "Time of Message Reception Velocity";
-            dataGridView1.Columns[19].Name = "Time of Message Reception Velocity High Res";//Lo quitaremos porque no sale en ningun vuelo y ya esta lo mismo pero en baja resolucion
-            dataGridView1.Columns[20].Name = "Geometric Height";
-            dataGridView1.Columns[21].Name = "Quality Indicators";
-            dataGridView1.Columns[22].Name = "MOPS Version";
-            dataGridView1.Columns[23].Name = "Mode 3A Code";
-            dataGridView1.Columns[24].Name = "Roll Angle";
-            dataGridView1.Columns[25].Name = "Flight Level";
-            dataGridView1.Columns[26].Name = "Magentic Heading";
-            dataGridView1.Columns[27].Name = "Target Status";
-            dataGridView1.Columns[28].Name = "Barometric Vertical Rate";
-            dataGridView1.Columns[29].Name = "Geometric Vertical Rate";
-            dataGridView1.Columns[30].Name = "Airborne Ground Vector";
-            dataGridView1.Columns[31].Name = "Track Angle Rate";
-            dataGridView1.Columns[32].Name = "Emitter Category";
-            dataGridView1.Columns[33].Name = "Met Information";
-            dataGridView1.Columns[34].Name = "Selected Altitude";
-            dataGridView1.Columns[35].Name = "Final State Selected Altitude";
-            dataGridView1.Columns[36].Name = "Trajectory Intent";
-            dataGridView1.Columns[37].Name = "Service Management";
-            dataGridView1.Columns[38].Name = "Aircraft Operational Status";
-            dataGridView1.Columns[39].Name = "Surface Capabilities and Characteristics";
-            dataGridView1.Columns[40].Name = "Message Amplitude";
-            dataGridView1.Columns[41].Name = "Mode S MB Data";
-            dataGridView1.Columns[42].Name = "ACAS Resolution";
-            dataGridView1.Columns[43].Name = "Receiver ID";
-            dataGridView1.Columns[44].Name = "Data Ages";
+            //dataGridView1.ColumnCount = 45;
+            dataTable.Columns.Add("Number");
+            dataTable.Columns.Add("Category");
+            dataTable.Columns.Add("SAC");
+            dataTable.Columns.Add("SIC");
+            dataTable.Columns.Add("Target Identification");
+            dataTable.Columns.Add("Track Number");
+            dataTable.Columns.Add("Target Report Descriptor");
+            dataTable.Columns.Add("Service Identification");
+            dataTable.Columns.Add("Time of Report Transmission");
+            dataTable.Columns.Add("Position in WGS-84 Coordinates");
+            dataTable.Columns.Add("Position in WGS-84 Coordinates High Resolution");
+            dataTable.Columns.Add("1");
+            dataTable.Columns.Add("2");
+            dataTable.Columns.Add("3");
+            dataTable.Columns.Add("4");
+            dataTable.Columns.Add("5");
+            dataTable.Columns.Add("6");
+            dataTable.Columns.Add("7");
+            dataTable.Columns.Add("8");
+            dataTable.Columns.Add("9");
+            dataTable.Columns.Add("10");
+            dataTable.Columns.Add("11");
+            dataTable.Columns.Add("12");
+            dataTable.Columns.Add("13");
+            dataTable.Columns.Add("14");
+            dataTable.Columns.Add("15");
+            dataTable.Columns.Add("16");
+            dataTable.Columns.Add("17");
+            dataTable.Columns.Add("18");
+            dataTable.Columns.Add("19");
+            dataTable.Columns.Add("20");
+            dataTable.Columns.Add("21");
+            dataTable.Columns.Add("22");
+            dataTable.Columns.Add("23");
+            dataTable.Columns.Add("24");
+            dataTable.Columns.Add("25");
+            dataTable.Columns.Add("26");
+            dataTable.Columns.Add("27");
+            dataTable.Columns.Add("28");
+            dataTable.Columns.Add("29");
+            dataTable.Columns.Add("30");
+            dataTable.Columns.Add("31");
+            dataTable.Columns.Add("32");
+            dataTable.Columns.Add("33");
+            dataTable.Columns.Add("34");
+            //dataGridView1.Columns[11].Name = "Air Speed";
+            //dataGridView1.Columns[12].Name = "True Airspeed";
+            //dataGridView1.Columns[13].Name = "Target Adress";
+            //dataGridView1.Columns[14].Name = "Time of Applicability Position";
+            //dataGridView1.Columns[15].Name = "Time of Applicability Velocity";
+            //dataGridView1.Columns[16].Name = "Time of Message Reception Position";
+            //dataGridView1.Columns[17].Name = "Time of Message Reception Position High Res";//Lo quitaremos porque no sale en ningun vuelo y ya esta lo mismo pero en baja resolucion
+            //dataGridView1.Columns[18].Name = "Time of Message Reception Velocity";
+            //dataGridView1.Columns[19].Name = "Time of Message Reception Velocity High Res";//Lo quitaremos porque no sale en ningun vuelo y ya esta lo mismo pero en baja resolucion
+            //dataGridView1.Columns[20].Name = "Geometric Height";
+            //dataGridView1.Columns[21].Name = "Quality Indicators";
+            //dataGridView1.Columns[22].Name = "MOPS Version";
+            //dataGridView1.Columns[23].Name = "Mode 3A Code";
+            //dataGridView1.Columns[24].Name = "Roll Angle";
+            //dataGridView1.Columns[25].Name = "Flight Level";
+            //dataGridView1.Columns[26].Name = "Magentic Heading";
+            //dataGridView1.Columns[27].Name = "Target Status";
+            //dataGridView1.Columns[28].Name = "Barometric Vertical Rate";
+            //dataGridView1.Columns[29].Name = "Geometric Vertical Rate";
+            //dataGridView1.Columns[30].Name = "Airborne Ground Vector";
+            //dataGridView1.Columns[31].Name = "Track Angle Rate";
+            //dataGridView1.Columns[32].Name = "Emitter Category";
+            //dataGridView1.Columns[33].Name = "Met Information";
+            //dataGridView1.Columns[34].Name = "Selected Altitude";
+            //dataGridView1.Columns[35].Name = "Final State Selected Altitude";
+            //dataGridView1.Columns[36].Name = "Trajectory Intent";
+            //dataGridView1.Columns[37].Name = "Service Management";
+            //dataGridView1.Columns[38].Name = "Aircraft Operational Status";
+            //dataGridView1.Columns[39].Name = "Surface Capabilities and Characteristics";
+            //dataGridView1.Columns[40].Name = "Message Amplitude";
+            //dataGridView1.Columns[41].Name = "Mode S MB Data";
+            //dataGridView1.Columns[42].Name = "ACAS Resolution";
+            //dataGridView1.Columns[43].Name = "Receiver ID";
+            //dataGridView1.Columns[44].Name = "Data Ages";
 
             //Adaptamos columnas a texto
             progressBar1.Minimum = 0;
             // Sets the progress bar's maximum value to a number representing  
             // all operations complete -- in this case, all five files read.  
-            progressBar1.Maximum = 1000;
+            progressBar1.Maximum = length;
             // Sets the Step property to amount to increase with each iteration.  
             // In this case, it will increase by one with every file read.  
             progressBar1.Step = 1;
@@ -107,11 +142,11 @@ namespace AsterixDecoder
             //dataGridView1.Columns[38].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             //dataGridView1.Columns[44].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.AutoResizeColumns();
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridView1.ReadOnly = true;
+            //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dataGridView1.ReadOnly = true;
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < length; i++)
             {
 
                 CAT21 cat21 = lista[i];
@@ -227,7 +262,7 @@ namespace AsterixDecoder
                     dataAges = "Click to expand";
                 }
                 string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber, targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition, tappvelocity, tmessageposition, tmessagepositionhigh, tmessagevel, tmessagevelhigh, geometricHeight, quality, mopsversion, m3acode, rollangle, flightlevel, magneticheading, targetstatus, barometricrate, geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent, servicemanagement, opstatus, surface, messageAmplitude, modeSMBData, acasResolution, receiverID, dataAges };
-                dataGridView1.Rows.Add(row);
+                dataTable.Rows.Add(row);
                 progressBar1.PerformStep();
 
 
@@ -238,12 +273,14 @@ namespace AsterixDecoder
                 //listaflights.Add(flight);
 
             }
-            watch.Stop();
-            long milliSec = watch.ElapsedMilliseconds / (1000);
-            Console.WriteLine(milliSec);
+            DataView dataView = new DataView(dataTable);
+            dataGridView1.DataSource = dataView;
             progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
+            watch.Stop();
+            long milliSec = watch.ElapsedMilliseconds / (1000);
+            Console.WriteLine(milliSec);
         }
 
         
@@ -460,9 +497,7 @@ namespace AsterixDecoder
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
-        
-
+            string message = "Prueba";
         int column = e.ColumnIndex;
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
@@ -474,7 +509,12 @@ namespace AsterixDecoder
                     dataGridView1.CurrentCell.Value = "Click to expand";
                 }
                 else
+                {
                     dataGridView1.CurrentCell.Value = GetTargetReportDescriptor(row);
+                    message = GetTargetReportDescriptor(row);
+                }
+                
+              
                 
             }
             if (column == 21 && value != "N/A")
@@ -527,12 +567,19 @@ namespace AsterixDecoder
                     dataGridView1.CurrentCell.Value = GetDataAges(row);
                 
             }
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+            string caption = "Error Detected in Input";
+            result = MessageBox.Show(message, caption, buttons);
+            
 
-            //dataGridView1.AutoResizeRow(row, DataGridViewAutoSizeRowMode.AllCells);
+            dataGridView1.AutoResizeRow(row, DataGridViewAutoSizeRowMode.AllCells);
             //dataGridView1.Rows[row].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView1.Columns[column].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //dataGridView1.Columns[column].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[column].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView1.AutoResizeColumn(column);
+            
 
         }
         //private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
@@ -586,5 +633,9 @@ namespace AsterixDecoder
             }
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
