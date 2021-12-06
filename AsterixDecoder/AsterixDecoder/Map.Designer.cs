@@ -30,11 +30,11 @@ namespace AsterixDecoder
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Map));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Map));
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEliminate = new System.Windows.Forms.Button();
@@ -52,10 +52,6 @@ namespace AsterixDecoder
             this.trackZoom = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.spnbtn = new System.Windows.Forms.Button();
-            this.earthbtn = new System.Windows.Forms.Button();
-            this.catabtn = new System.Windows.Forms.Button();
-            this.pratbtn = new System.Windows.Forms.Button();
             this.horaFin = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.timeButton = new System.Windows.Forms.Button();
@@ -71,7 +67,6 @@ namespace AsterixDecoder
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.SearchId = new System.Windows.Forms.Button();
-            this.PlayPause = new System.Windows.Forms.Button();
             this.x2 = new System.Windows.Forms.Button();
             this.x3 = new System.Windows.Forms.Button();
             this.x1 = new System.Windows.Forms.Button();
@@ -80,6 +75,11 @@ namespace AsterixDecoder
             this.viewAll = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.PlayPause = new System.Windows.Forms.Button();
+            this.spnbtn = new System.Windows.Forms.Button();
+            this.earthbtn = new System.Windows.Forms.Button();
+            this.catabtn = new System.Windows.Forms.Button();
+            this.pratbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -245,7 +245,7 @@ namespace AsterixDecoder
             this.btnSat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSat.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSat.Location = new System.Drawing.Point(14, 629);
+            this.btnSat.Location = new System.Drawing.Point(15, 634);
             this.btnSat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSat.Name = "btnSat";
             this.btnSat.Size = new System.Drawing.Size(88, 39);
@@ -313,66 +313,6 @@ namespace AsterixDecoder
             this.timer1.Enabled = true;
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // spnbtn
-            // 
-            this.spnbtn.FlatAppearance.BorderSize = 0;
-            this.spnbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.spnbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.spnbtn.Image = global::AsterixDecoder.Properties.Resources.spain1;
-            this.spnbtn.Location = new System.Drawing.Point(612, 686);
-            this.spnbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.spnbtn.Name = "spnbtn";
-            this.spnbtn.Size = new System.Drawing.Size(53, 50);
-            this.spnbtn.TabIndex = 24;
-            this.spnbtn.UseVisualStyleBackColor = true;
-            this.spnbtn.Click += new System.EventHandler(this.spnbtn_Click);
-            // 
-            // earthbtn
-            // 
-            this.earthbtn.FlatAppearance.BorderSize = 0;
-            this.earthbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.earthbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.earthbtn.Image = global::AsterixDecoder.Properties.Resources.earth1;
-            this.earthbtn.Location = new System.Drawing.Point(494, 686);
-            this.earthbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.earthbtn.Name = "earthbtn";
-            this.earthbtn.Size = new System.Drawing.Size(51, 50);
-            this.earthbtn.TabIndex = 23;
-            this.earthbtn.UseVisualStyleBackColor = true;
-            this.earthbtn.Click += new System.EventHandler(this.earthbtn_Click);
-            // 
-            // catabtn
-            // 
-            this.catabtn.FlatAppearance.BorderSize = 0;
-            this.catabtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.catabtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.catabtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.catabtn.Image = global::AsterixDecoder.Properties.Resources.catalunya22;
-            this.catabtn.Location = new System.Drawing.Point(551, 686);
-            this.catabtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.catabtn.Name = "catabtn";
-            this.catabtn.Size = new System.Drawing.Size(53, 50);
-            this.catabtn.TabIndex = 22;
-            this.catabtn.UseVisualStyleBackColor = true;
-            this.catabtn.Click += new System.EventHandler(this.catabtn_Click);
-            // 
-            // pratbtn
-            // 
-            this.pratbtn.FlatAppearance.BorderSize = 0;
-            this.pratbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
-            this.pratbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.pratbtn.Image = global::AsterixDecoder.Properties.Resources.airport2;
-            this.pratbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.pratbtn.Location = new System.Drawing.Point(439, 686);
-            this.pratbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pratbtn.Name = "pratbtn";
-            this.pratbtn.Size = new System.Drawing.Size(51, 50);
-            this.pratbtn.TabIndex = 21;
-            this.pratbtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.pratbtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.pratbtn.UseVisualStyleBackColor = true;
-            this.pratbtn.Click += new System.EventHandler(this.pratbtn_Click);
             // 
             // horaFin
             // 
@@ -531,18 +471,6 @@ namespace AsterixDecoder
             this.SearchId.UseVisualStyleBackColor = true;
             this.SearchId.Click += new System.EventHandler(this.SearchId_Click);
             // 
-            // PlayPause
-            // 
-            this.PlayPause.Image = ((System.Drawing.Image)(resources.GetObject("PlayPause.Image")));
-            this.PlayPause.Location = new System.Drawing.Point(1191, 206);
-            this.PlayPause.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.PlayPause.Name = "PlayPause";
-            this.PlayPause.Size = new System.Drawing.Size(48, 28);
-            this.PlayPause.TabIndex = 40;
-            this.PlayPause.Text = "⏸️";
-            this.PlayPause.UseVisualStyleBackColor = true;
-            this.PlayPause.Click += new System.EventHandler(this.PlayPause_Click);
-            // 
             // x2
             // 
             this.x2.Location = new System.Drawing.Point(1324, 206);
@@ -666,12 +594,84 @@ namespace AsterixDecoder
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SelectRegister);
             // 
+            // PlayPause
+            // 
+            this.PlayPause.Image = ((System.Drawing.Image)(resources.GetObject("PlayPause.Image")));
+            this.PlayPause.Location = new System.Drawing.Point(1191, 206);
+            this.PlayPause.Margin = new System.Windows.Forms.Padding(4);
+            this.PlayPause.Name = "PlayPause";
+            this.PlayPause.Size = new System.Drawing.Size(48, 28);
+            this.PlayPause.TabIndex = 40;
+            this.PlayPause.Text = "⏸️";
+            this.PlayPause.UseVisualStyleBackColor = true;
+            this.PlayPause.Click += new System.EventHandler(this.PlayPause_Click);
+            // 
+            // spnbtn
+            // 
+            this.spnbtn.FlatAppearance.BorderSize = 0;
+            this.spnbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.spnbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.spnbtn.Image = global::AsterixDecoder.Properties.Resources.spain1;
+            this.spnbtn.Location = new System.Drawing.Point(612, 686);
+            this.spnbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.spnbtn.Name = "spnbtn";
+            this.spnbtn.Size = new System.Drawing.Size(53, 50);
+            this.spnbtn.TabIndex = 24;
+            this.spnbtn.UseVisualStyleBackColor = true;
+            this.spnbtn.Click += new System.EventHandler(this.spnbtn_Click);
+            // 
+            // earthbtn
+            // 
+            this.earthbtn.FlatAppearance.BorderSize = 0;
+            this.earthbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.earthbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.earthbtn.Image = global::AsterixDecoder.Properties.Resources.earth1;
+            this.earthbtn.Location = new System.Drawing.Point(494, 686);
+            this.earthbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.earthbtn.Name = "earthbtn";
+            this.earthbtn.Size = new System.Drawing.Size(51, 50);
+            this.earthbtn.TabIndex = 23;
+            this.earthbtn.UseVisualStyleBackColor = true;
+            this.earthbtn.Click += new System.EventHandler(this.earthbtn_Click);
+            // 
+            // catabtn
+            // 
+            this.catabtn.FlatAppearance.BorderSize = 0;
+            this.catabtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.catabtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.catabtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.catabtn.Image = global::AsterixDecoder.Properties.Resources.catalunya22;
+            this.catabtn.Location = new System.Drawing.Point(551, 686);
+            this.catabtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.catabtn.Name = "catabtn";
+            this.catabtn.Size = new System.Drawing.Size(53, 50);
+            this.catabtn.TabIndex = 22;
+            this.catabtn.UseVisualStyleBackColor = true;
+            this.catabtn.Click += new System.EventHandler(this.catabtn_Click);
+            // 
+            // pratbtn
+            // 
+            this.pratbtn.FlatAppearance.BorderSize = 0;
+            this.pratbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.pratbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.pratbtn.Image = global::AsterixDecoder.Properties.Resources.airport2;
+            this.pratbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.pratbtn.Location = new System.Drawing.Point(439, 686);
+            this.pratbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pratbtn.Name = "pratbtn";
+            this.pratbtn.Size = new System.Drawing.Size(51, 50);
+            this.pratbtn.TabIndex = 21;
+            this.pratbtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.pratbtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.pratbtn.UseVisualStyleBackColor = true;
+            this.pratbtn.Click += new System.EventHandler(this.pratbtn_Click);
+            // 
             // Map
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(95)))));
-            this.ClientSize = new System.Drawing.Size(1476, 748);
+            this.ClientSize = new System.Drawing.Size(1476, 890);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.viewAll);
             this.Controls.Add(this.checkBox3);

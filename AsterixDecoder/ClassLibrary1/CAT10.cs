@@ -631,7 +631,7 @@ namespace ClassLibrary
                                 }
                                 break;
                             case 2:
-                                row[3 + i] = "Click to Expand";
+                                row[3 + i] = "Click to expand";
 
                                 break;
                             case 3:
@@ -656,10 +656,10 @@ namespace ClassLibrary
                                 row[2 + i] = D10_TrackNum.ToString() ;
                                 break;
                             case 11://///////////////////////////////////////////////////Expand
-                                row[2 + i] = "Click to Expand";
+                                row[2 + i] = "Click to expand";
                                 break;
                             case 12://///////////////////////////////////////////////////Expand
-                                row[2 + i] = "Click to Expand";
+                                row[2 + i] = "Click to expand";
                                 break;
                             case 13:
                                 row[2 + i] = D13_TargetAddress[0] .ToString()+ D13_TargetAddress[1] + D13_TargetAddress[2];
@@ -742,7 +742,7 @@ namespace ClassLibrary
                                 row[i + 1] = "Size: " + D20_TargerSizeOrientation[0] + " Orientation: " + D20_TargerSizeOrientation[1] + " Width: " + D20_TargerSizeOrientation[2];
                                 break;
                             case 21:////////////////////////////////////Expand
-                                row[i + 1] = "Click to Expand";
+                                row[i + 1] = "Click to expand";
                                 break;
                             case 22:
                                 row[1 + i] = D22_PreProgrammedMessage[0] == 0 ? "Default - " : "In Trouble - ";

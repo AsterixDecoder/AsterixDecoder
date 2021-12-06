@@ -213,6 +213,16 @@ namespace AsterixDecoder.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Fondo_oscuro {
+            get {
+                object obj = ResourceManager.GetObject("Fondo_oscuro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap loadfile {
             get {
                 object obj = ResourceManager.GetObject("loadfile", resourceCulture);

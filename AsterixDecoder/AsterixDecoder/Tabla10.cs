@@ -112,7 +112,7 @@ namespace AsterixDecoder
         {
             if (dataGridView1.CurrentCell.ColumnIndex == 5|| dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
             {
-                dataGridView1.CurrentCell.Value = "Click to Expand";
+                dataGridView1.CurrentCell.Value = "Click to expand";
 
             }
         }
@@ -155,9 +155,9 @@ namespace AsterixDecoder
         {
             if (dataGridView1.CurrentCell.ColumnIndex == 5 && dataGridView1.CurrentCell.Value != "No Data")
             {
-                if (dataGridView1.CurrentCell.Value != "Click to Expand")
+                if (dataGridView1.CurrentCell.Value != "Click to expand")
                 {
-                    dataGridView1.CurrentCell.Value = "Click to Expand";
+                    dataGridView1.CurrentCell.Value = "Click to expand";
                 }
                 else
                     dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTargetDescriptor();
@@ -165,9 +165,9 @@ namespace AsterixDecoder
             }
             if (dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
             {
-                if (dataGridView1.CurrentCell.Value != "Click to Expand")
+                if (dataGridView1.CurrentCell.Value != "Click to expand")
                 {
-                    dataGridView1.CurrentCell.Value = "Click to Expand";
+                    dataGridView1.CurrentCell.Value = "Click to expand";
                 }
                 else
                     dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTrackStatus();

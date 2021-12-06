@@ -134,6 +134,10 @@
     <Content Include="plane.jpg" />
     <Content Include="plane2.jpg" />
     <Content Include="planeu.jpg" />
+    <None Include="Resources\Fondo oscuro.png" />
+    <None Include="Resources\Fondo Letras blancas.png" />
+    <None Include="Resources\Letras blancas.png" />
+    <None Include="Resources\Fondo.bmp" />
     <None Include="Resources\ok.png" />
     <None Include="Resources\table1.png" />
     <None Include="Resources\table.png" />

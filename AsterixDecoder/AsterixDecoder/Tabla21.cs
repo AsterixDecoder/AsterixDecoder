@@ -553,7 +553,7 @@ namespace AsterixDecoder
         {
             if (dataGridView1.CurrentCell.ColumnIndex == 6 || dataGridView1.CurrentCell.ColumnIndex == 21 || dataGridView1.CurrentCell.ColumnIndex == 27 || dataGridView1.CurrentCell.ColumnIndex == 38 || dataGridView1.CurrentCell.ColumnIndex == 44 && dataGridView1.CurrentCell.Value != "N/A")
             {
-                dataGridView1.CurrentCell.Value = "Click to Expand";
+                dataGridView1.CurrentCell.Value = "Click to expand";
 
             }
         }
