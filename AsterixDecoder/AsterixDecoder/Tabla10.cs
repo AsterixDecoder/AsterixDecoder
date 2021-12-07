@@ -93,6 +93,7 @@ namespace AsterixDecoder
             dataGridView1.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.Visible = true;
             watch.Stop();
             long milisec = watch.ElapsedMilliseconds / 1000;
@@ -173,6 +174,7 @@ namespace AsterixDecoder
             dataGridView2.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView2.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView2.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView2.RowHeadersVisible = false;
             dataGridView1.Visible = false;
             dataGridView2.Visible = true;
         }
@@ -184,34 +186,21 @@ namespace AsterixDecoder
             int column = e.ColumnIndex;
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
 
             if (column== 5 && value != "No Data")
             {
-                //if (dataGridView1.CurrentCell.Value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = lista[row].GetTargetDescriptor();
                 message= lista[row].GetTargetDescriptor();
                 caption = "Target Descriptor";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 13 && value != "No Data")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = lista[row].GetTrackStatus();
                 message = lista[row].GetTrackStatus();
                 caption = "Track Status";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
-            result = MessageBox.Show(message, caption, buttons);
         }
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -221,35 +210,21 @@ namespace AsterixDecoder
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
             int index = (int)dataGridView1.Rows[row].Cells[0].Value;
-
-
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+  
             if (column == 5 && value != "No Data")
             {
-                //if (dataGridView1.CurrentCell.Value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = lista[row].GetTargetDescriptor();
                 message = lista[index].GetTargetDescriptor();
                 caption = "Target Descriptor";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 13 && value != "No Data")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = lista[row].GetTrackStatus();
                 message = lista[index].GetTrackStatus();
                 caption = "Track Status";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
-            result = MessageBox.Show(message, caption, buttons);
         }
 
         private void ViewAll_Click(object sender, EventArgs e)

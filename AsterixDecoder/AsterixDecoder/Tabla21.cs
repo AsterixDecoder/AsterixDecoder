@@ -247,6 +247,7 @@ namespace AsterixDecoder
             dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.RowHeadersVisible = false;
             progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
@@ -474,94 +475,47 @@ namespace AsterixDecoder
             int column = e.ColumnIndex;
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+            
 
             if (column == 6 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //{
-                    //dataGridView1.CurrentCell.Value = GetTargetReportDescriptor(row);
                 message = GetTargetReportDescriptor(row);
                 caption = "Target Report Descriptor";
-                //}
-                
-              
-                
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 21 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetQualityIndicators(row);
                 message =GetQualityIndicators(row);
                 caption = "Quality Indicators";
+                result = MessageBox.Show(message, caption, buttons);
 
             }
             if (column == 27 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetTargetStatus(row);
                 message= GetTargetStatus(row);
                 caption = "Target Status";
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 38 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetAircraftOperationalStatus(row);
                 message = GetAircraftOperationalStatus(row);
                 caption = "Aircraft Operational Status";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 39 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetSurfaceCapabilities(row);
                 message = GetSurfaceCapabilities(row);
                 caption = "Surface Capabilities";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 44 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetDataAges(row);
                 message = GetDataAges(row);
                 caption = "Data Ages";
+                result = MessageBox.Show(message, caption, buttons);
             }
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
-            result = MessageBox.Show(message, caption, buttons);
-            
-
-            //dataGridView1.AutoResizeRow(row, DataGridViewAutoSizeRowMode.AllCells);
-            //dataGridView1.Rows[row].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            //dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            //dataGridView1.Columns[column].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dataGridView1.Columns[column].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            //dataGridView1.AutoResizeColumn(column);
-            
-
         }
         //private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         //{
@@ -641,18 +595,19 @@ namespace AsterixDecoder
             dataTable2.Columns.Add("Data Ages");
             while (i < dataGridView1.RowCount - 1)
             {
-                id= lista[i].GetTargetIdentification();
+                CAT21 cat21 = lista[i];
+                id = lista[i].GetTargetIdentification();
                 int len= id.Length-1;
-                while (id[len].Equals(' '))
+                while (id[len].Equals(' ') && len>0)
                 {
                     id = id.Remove(len);
                     len = len - 1;
                 }
                 //id = id.Remove(7);
                 //id = dataGridView1.Rows[i].Cells[12].Value.ToString();
-                if (id==textBox1.Text || textBox1.Text == "")
+                if (id==textBox1.Text || textBox1.Text == "" )
                 {
-                    CAT21 cat21 = lista[i];
+                    cat21 = lista[i];
                     string category = Convert.ToString(cat21.GetCategory());
                     string sac = Convert.ToString(cat21.GetSystemAreaCode());
                     string sic = Convert.ToString(cat21.GetSystemIdentificationCode());
@@ -775,6 +730,7 @@ namespace AsterixDecoder
             dataGridView2.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView2.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView2.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView2.RowHeadersVisible = false;
             dataGridView1.Visible = false;
             dataGridView2.Visible = true;
             dataGridView2.ReadOnly = true;
@@ -788,82 +744,51 @@ namespace AsterixDecoder
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
             int index = Convert.ToInt32(dataGridView1.Rows[row].Cells[0].Value.ToString());
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
 
             if (column == 6 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //{
-                //dataGridView1.CurrentCell.Value = GetTargetReportDescriptor(row);
                 message = GetTargetReportDescriptor(index);
                 caption = "Target Report Descriptor";
-                //}
-
-
-
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 21 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetQualityIndicators(row);
                 message = GetQualityIndicators(index);
                 caption = "Quality Indicators";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 27 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetTargetStatus(row);
                 message = GetTargetStatus(index);
                 caption = "Target Status";
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 38 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetAircraftOperationalStatus(row);
                 message = GetAircraftOperationalStatus(index);
                 caption = "Aircraft Operational Status";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 39 && value != "N/A")
             {
-                //if (value != "Click to expand")
-                //{
-                //    dataGridView1.CurrentCell.Value = "Click to expand";
-                //}
-                //else
-                //    dataGridView1.CurrentCell.Value = GetSurfaceCapabilities(row);
                 message = GetSurfaceCapabilities(index);
                 caption = "Surface Capabilities";
-
+                result = MessageBox.Show(message, caption, buttons);
             }
             if (column == 44 && value != "N/A")
             {
                 message = GetDataAges(index);
                 caption = "Data Ages";
+                result = MessageBox.Show(message, caption, buttons);
             }
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
-            result = MessageBox.Show(message, caption, buttons);
-
-
         }
 
-
+        private void ViewAll_Click(object sender, EventArgs e)
+        {
+            dataGridView2.Visible = false;
+            dataGridView1.Visible = true;
+        }
     }
 }

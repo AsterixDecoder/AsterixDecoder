@@ -45,6 +45,7 @@ namespace AsterixDecoder
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.Loading = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.ViewAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -192,12 +193,25 @@ namespace AsterixDecoder
             this.dataGridView2.TabIndex = 7;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             // 
+            // ViewAll
+            // 
+            this.ViewAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ViewAll.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ViewAll.Location = new System.Drawing.Point(415, 41);
+            this.ViewAll.Name = "ViewAll";
+            this.ViewAll.Size = new System.Drawing.Size(146, 40);
+            this.ViewAll.TabIndex = 9;
+            this.ViewAll.Text = "View All";
+            this.ViewAll.UseVisualStyleBackColor = true;
+            this.ViewAll.Click += new System.EventHandler(this.ViewAll_Click);
+            // 
             // Tabla21
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1494, 937);
+            this.Controls.Add(this.ViewAll);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.Loading);
@@ -228,6 +242,7 @@ namespace AsterixDecoder
         private System.Windows.Forms.Label Loading;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button ViewAll;
     }
 }
 
