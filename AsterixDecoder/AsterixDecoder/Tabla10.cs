@@ -32,18 +32,14 @@ namespace AsterixDecoder
 
         private void Tabla10_Load(object sender, EventArgs e)
         {
+            dataGridView2.Visible = false;
             LoadData GridForm = new LoadData();
             int length = lista.Count;
-            progressBar1CAT10.Visible = true;
             Stopwatch watch = new Stopwatch();
             //Adaptamos columnas a texto
             progressBar1CAT10.Visible = true;
-            progressBar1CAT10.Minimum = 0;
-            // Sets the progress bar's maximum value to a number representing  
-            // all operations complete -- in this case, all five files read.  
             progressBar1CAT10.Maximum = length;
-            // Sets the Step property to amount to increase with each iteration.  
-            // In this case, it will increase by one with every file read.  
+            progressBar1CAT10.Minimum = 0;
             progressBar1CAT10.Step = 1;
 
             dataTable.Columns.Add("Number");
@@ -75,7 +71,6 @@ namespace AsterixDecoder
             dataTable.Columns.Add("Amplitude of Primary Plor");
             dataTable.Columns.Add("Calculated Acceleration");
 
-            //dataGridView1.Visible = true;
             textBox1.Visible = false;
 
 
@@ -123,27 +118,63 @@ namespace AsterixDecoder
 
         private void button1_Click(object sender, EventArgs e)
         {
+            DataTable dataTable2 = new DataTable();
+            string id;
+            int i = 0;
+            dataTable2.Columns.Add("Number");
+            dataTable2.Columns.Add("Category");
+            dataTable2.Columns.Add("SAC");
+            dataTable2.Columns.Add("SIC");
+            dataTable2.Columns.Add("Message Type");
+            dataTable2.Columns.Add("Target Report Descriptor");
+            dataTable2.Columns.Add("Time of Day");
+            dataTable2.Columns.Add("Position in WGS-84 Coordinates");
+            dataTable2.Columns.Add("Position in Polar Coordinates");
+            dataTable2.Columns.Add("Position in Cartesian Coordinates");
+            dataTable2.Columns.Add("Calculated Track Velocity in Polar Coordinates");
+            dataTable2.Columns.Add("Calculated Track Velocity in Cartesian Coordinates");
+            dataTable2.Columns.Add("Track Number");
+            dataTable2.Columns.Add("Track Status");
+            dataTable2.Columns.Add("Mode 3/A Code");
+            dataTable2.Columns.Add("Target Address");
+            dataTable2.Columns.Add("Target Identification");
+            dataTable2.Columns.Add("Mode S MB Data");
+            dataTable2.Columns.Add("Vehicle Fleet Identification");
+            dataTable2.Columns.Add("Flight Level");
+            dataTable2.Columns.Add("Measured Height");
+            dataTable2.Columns.Add("Target Size and Orientation");
+            dataTable2.Columns.Add("System Status");
+            dataTable2.Columns.Add("Preprogrammed Message");
+            dataTable2.Columns.Add("Standard Deviation of Position");
+            dataTable2.Columns.Add("Presence");
+            dataTable2.Columns.Add("Amplitude of Primary Plor");
+            dataTable2.Columns.Add("Calculated Acceleration");
 
-            string s;
-
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            while (i < dataGridView1.RowCount - 1)
             {
-                try
+                string[] values = lista[i].GetValues(28);
+                id = values[12];
+                //id = dataGridView1.Rows[i].Cells[12].Value.ToString();
+               
+                if (id.Equals(textBox1.Text) || textBox1.Text == "")
                 {
-                    s = row.Cells[12].Value.ToString();
-                    if  (s.Equals( textBox1.Text) || textBox1.Text == "")
-                    {
-                        row.Visible = true;
+                    values[0] = i.ToString();
+                    values[1] = "10";
 
-                    }
-                    else { row.Visible = false; }
-                        
+                    dataTable2.Rows.Add(values);
                 }
-                catch (Exception)
-                {
+                i++;
+            }
 
-                }
-            }   
+
+            DataView dataView2 = new DataView(dataTable2);
+            dataGridView2.DataSource = dataView2;
+            dataGridView2.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView2.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView2.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView2.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Visible = false;
+            dataGridView2.Visible = true;
         }
         
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -182,7 +213,50 @@ namespace AsterixDecoder
             DialogResult result;
             result = MessageBox.Show(message, caption, buttons);
         }
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string message = "";
+            string caption = "";
+            int column = e.ColumnIndex;
+            int row = e.RowIndex;
+            string value = Convert.ToString(dataGridView1.CurrentCell.Value);
+            int index = (int)dataGridView1.Rows[row].Cells[0].Value;
 
+
+            if (column == 5 && value != "No Data")
+            {
+                //if (dataGridView1.CurrentCell.Value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = lista[row].GetTargetDescriptor();
+                message = lista[index].GetTargetDescriptor();
+                caption = "Target Descriptor";
+
+            }
+            if (column == 13 && value != "No Data")
+            {
+                //if (value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = lista[row].GetTrackStatus();
+                message = lista[index].GetTrackStatus();
+                caption = "Track Status";
+
+            }
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+            result = MessageBox.Show(message, caption, buttons);
+        }
+
+        private void ViewAll_Click(object sender, EventArgs e)
+        {
+            dataGridView2.Visible = false;
+            dataGridView1.Visible = true;
+        }
     }
 }
 
