@@ -20,6 +20,7 @@ namespace AsterixDecoder
         List<Flight> listaflights = new List<Flight>();
         Coordinates coordinates;
         List<CAT10> lista;
+        DataTable dataTable = new DataTable();
         string filename;
         public Tabla10(List<CAT10> lista)
         {
@@ -45,40 +46,36 @@ namespace AsterixDecoder
             // In this case, it will increase by one with every file read.  
             progressBar1CAT10.Step = 1;
 
-            dataGridView1.ColumnCount = 28;
-            dataGridView1.Columns[0].Name = "Number";
-            dataGridView1.Columns[1].Name = "Category";
-            dataGridView1.Columns[2].Name = "SAC";
-            dataGridView1.Columns[3].Name = "SIC";
-            dataGridView1.Columns[4].Name = "Message Type";
-            dataGridView1.Columns[5].Name = "Target Report Descriptor";
-            dataGridView1.Columns[6].Name = "Time of Day";
-            dataGridView1.Columns[7].Name = "Position in WGS-84 Coordinates";
-            dataGridView1.Columns[8].Name = "Position in Polar Coordinates";
-            dataGridView1.Columns[9].Name = "Position in Cartesian Coordinates";
-            dataGridView1.Columns[10].Name = "Calculated Track Velocity in Polar Coordinates";
-            dataGridView1.Columns[11].Name = "Calculated Track Velocity in Cartesian Coordinates";
-            dataGridView1.Columns[12].Name = "Track Number";
-            dataGridView1.Columns[13].Name = "Track Status";
-            dataGridView1.Columns[14].Name = "Mode 3/A Code";
-            dataGridView1.Columns[15].Name = "Target Address";
-            dataGridView1.Columns[16].Name = "Target Identification";
-            dataGridView1.Columns[17].Name = "Mode S MB Data";
-            dataGridView1.Columns[18].Name = "Vehible Fleet Identification";
-            dataGridView1.Columns[19].Name = "Flight Level";
-            dataGridView1.Columns[20].Name = "Measured Height";
-            dataGridView1.Columns[21].Name = "Target Size and Orientation";
-            dataGridView1.Columns[22].Name = "System Status";
-            dataGridView1.Columns[23].Name = "Preprogrammed Message";
-            dataGridView1.Columns[24].Name = "Standard Deviation of Position";
-            dataGridView1.Columns[25].Name = "Presence";
-            dataGridView1.Columns[26].Name = "Amplitude of Primary Plor";
-            dataGridView1.Columns[27].Name = "Calculated Acceleration";
+            dataTable.Columns.Add("Number");
+            dataTable.Columns.Add("Category");
+            dataTable.Columns.Add("SAC");
+            dataTable.Columns.Add("SIC");
+            dataTable.Columns.Add("Message Type");
+            dataTable.Columns.Add("Target Report Descriptor");
+            dataTable.Columns.Add("Time of Day");
+            dataTable.Columns.Add("Position in WGS-84 Coordinates");
+            dataTable.Columns.Add("Position in Polar Coordinates");
+            dataTable.Columns.Add("Position in Cartesian Coordinates");
+            dataTable.Columns.Add("Calculated Track Velocity in Polar Coordinates");
+            dataTable.Columns.Add("Calculated Track Velocity in Cartesian Coordinates");
+            dataTable.Columns.Add("Track Number");
+            dataTable.Columns.Add("Track Status");
+            dataTable.Columns.Add("Mode 3/A Code");
+            dataTable.Columns.Add("Target Address");
+            dataTable.Columns.Add("Target Identification");
+            dataTable.Columns.Add("Mode S MB Data");
+            dataTable.Columns.Add("Vehicle Fleet Identification");
+            dataTable.Columns.Add("Flight Level");
+            dataTable.Columns.Add("Measured Height");
+            dataTable.Columns.Add("Target Size and Orientation");
+            dataTable.Columns.Add("System Status");
+            dataTable.Columns.Add("Preprogrammed Message");
+            dataTable.Columns.Add("Standard Deviation of Position");
+            dataTable.Columns.Add("Presence");
+            dataTable.Columns.Add("Amplitude of Primary Plor");
+            dataTable.Columns.Add("Calculated Acceleration");
 
-            dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[13].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.ReadOnly = true;
-            dataGridView1.Visible = true;
+            //dataGridView1.Visible = true;
             textBox1.Visible = false;
 
 
@@ -90,15 +87,21 @@ namespace AsterixDecoder
                 row[0] = i.ToString();
                 row[1] = "10";
 
-                dataGridView1.Rows.Add(row);
+                dataTable.Rows.Add(row);
                 progressBar1CAT10.PerformStep();
             }
+            DataView dataView = new DataView(dataTable);
+            dataGridView1.DataSource = dataView;
+            progressBar1CAT10.Visible = false;
+            textBox1.Visible = true;
+            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Visible = true;
             watch.Stop();
             long milisec = watch.ElapsedMilliseconds / 1000;
             string tiempo = Convert.ToString(milisec);
-            progressBar1CAT10.Visible = false;
-            dataGridView1.Visible = true;
-            textBox1.Visible = true;
             Console.WriteLine("Codigo tarda " + tiempo + " segundos");
 
 
@@ -109,14 +112,14 @@ namespace AsterixDecoder
         //}
 
 
-        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.CurrentCell.ColumnIndex == 5|| dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
-            {
-                dataGridView1.CurrentCell.Value = "Click to expand";
+        //private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (dataGridView1.CurrentCell.ColumnIndex == 5|| dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
+        //    {
+        //        dataGridView1.CurrentCell.Value = "Click to expand";
 
-            }
-        }
+        //    }
+        //}
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -176,10 +179,6 @@ namespace AsterixDecoder
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
 

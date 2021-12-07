@@ -53,74 +53,41 @@ namespace AsterixDecoder
             dataTable.Columns.Add("Time of Report Transmission");
             dataTable.Columns.Add("Position in WGS-84 Coordinates");
             dataTable.Columns.Add("Position in WGS-84 Coordinates High Resolution");
-            dataTable.Columns.Add("1");
-            dataTable.Columns.Add("2");
-            dataTable.Columns.Add("3");
-            dataTable.Columns.Add("4");
-            dataTable.Columns.Add("5");
-            dataTable.Columns.Add("6");
-            dataTable.Columns.Add("7");
-            dataTable.Columns.Add("8");
-            dataTable.Columns.Add("9");
-            dataTable.Columns.Add("10");
-            dataTable.Columns.Add("11");
-            dataTable.Columns.Add("12");
-            dataTable.Columns.Add("13");
-            dataTable.Columns.Add("14");
-            dataTable.Columns.Add("15");
-            dataTable.Columns.Add("16");
-            dataTable.Columns.Add("17");
-            dataTable.Columns.Add("18");
-            dataTable.Columns.Add("19");
-            dataTable.Columns.Add("20");
-            dataTable.Columns.Add("21");
-            dataTable.Columns.Add("22");
-            dataTable.Columns.Add("23");
-            dataTable.Columns.Add("24");
-            dataTable.Columns.Add("25");
-            dataTable.Columns.Add("26");
-            dataTable.Columns.Add("27");
-            dataTable.Columns.Add("28");
-            dataTable.Columns.Add("29");
-            dataTable.Columns.Add("30");
-            dataTable.Columns.Add("31");
-            dataTable.Columns.Add("32");
-            dataTable.Columns.Add("33");
-            dataTable.Columns.Add("34");
-            //dataGridView1.Columns[11].Name = "Air Speed";
-            //dataGridView1.Columns[12].Name = "True Airspeed";
-            //dataGridView1.Columns[13].Name = "Target Adress";
-            //dataGridView1.Columns[14].Name = "Time of Applicability Position";
-            //dataGridView1.Columns[15].Name = "Time of Applicability Velocity";
-            //dataGridView1.Columns[16].Name = "Time of Message Reception Position";
-            //dataGridView1.Columns[17].Name = "Time of Message Reception Position High Res";//Lo quitaremos porque no sale en ningun vuelo y ya esta lo mismo pero en baja resolucion
-            //dataGridView1.Columns[18].Name = "Time of Message Reception Velocity";
-            //dataGridView1.Columns[19].Name = "Time of Message Reception Velocity High Res";//Lo quitaremos porque no sale en ningun vuelo y ya esta lo mismo pero en baja resolucion
-            //dataGridView1.Columns[20].Name = "Geometric Height";
-            //dataGridView1.Columns[21].Name = "Quality Indicators";
-            //dataGridView1.Columns[22].Name = "MOPS Version";
-            //dataGridView1.Columns[23].Name = "Mode 3A Code";
-            //dataGridView1.Columns[24].Name = "Roll Angle";
-            //dataGridView1.Columns[25].Name = "Flight Level";
-            //dataGridView1.Columns[26].Name = "Magentic Heading";
-            //dataGridView1.Columns[27].Name = "Target Status";
-            //dataGridView1.Columns[28].Name = "Barometric Vertical Rate";
-            //dataGridView1.Columns[29].Name = "Geometric Vertical Rate";
-            //dataGridView1.Columns[30].Name = "Airborne Ground Vector";
-            //dataGridView1.Columns[31].Name = "Track Angle Rate";
-            //dataGridView1.Columns[32].Name = "Emitter Category";
-            //dataGridView1.Columns[33].Name = "Met Information";
-            //dataGridView1.Columns[34].Name = "Selected Altitude";
-            //dataGridView1.Columns[35].Name = "Final State Selected Altitude";
-            //dataGridView1.Columns[36].Name = "Trajectory Intent";
-            //dataGridView1.Columns[37].Name = "Service Management";
-            //dataGridView1.Columns[38].Name = "Aircraft Operational Status";
-            //dataGridView1.Columns[39].Name = "Surface Capabilities and Characteristics";
-            //dataGridView1.Columns[40].Name = "Message Amplitude";
-            //dataGridView1.Columns[41].Name = "Mode S MB Data";
-            //dataGridView1.Columns[42].Name = "ACAS Resolution";
-            //dataGridView1.Columns[43].Name = "Receiver ID";
-            //dataGridView1.Columns[44].Name = "Data Ages";
+            dataTable.Columns.Add("Air Speed");
+            dataTable.Columns.Add("True Airspeed");
+            dataTable.Columns.Add("Target Adress");
+            dataTable.Columns.Add("Time of Applicability Position");
+            dataTable.Columns.Add("Time of Applicability Velocity");
+            dataTable.Columns.Add("Time of Message Reception Position");
+            dataTable.Columns.Add("Time of Message Reception Position High Res");
+            dataTable.Columns.Add("Time of Message Reception Velocity");
+            dataTable.Columns.Add("Time of Message Reception Velocity High Res");
+            dataTable.Columns.Add("Geometric Height");
+            dataTable.Columns.Add("Quality Indicators");
+            dataTable.Columns.Add("MOPS Version");
+            dataTable.Columns.Add("Mode 3A Code");
+            dataTable.Columns.Add("Roll Angle");
+            dataTable.Columns.Add("Flight Level");
+            dataTable.Columns.Add("Magentic Heading");
+            dataTable.Columns.Add("Target Status");
+            dataTable.Columns.Add("Barometric Vertical Rate");
+            dataTable.Columns.Add("Geometric Vertical Rate");
+            dataTable.Columns.Add("Airborne Ground Vector");
+            dataTable.Columns.Add("Track Angle Rate");
+            dataTable.Columns.Add("Emitter Category");
+            dataTable.Columns.Add("Met Information");
+            dataTable.Columns.Add("Selected Altitude");
+            dataTable.Columns.Add("Final State Selected Altitude");
+            dataTable.Columns.Add("Trajectory Intent");
+            dataTable.Columns.Add("Service Management");
+            dataTable.Columns.Add("Aircraft Operational Status");
+            dataTable.Columns.Add("Surface Capabilities and Characteristics");
+            dataTable.Columns.Add("Message Amplitude");
+            dataTable.Columns.Add("Mode S MB Data");
+            dataTable.Columns.Add("ACAS Resolution");
+            dataTable.Columns.Add("Receiver ID");
+            dataTable.Columns.Add("Data Ages");
+
 
             //Adaptamos columnas a texto
             progressBar1.Minimum = 0;
@@ -141,9 +108,9 @@ namespace AsterixDecoder
             //dataGridView1.Columns[27].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             //dataGridView1.Columns[38].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             //dataGridView1.Columns[44].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.AutoResizeColumns();
+            
             //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            //dataGridView1.ReadOnly = true;
+            
             Stopwatch watch = new Stopwatch();
             watch.Start();
             for (int i = 0; i < length; i++)
@@ -275,6 +242,10 @@ namespace AsterixDecoder
             }
             DataView dataView = new DataView(dataTable);
             dataGridView1.DataSource = dataView;
+            dataGridView1.ReadOnly = true;
+            //dataGridView1.Columns[10].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells; //Celdas que se ven mal, pero si lo ponemos tarda más
+            //dataGridView1.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //dataGridView1.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
@@ -497,88 +468,97 @@ namespace AsterixDecoder
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string message = "Prueba";
-        int column = e.ColumnIndex;
+            string message = "";
+            string caption = "";
+            int column = e.ColumnIndex;
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
 
             if (column == 6 && value != "N/A")
             {
-                if (value != "Click to expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
-                else
-                {
-                    dataGridView1.CurrentCell.Value = GetTargetReportDescriptor(row);
-                    message = GetTargetReportDescriptor(row);
-                }
+                //if (value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //{
+                    //dataGridView1.CurrentCell.Value = GetTargetReportDescriptor(row);
+                message = GetTargetReportDescriptor(row);
+                caption = "Target Report Descriptor";
+                //}
                 
               
                 
             }
             if (column == 21 && value != "N/A")
             {
-                if (value != "Click to expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
-                else
-                    dataGridView1.CurrentCell.Value = GetQualityIndicators(row);
-                
+                //if (value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = GetQualityIndicators(row);
+                message =GetQualityIndicators(row);
+                caption = "Quality Indicators";
+
             }
             if (column == 27 && value != "N/A")
             {
-                if (value != "Click to expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
-                else
-                    dataGridView1.CurrentCell.Value = GetTargetStatus(row);
-                
+                //if (value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = GetTargetStatus(row);
+                message= GetTargetStatus(row);
+                caption = "Target Status";
             }
             if (column == 38 && value != "N/A")
             {
-                if (value != "Click to expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
-                else
-                    dataGridView1.CurrentCell.Value = GetAircraftOperationalStatus(row);
-                
+                //if (value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = GetAircraftOperationalStatus(row);
+                message = GetAircraftOperationalStatus(row);
+                caption = "Aircraft Operational Status";
+
             }
             if (column == 39 && value != "N/A")
             {
-                if (value != "Click to expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
-                else
-                    dataGridView1.CurrentCell.Value = GetSurfaceCapabilities(row);
+                //if (value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = GetSurfaceCapabilities(row);
+                message = GetSurfaceCapabilities(row);
+                caption = "Surface Capabilities";
 
             }
             if (column == 44 && value != "N/A")
             {
-                if (value != "Click to expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
-                else
-                    dataGridView1.CurrentCell.Value = GetDataAges(row);
-                
+                //if (value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = GetDataAges(row);
+                message = GetDataAges(row);
+                caption = "Data Ages";
             }
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
-            string caption = "Error Detected in Input";
             result = MessageBox.Show(message, caption, buttons);
             
 
-            dataGridView1.AutoResizeRow(row, DataGridViewAutoSizeRowMode.AllCells);
+            //dataGridView1.AutoResizeRow(row, DataGridViewAutoSizeRowMode.AllCells);
             //dataGridView1.Rows[row].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             //dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             //dataGridView1.Columns[column].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns[column].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView1.AutoResizeColumn(column);
+            //dataGridView1.Columns[column].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            //dataGridView1.AutoResizeColumn(column);
             
 
         }
@@ -596,14 +576,14 @@ namespace AsterixDecoder
 
         //    }
         //}
-        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.CurrentCell.ColumnIndex == 6 || dataGridView1.CurrentCell.ColumnIndex == 21 || dataGridView1.CurrentCell.ColumnIndex == 27 || dataGridView1.CurrentCell.ColumnIndex == 38 || dataGridView1.CurrentCell.ColumnIndex == 44 && dataGridView1.CurrentCell.Value != "N/A")
-            {
-                dataGridView1.CurrentCell.Value = "Click to expand";
+        //private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (dataGridView1.CurrentCell.ColumnIndex == 6 || dataGridView1.CurrentCell.ColumnIndex == 21 || dataGridView1.CurrentCell.ColumnIndex == 27 || dataGridView1.CurrentCell.ColumnIndex == 38 || dataGridView1.CurrentCell.ColumnIndex == 44 && dataGridView1.CurrentCell.Value != "N/A")
+        //    {
+        //        dataGridView1.CurrentCell.Value = "Click to expand";
 
-            }
-        }
+        //    }
+        //}
 
 
         private void Search_Click(object sender, EventArgs e)
