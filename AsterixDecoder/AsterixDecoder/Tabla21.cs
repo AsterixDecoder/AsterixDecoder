@@ -41,7 +41,7 @@ namespace AsterixDecoder
             //asterixFile = new AsterixFile(this.filename);
             //lista = asterixFile.getListCAT21();
             int length = lista.Count;
-            //dataGridView1.ColumnCount = 45;
+
             dataTable.Columns.Add("Number");
             dataTable.Columns.Add("Category");
             dataTable.Columns.Add("SAC");
@@ -89,27 +89,11 @@ namespace AsterixDecoder
             dataTable.Columns.Add("Data Ages");
 
 
-            //Adaptamos columnas a texto
-            progressBar1.Minimum = 0;
-            // Sets the progress bar's maximum value to a number representing  
-            // all operations complete -- in this case, all five files read.  
+            //ProgressBar DataGridView
+            progressBar1.Minimum = 0; 
             progressBar1.Maximum = length;
-            // Sets the Step property to amount to increase with each iteration.  
-            // In this case, it will increase by one with every file read.  
             progressBar1.Step = 1;
 
-            //dataGridView1.Columns[9].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells;
-            //dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dataGridView1.Columns[22].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dataGridView1.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dataGridView1.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            //dataGridView1.Columns[21].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            //dataGridView1.Columns[27].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            //dataGridView1.Columns[38].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            //dataGridView1.Columns[44].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            
-            //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -231,13 +215,6 @@ namespace AsterixDecoder
                 string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber, targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition, tappvelocity, tmessageposition, tmessagepositionhigh, tmessagevel, tmessagevelhigh, geometricHeight, quality, mopsversion, m3acode, rollangle, flightlevel, magneticheading, targetstatus, barometricrate, geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent, servicemanagement, opstatus, surface, messageAmplitude, modeSMBData, acasResolution, receiverID, dataAges };
                 dataTable.Rows.Add(row);
                 progressBar1.PerformStep();
-
-
-                ////Añado class flight para googleearth
-                //flight = new Flight(receiverID);//no se si i es el id cambialo porfa
-                //coordinates = new Coordinates(latitude, longitude);
-                //flight.SetcoordinatesCAT21(coordinates);
-                //listaflights.Add(flight);
 
             }
             DataView dataView = new DataView(dataTable);
@@ -517,28 +494,6 @@ namespace AsterixDecoder
                 result = MessageBox.Show(message, caption, buttons);
             }
         }
-        //private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    int column = e.ColumnIndex;
-        //    string value = Convert.ToString(dataGridView1.CurrentCell.Value);
-        //    if (column == 6 || column == 21 || column == 27 || column == 38 || column == 44)
-        //    {
-        //        if (value != "N/A")
-        //        {
-        //            dataGridView1.CurrentCell.Value = "Click to expand";
-        //        }
-
-
-        //    }
-        //}
-        //private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    if (dataGridView1.CurrentCell.ColumnIndex == 6 || dataGridView1.CurrentCell.ColumnIndex == 21 || dataGridView1.CurrentCell.ColumnIndex == 27 || dataGridView1.CurrentCell.ColumnIndex == 38 || dataGridView1.CurrentCell.ColumnIndex == 44 && dataGridView1.CurrentCell.Value != "N/A")
-        //    {
-        //        dataGridView1.CurrentCell.Value = "Click to expand";
-
-        //    }
-        //}
 
 
         private void Search_Click(object sender, EventArgs e)
@@ -547,7 +502,7 @@ namespace AsterixDecoder
             string id;
             int i = 0;
             int length = lista.Count;
-            //dataGridView1.ColumnCount = 45;
+            
             dataTable2.Columns.Add("Number");
             dataTable2.Columns.Add("Category");
             dataTable2.Columns.Add("SAC");
