@@ -131,4 +131,7 @@ C:\Users\ulises\Documents\GitHub\AsterixDecoderGE\AsterixDecoder\AsterixDecoder\
 C:\Users\ulises\Documents\GitHub\AsterixDecoderGE\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.csproj.CopyComplete
 C:\Users\ulises\Documents\GitHub\AsterixDecoderGE\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.exe
 C:\Users\ulises\Documents\GitHub\AsterixDecoderGE\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
