@@ -99,23 +99,7 @@ namespace AsterixDecoder
             long milisec = watch.ElapsedMilliseconds / 1000;
             string tiempo = Convert.ToString(milisec);
             Console.WriteLine("Codigo tarda " + tiempo + " segundos");
-
-
         }
-        //private void Tabla10_SizeChanged(object sender, EventArgs e)
-        //{
-        //    //dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-        //}
-
-
-        //private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    if (dataGridView1.CurrentCell.ColumnIndex == 5|| dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
-        //    {
-        //        dataGridView1.CurrentCell.Value = "Click to expand";
-
-        //    }
-        //}
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -155,7 +139,6 @@ namespace AsterixDecoder
             {
                 string[] values = lista[i].GetValues(28);
                 id = values[12];
-                //id = dataGridView1.Rows[i].Cells[12].Value.ToString();
                
                 if (id.Equals(textBox1.Text) || textBox1.Text == "")
                 {
