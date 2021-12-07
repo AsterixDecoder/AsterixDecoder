@@ -58,7 +58,11 @@ namespace AsterixDecoder
             this.pratbtn = new System.Windows.Forms.Button();
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+=======
+            this.button1 = new System.Windows.Forms.Button();
+>>>>>>> Stashed changes
 =======
             this.button1 = new System.Windows.Forms.Button();
 >>>>>>> Stashed changes
@@ -652,6 +656,7 @@ namespace AsterixDecoder
             // 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             // dataGridView1
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(95)))));
@@ -698,6 +703,8 @@ namespace AsterixDecoder
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(450, 770);
@@ -708,6 +715,9 @@ namespace AsterixDecoder
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

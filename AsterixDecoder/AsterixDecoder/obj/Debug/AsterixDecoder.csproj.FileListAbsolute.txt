@@ -132,6 +132,9 @@ C:\Users\ulises\Documents\GitHub\AsterixDecoderGE\AsterixDecoder\AsterixDecoder\
 C:\Users\ulises\Documents\GitHub\AsterixDecoderGE\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.exe
 C:\Users\ulises\Documents\GitHub\AsterixDecoderGE\AsterixDecoder\AsterixDecoder\obj\Debug\AsterixDecoder.pdb
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

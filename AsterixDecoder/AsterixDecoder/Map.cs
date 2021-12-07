@@ -43,6 +43,9 @@ namespace AsterixDecoder
         List<double> GoogleEarthPositionsLng = new List<double>();
         List<string> GoogleEarthFlights = new List<string>();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -655,6 +658,9 @@ namespace AsterixDecoder
             writer.Close();
         }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
