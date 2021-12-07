@@ -143,40 +143,44 @@ namespace AsterixDecoder
                 {
 
                 }
-
-
-            }
-            
-
-
-            
+            }   
         }
         
-
-
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.CurrentCell.ColumnIndex == 5 && dataGridView1.CurrentCell.Value != "No Data")
+            string message = "";
+            string caption = "";
+            int column = e.ColumnIndex;
+            int row = e.RowIndex;
+            string value = Convert.ToString(dataGridView1.CurrentCell.Value);
+
+            if (column== 5 && value != "No Data")
             {
-                if (dataGridView1.CurrentCell.Value != "Click to expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
-                else
-                    dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTargetDescriptor();
-                //dataGridView1.CurrentRow.Height = 200;
-            }
-            if (dataGridView1.CurrentCell.ColumnIndex == 13 && dataGridView1.CurrentCell.Value != "No Data")
-            {
-                if (dataGridView1.CurrentCell.Value != "Click to expand")
-                {
-                    dataGridView1.CurrentCell.Value = "Click to expand";
-                }
-                else
-                    dataGridView1.CurrentCell.Value = lista[dataGridView1.CurrentCell.RowIndex].GetTrackStatus();
+                //if (dataGridView1.CurrentCell.Value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = lista[row].GetTargetDescriptor();
+                message= lista[row].GetTargetDescriptor();
+                caption = "Target Descriptor";
 
             }
+            if (column == 13 && value != "No Data")
+            {
+                //if (value != "Click to expand")
+                //{
+                //    dataGridView1.CurrentCell.Value = "Click to expand";
+                //}
+                //else
+                //    dataGridView1.CurrentCell.Value = lista[row].GetTrackStatus();
+                message = lista[row].GetTrackStatus();
+                caption = "Track Status";
+
+            }
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+            result = MessageBox.Show(message, caption, buttons);
         }
 
     }

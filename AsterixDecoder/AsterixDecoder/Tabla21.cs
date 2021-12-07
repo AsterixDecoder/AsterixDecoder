@@ -243,9 +243,10 @@ namespace AsterixDecoder
             DataView dataView = new DataView(dataTable);
             dataGridView1.DataSource = dataView;
             dataGridView1.ReadOnly = true;
-            //dataGridView1.Columns[10].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells; //Celdas que se ven mal, pero si lo ponemos tarda más
-            //dataGridView1.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dataGridView1.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[9].AutoSizeMode= DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
