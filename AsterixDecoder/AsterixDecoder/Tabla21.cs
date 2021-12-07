@@ -35,8 +35,10 @@ namespace AsterixDecoder
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
             //LoadData GridForm = new LoadData();
+            dataGridView1.Visible = false;
+            dataGridView2.Visible = false;
             progressBar1.Visible = true;
             //asterixFile = new AsterixFile(this.filename);
             //lista = asterixFile.getListCAT21();
@@ -225,6 +227,7 @@ namespace AsterixDecoder
             dataGridView1.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.RowHeadersVisible = false;
+            dataGridView1.Visible = true;
             progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
@@ -502,6 +505,7 @@ namespace AsterixDecoder
             string id;
             int i = 0;
             int length = lista.Count;
+            dataGridView2.Visible = false;
             
             dataTable2.Columns.Add("Number");
             dataTable2.Columns.Add("Category");
@@ -686,8 +690,21 @@ namespace AsterixDecoder
             dataGridView2.Columns[30].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView2.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView2.RowHeadersVisible = false;
-            dataGridView1.Visible = false;
-            dataGridView2.Visible = true;
+            if (dataGridView2.Rows.Count>1)
+            {
+                dataGridView1.Visible = false;
+                dataGridView2.Visible = true;
+            }
+            else
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+                string message = "There are no flights with this ID";
+                string caption = "Error";
+                result = MessageBox.Show(message, caption, buttons);
+            }
+
+
             dataGridView2.ReadOnly = true;
 
         }

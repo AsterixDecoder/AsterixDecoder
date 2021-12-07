@@ -33,6 +33,7 @@ namespace AsterixDecoder
         private void Tabla10_Load(object sender, EventArgs e)
         {
             dataGridView2.Visible = false;
+            dataGridView1.Visible = false;
             LoadData GridForm = new LoadData();
             int length = lista.Count;
             Stopwatch watch = new Stopwatch();
@@ -158,8 +159,19 @@ namespace AsterixDecoder
             dataGridView2.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView2.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView2.RowHeadersVisible = false;
-            dataGridView1.Visible = false;
-            dataGridView2.Visible = true;
+            if (dataGridView2.Rows.Count > 1)
+            {
+                dataGridView1.Visible = false;
+                dataGridView2.Visible = true;
+            }
+            else
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+                string message = "There are no flights with this ID";
+                string caption = "Error";
+                result = MessageBox.Show(message, caption, buttons);
+            }
         }
         
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
