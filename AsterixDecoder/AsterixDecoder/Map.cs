@@ -12,6 +12,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+using System.Xml;
 
 
 namespace AsterixDecoder
@@ -32,6 +33,16 @@ namespace AsterixDecoder
         Bitmap cat10Bmp = new Bitmap(Properties.Resources.cat10, new Size(14, 14));
         Bitmap cat21Bmp = new Bitmap(Properties.Resources.cat21, new Size(14, 14));
         double[] Initialcoords = new double[2];
+<<<<<<< Updated upstream
+=======
+        int velocidad = 1;
+        bool viewOld = true;
+        int avance = 0;
+        //        Boolean seePrevius = true;
+        List<double> GoogleEarthPositionsLat = new List<double>();
+        List<double> GoogleEarthPositionsLng = new List<double>();
+        List<string> GoogleEarthFlights = new List<string>();
+>>>>>>> Stashed changes
 
 
         public Map(List<Flight> listaflights)
@@ -88,6 +99,8 @@ namespace AsterixDecoder
             ////now add the map and the marquer to the controler
 
             //gMapControl1.Overlays.Add(markerOverlay);
+
+
 
         }
 
@@ -282,5 +295,362 @@ namespace AsterixDecoder
             gMapControl1.Zoom = 5;
             gMapControl1.Position = new PointLatLng(Initialcoords[0], Initialcoords[1]);
         }
+<<<<<<< Updated upstream
+=======
+        private void sumarSegundos(int cont)
+        {
+            if (cont > 0)
+            {
+                if (Int32.Parse( segFin.Text)>=59)
+                {
+                    if (Int32.Parse(minFin.Text) >= 59)
+                    {
+                        horaFin.Text = (Int32.Parse(horaFin.Text) +1).ToString();
+                        minFin.Text = "0";
+                        segFin.Text = (Int32.Parse(segFin.Text) -60 + cont).ToString();
+                    }
+                    else
+                    {
+                        minFin.Text = (Int32.Parse(minFin.Text) + 1).ToString();
+                        segFin.Text = (Int32.Parse(segFin.Text) - 60 + cont).ToString();
+
+                    }
+                }
+                else
+                    segFin.Text = (Int32.Parse(segFin.Text) + cont).ToString();
+            }
+            else
+            {
+                if (Int32.Parse(segFin.Text)-cont <= 0)
+                {
+                    if (Int32.Parse(minFin.Text) - cont <= 0)
+                    {
+                        horaFin.Text = (Int32.Parse(horaFin.Text) -1).ToString();
+                        minFin.Text = "59";
+                        segFin.Text = (Int32.Parse(segFin.Text) + 60 + cont).ToString(); 
+                    }
+                    else
+                    {
+                        minFin.Text = (Int32.Parse(minFin.Text) -1).ToString();
+                        segFin.Text = (Int32.Parse(segFin.Text) + 60 + cont).ToString(); ;
+
+                    }
+                }
+                else
+                    segFin.Text = (Int32.Parse(segFin.Text) + cont).ToString();
+            }
+        }
+
+        private void cargarVuelos(TimeSpan tiempoInicio,TimeSpan tiempoActual)
+        {
+            Flight flight;
+            double flightLat=0;
+            double flightLng=0;
+            bool found=false;
+            for (int i = 0; i < flights.Count; i++)
+            {
+                flight = flights[i];
+
+                for (int j = 0; j < flight.GetCount(); j++)
+                {
+
+                    if (flight.GetTime(j).CompareTo(tiempoInicio) == 1 && flight.GetTime(j).CompareTo(tiempoActual) <= 0)
+                    {
+                        flightLat = flight.GetLat(j);
+                        flightLng = flight.GetLng(j);
+                        if (flight.GetCat() == 21)
+                        {
+                            marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
+                            flightsMarkers[i].Markers.Add(marker);
+                            //Para el kml
+                            GoogleEarthPositionsLat.Add(flightLat);
+                            GoogleEarthPositionsLng.Add(flightLng);
+                            GoogleEarthFlights.Add(flight.GetIdentification().ToString());
+
+
+
+                        }
+                        else
+                        {
+                            marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat10Bmp);
+                            flightsMarkers[i].Markers.Add(marker);
+                            GoogleEarthPositionsLat.Add(flightLat);
+                            GoogleEarthPositionsLng.Add(flightLng);
+                            GoogleEarthFlights.Add(flight.GetIdentification().ToString());
+
+
+
+                        }
+
+                        found = true;
+                    }
+                    
+                }
+                if (found && dt.Rows.Find(flight.GetIdentification())==null)
+                {
+                    dt.Rows.Add(flight.GetIdentification(), flightLat, flightLng);
+                    //Para el kml
+                    //GoogleEarthPositionsLat.Add(flightLat);
+                    //GoogleEarthPositionsLng.Add(flightLng);
+                }
+                else if(found)
+                {
+                    dt.Rows.Find(flight.GetIdentification()).SetField(1, flightLat);
+                    dt.Rows.Find(flight.GetIdentification()).SetField(2, flightLng);
+                    //Para el kml
+                    //GoogleEarthPositionsLat.Add(flightLat);
+                    //GoogleEarthPositionsLng.Add(flightLng);
+
+                }
+                found = false;
+
+
+            }
+
+            
+
+
+        }
+        private void timeButton_Click(object sender, EventArgs e)
+        {
+
+
+            TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+            TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+            for (int i = 0; i < flightsMarkers.Count; i++) {
+                flightsMarkers[i].Markers.Clear();
+            }
+            cargarVuelos(tiempoInicio,tiempoActual);
+
+        }
+
+
+
+        private void PlayPause_Click(object sender, EventArgs e)
+        {
+            if (timer2.Enabled)
+                timer2.Stop();
+            else
+                timer2.Start();
+        }
+        private void x1_Click(object sender, EventArgs e)
+        {
+            velocidad = 1;
+        }
+        private void x2_Click(object sender, EventArgs e)
+        {
+            velocidad = 2;
+        }
+
+        private void x3_Click(object sender, EventArgs e)
+        {
+            velocidad = 3;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (viewOld)
+            {
+                for (int i = 0; i < flightsMarkers.Count; i++)
+                {
+                    flightsMarkers[i].Markers.Clear();
+                }
+            }
+            TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+            TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+
+            sumarSegundos(velocidad);
+            TimeSpan tiempoActualNuevo = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+            cargarVuelos(tiempoActual, tiempoActualNuevo);
+        }
+
+        private void SearchId_Click(object sender, EventArgs e)
+        {
+            var row =dt.Rows.Find(txtdescription.Text).ItemArray;
+
+            txtlatitude.Text = row[1].ToString();
+            txtlongitude.Text = row[2].ToString();
+            //focus teh point in the screen
+            gMapControl1.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
+            for (int i = 0; i < gMapControl1.Overlays.Count; i++)
+            {
+                if (gMapControl1.Overlays[i].Id != txtdescription.Text)
+                {
+                    gMapControl1.Overlays[i].IsVisibile = false;
+                }
+                else
+                {
+                    gMapControl1.Overlays[i].IsVisibile = true;
+                }
+            }
+        }
+
+        private void viewAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < gMapControl1.Overlays.Count; i++)
+            {
+
+                gMapControl1.Overlays[i].IsVisibile = true;
+                
+            }
+        }
+
+
+        
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < flights.Count; i++)
+            {
+                if (checkBox1.Checked == true&&flights[i].GetSensor()=="SMR")
+                    gMapControl1.Overlays[i].IsVisibile = true;
+                else if(flights[i].GetSensor() == "SMR")
+                    gMapControl1.Overlays[i].IsVisibile = false;
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < flights.Count; i++)
+            {
+                if (checkBox2.Checked == true && flights[i].GetSensor() == "MLAT")
+                    gMapControl1.Overlays[i].IsVisibile = true;
+                else if (flights[i].GetSensor() == "MLAT")
+                    gMapControl1.Overlays[i].IsVisibile = false;
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < flights.Count; i++)
+            {
+                if (checkBox3.Checked == true && flights[i].GetSensor() == "ADSB")
+                    gMapControl1.Overlays[i].IsVisibile = true;
+                else if (flights[i].GetSensor() == "ADSB")
+                    gMapControl1.Overlays[i].IsVisibile = false;
+            }
+
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            viewOld = !viewOld;
+            if (!viewOld)
+            {
+                TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+                TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                for (int i = 0; i < flightsMarkers.Count; i++)
+                {
+                    flightsMarkers[i].Markers.Clear();
+                }
+                cargarVuelos(tiempoInicio, tiempoActual);
+            }
+
+
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            sumarSegundos(trackBar2.Value - avance);
+            if (avance != trackBar2.Value) { 
+                avance = trackBar2.Value;
+                TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+                TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                for (int i = 0; i < flightsMarkers.Count; i++)
+                {
+                    flightsMarkers[i].Markers.Clear();
+                }
+                cargarVuelos(tiempoInicio, tiempoActual);
+                //trackBar2.Value = 0;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            //Le daremos un nombre al archivo y tambien le expecificamos en que directorio se creara
+            string nombrefile = @"D:\MI punto.kml";// "Temp/jocamusgeo" + DateTime.Now.Ticks.ToString() + ".kml";
+
+
+            //Definimos el archivo XML
+            XmlTextWriter writer = new
+            XmlTextWriter((nombrefile), Encoding.UTF8);
+
+            // Empezamos a escribir
+            writer.WriteStartDocument();
+            writer.WriteStartElement("kml");
+            writer.WriteAttributeString("xmlns", "http://earth.google.com/kml/2.0");
+            writer.WriteStartElement("Folder");
+            writer.WriteStartElement("description");
+            //Descripcion del Conjunto de Datos,puede ser texto o HTML
+            writer.WriteCData("Algunos paises de America delSur>");
+            writer.WriteEndElement();
+            writer.WriteElementString("name", "Paises");
+            writer.WriteElementString("visibility", "0");
+            writer.WriteElementString("open", "1");
+            writer.WriteStartElement("Folder");
+
+            //Obtenemos los datos donde estan las coordenadas
+            //DataSet ds = dsDatos();
+            //Recorremos el DataSet
+            //string[] array1 = new string[] { "23","24"};
+            //string[] array2 = new string[] { "25", "26" };
+
+
+            int len = GoogleEarthPositionsLat.Count();
+            for (int i = 0; i < len; i++)//ds.Tables[0].Rows.Count
+            {
+
+
+                //string slat = array1[i];
+                //string slong = array2[i];
+                //Obtenemos los valores de Latitud y Longitud
+                string slat = GoogleEarthPositionsLat[i].ToString();//ds.Tables[0].Rows[i]["Longitud"].ToString()
+                slat = slat.Replace(',', '.');
+                string slong = GoogleEarthPositionsLng[i].ToString(); //ds.Tables[0].Rows[i]["Latitud"].ToString();
+                slong = slong.Replace(',', '.');
+                writer.WriteStartElement("Placemark");
+                writer.WriteStartElement("description");
+                writer.WriteCData("Aqui puede ir cualquier tipo de texto descriptivo de acuerdo al registro correspondiente");
+                writer.WriteEndElement();
+                //Asignamos el nombre del registro o coordenada obteniendo el valor del campo Nombre
+                string flightname = GoogleEarthFlights[i];
+                
+
+                writer.WriteElementString("name", flightname);//ds.Tables[0].Rows[i]["Nombre"].ToString()
+                writer.WriteElementString("visibility", "1");
+                writer.WriteStartElement("Style");
+                writer.WriteStartElement("IconStyle");
+                writer.WriteStartElement("Icon");
+                //Ruta del icono para ver las coordenadas
+                //Debe ser pequeña de 32x32.
+                writer.WriteElementString("href", @"C: \Users\ulises\Documents\GitHub\AsterixDecoderGE\AsterixDecoder)");//("href", "www.TuDominio.com/directorio/tuicono.ico");
+                writer.WriteElementString("w", "32");
+                writer.WriteElementString("h", "32");
+                writer.WriteElementString("x", "64");
+                writer.WriteElementString("y", "96");
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.WriteStartElement("LookAt");
+                writer.WriteElementString("longitude", slong);
+                writer.WriteElementString("latitude", slat);
+                writer.WriteElementString("range", "3000");
+                writer.WriteElementString("tilt", "60");
+                writer.WriteElementString("heading", "0");
+                writer.WriteEndElement();
+                writer.WriteStartElement("Point");
+                writer.WriteElementString("extrude", "1");
+                writer.WriteElementString("altitudeMode", "relativeToGround");
+                writer.WriteElementString("coordinates", slong + "," + slat + ",50");
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+            writer.Close();
+        }
+>>>>>>> Stashed changes
     }
 }
