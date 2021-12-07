@@ -788,6 +788,10 @@ namespace ClassLibrary
             return row;
         }
 
+        public double GetHeading()
+        {
+            return D20_TargerSizeOrientation[3];
+        }
         public string GetTargetDescriptor()
         {
             string row="";

@@ -99,6 +99,7 @@ namespace AsterixDecoder
                         TimeSpan time = cat21.GetTime();
                         foundFlight.SetCoordinates(coordinates);
                         foundFlight.SetTimestamps(time);
+
                     }
                     else
                     {

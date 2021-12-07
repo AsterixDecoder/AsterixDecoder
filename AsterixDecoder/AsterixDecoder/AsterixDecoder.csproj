@@ -134,6 +134,7 @@
     <Content Include="plane.jpg" />
     <Content Include="plane2.jpg" />
     <Content Include="planeu.jpg" />
+    <None Include="Resources\AvionRojo0.bmp" />
     <None Include="Resources\Fondo oscuro.png" />
     <None Include="Resources\Fondo Letras blancas.png" />
     <None Include="Resources\Letras blancas.png" />
@@ -166,6 +167,15 @@
     <None Include="Resources\airport.png" />
     <None Include="Properties\cat21.jpg" />
     <None Include="Properties\cat10.jpg" />
+    <None Include="Properties\AvionRojo30.png" />
+    <None Include="Properties\AvionRojo40.png" />
+    <None Include="Properties\AvionRojo50.png" />
+    <None Include="Properties\AvionRojo60.png" />
+    <None Include="Properties\AvionRojo70.png" />
+    <None Include="Properties\AvionRojo80.png" />
+    <None Include="Properties\AvionRojo0.png" />
+    <None Include="Properties\AvionRojo10.png" />
+    <None Include="Properties\AvionRojo20.png" />
     <Content Include="Properties\redMarker.png" />
     <None Include="Resources\plane.bmp" />
   </ItemGroup>

@@ -9,8 +9,10 @@ namespace ClassLibrary
         string identification;
         int category;
         string sensor;
+        List<double> heading;
         List<Coordinates> coordinates;
         List<TimeSpan> timestamps;
+
 
         public Flight(string id, int category,string sensor)
         {
@@ -54,9 +56,18 @@ namespace ClassLibrary
             this.timestamps.Add(time);
 
         }
+        public void SetHeading(double heading)
+        {
+            this.heading.Add(heading);
+
+        }
         public int GetCat()
         {
             return this.category;
+        }
+        public double GetHeading(int i)
+        {
+            return this.heading[i];
         }
     }
     public class Coordinates

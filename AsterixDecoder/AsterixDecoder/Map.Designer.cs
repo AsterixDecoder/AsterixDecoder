@@ -306,7 +306,6 @@ namespace AsterixDecoder
             this.label4.Size = new System.Drawing.Size(57, 18);
             this.label4.TabIndex = 19;
             this.label4.Text = "Zoom:";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // timer1
             // 

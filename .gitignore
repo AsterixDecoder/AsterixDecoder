@@ -223,3 +223,11 @@ project.lock.json
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####
+*.exe
+AsterixDecoder/AsterixDecoder/bin/Debug/AsterixDecoder.exe
+AsterixDecoder/AsterixDecoder/bin/Debug/AsterixDecoder.pdb
+AsterixDecoder/AsterixDecoder/obj/Debug/AsterixDecoder.csproj.GenerateResource.cache
+*.cache
+*.exe
+*.pdb
+*.cache

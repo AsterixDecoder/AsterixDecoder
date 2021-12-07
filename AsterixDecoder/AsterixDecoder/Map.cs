@@ -31,11 +31,12 @@ namespace AsterixDecoder
         Bitmap original = new Bitmap(7,7);
         Bitmap cat10Bmp = new Bitmap(Properties.Resources.cat10, new Size(14, 14));
         Bitmap cat21Bmp = new Bitmap(Properties.Resources.cat21, new Size(14, 14));
+        Bitmap MLATBmp = new Bitmap(Properties.Resources.redMarker, new Size(14, 14));
+
         double[] Initialcoords = new double[2];
         int velocidad = 1;
         bool viewOld = true;
         int avance = 0;
-//        Boolean seePrevius = true;
 
         public Map(List<Flight> listaflights)
         {
@@ -183,10 +184,6 @@ namespace AsterixDecoder
             gMapControl1.Zoom = gMapControl1.Zoom - 1;
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnSat_Click(object sender, EventArgs e)
         {
@@ -352,15 +349,20 @@ namespace AsterixDecoder
                         flightLat = flight.GetLat(j);
                         flightLng = flight.GetLng(j);
                         if (flight.GetCat() == 21)
-                        {
+                        {                            
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
                             flightsMarkers[i].Markers.Add(marker);
                         }
-                        else
+                        else if (flight.GetSensor()=="SMR")
                         {
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat10Bmp);
                             flightsMarkers[i].Markers.Add(marker);
 
+                        }
+                        else if (flight.GetSensor() == "MLAT")
+                        {
+                            marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), MLATBmp);
+                            flightsMarkers[i].Markers.Add(marker);
                         }
 
                         found = true;
