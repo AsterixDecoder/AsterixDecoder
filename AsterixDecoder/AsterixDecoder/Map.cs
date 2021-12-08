@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,8 @@ namespace AsterixDecoder
         List<double> GoogleEarthPositionsLng = new List<double>();
         List<string> GoogleEarthFlights = new List<string>();
         List<string> GoogleEarthCategory = new List<string>();
+        private string filename;
+
         //        Boolean seePrevius = true;
 
 
@@ -557,8 +560,24 @@ namespace AsterixDecoder
 
         private void ExportKML_Click(object sender, EventArgs e)
         {
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "txt files (*.txt)|*.kml|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    this.filename = saveFileDialog1.FileName;
+                    // Code to write the stream goes here.
+                    myStream.Close();
+                }
+            }
             //Le daremos un nombre al archivo y tambien le expecificamos en que directorio se creara
-            string nombrefile = @"D:\MI punto.kml";// "Temp/jocamusgeo" + DateTime.Now.Ticks.ToString() + ".kml";
+            string nombrefile = this.filename;//@"D:\MI punto.kml";// "Temp/jocamusgeo" + DateTime.Now.Ticks.ToString() + ".kml";
 
 
             //Definimos el archivo XML
