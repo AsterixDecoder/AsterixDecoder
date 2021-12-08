@@ -239,8 +239,6 @@ namespace AsterixDecoder
         }
 
         
-
-
         private string MultipleDouble(string[] value, string[] name,string[] units)
         {
             string data="";

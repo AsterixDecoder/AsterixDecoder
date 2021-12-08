@@ -669,7 +669,7 @@ namespace AsterixDecoder
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-            saveFileDialog1.Filter = "txt files (*.txt)|*.kml|All files (*.*)|*.*";
+            saveFileDialog1.Filter = "Kml files (*.kml)|*.kml";
             saveFileDialog1.FilterIndex = 1;
             saveFileDialog1.RestoreDirectory = true;
 

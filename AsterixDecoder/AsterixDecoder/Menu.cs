@@ -45,7 +45,7 @@ namespace AsterixDecoder
             childForm.Dock=DockStyle.Fill;
             panelChildForm.Controls.Add(childForm);
             panelChildForm.Tag = childForm;
-            childForm.BringToFront();
+            //childForm.BringToFront();
             childForm.Show();
             
 
@@ -75,6 +75,7 @@ namespace AsterixDecoder
                     {
                         this.filename = openFileDialog1.FileName;
                         filename = Path.GetFileName(filename);
+                        progressBar1.BringToFront();
                         progressBar1.Visible = true;
                         progressBar1.Minimum = 0;
                         progressBar1.Value = 0;
