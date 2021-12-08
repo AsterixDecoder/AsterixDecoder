@@ -33,6 +33,9 @@ namespace AsterixDecoder
         Bitmap original = new Bitmap(7,7);
         Bitmap cat10Bmp = new Bitmap(Properties.Resources.cat10, new Size(14, 14));
         Bitmap cat21Bmp = new Bitmap(Properties.Resources.cat21, new Size(14, 14));
+        Bitmap MLATBmp = new Bitmap(Properties.Resources.redMarker, new Size(14, 14));
+        Bitmap temp = null;
+        Bitmap temp1 = null;
         double[] Initialcoords = new double[2];
         int velocidad = 1;
         bool viewOld = true;
@@ -46,6 +49,9 @@ namespace AsterixDecoder
 
         //        Boolean seePrevius = true;
 
+        int z;
+        int grado;
+        int indefinido;
 
         public Map(List<Flight> listaflights)
         {
@@ -194,10 +200,6 @@ namespace AsterixDecoder
             gMapControl1.Zoom = gMapControl1.Zoom - 1;
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnSat_Click(object sender, EventArgs e)
         {
@@ -274,6 +276,9 @@ namespace AsterixDecoder
                 else
                 {
                     gMapControl1.Overlays[i].IsVisibile = true;
+                    speed.Text = "Velocidad(m/s): " + flights[i].GetSpeed(gMapControl1.Overlays[i].Markers.Count-1).ToString();
+                    Heading.Text = "Heading(º): " + flights[i].GetHeading(gMapControl1.Overlays[i].Markers.Count - 1).ToString();
+
                 }
             }
         }
@@ -362,8 +367,10 @@ namespace AsterixDecoder
                     {
                         flightLat = flight.GetLat(j);
                         flightLng = flight.GetLng(j);
+                        
                         if (flight.GetCat() == 21)
                         {
+                            RotateImage(flight.GetHeading(j), 21, flight.GetHeading(j - 1));
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
                             flightsMarkers[i].Markers.Add(marker);
                             GoogleEarthPositionsLat.Add(flightLat);
@@ -371,8 +378,9 @@ namespace AsterixDecoder
                             GoogleEarthFlights.Add(flight.GetIdentification().ToString());
                             GoogleEarthCategory.Add("Cat 21");
                         }
-                        else
+                        else if (flight.GetSensor() == "SMR"&& flight.GetLat(i)!=41.29561833332636 && flight.GetLng(i)!=2.0951141666666673 )
                         {
+                            RotateImage(flight.GetHeading(j), 10, flight.GetHeading(j - 1));
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat10Bmp);
                             flightsMarkers[i].Markers.Add(marker);
                             GoogleEarthPositionsLat.Add(flightLat);
@@ -380,8 +388,17 @@ namespace AsterixDecoder
                             GoogleEarthFlights.Add(flight.GetIdentification().ToString());
                             GoogleEarthCategory.Add("Cat 10");
                         }
+                        else if (flight.GetSensor() == "MLAT")
+                        {
+                            marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), MLATBmp);
+                            flightsMarkers[i].Markers.Add(marker);
+                        }
                         found = true;
-                    }  
+                        
+
+                        
+                    }
+                    
                 }
                 if (found && dt.Rows.Find(flight.GetIdentification())==null)
                 {
@@ -406,6 +423,96 @@ namespace AsterixDecoder
 
 
         }
+        private void RotateImage(double heading, int cat,double previousHeading)
+        {
+
+
+            indefinido = 0;
+            while (indefinido<2)
+            {
+                z = (int)(heading / 90);
+                grado = (int)((heading - 90 * z) / 10);
+                indefinido++;
+                switch (grado)
+                {
+                    case 0:
+                        indefinido++;
+
+                        temp = new Bitmap(Properties.Resources.AvionRojo0, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul0, new Size(14, 14));
+                        break;
+                    case 1:
+                        indefinido++;
+                        temp = new Bitmap(Properties.Resources.AvionRojo10, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul10, new Size(14, 14));
+                        break;
+                    case 2:
+                        indefinido++;
+                        temp = new Bitmap(Properties.Resources.AvionRojo20, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul20, new Size(14, 14));
+                        break;
+                    case 3:
+                        indefinido++;
+                        temp = new Bitmap(Properties.Resources.AvionRojo30, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul30, new Size(14, 14));
+                        break;
+                    case 4:
+                        indefinido++;
+                        temp = new Bitmap(Properties.Resources.AvionRojo40, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul40, new Size(14, 14));
+                        break;
+                    case 5:
+                        indefinido++;
+                        temp = new Bitmap(Properties.Resources.AvionRojo50, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul50, new Size(14, 14));
+                        break;
+                    case 6:
+                        indefinido++;
+                        temp = new Bitmap(Properties.Resources.AvionRojo60, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul60, new Size(14, 14));
+                        break;
+                    case 7:
+                        indefinido++;
+                        temp = new Bitmap(Properties.Resources.AvionRojo70, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul70, new Size(14, 14));
+                        break;
+                    case 8:
+                        indefinido++;
+                        temp = new Bitmap(Properties.Resources.AvionRojo80, new Size(14, 14));
+                        temp1 = new Bitmap(Properties.Resources.AvionAzul80, new Size(14, 14));
+                        break;
+                    default:
+                        if (previousHeading != heading)
+                        {
+                            heading = previousHeading;
+
+                        }
+                        else
+                        {
+                            heading = 0;
+
+                        }
+                        break;
+
+
+                }
+            }
+            for (int j = 0; j < z; j++)
+            {
+                temp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                temp1.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            }
+            if (cat == 10)
+            {
+                temp.MakeTransparent();
+                cat10Bmp = temp;
+            }
+            else
+            {
+                temp1.MakeTransparent();
+                cat21Bmp = temp1;
+            }
+        }
         private void timeButton_Click(object sender, EventArgs e)
         {
 
@@ -417,7 +524,6 @@ namespace AsterixDecoder
             cargarVuelos(tiempoInicio,tiempoActual);
 
         }
-
 
 
         private void PlayPause_Click(object sender, EventArgs e)
@@ -677,6 +783,22 @@ namespace AsterixDecoder
                 MessageBox.Show(err.Message);
                 return;
             }
+        private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            txtdescription.Text = item.Overlay.Id;
+            txtlatitude.Text = item.Position.Lat.ToString();
+            txtlongitude.Text = item.Position.Lng.ToString();
+            
+            for(int i = 0; i < item.Overlay.Markers.Count; i++)
+            {
+                if(item.Overlay.Markers[i].Position.Lng==item.Position.Lng&& item.Overlay.Markers[i].Position.Lat == item.Position.Lat)
+                {
+                    z = i;
+                }
+            }
+            speed.Text = "Velocidad(m/s): "+flights.First(flight => flight.GetIdentification().Equals(item.Overlay.Id)).GetSpeed(z).ToString();
+            Heading.Text = "Heading(º): " + flights.First(flight => flight.GetIdentification().Equals(item.Overlay.Id)).GetHeading(z).ToString();
+
         }
     }
 }

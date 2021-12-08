@@ -788,6 +788,14 @@ namespace ClassLibrary
             return row;
         }
 
+        public double GetHeading()
+        {
+            return D20_TargerSizeOrientation[1];
+        }
+        public double GetSpeed()
+        {
+            return D08_PolarSpeed[0];
+        }
         public string GetTargetDescriptor()
         {
             string row="";

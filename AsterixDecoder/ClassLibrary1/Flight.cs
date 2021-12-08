@@ -9,8 +9,11 @@ namespace ClassLibrary
         string identification;
         int category;
         string sensor;
+        List<double> speed;
+        List<double> heading;
         List<Coordinates> coordinates;
         List<TimeSpan> timestamps;
+
 
         public Flight(string id, int category,string sensor)
         {
@@ -19,6 +22,8 @@ namespace ClassLibrary
             this.identification = id;
             coordinates = new List<Coordinates>();
             timestamps = new List<TimeSpan>();
+            heading = new List<double>();
+            speed = new List<double>();
         }
         public string GetIdentification()
         {
@@ -54,9 +59,27 @@ namespace ClassLibrary
             this.timestamps.Add(time);
 
         }
+        public void SetHeading(double heading)
+        {
+            this.heading.Add(heading);
+
+        }
+        public void SetSpeed(double speed)
+        {
+            this.speed.Add(speed);
+
+        }
         public int GetCat()
         {
             return this.category;
+        }
+        public double GetHeading(int i)
+        {
+            try { return this.heading[i]; }catch(ArgumentOutOfRangeException e) { return 0; }
+        }
+        public double GetSpeed(int i)
+        {
+            try { return this.speed[i]; } catch (ArgumentOutOfRangeException e) { return 0; }
         }
     }
     public class Coordinates
