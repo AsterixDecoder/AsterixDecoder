@@ -59,8 +59,8 @@ namespace AsterixDecoder
 
             //Se crean las opciones que comentaba
             openFileDialog1.InitialDirectory = "C:\\Users\\marcx\\Documents\\GitHub\\AsterixDecoder\\AsterixDecoder\\ClassLibrary";
-            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.ast";
-            openFileDialog1.FilterIndex = 4;
+            openFileDialog1.Filter = "Asterix Files (*.ast*)|*.ast";
+            openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
 
             //el ShowDialog() muestra el explorador de archivos para que elijas tu archivo. 
@@ -92,14 +92,10 @@ namespace AsterixDecoder
                             numFiles++;
                             lblLoad.Text = lblLoad.Text + '\n' + filename;
 
-                        }
-                            
-
+                        }                          
                         cat21 = asterixFile.getListCAT21();
                         cat10 = asterixFile.getListCAT10();
                         listaflights = asterixFile.getFlights();
-
-
                     }
 
                 /*}
