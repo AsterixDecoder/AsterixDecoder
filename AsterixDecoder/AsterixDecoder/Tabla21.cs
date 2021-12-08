@@ -20,13 +20,15 @@ namespace AsterixDecoder
         List<Flight> listaflights = new List<Flight>();
         Coordinates coordinates;
         List<CAT21> lista;
+        ProgressBar progessBar;
         DataTable dataTable = new DataTable();
         string filename;
 
-        public Tabla21(List<CAT21> lista)
+        public Tabla21(List<CAT21> lista, ProgressBar p)
         {
             InitializeComponent();
             this.lista = lista;
+            this.progessBar = p;
 
         }
         public void SetFileName(string name)
@@ -40,7 +42,7 @@ namespace AsterixDecoder
             dataGridView1.Visible = false;
             dataGridView2.Visible = false;
             textBox1.Visible = false;
-            progressBar1.Visible = true;
+            // p.Visible = true;
             //asterixFile = new AsterixFile(this.filename);
             //lista = asterixFile.getListCAT21();
             int length = lista.Count;
@@ -93,11 +95,13 @@ namespace AsterixDecoder
 
 
             //ProgressBar DataGridView
-            progressBar1.Minimum = 0; 
-            progressBar1.Maximum = length;
-            progressBar1.Step = 1;
+            //progressBar1.Minimum = 0; 
+            //progressBar1.Maximum = length;
+            //progressBar1.Step = 1;
+            //progessBar.Value=0;
+            //progessBar.Maximum = length;
 
-            
+
             Stopwatch watch = new Stopwatch();
             watch.Start();
             for (int i = 0; i < length; i++)
@@ -217,7 +221,7 @@ namespace AsterixDecoder
                 }
                 string[] row = new string[] { Convert.ToString(i), category, sac, sic, targetID, trackNumber, targetreport, serviceID, timeofreport, position, positionHigh, airspeed, trueairspeed, targetaddress, tappposition, tappvelocity, tmessageposition, tmessagepositionhigh, tmessagevel, tmessagevelhigh, geometricHeight, quality, mopsversion, m3acode, rollangle, flightlevel, magneticheading, targetstatus, barometricrate, geometricrate, airborneVector, trackanglerate, emitterCategory, meteo, selectedAltitude, finalselAltitude, trajectoryintent, servicemanagement, opstatus, surface, messageAmplitude, modeSMBData, acasResolution, receiverID, dataAges };
                 dataTable.Rows.Add(row);
-                progressBar1.PerformStep();
+                progessBar.PerformStep();
 
             }
             DataView dataView = new DataView(dataTable);
@@ -230,7 +234,7 @@ namespace AsterixDecoder
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Visible = true;
             textBox1.Visible = true;
-            progressBar1.Visible = false;
+            //progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
             watch.Stop();

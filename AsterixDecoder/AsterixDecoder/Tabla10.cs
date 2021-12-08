@@ -21,11 +21,13 @@ namespace AsterixDecoder
         Coordinates coordinates;
         List<CAT10> lista;
         DataTable dataTable = new DataTable();
+        ProgressBar progressBar;
         string filename;
-        public Tabla10(List<CAT10> lista)
+        public Tabla10(List<CAT10> lista, ProgressBar progressBar)
         {
             InitializeComponent();
-            this.lista = lista;       
+            this.lista = lista;
+            this.progressBar = progressBar;
            
         }
 
@@ -39,10 +41,10 @@ namespace AsterixDecoder
             int length = lista.Count;
             Stopwatch watch = new Stopwatch();
             //Adaptamos columnas a texto
-            progressBar1CAT10.Visible = true;
-            progressBar1CAT10.Maximum = length;
-            progressBar1CAT10.Minimum = 0;
-            progressBar1CAT10.Step = 1;
+            //progressBar1CAT10.Visible = true;
+            //progressBar1CAT10.Maximum = length;
+            //progressBar1CAT10.Minimum = 0;
+            //progressBar1CAT10.Step = 1;
 
             dataTable.Columns.Add("Number");
             dataTable.Columns.Add("Category");
@@ -85,11 +87,11 @@ namespace AsterixDecoder
                 row[1] = "10";
 
                 dataTable.Rows.Add(row);
-                progressBar1CAT10.PerformStep();
+                progressBar.PerformStep();
             }
             DataView dataView = new DataView(dataTable);
             dataGridView1.DataSource = dataView;
-            progressBar1CAT10.Visible = false;
+            //progressBar1CAT10.Visible = false;
             textBox1.Visible = true;
             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;

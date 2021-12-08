@@ -45,9 +45,9 @@ namespace AsterixDecoder
             childForm.Dock=DockStyle.Fill;
             panelChildForm.Controls.Add(childForm);
             panelChildForm.Tag = childForm;
-            //childForm.BringToFront();
             childForm.Show();
-            
+            childForm.BringToFront();
+
 
         }
 
@@ -194,7 +194,14 @@ namespace AsterixDecoder
             }
             else
             {
-                openChildForm(new Tabla10(cat10));
+                progressBar1.BringToFront();
+                progressBar1.Visible = true;
+                progressBar1.Minimum = 0;
+                progressBar1.Maximum = cat10.Count;
+                progressBar1.Value = 0;
+                progressBar1.Step = 1;
+                openChildForm(new Tabla10(cat10,progressBar1));
+                progressBar1.Visible = false;
             }
             
             btnCAT10.Enabled = true;
@@ -216,7 +223,14 @@ namespace AsterixDecoder
             }
             else
             {
-                openChildForm(new Tabla21(this.cat21));
+                progressBar1.BringToFront();
+                progressBar1.Visible = true;
+                progressBar1.Minimum = 0;
+                progressBar1.Maximum = cat21.Count;
+                progressBar1.Value = 0;
+                progressBar1.Step = 1;
+                openChildForm(new Tabla21(this.cat21, progressBar1));
+                progressBar1.Visible = false;
             }
             btnCAT21.Enabled = true;
             SubTablaMenu.Visible = true;
