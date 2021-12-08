@@ -11,7 +11,6 @@ namespace AsterixDecoder
 {
     public class AsterixFile
     {
-        string path;
         List<CAT10> listaCAT10 = new List<CAT10>();
         List<CAT21> listaCAT21 = new List<CAT21>();
         DataTable tablaCAT10 = new DataTable();
@@ -20,8 +19,7 @@ namespace AsterixDecoder
 
         public AsterixFile(string nombre,ProgressBar p)
         {
-            this.path = nombre;
-            leer(p);
+            leer(p,nombre);
         }
 
         public List<CAT10> getListCAT10()
@@ -34,9 +32,8 @@ namespace AsterixDecoder
             return listaCAT21;
         }
 
-        public void leer(ProgressBar p)
+        public void leer(ProgressBar p, string path)
         {
-
             byte[] fileBytes = File.ReadAllBytes(path);
             List<byte[]> listabyte = new List<byte[]>();
             int i = 0;
@@ -86,6 +83,7 @@ namespace AsterixDecoder
         public void DecodeFlights(ProgressBar p)
         {
             p.Value = 0;
+            p.Maximum = listaCAT21.Count + listaCAT10.Count;
             for (int i = 0; i < listaCAT21.Count; i++)
             {
                 p.PerformStep();

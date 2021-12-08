@@ -21,6 +21,7 @@ namespace AsterixDecoder
         List<CAT10> cat10;
         string filename;
         List<Flight> listaflights = new List<Flight>();
+        int numFiles=0;
         public Menu()
         {
             InitializeComponent();
@@ -74,8 +75,19 @@ namespace AsterixDecoder
                         filename = Path.GetFileName(filename);
                         progressBar1.Visible = true;
                         progressBar1.Minimum = 0;
+                        progressBar1.Value = 0;
                         progressBar1.Step = 1;
-                        asterixFile = new AsterixFile(this.filename,progressBar1);
+
+                        if (this.numFiles == 0)
+                        {
+                            asterixFile = new AsterixFile(this.filename, progressBar1);
+                            numFiles++;
+                        }
+                        else
+                        {
+                            asterixFile.leer(progressBar1, filename);
+                        }
+                            
 
                         cat21 = asterixFile.getListCAT21();
                         cat10 = asterixFile.getListCAT10();
