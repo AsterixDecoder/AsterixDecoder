@@ -99,7 +99,8 @@ namespace AsterixDecoder
                         TimeSpan time = cat21.GetTime();
                         foundFlight.SetCoordinates(coordinates);
                         foundFlight.SetTimestamps(time);
-
+                        foundFlight.SetHeading(Convert.ToDouble(cat21.GetAirborneVector()[1]));
+                        foundFlight.SetSpeed(Convert.ToDouble(cat21.GetAirborneVector()[0]));
                     }
                     else
                     {
@@ -108,6 +109,8 @@ namespace AsterixDecoder
                         TimeSpan time = cat21.GetTime();
                         newFlight.SetCoordinates(coordinates);
                         newFlight.SetTimestamps(time);
+                        newFlight.SetHeading(Convert.ToDouble(cat21.GetAirborneVector()[1]));
+                        newFlight.SetSpeed(Convert.ToDouble(cat21.GetAirborneVector()[0]));
                         flights.Add(newFlight);
                     }
                 }
@@ -125,6 +128,9 @@ namespace AsterixDecoder
                         TimeSpan time = cat10.GetTime();
                         foundFlight.SetCoordinates(coordinates);
                         foundFlight.SetTimestamps(time);
+                        foundFlight.SetHeading(cat10.GetHeading());
+                        foundFlight.SetSpeed(cat10.GetSpeed());
+
                     }
                     else
                     {
@@ -133,6 +139,8 @@ namespace AsterixDecoder
                         TimeSpan time = cat10.GetTime();
                         newFlight.SetCoordinates(coordinates);
                         newFlight.SetTimestamps(time);
+                        newFlight.SetHeading(cat10.GetHeading());
+                        newFlight.SetSpeed(cat10.GetSpeed());
                         flights.Add(newFlight);
                     }
                 }

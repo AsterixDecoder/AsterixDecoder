@@ -65,8 +65,8 @@ namespace AsterixDecoder
             //y si das click a "Cancelar" se devuelve una DialogResult.Cancel
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
+                /*try
+                {*/
                     //Si fue un OK, entonces suponemos que hay un archivo. Intentamos abrirlo
                     if ((myStream = openFileDialog1.OpenFile()) != null)
                     {
@@ -84,11 +84,11 @@ namespace AsterixDecoder
 
                     }
 
-                }
+                /*}
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: No se pudo leer el achivo del disco. Error original: " + ex.Message);
-                }
+                }*/
 
             }
             //openChildForm(new LoadData());

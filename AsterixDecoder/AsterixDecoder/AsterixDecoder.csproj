@@ -176,6 +176,15 @@
     <None Include="Properties\AvionRojo0.png" />
     <None Include="Properties\AvionRojo10.png" />
     <None Include="Properties\AvionRojo20.png" />
+    <None Include="Properties\AvionAzul30.png" />
+    <None Include="Properties\AvionAzul40.png" />
+    <None Include="Properties\AvionAzul50.png" />
+    <None Include="Properties\AvionAzul60.png" />
+    <None Include="Properties\AvionAzul80.png" />
+    <None Include="Properties\AvionAzul0.png" />
+    <None Include="Properties\AvionAzul10.png" />
+    <None Include="Properties\AvionAzul20.png" />
+    <None Include="Properties\AvionAzul70.png" />
     <Content Include="Properties\redMarker.png" />
     <None Include="Resources\plane.bmp" />
   </ItemGroup>
