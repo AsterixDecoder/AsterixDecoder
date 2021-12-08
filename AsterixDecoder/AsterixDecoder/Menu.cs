@@ -26,6 +26,7 @@ namespace AsterixDecoder
         {
             InitializeComponent();
             label1.Text = "Welcome to Asterix Decoder by Group10!" + '\n' + '\n' + "This application allows to decode packets of categories 10 and 21" + '\n' + "and view them on a map with many useful options." + '\n' + '\n' + "To start just load an Asterix file, which can be one of the files included" + '\n' + "in the project. Then you can take a look at the information tables"+'\n'+"or go directly to the map view, to simulate the flight.";
+            lblLoad.Text = "No Files Loaded";
         }
         public void SetFileName(string name)
         {
@@ -83,11 +84,14 @@ namespace AsterixDecoder
                         {
                             asterixFile = new AsterixFile(this.filename, progressBar1);
                             numFiles++;
+                            lblLoad.Text = "Files Loaded: " + filename;
                         }
                         else
                         {
                             asterixFile.leer(progressBar1, filename);
                             numFiles++;
+                            lblLoad.Text = lblLoad.Text + '\n' + filename;
+
                         }
                             
 
@@ -223,19 +227,6 @@ namespace AsterixDecoder
 
         private void LoadFileButton_MouseHover(object sender, EventArgs e)
         {
-            if (numFiles == 0)
-            {
-                lblLoad.Text = "No Files Loaded";
-                
-            }
-            else if (numFiles == 1)
-            {
-                lblLoad.Text = "Files Loaded: " + filename;
-            }
-            else
-            {
-                lblLoad.Text = lblLoad.Text  +'\n' +filename;
-            }
             lblLoad.Visible = true;
             panelFiles.Visible = true;
             //Environment.NewLine
