@@ -767,7 +767,7 @@ namespace AsterixDecoder
             try
             {
                 //Preguntar si se desea abrir el archivo KML
-                const string message ="Kml generado, ¿Desea abrir el archivo en Google Earth?";
+                const string message = "Kml generado, ¿Desea abrir el archivo en Google Earth?";
                 const string caption = "Abrir KML";
                 var result = MessageBox.Show(message, caption,
                                              MessageBoxButtons.YesNo,
@@ -783,6 +783,7 @@ namespace AsterixDecoder
                 MessageBox.Show(err.Message);
                 return;
             }
+        }
         private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
             txtdescription.Text = item.Overlay.Id;
