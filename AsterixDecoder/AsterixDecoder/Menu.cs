@@ -17,8 +17,8 @@ namespace AsterixDecoder
     {
 
         AsterixFile asterixFile;
-        List<CAT21> cat21;
-        List<CAT10> cat10;
+        List<CAT21> cat21= new List<CAT21>();
+        List<CAT10> cat10= new List<CAT10>();
         string filename;
         List<Flight> listaflights = new List<Flight>();
         int numFiles=0;
@@ -181,7 +181,19 @@ namespace AsterixDecoder
         private void btnCAT10_Click(object sender, EventArgs e)
         {
             btnCAT10.Enabled = false;
-            openChildForm(new Tabla10(cat10));
+            if (cat10.Count==0)
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+                string message = "There are no packets of Cat 10";
+                string caption = "Error";
+                result = MessageBox.Show(message, caption, buttons);
+            }
+            else
+            {
+                openChildForm(new Tabla10(cat10));
+            }
+            
             btnCAT10.Enabled = true;
             SubTablaMenu.Visible = true;
 
@@ -191,7 +203,18 @@ namespace AsterixDecoder
         {
 
             btnCAT21.Enabled = false;
-            openChildForm(new Tabla21(this.cat21));
+            if (cat21.Count == 0)
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+                string message = "There are no packets of Cat 21";
+                string caption = "Error";
+                result = MessageBox.Show(message, caption, buttons);
+            }
+            else
+            {
+                openChildForm(new Tabla21(this.cat21));
+            }
             btnCAT21.Enabled = true;
             SubTablaMenu.Visible = true;
         }

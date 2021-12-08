@@ -34,6 +34,7 @@ namespace AsterixDecoder
         {
             dataGridView2.Visible = false;
             dataGridView1.Visible = false;
+            textBox1.Visible = false;
             LoadData GridForm = new LoadData();
             int length = lista.Count;
             Stopwatch watch = new Stopwatch();
@@ -96,6 +97,8 @@ namespace AsterixDecoder
             dataGridView1.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Visible = true;
+            LoadingCAT10.Visible = true;
+            LoadingCAT10.Text = "All flights loaded";
             watch.Stop();
             long milisec = watch.ElapsedMilliseconds / 1000;
             string tiempo = Convert.ToString(milisec);
@@ -204,7 +207,7 @@ namespace AsterixDecoder
             int column = e.ColumnIndex;
             int row = e.RowIndex;
             string value = Convert.ToString(dataGridView1.CurrentCell.Value);
-            int index = (int)dataGridView1.Rows[row].Cells[0].Value;
+            int index = Convert.ToInt32(dataGridView1.Rows[row].Cells[0].Value.ToString());
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
   

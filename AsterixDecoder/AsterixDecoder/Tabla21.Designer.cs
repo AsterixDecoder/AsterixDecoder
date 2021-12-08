@@ -74,7 +74,7 @@ namespace AsterixDecoder
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.GhostWhite;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 137);
+            this.dataGridView1.Location = new System.Drawing.Point(0, -463);
             this.dataGridView1.Name = "dataGridView1";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -92,29 +92,30 @@ namespace AsterixDecoder
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1494, 800);
+            this.dataGridView1.Size = new System.Drawing.Size(1494, 700);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBox1.Location = new System.Drawing.Point(12, 40);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(12, 36);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.MaximumSize = new System.Drawing.Size(178, 161);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(178, 33);
+            this.textBox1.Size = new System.Drawing.Size(178, 40);
             this.textBox1.TabIndex = 3;
             // 
             // Search
             // 
             this.Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Search.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.Search.Location = new System.Drawing.Point(207, 41);
+            this.Search.Location = new System.Drawing.Point(207, 36);
             this.Search.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(126, 32);
+            this.Search.Size = new System.Drawing.Size(141, 40);
             this.Search.TabIndex = 4;
             this.Search.Text = "Search";
             this.Search.UseVisualStyleBackColor = true;
@@ -138,14 +139,15 @@ namespace AsterixDecoder
             this.Loading.ForeColor = System.Drawing.SystemColors.InfoText;
             this.Loading.Image = global::AsterixDecoder.Properties.Resources.ok;
             this.Loading.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Loading.Location = new System.Drawing.Point(1155, 40);
+            this.Loading.Location = new System.Drawing.Point(844, 19);
             this.Loading.MaximumSize = new System.Drawing.Size(444, 400);
             this.Loading.Name = "Loading";
-            this.Loading.Size = new System.Drawing.Size(204, 58);
+            this.Loading.Size = new System.Drawing.Size(206, 57);
             this.Loading.TabIndex = 5;
             this.Loading.Text = "label2";
             this.Loading.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Loading.Visible = false;
+            this.Loading.Click += new System.EventHandler(this.Loading_Click);
             // 
             // dataGridView2
             // 
@@ -171,7 +173,7 @@ namespace AsterixDecoder
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView2.EnableHeadersVisualStyles = false;
             this.dataGridView2.GridColor = System.Drawing.Color.GhostWhite;
-            this.dataGridView2.Location = new System.Drawing.Point(0, -663);
+            this.dataGridView2.Location = new System.Drawing.Point(0, 237);
             this.dataGridView2.Name = "dataGridView2";
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
@@ -189,17 +191,18 @@ namespace AsterixDecoder
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(1494, 800);
+            this.dataGridView2.Size = new System.Drawing.Size(1494, 700);
             this.dataGridView2.TabIndex = 7;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // ViewAll
             // 
             this.ViewAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ViewAll.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ViewAll.Location = new System.Drawing.Point(415, 41);
+            this.ViewAll.Location = new System.Drawing.Point(442, 36);
             this.ViewAll.Name = "ViewAll";
-            this.ViewAll.Size = new System.Drawing.Size(146, 40);
+            this.ViewAll.Size = new System.Drawing.Size(149, 40);
             this.ViewAll.TabIndex = 9;
             this.ViewAll.Text = "View All";
             this.ViewAll.UseVisualStyleBackColor = true;
@@ -212,12 +215,12 @@ namespace AsterixDecoder
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1494, 937);
             this.Controls.Add(this.ViewAll);
-            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.Loading);
             this.Controls.Add(this.Search);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Tabla21";
             this.Text = "Form1";

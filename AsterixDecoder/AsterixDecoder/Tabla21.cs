@@ -39,6 +39,7 @@ namespace AsterixDecoder
             //LoadData GridForm = new LoadData();
             dataGridView1.Visible = false;
             dataGridView2.Visible = false;
+            textBox1.Visible = false;
             progressBar1.Visible = true;
             //asterixFile = new AsterixFile(this.filename);
             //lista = asterixFile.getListCAT21();
@@ -228,6 +229,7 @@ namespace AsterixDecoder
             dataGridView1.Columns[32].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Visible = true;
+            textBox1.Visible = true;
             progressBar1.Visible = false;
             Loading.Visible = true;
             Loading.Text = "All flights loaded";
@@ -761,6 +763,16 @@ namespace AsterixDecoder
         {
             dataGridView2.Visible = false;
             dataGridView1.Visible = true;
+        }
+
+        private void Loading_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
