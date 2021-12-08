@@ -25,6 +25,7 @@ namespace AsterixDecoder
         public Menu()
         {
             InitializeComponent();
+            label1.Text = "Welcome to Asterix Decoder by Group10!" + '\n' + '\n' + "This application allows to decode packets of categories 10 and 21" + '\n' + "and view them on a map with many useful options." + '\n' + '\n' + "To start just load an Asterix file, which can be one of the files included" + '\n' + "in the project. Then you can take a look at the information tables"+'\n'+"or go directly to the map view, to simulate the flight.";
         }
         public void SetFileName(string name)
         {

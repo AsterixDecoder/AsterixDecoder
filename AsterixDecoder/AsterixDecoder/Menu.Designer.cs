@@ -43,6 +43,8 @@ namespace AsterixDecoder
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnTable = new System.Windows.Forms.Button();
+            this.panelFiles = new System.Windows.Forms.Panel();
+            this.lblLoad = new System.Windows.Forms.Label();
             this.LoadFileButton = new System.Windows.Forms.Button();
             this.panelName = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -54,12 +56,12 @@ namespace AsterixDecoder
             this.btnCerrar = new System.Windows.Forms.PictureBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panelFiles = new System.Windows.Forms.Panel();
-            this.lblLoad = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelSideMenu.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SubTablaMenu.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panelFiles.SuspendLayout();
             this.panelName.SuspendLayout();
             this.panelChildForm.SuspendLayout();
             this.BarraTitulo.SuspendLayout();
@@ -68,7 +70,6 @@ namespace AsterixDecoder
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panelFiles.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSideMenu
@@ -250,6 +251,28 @@ namespace AsterixDecoder
             this.btnTable.UseVisualStyleBackColor = false;
             this.btnTable.Click += new System.EventHandler(this.btnTable_Click);
             // 
+            // panelFiles
+            // 
+            this.panelFiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(95)))));
+            this.panelFiles.Controls.Add(this.lblLoad);
+            this.panelFiles.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelFiles.Location = new System.Drawing.Point(0, 0);
+            this.panelFiles.Name = "panelFiles";
+            this.panelFiles.Size = new System.Drawing.Size(543, 57);
+            this.panelFiles.TabIndex = 5;
+            this.panelFiles.Visible = false;
+            // 
+            // lblLoad
+            // 
+            this.lblLoad.AutoSize = true;
+            this.lblLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoad.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblLoad.Location = new System.Drawing.Point(3, 4);
+            this.lblLoad.Name = "lblLoad";
+            this.lblLoad.Size = new System.Drawing.Size(14, 20);
+            this.lblLoad.TabIndex = 0;
+            this.lblLoad.Text = " ";
+            // 
             // LoadFileButton
             // 
             this.LoadFileButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
@@ -297,6 +320,7 @@ namespace AsterixDecoder
             // panelChildForm
             // 
             this.panelChildForm.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelChildForm.Controls.Add(this.label1);
             this.panelChildForm.Controls.Add(this.BarraTitulo);
             this.panelChildForm.Controls.Add(this.progressBar1);
             this.panelChildForm.Controls.Add(this.pictureBox1);
@@ -406,27 +430,15 @@ namespace AsterixDecoder
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // panelFiles
+            // label1
             // 
-            this.panelFiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(95)))));
-            this.panelFiles.Controls.Add(this.lblLoad);
-            this.panelFiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelFiles.Location = new System.Drawing.Point(0, 0);
-            this.panelFiles.Name = "panelFiles";
-            this.panelFiles.Size = new System.Drawing.Size(543, 57);
-            this.panelFiles.TabIndex = 5;
-            this.panelFiles.Visible = false;
-            // 
-            // lblLoad
-            // 
-            this.lblLoad.AutoSize = true;
-            this.lblLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoad.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblLoad.Location = new System.Drawing.Point(3, 4);
-            this.lblLoad.Name = "lblLoad";
-            this.lblLoad.Size = new System.Drawing.Size(14, 20);
-            this.lblLoad.TabIndex = 0;
-            this.lblLoad.Text = " ";
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(95)))));
+            this.label1.Location = new System.Drawing.Point(408, 585);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "label1";
             // 
             // Menu
             // 
@@ -445,16 +457,17 @@ namespace AsterixDecoder
             this.SubTablaMenu.ResumeLayout(false);
             this.SubTablaMenu.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panelFiles.ResumeLayout(false);
+            this.panelFiles.PerformLayout();
             this.panelName.ResumeLayout(false);
             this.panelChildForm.ResumeLayout(false);
+            this.panelChildForm.PerformLayout();
             this.BarraTitulo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnRestaurar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinmimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panelFiles.ResumeLayout(false);
-            this.panelFiles.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -486,5 +499,6 @@ namespace AsterixDecoder
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panelFiles;
         private System.Windows.Forms.Label lblLoad;
+        private System.Windows.Forms.Label label1;
     }
 }
