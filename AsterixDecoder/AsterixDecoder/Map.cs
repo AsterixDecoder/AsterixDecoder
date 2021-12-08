@@ -657,6 +657,26 @@ namespace AsterixDecoder
             writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Close();
+
+            try
+            {
+                //Preguntar si se desea abrir el archivo KML
+                const string message ="Kml generado, ¿Desea abrir el archivo en Google Earth?";
+                const string caption = "Abrir KML";
+                var result = MessageBox.Show(message, caption,
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(this.filename);
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return;
+            }
         }
     }
 }

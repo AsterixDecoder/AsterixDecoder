@@ -86,6 +86,7 @@ namespace AsterixDecoder
                         else
                         {
                             asterixFile.leer(progressBar1, filename);
+                            numFiles++;
                         }
                             
 
@@ -217,6 +218,32 @@ namespace AsterixDecoder
             }
             btnCAT21.Enabled = true;
             SubTablaMenu.Visible = true;
+        }
+
+        private void LoadFileButton_MouseHover(object sender, EventArgs e)
+        {
+            if (numFiles == 0)
+            {
+                lblLoad.Text = "No Files Loaded";
+                
+            }
+            else if (numFiles == 1)
+            {
+                lblLoad.Text = "Files Loaded: " + filename;
+            }
+            else
+            {
+                lblLoad.Text = lblLoad.Text  +'\n' +filename;
+            }
+            lblLoad.Visible = true;
+            panelFiles.Visible = true;
+            //Environment.NewLine
+        }
+
+        private void LoadFileButton_MouseLeave(object sender, EventArgs e)
+        {
+            lblLoad.Visible = false;
+            panelFiles.Visible = false;
         }
     }
 }
