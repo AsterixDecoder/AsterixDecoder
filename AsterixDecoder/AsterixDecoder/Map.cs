@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using ClassLibrary;
 using GMap.NET;
 using GMap.NET.MapProviders;
@@ -35,7 +36,13 @@ namespace AsterixDecoder
         int velocidad = 1;
         bool viewOld = true;
         int avance = 0;
-//        Boolean seePrevius = true;
+
+        List<double> GoogleEarthPositionsLat = new List<double>();
+        List<double> GoogleEarthPositionsLng = new List<double>();
+        List<string> GoogleEarthFlights = new List<string>();
+        List<string> GoogleEarthCategory = new List<string>();
+        //        Boolean seePrevius = true;
+
 
         public Map(List<Flight> listaflights)
         {
@@ -75,6 +82,7 @@ namespace AsterixDecoder
             //desactivate colums lat long
             dataGridView1.Columns[1].Visible = false;
             dataGridView1.Columns[2].Visible = false;
+            dataGridView1.RowHeadersVisible = false;
 
 
             gMapControl1.DragButton = MouseButtons.Left;
@@ -355,26 +363,35 @@ namespace AsterixDecoder
                         {
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat21Bmp); // GMarkerGoogleType.green
                             flightsMarkers[i].Markers.Add(marker);
+                            GoogleEarthPositionsLat.Add(flightLat);
+                            GoogleEarthPositionsLng.Add(flightLng);
+                            GoogleEarthFlights.Add(flight.GetIdentification().ToString());
+                            GoogleEarthCategory.Add("Cat 21");
                         }
                         else
                         {
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat10Bmp);
                             flightsMarkers[i].Markers.Add(marker);
-
+                            GoogleEarthPositionsLat.Add(flightLat);
+                            GoogleEarthPositionsLng.Add(flightLng);
+                            GoogleEarthFlights.Add(flight.GetIdentification().ToString());
+                            GoogleEarthCategory.Add("Cat 10");
                         }
-
                         found = true;
-                    }
-                    
+                    }  
                 }
                 if (found && dt.Rows.Find(flight.GetIdentification())==null)
                 {
                     dt.Rows.Add(flight.GetIdentification(), flightLat, flightLng);
+                    //GoogleEarthPositionsLat.Add(flightLat);
+                    //GoogleEarthPositionsLng.Add(flightLng);
                 }
                 else if(found)
                 {
                     dt.Rows.Find(flight.GetIdentification()).SetField(1, flightLat);
                     dt.Rows.Find(flight.GetIdentification()).SetField(2, flightLng);
+                    //GoogleEarthPositionsLat.Add(flightLat);
+                    //GoogleEarthPositionsLng.Add(flightLng);
 
                 }
                 found = false;
@@ -388,7 +405,6 @@ namespace AsterixDecoder
         }
         private void timeButton_Click(object sender, EventArgs e)
         {
-
 
             TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
             TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
@@ -539,5 +555,89 @@ namespace AsterixDecoder
             }
         }
 
+        private void ExportKML_Click(object sender, EventArgs e)
+        {
+            //Le daremos un nombre al archivo y tambien le expecificamos en que directorio se creara
+            string nombrefile = @"D:\MI punto.kml";// "Temp/jocamusgeo" + DateTime.Now.Ticks.ToString() + ".kml";
+
+
+            //Definimos el archivo XML
+            XmlTextWriter writer = new
+            XmlTextWriter((nombrefile), Encoding.UTF8);
+
+            // Empezamos a escribir
+            writer.WriteStartDocument();
+            writer.WriteStartElement("kml");
+            writer.WriteAttributeString("xmlns", "http://earth.google.com/kml/2.0");
+            writer.WriteStartElement("Folder");
+            writer.WriteStartElement("description");
+            //Descripcion del Conjunto de Datos,puede ser texto o HTML
+            writer.WriteCData("All Flights");
+            writer.WriteEndElement();
+            writer.WriteElementString("name", "Asterix Decoder");
+            writer.WriteElementString("visibility", "0");
+            writer.WriteElementString("open", "1");
+            writer.WriteStartElement("Folder");
+
+            //Obtenemos los datos donde estan las coordenadas
+            //DataSet ds = dsDatos();
+            //Recorremos el DataSet
+            //string[] array1 = new string[] { "23","24"};
+            //string[] array2 = new string[] { "25", "26" };
+
+
+            int len = GoogleEarthPositionsLat.Count();
+            for (int i = 0; i < len; i++)//ds.Tables[0].Rows.Count
+            {
+                //string slat = array1[i];
+                //string slong = array2[i];
+                //Obtenemos los valores de Latitud y Longitud
+                string slat = GoogleEarthPositionsLat[i].ToString();//ds.Tables[0].Rows[i]["Longitud"].ToString()
+                slat = slat.Replace(',', '.');
+                string slong = GoogleEarthPositionsLng[i].ToString(); //ds.Tables[0].Rows[i]["Latitud"].ToString();
+                slong = slong.Replace(',', '.');
+                writer.WriteStartElement("Placemark");
+                writer.WriteStartElement("description");
+                writer.WriteCData(GoogleEarthCategory[i]);
+                writer.WriteEndElement();
+                //Asignamos el nombre del registro o coordenada obteniendo el valor del campo Nombre
+                string flightname = GoogleEarthFlights[i];
+
+
+                writer.WriteElementString("name", flightname);//ds.Tables[0].Rows[i]["Nombre"].ToString()
+                writer.WriteElementString("visibility", "1");
+                writer.WriteStartElement("Style");
+                writer.WriteStartElement("IconStyle");
+                writer.WriteStartElement("Icon");
+                //Ruta del icono para ver las coordenadas
+                //Debe ser pequeña de 32x32.
+                writer.WriteElementString("href", "http://maps.google.com/mapfiles/kml/pal2/icon56.png");//("href", "www.TuDominio.com/directorio/tuicono.ico");
+                writer.WriteElementString("w", "16");
+                writer.WriteElementString("h", "16");
+                writer.WriteElementString("x", "64");
+                writer.WriteElementString("y", "96");
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.WriteStartElement("LookAt");
+                writer.WriteElementString("longitude", slong);
+                writer.WriteElementString("latitude", slat);
+                writer.WriteElementString("range", "3000");
+                writer.WriteElementString("tilt", "60");
+                writer.WriteElementString("heading", "0");
+                writer.WriteEndElement();
+                writer.WriteStartElement("Point");
+                writer.WriteElementString("extrude", "1");
+                writer.WriteElementString("altitudeMode", "relativeToGround");
+                writer.WriteElementString("coordinates", slong + "," + slat + ",50");
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+            writer.Close();
+        }
     }
 }
