@@ -22,6 +22,7 @@ namespace AsterixDecoder
         string filename;
         List<Flight> listaflights = new List<Flight>();
         int numFiles=0;
+        List<string> filenames = new List<string>();
         public Menu()
         {
             InitializeComponent();
@@ -55,6 +56,7 @@ namespace AsterixDecoder
         {
             Stream myStream = null;
             
+
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             //Se crean las opciones que comentaba
@@ -75,28 +77,60 @@ namespace AsterixDecoder
                     {
                         this.filename = openFileDialog1.FileName;
                         filename = Path.GetFileName(filename);
+                        if (filenames.Count==0)
+                        {
+                        filenames.Add(filename);
                         progressBar1.BringToFront();
                         progressBar1.Visible = true;
                         progressBar1.Minimum = 0;
                         progressBar1.Value = 0;
                         progressBar1.Step = 1;
-
-                        if (this.numFiles == 0)
-                        {
-                            asterixFile = new AsterixFile(this.filename, progressBar1);
-                            numFiles++;
-                            lblLoad.Text = "Files Loaded: " + filename;
-                        }
-                        else
-                        {
-                            asterixFile.leer(progressBar1, filename);
-                            numFiles++;
-                            lblLoad.Text = lblLoad.Text + '\n' + filename;
-
-                        }                          
+                        asterixFile = new AsterixFile(this.filename, progressBar1);
+                        numFiles++;
+                        lblLoad.Text = "Files Loaded: " + filename;
                         cat21 = asterixFile.getListCAT21();
                         cat10 = asterixFile.getListCAT10();
                         listaflights = asterixFile.getFlights();
+                    }
+                        else 
+                        {
+                        int found = 0;
+                        for (int i = 0; i < filenames.Count; i++)
+                        {
+                            if (filenames[i] == filename)
+                            {
+                                found = found+1;
+                            }
+                            
+                        }
+                        if (found == 1)
+                        {
+                            MessageBoxButtons buttons = MessageBoxButtons.OK;
+                            DialogResult result;
+                            string message = "This file was already uploaded";
+                            string caption = "Error";
+                            result = MessageBox.Show(message, caption, buttons);
+                        }
+                        if (found==0)
+                        {
+                            filenames.Add(filename);
+                            progressBar1.BringToFront();
+                            progressBar1.Visible = true;
+                            progressBar1.Minimum = 0;
+                            progressBar1.Value = 0;
+                            progressBar1.Step = 1;
+                            asterixFile.leer(progressBar1, filename);
+                            numFiles++;
+                            lblLoad.Text = lblLoad.Text + '\n' + filename;
+                            panelFiles.Size = new Size(543, 67);
+                            cat21 = asterixFile.getListCAT21();
+                            cat10 = asterixFile.getListCAT10();
+                            listaflights = asterixFile.getFlights();
+                        }
+
+                        }
+                        
+                   
                     }
 
                 /*}
