@@ -33,7 +33,7 @@ namespace AsterixDecoder
         Bitmap original = new Bitmap(7,7);
         Bitmap cat10Bmp = new Bitmap(Properties.Resources.cat10, new Size(14, 14));
         Bitmap cat21Bmp = new Bitmap(Properties.Resources.cat21, new Size(14, 14));
-        Bitmap MLATBmp = new Bitmap(Properties.Resources.redMarker, new Size(14, 14));
+        Bitmap MLATBmp = new Bitmap(Properties.Resources.redMarker, new Size(7, 7));
         Bitmap temp = null;
         Bitmap temp1 = null;
         double[] Initialcoords = new double[2];
