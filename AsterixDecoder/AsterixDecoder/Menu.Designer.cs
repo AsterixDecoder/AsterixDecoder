@@ -41,6 +41,9 @@ namespace AsterixDecoder
             this.panel8 = new System.Windows.Forms.Panel();
             this.MapViewButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ClearAll = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnTable = new System.Windows.Forms.Button();
             this.panelFiles = new System.Windows.Forms.Panel();
@@ -61,6 +64,7 @@ namespace AsterixDecoder
             this.panel2.SuspendLayout();
             this.SubTablaMenu.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.ClearAll.SuspendLayout();
             this.panelFiles.SuspendLayout();
             this.panelName.SuspendLayout();
             this.panelChildForm.SuspendLayout();
@@ -212,6 +216,7 @@ namespace AsterixDecoder
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.panel1.Controls.Add(this.ClearAll);
             this.panel1.Controls.Add(this.panel7);
             this.panel1.Controls.Add(this.btnTable);
             this.panel1.Controls.Add(this.panelFiles);
@@ -221,6 +226,43 @@ namespace AsterixDecoder
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(543, 271);
             this.panel1.TabIndex = 1;
+            // 
+            // ClearAll
+            // 
+            this.ClearAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(200)))));
+            this.ClearAll.Controls.Add(this.label3);
+            this.ClearAll.Controls.Add(this.label2);
+            this.ClearAll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ClearAll.Location = new System.Drawing.Point(0, 57);
+            this.ClearAll.Name = "ClearAll";
+            this.ClearAll.Size = new System.Drawing.Size(543, 47);
+            this.ClearAll.TabIndex = 6;
+            this.ClearAll.Visible = false;
+            this.ClearAll.Click += new System.EventHandler(this.ClearAll_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label3.Location = new System.Drawing.Point(192, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Clear All";
+            this.label3.Visible = false;
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(3, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(14, 20);
+            this.label2.TabIndex = 0;
+            this.label2.Text = " ";
             // 
             // panel7
             // 
@@ -457,6 +499,8 @@ namespace AsterixDecoder
             this.SubTablaMenu.ResumeLayout(false);
             this.SubTablaMenu.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.ClearAll.ResumeLayout(false);
+            this.ClearAll.PerformLayout();
             this.panelFiles.ResumeLayout(false);
             this.panelFiles.PerformLayout();
             this.panelName.ResumeLayout(false);
@@ -500,5 +544,8 @@ namespace AsterixDecoder
         private System.Windows.Forms.Panel panelFiles;
         private System.Windows.Forms.Label lblLoad;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel ClearAll;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -91,6 +91,9 @@ namespace AsterixDecoder
                         cat21 = asterixFile.getListCAT21();
                         cat10 = asterixFile.getListCAT10();
                         listaflights = asterixFile.getFlights();
+                        label3.Visible = true;
+                        ClearAll.Visible = true;
+                        ClearAll.Enabled = true;
                     }
                         else 
                         {
@@ -281,6 +284,35 @@ namespace AsterixDecoder
         {
             lblLoad.Visible = false;
             panelFiles.Visible = false;
+        }
+
+
+        private void ClearAll_Click(object sender, EventArgs e)
+        {
+            this.cat21 = new List<CAT21>();
+            this.cat10 = new List<CAT10>();
+            this.listaflights = new List<Flight>();
+            this.numFiles = 0;
+            this.filenames = new List<string>();
+            lblLoad.Text = "No Files Loaded";
+            panelFiles.Size = new Size(543, 57);
+            label3.Visible = false;
+            ClearAll.Visible = false;
+            ClearAll.Enabled = false;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            this.cat21 = new List<CAT21>();
+            this.cat10 = new List<CAT10>();
+            this.listaflights = new List<Flight>();
+            this.numFiles = 0;
+            this.filenames = new List<string>();
+            lblLoad.Text = "No Files Loaded";
+            panelFiles.Size = new Size(543, 57);
+            label3.Visible = false;
+            ClearAll.Visible = false;
+            ClearAll.Enabled = false;
         }
     }
 }
