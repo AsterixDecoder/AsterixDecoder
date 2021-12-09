@@ -1,20 +1,10 @@
 <h1 align="center">Asterix Decoder</h1>
 
-
-<!-- ABOUT THE PROJECT -->
-# About The Project
+## About The Project
 
 Project built for Projects In Air Traffic Management Course of EETAC-UPC Aerospace Systems Engineering Degree. Capable of full decoding of EuroControl Asterix CAT10 and CAT21 messages. Built by Galder Arcellares,Ulises Ortega and Marc Xapelli of Group 10. It was built in C# using Visual Studio and the Library GMAP.net.
 
-## Functionalities 
-* Full Decoding of CAT10 and CAT21 Asterix Packets.
-* Packet View with all the info for CAT21 and CAT10.
-* Processing of Packets to obtain Vehicles using MLAT or ADS-B.
-* Transformation of coordinates to obtain WGS-84 Coordinates of CAT10 packets.
-* Map View of traffic in function of the time.
-
-
-# User Guide
+## User Guide
 
 ![alt text](link imagen Pagina principal)
 
