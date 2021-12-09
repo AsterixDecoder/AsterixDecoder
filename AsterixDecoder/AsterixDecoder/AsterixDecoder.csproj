@@ -185,6 +185,7 @@
     <None Include="Properties\AvionAzul10.png" />
     <None Include="Properties\AvionAzul20.png" />
     <None Include="Properties\AvionAzul70.png" />
+    <None Include="Properties\PlayPause.png" />
     <Content Include="Properties\redMarker.png" />
     <None Include="Resources\plane.bmp" />
   </ItemGroup>

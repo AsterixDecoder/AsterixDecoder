@@ -264,8 +264,9 @@ namespace AsterixDecoder
         {
             rowSelected = e.RowIndex;//selected row
             txtdescription.Text = dataGridView1.Rows[rowSelected].Cells[0].Value.ToString();
-            txtlatitude.Text = dataGridView1.Rows[rowSelected].Cells[1].Value.ToString();
-            txtlongitude.Text = dataGridView1.Rows[rowSelected].Cells[2].Value.ToString();
+            txtlatitude.Text = Math.Round(Convert.ToDouble(dataGridView1.Rows[rowSelected].Cells[1].Value),6).ToString();
+            txtlongitude.Text = Math.Round(Convert.ToDouble(dataGridView1.Rows[rowSelected].Cells[2].Value),6).ToString();
+
             //focus teh point in the screen
             gMapControl1.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
             for (int i = 0; i < gMapControl1.Overlays.Count; i++) {
@@ -276,8 +277,8 @@ namespace AsterixDecoder
                 else
                 {
                     gMapControl1.Overlays[i].IsVisibile = true;
-                    speed.Text = "Velocidad(m/s): " + flights[i].GetSpeed(gMapControl1.Overlays[i].Markers.Count-1).ToString();
-                    Heading.Text = "Heading(º): " + flights[i].GetHeading(gMapControl1.Overlays[i].Markers.Count - 1).ToString();
+                    speed.Text = Math.Round(flights[i].GetSpeed(gMapControl1.Overlays[i].Markers.Count-1),2).ToString();
+                    Heading.Text = Math.Round(flights[i].GetHeading(gMapControl1.Overlays[i].Markers.Count - 1),2).ToString();
 
                 }
             }
@@ -378,7 +379,7 @@ namespace AsterixDecoder
                             GoogleEarthFlights.Add(flight.GetIdentification().ToString());
                             GoogleEarthCategory.Add("Cat 21");
                         }
-                        else if (flight.GetSensor() == "SMR"&& flight.GetLat(i)!=41.29561833332636 && flight.GetLng(i)!=2.0951141666666673 )
+                        else if (flight.GetSensor() == "SMR"&& flight.GetLat(j)!=41.29561833332636 && flight.GetLng(j)!=2.0951141666666673 )
                         {
                             RotateImage(flight.GetHeading(j), 10, flight.GetHeading(j - 1));
                             marker = new GMarkerGoogle(new PointLatLng(flightLat, flightLng), cat10Bmp);
@@ -515,13 +516,21 @@ namespace AsterixDecoder
         }
         private void timeButton_Click(object sender, EventArgs e)
         {
-
-            TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
-            TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
-            for (int i = 0; i < flightsMarkers.Count; i++) {
-                flightsMarkers[i].Markers.Clear();
+            try
+            {
+                TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+                TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                for (int i = 0; i < flightsMarkers.Count; i++)
+                {
+                    flightsMarkers[i].Markers.Clear();
+                }
+                cargarVuelos(tiempoInicio, tiempoActual);
             }
-            cargarVuelos(tiempoInicio,tiempoActual);
+            catch(Exception exp)
+            {
+                MessageBox.Show("Tiempo introducido incorrecto, introduzca un tiempo valido.");
+            }
+
 
         }
 
@@ -549,41 +558,55 @@ namespace AsterixDecoder
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (viewOld)
-            {
-                for (int i = 0; i < flightsMarkers.Count; i++)
+            try { 
+                if (viewOld)
                 {
-                    flightsMarkers[i].Markers.Clear();
+                    for (int i = 0; i < flightsMarkers.Count; i++)
+                    {
+                        flightsMarkers[i].Markers.Clear();
+                    }
                 }
-            }
-            TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
-            TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+                TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
 
-            sumarSegundos(velocidad);
-            TimeSpan tiempoActualNuevo = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
-            cargarVuelos(tiempoActual, tiempoActualNuevo);
-        }
+                sumarSegundos(velocidad);
+                TimeSpan tiempoActualNuevo = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                cargarVuelos(tiempoActual, tiempoActualNuevo);
+            }
+            catch(Exception exp)
+            {
+                timer2.Stop();
+                MessageBox.Show("Tiempo introducido incorrecto, introduzca un tiempo valido.");
+                
+            }
+}
 
         private void SearchId_Click(object sender, EventArgs e)
         {
-            var row =dt.Rows.Find(txtdescription.Text).ItemArray;
+            try { 
+                var row =dt.Rows.Find(txtdescription.Text).ItemArray;
 
-            txtlatitude.Text = row[1].ToString();
-            txtlongitude.Text = row[2].ToString();
-            //focus teh point in the screen
-            gMapControl1.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
-            for (int i = 0; i < gMapControl1.Overlays.Count; i++)
-            {
-                if (gMapControl1.Overlays[i].Id != txtdescription.Text)
+                txtlatitude.Text = row[1].ToString();
+                txtlongitude.Text = row[2].ToString();
+                //focus teh point in the screen
+                gMapControl1.Position = new PointLatLng(Convert.ToDouble(txtlatitude.Text), Convert.ToDouble(txtlongitude.Text));
+                for (int i = 0; i < gMapControl1.Overlays.Count; i++)
                 {
-                    gMapControl1.Overlays[i].IsVisibile = false;
-                }
-                else
-                {
-                    gMapControl1.Overlays[i].IsVisibile = true;
+                    if (gMapControl1.Overlays[i].Id != txtdescription.Text)
+                    {
+                        gMapControl1.Overlays[i].IsVisibile = false;
+                    }
+                    else
+                    {
+                        gMapControl1.Overlays[i].IsVisibile = true;
+                    }
                 }
             }
-        }
+            catch(Exception exp)
+            {
+                MessageBox.Show("ID introducida incorrecta, introduzca una ID valida.");
+            }
+}
 
         private void viewAll_Click(object sender, EventArgs e)
         {
@@ -633,34 +656,45 @@ namespace AsterixDecoder
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-            viewOld = !viewOld;
-            if (!viewOld)
-            {
-                TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
-                TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
-                for (int i = 0; i < flightsMarkers.Count; i++)
+            try { 
+                viewOld = !viewOld;
+                if (!viewOld)
                 {
-                    flightsMarkers[i].Markers.Clear();
+                    TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+                    TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                    for (int i = 0; i < flightsMarkers.Count; i++)
+                    {
+                        flightsMarkers[i].Markers.Clear();
+                    }
+                    cargarVuelos(tiempoInicio, tiempoActual);
                 }
-                cargarVuelos(tiempoInicio, tiempoActual);
             }
-
+            catch (Exception exp)
+            {
+                MessageBox.Show("Tiempo introducido incorrecto, introduzca un tiempo valido.");
+            }
 
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
-            sumarSegundos(trackBar2.Value - avance);
-            if (avance != trackBar2.Value) { 
-                avance = trackBar2.Value;
-                TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
-                TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
-                for (int i = 0; i < flightsMarkers.Count; i++)
-                {
-                    flightsMarkers[i].Markers.Clear();
+            try { 
+                sumarSegundos(trackBar2.Value - avance);
+                if (avance != trackBar2.Value) { 
+                    avance = trackBar2.Value;
+                    TimeSpan tiempoInicio = new TimeSpan(Int32.Parse(horaInicio.Text), Int32.Parse(minInicio.Text), Int32.Parse(segInicio.Text));
+                    TimeSpan tiempoActual = new TimeSpan(Int32.Parse(horaFin.Text), Int32.Parse(minFin.Text), Int32.Parse(segFin.Text));
+                    for (int i = 0; i < flightsMarkers.Count; i++)
+                    {
+                        flightsMarkers[i].Markers.Clear();
+                    }
+                    cargarVuelos(tiempoInicio, tiempoActual);
+                    //trackBar2.Value = 0;
                 }
-                cargarVuelos(tiempoInicio, tiempoActual);
-                //trackBar2.Value = 0;
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("Tiempo introducido incorrecto, introduzca un tiempo valido.");
             }
         }
 
@@ -787,8 +821,7 @@ namespace AsterixDecoder
         private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
             txtdescription.Text = item.Overlay.Id;
-            txtlatitude.Text = item.Position.Lat.ToString();
-            txtlongitude.Text = item.Position.Lng.ToString();
+
             
             for(int i = 0; i < item.Overlay.Markers.Count; i++)
             {
@@ -797,8 +830,10 @@ namespace AsterixDecoder
                     z = i;
                 }
             }
-            speed.Text = "Velocidad(m/s): "+flights.First(flight => flight.GetIdentification().Equals(item.Overlay.Id)).GetSpeed(z).ToString();
-            Heading.Text = "Heading(º): " + flights.First(flight => flight.GetIdentification().Equals(item.Overlay.Id)).GetHeading(z).ToString();
+            txtlatitude.Text = Math.Round(item.Position.Lat, 6).ToString();
+            txtlongitude.Text = Math.Round(item.Position.Lng, 6).ToString();
+            speed.Text = Math.Round(flights.First(flight => flight.GetIdentification().Equals(item.Overlay.Id)).GetSpeed(z),2).ToString();
+            Heading.Text = Math.Round(flights.First(flight => flight.GetIdentification().Equals(item.Overlay.Id)).GetHeading(z),2).ToString();
 
         }
     }
