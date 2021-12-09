@@ -92,6 +92,7 @@ namespace AsterixDecoder
             dataGridView1.Columns[1].Visible = false;
             dataGridView1.Columns[2].Visible = false;
             dataGridView1.RowHeadersVisible = false;
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
 
             gMapControl1.DragButton = MouseButtons.Left;
@@ -528,7 +529,7 @@ namespace AsterixDecoder
             }
             catch(Exception exp)
             {
-                MessageBox.Show("Tiempo introducido incorrecto, introduzca un tiempo valido.");
+                MessageBox.Show("Time entered incorrect, enter a valid time.");
             }
 
 
@@ -576,7 +577,7 @@ namespace AsterixDecoder
             catch(Exception exp)
             {
                 timer2.Stop();
-                MessageBox.Show("Tiempo introducido incorrecto, introduzca un tiempo valido.");
+                MessageBox.Show("Time entered incorrect, enter a valid time.");
                 
             }
 }
@@ -604,7 +605,7 @@ namespace AsterixDecoder
             }
             catch(Exception exp)
             {
-                MessageBox.Show("ID introducida incorrecta, introduzca una ID valida.");
+                MessageBox.Show("ID entered incorrect, enter a valid ID.");
             }
 }
 
@@ -671,7 +672,7 @@ namespace AsterixDecoder
             }
             catch (Exception exp)
             {
-                MessageBox.Show("Tiempo introducido incorrecto, introduzca un tiempo valido.");
+                MessageBox.Show("Time entered incorrect, enter a valid time.");
             }
 
         }
@@ -694,7 +695,7 @@ namespace AsterixDecoder
             }
             catch (Exception exp)
             {
-                MessageBox.Show("Tiempo introducido incorrecto, introduzca un tiempo valido.");
+                MessageBox.Show("Time entered incorrect, enter a valid time.");
             }
         }
 
@@ -715,108 +716,116 @@ namespace AsterixDecoder
                     // Code to write the stream goes here.
                     myStream.Close();
                 }
-            }
-            //Le daremos un nombre al archivo y tambien le expecificamos en que directorio se creara
-            string nombrefile = this.filename;//@"D:\MI punto.kml";// "Temp/jocamusgeo" + DateTime.Now.Ticks.ToString() + ".kml";
+                //Le daremos un nombre al archivo y tambien le expecificamos en que directorio se creara
+                string nombrefile = this.filename;//@"D:\MI punto.kml";// "Temp/jocamusgeo" + DateTime.Now.Ticks.ToString() + ".kml";
 
 
-            //Definimos el archivo XML
-            XmlTextWriter writer = new
-            XmlTextWriter((nombrefile), Encoding.UTF8);
+                //Definimos el archivo XML
+                XmlTextWriter writer = new
+                XmlTextWriter((nombrefile), Encoding.UTF8);
 
-            // Empezamos a escribir
-            writer.WriteStartDocument();
-            writer.WriteStartElement("kml");
-            writer.WriteAttributeString("xmlns", "http://earth.google.com/kml/2.0");
-            writer.WriteStartElement("Folder");
-            writer.WriteStartElement("description");
-            //Descripcion del Conjunto de Datos,puede ser texto o HTML
-            writer.WriteCData("All Flights");
-            writer.WriteEndElement();
-            writer.WriteElementString("name", "Asterix Decoder");
-            writer.WriteElementString("visibility", "0");
-            writer.WriteElementString("open", "1");
-            writer.WriteStartElement("Folder");
-
-            //Obtenemos los datos donde estan las coordenadas
-            //DataSet ds = dsDatos();
-            //Recorremos el DataSet
-            //string[] array1 = new string[] { "23","24"};
-            //string[] array2 = new string[] { "25", "26" };
-
-
-            int len = GoogleEarthPositionsLat.Count();
-            for (int i = 0; i < len; i++)//ds.Tables[0].Rows.Count
-            {
-                //string slat = array1[i];
-                //string slong = array2[i];
-                //Obtenemos los valores de Latitud y Longitud
-                string slat = GoogleEarthPositionsLat[i].ToString();//ds.Tables[0].Rows[i]["Longitud"].ToString()
-                slat = slat.Replace(',', '.');
-                string slong = GoogleEarthPositionsLng[i].ToString(); //ds.Tables[0].Rows[i]["Latitud"].ToString();
-                slong = slong.Replace(',', '.');
-                writer.WriteStartElement("Placemark");
+                // Empezamos a escribir
+                writer.WriteStartDocument();
+                writer.WriteStartElement("kml");
+                writer.WriteAttributeString("xmlns", "http://earth.google.com/kml/2.0");
+                writer.WriteStartElement("Folder");
                 writer.WriteStartElement("description");
-                writer.WriteCData(GoogleEarthCategory[i]);
+                //Descripcion del Conjunto de Datos,puede ser texto o HTML
+                writer.WriteCData("All Flights");
                 writer.WriteEndElement();
-                //Asignamos el nombre del registro o coordenada obteniendo el valor del campo Nombre
-                string flightname = GoogleEarthFlights[i];
+                writer.WriteElementString("name", "Asterix Decoder");
+                writer.WriteElementString("visibility", "0");
+                writer.WriteElementString("open", "1");
+                writer.WriteStartElement("Folder");
+
+                //Obtenemos los datos donde estan las coordenadas
+                //DataSet ds = dsDatos();
+                //Recorremos el DataSet
+                //string[] array1 = new string[] { "23","24"};
+                //string[] array2 = new string[] { "25", "26" };
 
 
-                writer.WriteElementString("name", flightname);//ds.Tables[0].Rows[i]["Nombre"].ToString()
-                writer.WriteElementString("visibility", "1");
-                writer.WriteStartElement("Style");
-                writer.WriteStartElement("IconStyle");
-                writer.WriteStartElement("Icon");
-                //Ruta del icono para ver las coordenadas
-                //Debe ser pequeña de 32x32.
-                writer.WriteElementString("href", "http://maps.google.com/mapfiles/kml/pal2/icon56.png");//("href", "www.TuDominio.com/directorio/tuicono.ico");
-                writer.WriteElementString("w", "16");
-                writer.WriteElementString("h", "16");
-                writer.WriteElementString("x", "64");
-                writer.WriteElementString("y", "96");
-                writer.WriteEndElement();
-                writer.WriteEndElement();
-                writer.WriteEndElement();
-                writer.WriteStartElement("LookAt");
-                writer.WriteElementString("longitude", slong);
-                writer.WriteElementString("latitude", slat);
-                writer.WriteElementString("range", "3000");
-                writer.WriteElementString("tilt", "60");
-                writer.WriteElementString("heading", "0");
-                writer.WriteEndElement();
-                writer.WriteStartElement("Point");
-                writer.WriteElementString("extrude", "1");
-                writer.WriteElementString("altitudeMode", "relativeToGround");
-                writer.WriteElementString("coordinates", slong + "," + slat + ",50");
-                writer.WriteEndElement();
-                writer.WriteEndElement();
-            }
-            writer.WriteEndElement();
-            writer.WriteEndElement();
-            writer.WriteEndElement();
-            writer.WriteEndDocument();
-            writer.Close();
-
-            try
-            {
-                //Preguntar si se desea abrir el archivo KML
-                const string message = "Kml generado, ¿Desea abrir el archivo en Google Earth?";
-                const string caption = "Abrir KML";
-                var result = MessageBox.Show(message, caption,
-                                             MessageBoxButtons.YesNo,
-                                             MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
+                int len = GoogleEarthPositionsLat.Count();
+                for (int i = 0; i < len; i++)//ds.Tables[0].Rows.Count
                 {
-                    System.Diagnostics.Process.Start(this.filename);
+                    //string slat = array1[i];
+                    //string slong = array2[i];
+                    //Obtenemos los valores de Latitud y Longitud
+                    string slat = GoogleEarthPositionsLat[i].ToString();//ds.Tables[0].Rows[i]["Longitud"].ToString()
+                    slat = slat.Replace(',', '.');
+                    string slong = GoogleEarthPositionsLng[i].ToString(); //ds.Tables[0].Rows[i]["Latitud"].ToString();
+                    slong = slong.Replace(',', '.');
+                    writer.WriteStartElement("Placemark");
+                    writer.WriteStartElement("description");
+                    writer.WriteCData(GoogleEarthCategory[i]);
+                    writer.WriteEndElement();
+                    //Asignamos el nombre del registro o coordenada obteniendo el valor del campo Nombre
+                    string flightname = GoogleEarthFlights[i];
+
+
+                    writer.WriteElementString("name", flightname);//ds.Tables[0].Rows[i]["Nombre"].ToString()
+                    writer.WriteElementString("visibility", "1");
+                    writer.WriteStartElement("Style");
+                    writer.WriteStartElement("IconStyle");
+                    writer.WriteStartElement("Icon");
+                    //Ruta del icono para ver las coordenadas
+                    //Debe ser pequeña de 32x32.
+                    writer.WriteElementString("href", "http://maps.google.com/mapfiles/kml/pal2/icon56.png");//("href", "www.TuDominio.com/directorio/tuicono.ico");
+                    writer.WriteElementString("w", "16");
+                    writer.WriteElementString("h", "16");
+                    writer.WriteElementString("x", "64");
+                    writer.WriteElementString("y", "96");
+                    writer.WriteEndElement();
+                    writer.WriteEndElement();
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("LookAt");
+                    writer.WriteElementString("longitude", slong);
+                    writer.WriteElementString("latitude", slat);
+                    writer.WriteElementString("range", "3000");
+                    writer.WriteElementString("tilt", "60");
+                    writer.WriteElementString("heading", "0");
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("Point");
+                    writer.WriteElementString("extrude", "1");
+                    writer.WriteElementString("altitudeMode", "relativeToGround");
+                    writer.WriteElementString("coordinates", slong + "," + slat + ",50");
+                    writer.WriteEndElement();
+                    writer.WriteEndElement();
+                }
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+                writer.Close();
+                try
+                {
+                    //Preguntar si se desea abrir el archivo KML
+                    const string message = "Kml was created, ¿Do you want to pen it now in Google Earth?";
+                    const string caption = "Open KML";
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(this.filename);
+                    }
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                    return;
                 }
             }
-            catch (Exception err)
+            else
             {
-                MessageBox.Show(err.Message);
-                return;
+                const string message = "The file was not saved.";
+                const string caption = "Warning";
+                var result = MessageBox.Show(message, caption,
+                                             MessageBoxButtons.OK,
+                                             MessageBoxIcon.Warning);
             }
+
         }
         private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
