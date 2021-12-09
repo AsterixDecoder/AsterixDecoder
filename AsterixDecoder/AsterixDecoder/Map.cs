@@ -103,6 +103,7 @@ namespace AsterixDecoder
             gMapControl1.MaxZoom = 24;
             gMapControl1.Zoom = 9;
             gMapControl1.AutoScroll = true;
+            SearchId.Enabled = false;
 
             cat21Bmp.MakeTransparent();
             cat10Bmp.MakeTransparent();
@@ -358,6 +359,7 @@ namespace AsterixDecoder
             double flightLat=0;
             double flightLng=0;
             bool found=false;
+            SearchId.Enabled = true;
             for (int i = 0; i < flights.Count; i++)
             {
                 flight = flights[i];
