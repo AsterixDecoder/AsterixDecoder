@@ -6,11 +6,11 @@ Project built for Projects In Air Traffic Management Course of EETAC-UPC Aerospa
 
 ## User Guide
 
-![alt text](link imagen Pagina principal)
+![alt text](https://github.com/AsterixDecoder/AsterixDecoder/blob/main/images/loadFile.PNG?raw=true)
 
-When opening, upload a file --> Open to select the .ast file.
+When opening, upload a file --> Load File to select the .ast file.
 
-After Loading, open a Tabla to see the information of the respective category.
+After Loading, open a Table to see the information of the respective category.
 
 ![alt text](link imagen TablaCat21)
 
