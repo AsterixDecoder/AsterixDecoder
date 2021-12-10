@@ -2,7 +2,7 @@
 
 ## About The Project
 
-Project built for Projects In Air Traffic Management Course of EETAC-UPC Aerospace Systems Engineering Degree. Capable of full decoding of EuroControl Asterix CAT10 and CAT21 messages. Built by Galder Arcellares,Ulises Ortega and Marc Xapelli of Group 10. It was built in C# using Visual Studio and the Library GMAP.net.
+Project built for the subject Projects In Air Traffic Management (PGTA) of EETAC Aerospace Systems Engineering Degree. Capable of full decoding of EuroControl Asterix CAT10 and CAT21 messages. Built by Galder Arcellares,Ulises Ortega and Marc Xapelli of Group 10. It was built in C# using Visual Studio and the Library GMAP.net.
 
 ## User Guide
 
