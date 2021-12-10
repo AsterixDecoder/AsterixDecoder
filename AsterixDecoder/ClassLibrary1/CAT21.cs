@@ -630,7 +630,7 @@ namespace ClassLibrary
             return binValue;
         }
 
-        public byte[] GetFSPEC() //Obtiene el FSPEC y lo separa del array mensaje
+        public byte[] GetFSPEC() 
         {
             int moreFSPEC = 1;
             byte lastBitCheck = 1;

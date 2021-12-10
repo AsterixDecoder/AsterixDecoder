@@ -14,7 +14,6 @@ namespace ClassLibrary
         List<Coordinates> coordinates;
         List<TimeSpan> timestamps;
 
-
         public Flight(string id, int category,string sensor)
         {
             this.sensor = sensor;
