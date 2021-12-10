@@ -60,7 +60,7 @@ namespace AsterixDecoder
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             //Se crean las opciones que comentaba
-            openFileDialog1.InitialDirectory = "C:\\Users\\marcx\\Documents\\GitHub\\AsterixDecoder\\AsterixDecoder\\ClassLibrary";
+            openFileDialog1.InitialDirectory = @"C:\";
             openFileDialog1.Filter = "Asterix Files (*.ast*)|*.ast";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
@@ -70,11 +70,9 @@ namespace AsterixDecoder
             //y si das click a "Cancelar" se devuelve una DialogResult.Cancel
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                /*try
-                {*/
-                    //Si fue un OK, entonces suponemos que hay un archivo. Intentamos abrirlo
-                    if ((myStream = openFileDialog1.OpenFile()) != null)
-                    {
+                //Si fue un OK, entonces suponemos que hay un archivo. Intentamos abrirlo
+                if ((myStream = openFileDialog1.OpenFile()) != null)
+                {
                         this.filename = openFileDialog1.FileName;
                         filename = Path.GetFileName(filename);
                         if (filenames.Count==0)
@@ -152,16 +150,6 @@ namespace AsterixDecoder
             MapViewButton.Enabled=true;
         }
 
-        private void panelSideMenu_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -187,15 +175,6 @@ namespace AsterixDecoder
 
         }
 
-        private void panelName_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
@@ -205,13 +184,6 @@ namespace AsterixDecoder
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
-
-
-        private void SubTablaMenu_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
 
         private void btnTable_Click(object sender, EventArgs e)
         {

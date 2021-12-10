@@ -705,7 +705,7 @@ namespace AsterixDecoder
         {
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
+            saveFileDialog1.InitialDirectory= @"C:\";
             saveFileDialog1.Filter = "Kml files (*.kml)|*.kml";
             saveFileDialog1.FilterIndex = 1;
             saveFileDialog1.RestoreDirectory = true;
@@ -719,7 +719,7 @@ namespace AsterixDecoder
                     myStream.Close();
                 }
                 //Le daremos un nombre al archivo y tambien le expecificamos en que directorio se creara
-                string nombrefile = this.filename;//@"D:\MI punto.kml";// "Temp/jocamusgeo" + DateTime.Now.Ticks.ToString() + ".kml";
+                string nombrefile = this.filename;
 
 
                 //Definimos el archivo XML
@@ -740,22 +740,12 @@ namespace AsterixDecoder
                 writer.WriteElementString("open", "1");
                 writer.WriteStartElement("Folder");
 
-                //Obtenemos los datos donde estan las coordenadas
-                //DataSet ds = dsDatos();
-                //Recorremos el DataSet
-                //string[] array1 = new string[] { "23","24"};
-                //string[] array2 = new string[] { "25", "26" };
-
-
                 int len = GoogleEarthPositionsLat.Count();
-                for (int i = 0; i < len; i++)//ds.Tables[0].Rows.Count
+                for (int i = 0; i < len; i++)
                 {
-                    //string slat = array1[i];
-                    //string slong = array2[i];
-                    //Obtenemos los valores de Latitud y Longitud
-                    string slat = GoogleEarthPositionsLat[i].ToString();//ds.Tables[0].Rows[i]["Longitud"].ToString()
+                    string slat = GoogleEarthPositionsLat[i].ToString();
                     slat = slat.Replace(',', '.');
-                    string slong = GoogleEarthPositionsLng[i].ToString(); //ds.Tables[0].Rows[i]["Latitud"].ToString();
+                    string slong = GoogleEarthPositionsLng[i].ToString(); 
                     slong = slong.Replace(',', '.');
                     writer.WriteStartElement("Placemark");
                     writer.WriteStartElement("description");
@@ -765,14 +755,14 @@ namespace AsterixDecoder
                     string flightname = GoogleEarthFlights[i];
 
 
-                    writer.WriteElementString("name", flightname);//ds.Tables[0].Rows[i]["Nombre"].ToString()
+                    writer.WriteElementString("name", flightname);
                     writer.WriteElementString("visibility", "1");
                     writer.WriteStartElement("Style");
                     writer.WriteStartElement("IconStyle");
                     writer.WriteStartElement("Icon");
                     //Ruta del icono para ver las coordenadas
                     //Debe ser pequeña de 32x32.
-                    writer.WriteElementString("href", "http://maps.google.com/mapfiles/kml/pal2/icon56.png");//("href", "www.TuDominio.com/directorio/tuicono.ico");
+                    writer.WriteElementString("href", "http://maps.google.com/mapfiles/kml/pal2/icon56.png");
                     writer.WriteElementString("w", "16");
                     writer.WriteElementString("h", "16");
                     writer.WriteElementString("x", "64");

@@ -147,7 +147,6 @@ namespace AsterixDecoder
             this.Loading.Text = "label2";
             this.Loading.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Loading.Visible = false;
-            this.Loading.Click += new System.EventHandler(this.Loading_Click);
             // 
             // dataGridView2
             // 
@@ -194,7 +193,6 @@ namespace AsterixDecoder
             this.dataGridView2.Size = new System.Drawing.Size(1494, 700);
             this.dataGridView2.TabIndex = 7;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // ViewAll
             // 

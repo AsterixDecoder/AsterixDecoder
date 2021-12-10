@@ -37,14 +37,9 @@ namespace AsterixDecoder
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            //LoadData GridForm = new LoadData();
             dataGridView1.Visible = false;
             dataGridView2.Visible = false;
             textBox1.Visible = false;
-            // p.Visible = true;
-            //asterixFile = new AsterixFile(this.filename);
-            //lista = asterixFile.getListCAT21();
             int length = lista.Count;
 
             dataTable.Columns.Add("Number");
@@ -92,15 +87,6 @@ namespace AsterixDecoder
             dataTable.Columns.Add("ACAS Resolution");
             dataTable.Columns.Add("Receiver ID");
             dataTable.Columns.Add("Data Ages");
-
-
-            //ProgressBar DataGridView
-            //progressBar1.Minimum = 0; 
-            //progressBar1.Maximum = length;
-            //progressBar1.Step = 1;
-            //progessBar.Value=0;
-            //progessBar.Maximum = length;
-
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -765,16 +751,6 @@ namespace AsterixDecoder
         {
             dataGridView2.Visible = false;
             dataGridView1.Visible = true;
-        }
-
-        private void Loading_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

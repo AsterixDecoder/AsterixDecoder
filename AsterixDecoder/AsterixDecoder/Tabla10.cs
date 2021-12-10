@@ -40,11 +40,6 @@ namespace AsterixDecoder
             LoadData GridForm = new LoadData();
             int length = lista.Count;
             Stopwatch watch = new Stopwatch();
-            //Adaptamos columnas a texto
-            //progressBar1CAT10.Visible = true;
-            //progressBar1CAT10.Maximum = length;
-            //progressBar1CAT10.Minimum = 0;
-            //progressBar1CAT10.Step = 1;
 
             dataTable.Columns.Add("Number");
             dataTable.Columns.Add("Category");
