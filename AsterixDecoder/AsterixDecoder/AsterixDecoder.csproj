@@ -131,9 +131,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="plane.jpg" />
-    <Content Include="plane2.jpg" />
-    <Content Include="planeu.jpg" />
     <None Include="Resources\AvionRojo0.bmp" />
     <None Include="Resources\Fondo oscuro.png" />
     <None Include="Resources\Fondo Letras blancas.png" />

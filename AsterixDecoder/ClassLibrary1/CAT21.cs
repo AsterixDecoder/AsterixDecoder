@@ -128,8 +128,6 @@ namespace ClassLibrary
         string notticas;
         string sa;
 
-
-
         double surfaceCapabilitiesandCharacteristics;
         //surfacecapaparameters
         string poa;

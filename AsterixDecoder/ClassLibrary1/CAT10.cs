@@ -12,7 +12,6 @@ namespace ClassLibrary
     {
         
         byte[] arraystring = new byte[200];
-        int Long;
         BitArray EspcCamp;
         int[] D00_DataSource=new int[2];
         int D01_MessageType;

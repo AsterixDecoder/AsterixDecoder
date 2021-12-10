@@ -554,7 +554,7 @@ namespace AsterixDecoder
                 }
                 //id = id.Remove(7);
                 //id = dataGridView1.Rows[i].Cells[12].Value.ToString();
-                if (id==textBox1.Text || textBox1.Text == "" )
+                if (id==textBox1.Text)
                 {
                     cat21 = lista[i];
                     string category = Convert.ToString(cat21.GetCategory());

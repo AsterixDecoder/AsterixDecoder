@@ -56,11 +56,5 @@
     <Compile Include="QRDecomposition.cs" />
     <Compile Include="SingularValueDecomposition.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="201002-lebl-080001_adsb.ast" />
-    <None Include="201002-lebl-080001_mlat.ast" />
-    <None Include="201002-lebl-080001_smr.ast" />
-    <None Include="201002-lebl-080001_smr_mlat_adsb.ast" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -141,7 +141,7 @@ namespace AsterixDecoder
                 string[] values = lista[i].GetValues(28);
                 id = values[12];
                
-                if (id.Equals(textBox1.Text) || textBox1.Text == "")
+                if (id.Equals(textBox1.Text))
                 {
                     values[0] = i.ToString();
                     values[1] = "10";
