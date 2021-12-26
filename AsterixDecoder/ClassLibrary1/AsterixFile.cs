@@ -122,7 +122,7 @@ namespace AsterixDecoder
                     Flight foundFlight = flights.FirstOrDefault(flight => flight.GetIdentification() == cat10.GetTrackNum());
                     if (foundFlight != null)
                     {
-                        Coordinates coordinates = new Coordinates(cat10.GetLatLong(0)[0], cat10.GetLatLong(0)[1]);
+                        Coordinates coordinates = new Coordinates(cat10.GetLatLong(cat10.GetSensor() == "MLAT" ? 1 : 0)[0], cat10.GetLatLong(cat10.GetSensor() == "MLAT" ? 1 : 0)[1]);
                         TimeSpan time = cat10.GetTime();
                         foundFlight.SetCoordinates(coordinates);
                         foundFlight.SetTimestamps(time);
@@ -133,7 +133,7 @@ namespace AsterixDecoder
                     else
                     {
                         Flight newFlight = new Flight(cat10.GetTrackNum(), 10,cat10.GetSensor());
-                        Coordinates coordinates = new Coordinates(cat10.GetLatLong(0)[0], cat10.GetLatLong(0)[1]);
+                        Coordinates coordinates = new Coordinates(cat10.GetLatLong(cat10.GetSensor() == "MLAT" ? 1 : 0)[0], cat10.GetLatLong(cat10.GetSensor() == "MLAT" ? 1 : 0)[1]);
                         TimeSpan time = cat10.GetTime();
                         newFlight.SetCoordinates(coordinates);
                         newFlight.SetTimestamps(time);
