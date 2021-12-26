@@ -105,7 +105,8 @@ namespace AsterixDecoder
         private void button1_Click(object sender, EventArgs e)
         {
             DataTable dataTable2 = new DataTable();
-            string id;
+            string number;
+            string address;
             int i = 0;
             dataTable2.Columns.Add("Number");
             dataTable2.Columns.Add("Category");
@@ -139,9 +140,10 @@ namespace AsterixDecoder
             while (i < dataGridView1.RowCount - 1)
             {
                 string[] values = lista[i].GetValues(28);
-                id = values[12];
+                number = values[12];
+                address = values[15];
                
-                if (id.Equals(textBox1.Text))
+                if (number.Equals(textBox1.Text) || address.Equals(textBox1.Text))
                 {
                     values[0] = i.ToString();
                     values[1] = "10";
